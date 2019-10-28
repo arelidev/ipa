@@ -1,0 +1,51 @@
+.course-table {
+  margin-bottom: $global-margin;
+  box-shadow: $global-box-shadow;
+  border-radius: $global-radius;
+  overflow: hidden;
+
+  tbody, tfoot, thead {
+    border: none;
+  }
+
+  tfoot, thead {
+    tr {
+      box-shadow: $global-box-shadow;
+      border-radius: $global-radius;
+    }
+  }
+
+  &-inner {
+    padding: $global-padding;
+    position: relative;
+  }
+
+  &-title {
+
+  }
+
+  &-location {
+
+  }
+
+  &-date {
+
+  }
+
+  &-instructor {
+    img {
+      height: 30px;
+      width: 30px;
+      object-position: center;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: $global-box-shadow;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+
+  &-apply {
+
+  }
+}

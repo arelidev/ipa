@@ -1,0 +1,99 @@
+.course-card {
+  margin-bottom: $global-margin;
+  box-shadow: $global-box-shadow;
+  border-radius: $global-radius;
+  transition: box-shadow .2s ease-in-out;
+  overflow: hidden;
+
+  &-inner {
+    padding: $global-padding;
+    position: relative;
+  }
+
+  &-image-wrapper {
+    overflow: hidden;
+
+    .course-card-image {
+      transition: all .2s ease-in-out;
+    }
+  }
+
+  &-trainer-wrapper {
+    position: absolute;
+    z-index: 1;
+    top: -30px;
+    right: 5px;
+
+    .course-card-trainer {
+      height: 60px;
+      width: 60px;
+      object-position: center;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: $global-box-shadow;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+
+  &-price {
+    color: $primary-color;
+    font-weight: $global-weight-bold;
+
+    .og-price {
+      text-decoration: line-through;
+      color: $light-gray;
+    }
+
+    .sales-price {
+
+    }
+  }
+
+  &-title {
+    font-weight: $global-weight-bold;
+    margin-bottom: .5rem;
+  }
+
+  &-category {
+    color: $medium-gray;
+    margin-bottom: 0;
+  }
+
+  hr {
+    opacity: .2;
+    margin: .75rem auto;
+  }
+
+  &-date {
+    color: $medium-gray;
+    margin-bottom: 0;
+  }
+
+  &-location {
+    color: $medium-gray;
+    margin-bottom: 0;
+  }
+
+  i {
+    color: $black;
+  }
+
+  &-learn-more {
+    margin-bottom: 0;
+  }
+
+  &-apply-now {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    box-shadow: $global-box-shadow-hover;
+
+    .course-card-image-wrapper {
+      .course-card-image {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

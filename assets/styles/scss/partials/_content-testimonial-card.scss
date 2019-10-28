@@ -1,0 +1,44 @@
+.testimonial-card {
+  margin-bottom: $global-margin;
+  box-shadow: $global-box-shadow;
+  border-radius: $global-radius;
+  transition: box-shadow .2s ease-in-out;
+
+  &-inner {
+    padding: 2rem;
+    position: relative;
+  }
+
+  &-rating {
+    color: $warning-color;
+    margin-bottom: $global-margin;
+  }
+
+  &-text {
+
+  }
+
+  &-profile-image {
+    height: 60px;
+    width: 60px;
+    object-position: center;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: $global-box-shadow;
+    margin-right: 1rem;
+  }
+
+  &-name {
+    font-size: $small-font-size;
+    margin-bottom: 5px;
+  }
+
+  &-company {
+    font-size: $small-font-size;
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    box-shadow: $global-box-shadow-hover;
+  }
+}

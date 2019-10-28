@@ -1,0 +1,136 @@
+<?php
+function ipa_card_widget( $atts, $content = null ) {
+	$atts = shortcode_atts( array(
+		'el_class' => ''
+	), $atts );
+	ob_start();
+	?>
+    <div class="ipa-card-widget grid-x grid-margin-x grid-margin-y" data-equalizer="ipa-card-widget-title">
+		<?= do_shortcode( $content ); ?>
+    </div>
+	<?php
+	return ob_get_clean();
+}
+
+add_shortcode( 'ipa_card', 'ipa_card_widget' );
+
+function ipa_single_card_widget( $atts, $content = null ) {
+	$atts = shortcode_atts( array(
+		'title'    => '',
+		'icon'     => '',
+		'size'     => '',
+		'link'     => '',
+		'el_class' => ''
+	), $atts );
+
+	$href = vc_build_link( $atts['link'] );
+	?>
+    <div class="ipa-single-card-widget cell <?= $atts['size']; ?>">
+        <div class="ipa-single-card-widget-inner">
+			<?= wp_get_attachment_image( $atts['icon'], 'full', true, array( 'class' => 'ipa-single-card-widget-icon' ) ); ?>
+            <h3 class="ipa-single-card-widget-title" data-equalizer-watch="ipa-card-widget-title"><?= $atts['title']; ?></h3>
+            <div class="ipa-single-card-widget-content">
+				<div class="ipa-single-card-widget-content-text">
+					<?= apply_filters( 'the_content', $content ); ?>
+				</div>
+
+                <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>"
+                   title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
+                    <span><?= __( 'Read More', 'berns-steak-house' ); ?></span> <i class="fas fa-arrow-right fa-lg"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+	<?php
+}
+
+add_shortcode( 'ipa_single_card', 'ipa_single_card_widget' );
+
+// Integrate with Visual Composer
+function ipa_card_integrateWithVC() {
+	try {
+		vc_map( array(
+			"name"                    => __( "Card", "my-text-domain" ),
+			"base"                    => "ipa_card",
+			"as_parent"               => array( 'only' => 'ipa_single_card' ),
+			"content_element"         => true,
+			"show_settings_on_create" => false,
+			"is_container"            => true,
+			"category"                => __( "Custom", "berns-steak-house" ),
+			"params"                  => array(
+				array(
+					"type"        => "textfield",
+					"heading"     => __( "Extra class name", "my-text-domain" ),
+					"param_name"  => "el_class",
+					"description" => __( "", "my-text-domain" )
+				)
+			),
+			"js_view"                 => 'VcColumnView'
+		) );
+
+		vc_map( array(
+			"name"            => __( "Single Card", "my-text-domain" ),
+			"base"            => "ipa_single_card",
+			"content_element" => true,
+			"as_child"        => array( 'only' => 'ipa_card' ),
+			"params"          => array(
+				array( // todo: convert to select field
+					"type"        => "textfield",
+					"heading"     => __( "Container Size", "my-text-domain" ),
+					"param_name"  => "size",
+					"description" => __( "", "my-text-domain" )
+				),
+				array(
+					"type"        => "textfield",
+					"heading"     => __( "Title", "my-text-domain" ),
+					"param_name"  => "title",
+					"description" => __( "", "my-text-domain" )
+				),
+				array(
+					"type"        => "attach_image",
+					"class"       => "",
+					"heading"     => __( "Icon", "my-text-domain" ),
+					"param_name"  => "icon",
+					"value"       => '',
+					"description" => __( "Enter description.", "my-text-domain" )
+				),
+				array(
+					"type"        => "textarea_html",
+					"class"       => "",
+					"heading"     => __( "Content", "my-text-domain" ),
+					"param_name"  => "content",
+					"value"       => '',
+					"description" => __( "Enter description.", "my-text-domain" )
+				),
+				array(
+					"type"        => "vc_link",
+					"class"       => "",
+					"heading"     => __( "CTA Link", "my-text-domain" ),
+					"param_name"  => "link",
+					"value"       => '',
+					"description" => __( "", "my-text-domain" )
+				),
+				array(
+					"type"        => "textfield",
+					"heading"     => __( "Extra class name", "my-text-domain" ),
+					"param_name"  => "el_class",
+					"description" => __( "", "my-text-domain" )
+				)
+			)
+		) );
+
+		if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+			class WPBakeryShortCode_Ipa_Card extends WPBakeryShortCodesContainer {
+			}
+		}
+
+		if ( class_exists( 'WPBakeryShortCode' ) ) {
+			class WPBakeryShortCode_Ipa_Single_Card extends WPBakeryShortCode {
+			}
+		}
+	} catch ( Exception $e ) {
+		echo 'Caught exception: ', $e->getMessage(), "\n";
+	}
+}
+
+add_action( 'vc_before_init', 'ipa_card_integrateWithVC' );

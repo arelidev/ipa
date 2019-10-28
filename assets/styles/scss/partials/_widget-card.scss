@@ -1,0 +1,67 @@
+.ipa-card-widget {
+
+  .ipa-single-card-widget {
+    margin-bottom: $global-margin;
+    box-shadow: $global-box-shadow;
+    border-radius: $global-radius;
+    transition: box-shadow .2s ease-in-out;
+
+    &-inner {
+      padding: 2rem;
+    }
+
+    &-icon {
+      margin-bottom: $global-margin;
+    }
+
+    &-title {
+      font-weight: $global-weight-bold;
+      transition: color .2s ease-in-out;
+      margin-bottom: $global-margin;
+    }
+
+    &-content {
+      font-size: $small-font-size;
+      color: $medium-gray;
+
+      &-text {
+
+      }
+
+      &-link {
+        margin-top: $global-margin;
+        color: $medium-gray;
+
+        span {
+          width: 0;
+          font-size: 0;
+          transition: all .2s ease-in-out;
+        }
+      }
+    }
+
+    &:hover {
+      box-shadow: $global-box-shadow-hover;
+
+      .ipa-single-card-widget-content {
+
+        &-text {
+
+        }
+
+        &-link {
+          color: $primary-color;
+
+          span {
+            width: 100%;
+            font-size: inherit;
+          }
+        }
+      }
+
+      .ipa-single-card-widget-title {
+        color: $primary-color;
+      }
+    }
+  }
+}
