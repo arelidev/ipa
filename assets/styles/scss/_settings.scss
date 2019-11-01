@@ -84,6 +84,7 @@ $body-background: $white;
 $body-font-color: $black;
 $body-font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
 $body-antialiased: true;
+$font-family-font-awesome : "Font Awesome 5 Pro";
 $global-margin: 1rem;
 $global-padding: 1rem;
 $global-position: 1rem;
@@ -227,7 +228,7 @@ $input-error-font-weight: $global-weight-bold;
 
 $accordion-background: $white;
 $accordion-plusminus: true;
-$accordion-title-font-size: rem-calc(12);
+$accordion-title-font-size: $global-font-size;
 $accordion-item-color: $primary-color;
 $accordion-item-background-hover: $light-gray;
 $accordion-item-padding: 1.25rem 1rem;

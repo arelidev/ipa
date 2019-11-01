@@ -5,7 +5,7 @@
  */
 
 // Connect to the remote database
-//require_once(get_template_directory().'/functions/remote-db.php');
+// require_once(get_template_directory().'/functions/remote-db.php');
 
 // TGM plugin activation
 require_once( get_template_directory() . '/functions/tgm/tgm-init.php' );
@@ -44,7 +44,7 @@ require_once(get_template_directory().'/functions/disable-emoji.php');
 // require_once(get_template_directory().'/functions/related-posts.php'); 
 
 // Use this as a template for custom post types
-// require_once(get_template_directory().'/functions/custom-post-type.php');
+require_once(get_template_directory().'/functions/custom-post-type.php');
 
 // Customize the WordPress login menu
 require_once(get_template_directory().'/functions/login.php');
@@ -58,4 +58,20 @@ foreach ( scandir( get_template_directory() . '/functions/widgets/' ) as $filena
 	if ( is_file( $path ) ) {
 		require_once $path;
 	}
+}
+
+function stage_url( $path = '', $scheme = null ) {
+	return "http://staging.instituteofphysicalart.com/$path";
+}
+
+/**
+ * Slugify string
+ *
+ * @param $string
+ *
+ * @return string|string[]|null
+ */
+function clean( $string ) {
+	$string = str_replace( ' ', '-', $string ); // Replaces all spaces with hyphens.
+	return preg_replace( '/[^A-Za-z0-9\-]/', '', $string ); // Removes special chars.
 }

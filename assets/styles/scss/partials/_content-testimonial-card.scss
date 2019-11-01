@@ -1,12 +1,15 @@
 .testimonial-card {
-  margin-bottom: $global-margin;
-  box-shadow: $global-box-shadow;
-  border-radius: $global-radius;
-  transition: box-shadow .2s ease-in-out;
+  padding: $global-margin;
 
   &-inner {
     padding: 2rem;
     position: relative;
+    box-shadow: $global-box-shadow;
+    border-radius: $global-radius;
+    transition: box-shadow .2s ease-in-out;
+    &:hover {
+      box-shadow: $global-box-shadow-hover;
+    }
   }
 
   &-rating {
@@ -29,16 +32,11 @@
   }
 
   &-name {
-    font-size: $small-font-size;
     margin-bottom: 5px;
   }
 
   &-company {
     font-size: $small-font-size;
     margin-bottom: 0;
-  }
-
-  &:hover {
-    box-shadow: $global-box-shadow-hover;
   }
 }

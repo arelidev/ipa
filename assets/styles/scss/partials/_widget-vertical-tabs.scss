@@ -1,0 +1,39 @@
+.ipa-vertical-tabs {
+
+  .tabs {
+    border: none;
+    background: transparent;
+
+    &-title {
+      &:not(:last-child) {
+        a {
+          border-bottom: 1px solid $primary-color;
+        }
+      }
+
+      a {
+        font-size: 18px;
+        color: $black;
+      }
+
+      &.is-active {
+        a {
+          color: $white;
+          background: $primary-color;
+        }
+      }
+    }
+  }
+
+  .tabs-content {
+    box-shadow: $global-box-shadow;
+    border-radius: $global-radius;
+    overflow: hidden;
+    border: none;
+    padding: 2rem 2rem 1rem;
+
+    .tabs-panel {
+
+    }
+  }
+}

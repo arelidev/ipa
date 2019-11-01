@@ -27,17 +27,24 @@ function ipa_single_card_widget( $atts, $content = null ) {
 	?>
     <div class="ipa-single-card-widget cell <?= $atts['size']; ?>">
         <div class="ipa-single-card-widget-inner">
-			<?= wp_get_attachment_image( $atts['icon'], 'full', true, array( 'class' => 'ipa-single-card-widget-icon' ) ); ?>
-            <h3 class="ipa-single-card-widget-title" data-equalizer-watch="ipa-card-widget-title"><?= $atts['title']; ?></h3>
-            <div class="ipa-single-card-widget-content">
-				<div class="ipa-single-card-widget-content-text">
-					<?= apply_filters( 'the_content', $content ); ?>
-				</div>
+			<?php if ( ! empty( $atts['icon'] ) ) : ?>
+				<?= wp_get_attachment_image( $atts['icon'], 'full', true, array( 'class' => 'ipa-single-card-widget-icon' ) ); ?>
+			<?php endif; ?>
 
-                <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>"
-                   title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
-                    <span><?= __( 'Read More', 'berns-steak-house' ); ?></span> <i class="fas fa-arrow-right fa-lg"></i>
-                </a>
+            <h3 class="ipa-single-card-widget-title"
+                data-equalizer-watch="ipa-card-widget-title"><?= $atts['title']; ?></h3>
+            <div class="ipa-single-card-widget-content">
+                <div class="ipa-single-card-widget-content-text">
+					<?= apply_filters( 'the_content', $content ); ?>
+                </div>
+
+				<?php if ( ! empty( $href['url'] ) ) : ?>
+                    <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>"
+                       title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
+                        <span><?= __( 'Read More', 'berns-steak-house' ); ?></span> <i
+                                class="fas fa-arrow-right fa-lg"></i>
+                    </a>
+				<?php endif; ?>
             </div>
         </div>
     </div>

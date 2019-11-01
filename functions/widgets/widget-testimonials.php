@@ -2,12 +2,15 @@
 function ipa_testimonials_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(), $atts );
 	ob_start();
+
+	$args = array( 'post_type' => 'testimonials', 'posts_per_page' => 3 );
+	$loop = new WP_Query( $args );
 	?>
-	<div class="testimonials-widget grid-x grid-margin-x">
-		<?php get_template_part( 'parts/content', 'testimonial' ); ?>
-		<?php get_template_part( 'parts/content', 'testimonial' ); ?>
-		<?php get_template_part( 'parts/content', 'testimonial' ); ?>
-	</div>
+    <div class="testimonials-widget">
+		<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+			<?php get_template_part( 'parts/content', 'testimonial' ); ?>
+		<?php endwhile; ?>
+    </div>
 	<?php
 	return ob_get_clean();
 }

@@ -32,7 +32,7 @@
             <li><a href="#" class="button hollow white">Login</a></li>
         </ul>
     </div>
-    <div class="shrink cell">
+    <div class="shrink cell hide-for-large">
         <ul class="menu">
             <li>
                 <button class="menu-icon" type="button" data-toggle="off-canvas"></button>
