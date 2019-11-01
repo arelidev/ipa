@@ -5,7 +5,7 @@
  */
 
 // Connect to the remote database
-// require_once(get_template_directory().'/functions/remote-db.php');
+require_once(get_template_directory().'/functions/remote-db.php');
 
 // TGM plugin activation
 require_once( get_template_directory() . '/functions/tgm/tgm-init.php' );
