@@ -3,20 +3,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(), $atts );
 	ob_start();
 
-	global $remote_db;
-
-	$courses = $remote_db->get_results(
-		"SELECT d.*,
-               s.product_id,
-               s.stock_status
-        FROM ipa_course_details d
-                 JOIN cataloginventory_stock_status s
-                      ON s.product_id = d.id
-        WHERE d.date >= DATE(NOW())
-          AND s.stock_id = 1
-        LIMIT 6;",
-		ARRAY_A
-	);
+	$courses = get_courses( 6 );
 	?>
     <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title"
          data-equalize-by-row="true">
@@ -62,11 +49,14 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                     <hr>
                     <div class="grid-x grid-padding-x align-middle">
                         <div class="auto cell">
-                            <a href="#" class="button course-card-learn-more"><?= __( 'Learn More', 'ipa' ); ?></a>
+                            <a href="<?= stage_url( $course_details['request_path'] ); ?>"
+                               class="button course-card-learn-more"><?= __( 'Learn More', 'ipa' ); ?></a>
                         </div>
                         <div class="shrink cell">
-                            <small><a href="#"
-                                      class="course-card-apply-now"><?= __( 'Apply Now', 'ipa' ); ?></a></small>
+                            <small>
+                                <a href="<?= stage_url( $course_details['request_path'] ); ?>"
+                                   class="course-card-apply-now"><?= __( 'Apply Now', 'ipa' ); ?></a>
+                            </small>
                         </div>
                     </div>
                 </div>

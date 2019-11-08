@@ -8,34 +8,22 @@
  * @return false|string
  */
 function ipa_courses_table_widget( $atts, $content = null ) {
-	$atts = shortcode_atts( array(), $atts );
+	$atts = shortcode_atts( array(
+		'limit'      => null,
+		'course_cat' => ''
+	), $atts );
 	ob_start();
 
-	global $remote_db;
+	$category = $atts['course_cat'];
 
-	$courses = $remote_db->get_results(
-		"SELECT d.*,
-               s.product_id,
-               s.stock_status
-        FROM ipa_course_details d
-                 JOIN cataloginventory_stock_status s
-                      ON s.product_id = d.id
-        WHERE d.date >= DATE(NOW())
-          AND s.stock_id = 1;",
-		ARRAY_A
-	);
-
-	$sorted = array();
-	foreach ( $courses as $element ) {
-		if ( $element['stock_status'] == 1 ) {
-			$sorted[ $element['course_type_name'] ][] = $element;
-		}
-	}
+	$courses = get_sorted_courses( $atts['limit'], $category );
 	?>
     <div class="courses-table-widget">
-		<?php foreach ( $sorted as $title => $course_details ) : ?>
+		<?php foreach ( $courses as $title => $course_details ) : ?>
             <div class="course-wrapper">
-                <h3><strong><?= __( $title, 'ipa' ); ?></strong></h3>
+                <h3><strong>
+                        <?= ( empty( $category ) ) ? __( $title, 'ipa' ) : __( "{$category} Courses", 'ipa' ); ?>
+                    </strong></h3>
                 <table class="course-table hover"> <!-- .datatable -->
                     <thead>
                     <tr>
@@ -50,7 +38,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 					<?php foreach ( $course_details as $course_detail ) : ?>
                         <tr>
                             <td class="course-table-title no-sort">
-                                <a href="#"><?= $course_detail['name']; ?></a>
+                                <a href="<?= stage_url( $course_detail['request_path'] ); ?>"><?= $course_detail['name']; ?></a>
                             </td>
                             <td class="course-table-location">
 								<?= $course_detail['city']; ?>, <?= $course_detail['state']; ?>
@@ -65,7 +53,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                      data-alignment="center">
                             </td>
                             <td class="course-table-apply">
-                                <a href="#">Apply Now</a>
+                                <a href="<?= stage_url( $course_detail['request_path'] ); ?>">Apply Now</a>
                             </td>
                         </tr>
 					<?php endforeach; ?>
@@ -84,12 +72,24 @@ add_shortcode( 'ipa_courses_table', 'ipa_courses_table_widget' );
 function ipa_courses_table_integrateWithVC() {
 	try {
 		vc_map( array(
-			"name"                    => __( "Courses Table", "ipa" ),
-			"base"                    => "ipa_courses_table",
-			"class"                   => "",
-			"category"                => __( "Custom", "ipa" ),
-			"params"                  => array(),
-			"show_settings_on_create" => false
+			"name"     => __( "Courses Table", "ipa" ),
+			"base"     => "ipa_courses_table",
+			"class"    => "",
+			"category" => __( "Custom", "ipa" ),
+			"params"   => array(
+				array(
+					"type"        => "textfield",
+					"heading"     => __( "Course Category name", "my-text-domain" ),
+					"param_name"  => "course_cat",
+					"description" => __( "This name has to be exact to Magento's database fields.", "my-text-domain" )
+				),
+				array(
+					"type"        => "textfield",
+					"heading"     => __( "Limit", "my-text-domain" ),
+					"param_name"  => "limit",
+					"description" => __( "", "my-text-domain" )
+				),
+			)
 		) );
 	} catch ( Exception $e ) {
 		echo 'Caught exception: ', $e->getMessage(), "\n";
