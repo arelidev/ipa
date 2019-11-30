@@ -41,7 +41,7 @@ function ipa_single_card_widget( $atts, $content = null ) {
 				<?php if ( ! empty( $href['url'] ) ) : ?>
                     <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>"
                        title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
-                        <span><?= __( 'Read More', 'berns-steak-house' ); ?></span> <i
+                        <span><?= __( 'Read More', 'ipa' ); ?></span> <i
                                 class="fas fa-arrow-right fa-lg"></i>
                     </a>
 				<?php endif; ?>
@@ -63,7 +63,7 @@ function ipa_card_integrateWithVC() {
 			"content_element"         => true,
 			"show_settings_on_create" => false,
 			"is_container"            => true,
-			"category"                => __( "Custom", "berns-steak-house" ),
+			"category"                => __( "Custom", "ipa" ),
 			"params"                  => array(
 				array(
 					"type"        => "textfield",

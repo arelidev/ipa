@@ -41,7 +41,7 @@ require_once(get_template_directory().'/functions/editor-styles.php');
 require_once(get_template_directory().'/functions/disable-emoji.php');
 
 // Related post function - no need to rely on plugins
-// require_once(get_template_directory().'/functions/related-posts.php'); 
+// require_once(get_template_directory().'/functions/related-posts.php');
 
 // Use this as a template for custom post types
 require_once(get_template_directory().'/functions/custom-post-type.php');
@@ -59,6 +59,10 @@ foreach ( scandir( get_template_directory() . '/functions/widgets/' ) as $filena
 		require_once $path;
 	}
 }
+
+// Custom Rewrites
+require_once(get_template_directory().'/functions/rewrite-faculty.php');
+
 
 function stage_url( $path = '', $scheme = null ) {
 	return "http://staging.instituteofphysicalart.com/$path";

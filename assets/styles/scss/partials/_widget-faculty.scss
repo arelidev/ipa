@@ -1,0 +1,85 @@
+.ipa-faculty-widget {
+
+  .ipa-faculty-member {
+    position: relative;
+
+    &-image {
+      height: 150px;
+      width: 150px;
+      object-fit: cover;
+      object-position: center;
+      margin: 0 auto $global-margin;
+      border-radius: 50%;
+      display: block;
+    }
+
+    &-name {}
+
+    &-credentials {}
+
+    &-city {
+      margin-bottom: 0;
+    }
+
+    &-bio {
+      @include absolute-center();
+      background: $primary-color;
+      height: 100%;
+      width: 100%;
+      padding: $global-padding;
+      opacity: 0;
+      transition: opacity .2s ease;
+      &-copy {
+
+      }
+    }
+
+    &:hover {
+      .ipa-faculty-member-bio {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// Single Faculty
+.single-faculty-page {
+
+  .entry-content {
+    padding-top: 50px;
+    padding-bottom: 25px;
+  }
+
+  .article-footer {
+    padding-top: 25px;
+    padding-bottom: 50px;
+  }
+
+  .ipa-faculty-member {
+    padding: $global-padding $global-padding 0;
+    margin-bottom: 2rem;
+
+    &-image {
+      height: 300px;
+      width: 300px;
+      object-fit: cover;
+      object-position: center;
+      margin: 0 auto $global-margin;
+      border-radius: 50%;
+      display: block;
+    }
+
+    &-info {
+      padding: $global-padding;
+      border-top: 1px solid rgba(#B0B7C3, .3);
+
+      address {
+        font-style: normal;
+
+        ul {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

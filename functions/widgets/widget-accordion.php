@@ -14,10 +14,10 @@ function ipa_accordion_widget( $atts, $content = null ) {
 
 	ob_start();
 	?>
-	<ul class="accordion ipa-accordion-widget <?= $atts['el_class']; ?>"
-	    data-accordion data-allow-all-closed="true" data-deep-link="true" data-deep-link-smudge="true">
+    <ul class="accordion ipa-accordion-widget <?= $atts['el_class']; ?>"
+        data-accordion data-allow-all-closed="true" data-deep-link="true" data-deep-link-smudge="true">
 		<?= do_shortcode( $content ); ?>
-	</ul>
+    </ul>
 	<?php
 	return ob_get_clean();
 }
@@ -39,15 +39,15 @@ function ipa_accordion_widget_item( $atts, $content ) {
 
 	$slug = clean( strtolower( $atts['title'] ) );
 	?>
-	<li class="accordion-item ipa-accordion-item <?= $atts['el_class']; ?>" data-accordion-item>
-		<!-- Accordion tab title -->
-		<a href="#<?= $slug; ?>" class="accordion-title ipa-accordion-title"><b><?= $atts['title']; ?></b></a>
+    <li class="accordion-item ipa-accordion-item <?= $atts['el_class']; ?>" data-accordion-item>
+        <!-- Accordion tab title -->
+        <a href="#<?= $slug; ?>" class="accordion-title ipa-accordion-title text-color-black"><b><?= $atts['title']; ?></b></a>
 
-		<!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
-		<div class="accordion-content ipa-accordion-content" data-tab-content id="<?= $slug; ?>">
+        <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
+        <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= $slug; ?>">
 			<?= do_shortcode( $content ); ?>
-		</div>
-	</li>
+        </div>
+    </li>
 	<?php
 }
 
@@ -85,6 +85,7 @@ function ipa_accordion_integrateWithVC() {
 					"type"        => "textfield",
 					"heading"     => __( "Title", "my-text-domain" ),
 					"param_name"  => "title",
+					"holder"      => "h3",
 					"description" => __( "", "my-text-domain" )
 				),
 				array(

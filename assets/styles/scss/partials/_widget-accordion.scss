@@ -1,0 +1,28 @@
+.ipa-accordion-widget {
+
+  .ipa-accordion-item {
+    box-shadow: $global-box-shadow;
+    margin-bottom: 35px;
+    border-radius: 0 0 $global-radius $global-radius;
+    border-top: 7px solid rgba($primary-color, .24);
+
+    &.is-active {
+      border-top-color: rgba($primary-color, 1);
+    }
+
+    .ipa-accordion-title {
+      border-radius: 0;
+      border: none;
+
+      &:before {
+        font-size: 24px;
+        transform: translateY(-50%);
+        margin-top: -4px;
+      }
+    }
+
+    .ipa-accordion-content {
+      border: none;
+    }
+  }
+}

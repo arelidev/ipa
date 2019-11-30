@@ -21,9 +21,11 @@ function ipa_courses_table_widget( $atts, $content = null ) {
     <div class="courses-table-widget">
 		<?php foreach ( $courses as $title => $course_details ) : ?>
             <div class="course-wrapper">
-                <h3><strong>
+                <h3>
+                    <strong>
                         <?= ( empty( $category ) ) ? __( $title, 'ipa' ) : __( "{$category} Courses", 'ipa' ); ?>
-                    </strong></h3>
+                    </strong>
+                </h3>
                 <table class="course-table hover"> <!-- .datatable -->
                     <thead>
                     <tr>
