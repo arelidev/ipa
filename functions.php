@@ -5,7 +5,7 @@
  */
 
 // Connect to the remote database
-require_once(get_template_directory().'/functions/remote-db.php');
+require_once( get_template_directory() . '/functions/remote-db.php' );
 
 // TGM plugin activation
 require_once( get_template_directory() . '/functions/tgm/tgm-init.php' );
@@ -35,22 +35,22 @@ require_once( get_template_directory() . '/functions/page-navi.php' );
 require_once( get_template_directory() . '/functions/translation/translation.php' );
 
 // Adds site styles to the WordPress editor
-require_once(get_template_directory().'/functions/editor-styles.php');
+require_once( get_template_directory() . '/functions/editor-styles.php' );
 
 // Remove Emoji Support
-require_once(get_template_directory().'/functions/disable-emoji.php');
+require_once( get_template_directory() . '/functions/disable-emoji.php' );
 
 // Related post function - no need to rely on plugins
 // require_once(get_template_directory().'/functions/related-posts.php');
 
 // Use this as a template for custom post types
-require_once(get_template_directory().'/functions/custom-post-type.php');
+require_once( get_template_directory() . '/functions/custom-post-type.php' );
 
 // Customize the WordPress login menu
 // require_once(get_template_directory().'/functions/login.php');
 
 // Customize the WordPress admin
-require_once(get_template_directory().'/functions/admin.php');
+require_once( get_template_directory() . '/functions/admin.php' );
 
 // Include all widget files dynamically
 foreach ( scandir( get_template_directory() . '/functions/widgets/' ) as $filename ) {
@@ -61,7 +61,7 @@ foreach ( scandir( get_template_directory() . '/functions/widgets/' ) as $filena
 }
 
 // Custom Rewrites
-require_once(get_template_directory().'/functions/rewrite-faculty.php');
+require_once( get_template_directory() . '/functions/rewrite-faculty.php' );
 
 
 function stage_url( $path = '', $scheme = null ) {
@@ -77,5 +77,14 @@ function stage_url( $path = '', $scheme = null ) {
  */
 function clean( $string ) {
 	$string = str_replace( ' ', '-', $string ); // Replaces all spaces with hyphens.
+
 	return preg_replace( '/[^A-Za-z0-9\-]/', '', $string ); // Removes special chars.
 }
+
+
+// https://www.advancedcustomfields.com/blog/google-maps-api-settings/
+function my_acf_init() {
+	acf_update_setting( 'google_api_key', GOOGLE_MAPS_API_KEY );
+}
+
+add_action( 'acf/init', 'my_acf_init' );

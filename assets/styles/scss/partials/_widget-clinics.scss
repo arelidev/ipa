@@ -1,0 +1,48 @@
+.ipa-clinics-widget {
+
+  .ipa-clinic-card-wrapper {
+    max-height: 100vh;
+    overflow: auto;
+  }
+
+  .featured-clinic {
+    border: 2px solid $primary-color;
+  }
+
+  .single-clinic {
+    margin-bottom: $global-margin * 2;
+
+    &-inner {
+      padding: $global-padding $global-padding 0;
+
+      .fa-star {
+        color: #FFAD0D;
+      }
+
+      hr {
+        margin: .75rem auto 1rem;
+        border-bottom-color: #B0B7C3;
+        opacity: .3;
+      }
+    }
+
+    &-title {}
+
+    &-subtitle {
+      margin-bottom: 0;
+    }
+
+
+  }
+
+  .acf-map {
+    width: 100%;
+    height: 100vh;
+  }
+
+  // Fixes potential theme css conflict.
+  .acf-map img {
+    max-width: inherit !important;
+  }
+
+}

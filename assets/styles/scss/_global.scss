@@ -46,6 +46,7 @@ Stylesheet: Global Stylesheet
 	box-shadow: $global-box-shadow;
 	border-radius: $global-radius;
 	overflow: hidden;
+	background: $white;
 }
 
 .container-border-top {
@@ -109,6 +110,25 @@ Stylesheet: Global Stylesheet
 		opacity: 0;
 		box-shadow: none;
 
+	}
+}
+
+.magellan-bar {
+
+	.menu {
+		> li {
+			> a {
+				font-weight: $global-weight-bold;
+				color: $dark-gray;
+				border-bottom: 2px solid $white;
+				transition: all .2s ease-in-out;
+
+				&.is-active {
+					color: $secondary-color;
+					border-bottom-color: $secondary-color;
+				}
+			}
+		}
 	}
 }
 
@@ -218,6 +238,30 @@ HEADER STYLES
 						left: 0;
 						background: $white;
 						transition: width .2s ease-in-out;
+					}
+				}
+
+				.submenu {
+					box-shadow: $global-box-shadow;
+					border: none;
+					> li {
+						> a {
+							color: $black;
+							font-size: 14px;
+							&:hover {
+								color: $medium-gray;
+							}
+						}
+
+						&.active {
+							> a {
+								color: $white;
+								background: $medium-gray;
+								&:hover {
+									color: $white;
+								}
+							}
+						}
 					}
 				}
 
