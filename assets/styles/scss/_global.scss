@@ -132,6 +132,16 @@ Stylesheet: Global Stylesheet
 	}
 }
 
+.search-bar {
+	margin-bottom: $global-margin;
+
+	input, select {
+		@include breakpoint(large) {
+			margin-bottom: 0;
+		}
+	}
+}
+
 /*********************
 TYPOGRAPHY STYLES
 *********************/

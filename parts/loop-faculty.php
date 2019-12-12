@@ -42,16 +42,39 @@ $address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']}
 						<?= $faculty_data['credentials']; ?>
                     </p>
                     <div class="ipa-faculty-member-info">
-                        <p class="ipa-faculty-member-email">
-                            <a href="mailto:<?= $faculty_data['email']; ?>"><?= $faculty_data['email']; ?></a>
-                        </p>
-                        <p class="ipa-faculty-member-phone"><?= $faculty_data['billing_telephone']; ?></p>
-                        <address>
-                            <ul class="no-bullet">
-                                <li><?= $address_1; ?></li>
-                                <li><?= $address_2; ?></li>
-                            </ul>
-                        </address>
+                        <div class="grid-x">
+                            <div class="cell small-2">
+                                <i class="far fa-envelope fa-lg"></i>
+                            </div>
+                            <div class="cell auto">
+                                <p class="ipa-faculty-member-email">
+                                    <a href="mailto:<?= $faculty_data['email']; ?>"><?= $faculty_data['email']; ?></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="grid-x">
+                            <div class="cell small-2">
+                                <i class="far fa-mobile fa-lg"></i>
+                            </div>
+                            <div class="cell auto">
+                                <p class="ipa-faculty-member-phone">
+                                    <?= $faculty_data['billing_telephone']; ?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="grid-x">
+                            <div class="cell small-2">
+                                <i class="far fa-map-marker-alt fa-lg"></i>
+                            </div>
+                            <div class="cell auto">
+                                <address>
+                                    <ul class="no-bullet">
+                                        <li><?= $address_1; ?></li>
+                                        <li><?= $address_2; ?></li>
+                                    </ul>
+                                </address>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
