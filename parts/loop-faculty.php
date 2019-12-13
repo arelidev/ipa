@@ -8,7 +8,7 @@ $faculty_id   = get_query_var( 'faculty_id' );
 $faculty_data = get_faculty( $faculty_id );
 $faculty_data = $faculty_data[0];
 
-$address_1 = $faculty_data['billing_street'];
+$address_1 = "{$faculty_data['billing_street']}";
 $address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']} {$faculty_data['billing_postcode']}";
 ?>
 
@@ -78,7 +78,7 @@ $address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']}
                     </div>
                 </div>
 
-                <style>
+                <style type="text/css">
                     #map {
                         height: 350px;
                     }
