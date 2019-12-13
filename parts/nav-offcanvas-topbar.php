@@ -23,8 +23,13 @@
     </div>
     <div class="shrink cell border-left">
         <ul class="menu">
-            <li><a href="#"><i class="fas fa-search fa-lg"></i></a></li>
-            <li><a href="#"><i class="far fa-shopping-cart fa-lg"></i></a></li>
+            <li><a href="#"><i class="fas fa-search"></i></a></li>
+            <li><a href="#"><i class="far fa-shopping-cart"></i></a></li>
+        </ul>
+    </div>
+    <div class="shrink cell">
+        <ul class="menu">
+            <li><a href="#" class="button white">Get Started</a></li>
         </ul>
     </div>
     <div class="shrink cell">

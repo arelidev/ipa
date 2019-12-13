@@ -16,6 +16,42 @@ function ipa_clinics_widget( $atts ) {
 
 	?>
     <div class="ipa-clinics-widget">
+
+        <div class="search-bar styled-container">
+            <div class="grid-x grid-padding-x grid-padding-y align-middle">
+                <div class="cell auto">
+                    <b>Filter by:</b>
+                </div>
+                <div class="cell auto">
+                    <label><span class="show-for-sr">Select Menu</span>
+                        <select>
+                            <option>Faculty</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="cell auto">
+                    <label><span class="show-for-sr">Input Label</span>
+                        <input type="text" placeholder="State">
+                    </label>
+                </div>
+                <div class="cell auto">
+                    <label><span class="show-for-sr">Input Label</span>
+                        <input type="text" placeholder="Zip Code">
+                    </label>
+                </div>
+                <div class="cell auto">
+                    <label><span class="show-for-sr">Input Label</span>
+                        <input type="text" placeholder="Certification">
+                    </label>
+                </div>
+                <div class="cell auto">
+                    <label><span class="show-for-sr">Input Label</span>
+                        <input type="text" placeholder="Search by instructor">
+                    </label>
+                </div>
+            </div>
+        </div>
+
         <div class="grid-x">
             <div class="small-12 medium-6 large-6 cell small-order-2 large-order-1 ipa-clinic-card-wrapper">
                 <div class="grid-x grid-margin-x grid-container">
@@ -154,7 +190,7 @@ function ipa_clinics_widget( $atts ) {
                         infowindow.open(map, marker);
                     });
 
-                    google.maps.event.addListener(map, 'click', function() {
+                    google.maps.event.addListener(map, 'click', function () {
                         infowindow.close();
                     });
                 }

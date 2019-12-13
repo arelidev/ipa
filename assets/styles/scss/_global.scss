@@ -166,6 +166,11 @@ TYPOGRAPHY STYLES
 }
 
 .button {
+	&.white:not(.hollow) {
+		background: $white;
+		color: $primary-color;
+	}
+
 	&.hollow {
 		&.white {
 			border-color: $white;
