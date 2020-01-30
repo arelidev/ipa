@@ -65,6 +65,3 @@ function cc_mime_types( $mimes ) {
 }
 
 add_filter( 'upload_mimes', 'cc_mime_types' );
-
-// Show admin bar when logged in
-// show_admin_bar(false);

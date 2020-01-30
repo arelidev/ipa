@@ -81,15 +81,15 @@ function ipa_courses_table_integrateWithVC() {
 			"params"   => array(
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Course Category name", "my-text-domain" ),
+					"heading"     => __( "Course Category name", "ipa" ),
 					"param_name"  => "course_cat",
-					"description" => __( "This name has to be exact to Magento's database fields.", "my-text-domain" )
+					"description" => __( "This name has to be exact to Magento's database fields.", "ipa" )
 				),
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Limit", "my-text-domain" ),
+					"heading"     => __( "Limit", "ipa" ),
 					"param_name"  => "limit",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				),
 			)
 		) );

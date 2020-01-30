@@ -780,10 +780,10 @@ FOOTER STYLES
 *********************/
 .footer {
 	clear: both;
-	margin-top: 1em;
 
 	.get-started {
-		margin-bottom: $global-margin;
+		margin-top: 50px;
+		margin-bottom: 50px;
 		box-shadow: $global-box-shadow;
 		border-radius: $global-radius;
 		transition: box-shadow .2s ease-in-out;
@@ -798,7 +798,6 @@ FOOTER STYLES
 		background: #FBFBFB;
 		border-top: 2px solid rgba(176, 183, 195, 0.15);
 		padding-top: 75px;
-		margin-top: 75px;
 
 		@include breakpoint(large) {
 			padding-bottom: 35px;

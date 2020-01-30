@@ -5,6 +5,7 @@
     box-shadow: $global-box-shadow;
     border-radius: $global-radius;
     transition: box-shadow .2s ease-in-out;
+    background: $white;
 
     &-inner {
       padding: 2rem;

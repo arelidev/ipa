@@ -5,7 +5,7 @@ function ipa_card_widget( $atts, $content = null ) {
 	), $atts );
 	ob_start();
 	?>
-    <div class="ipa-card-widget grid-x grid-margin-x grid-margin-y" data-equalizer="ipa-card-widget-title">
+    <div class="ipa-card-widget grid-x grid-margin-x grid-margin-y <?= $atts['el_class']; ?>" data-equalizer="ipa-card-widget-title">
 		<?= do_shortcode( $content ); ?>
     </div>
 	<?php
@@ -31,18 +31,15 @@ function ipa_single_card_widget( $atts, $content = null ) {
 				<?= wp_get_attachment_image( $atts['icon'], 'full', true, array( 'class' => 'ipa-single-card-widget-icon' ) ); ?>
 			<?php endif; ?>
 
-            <h3 class="ipa-single-card-widget-title"
-                data-equalizer-watch="ipa-card-widget-title"><?= $atts['title']; ?></h3>
+            <h3 class="ipa-single-card-widget-title" data-equalizer-watch="ipa-card-widget-title"><?= $atts['title']; ?></h3>
             <div class="ipa-single-card-widget-content">
                 <div class="ipa-single-card-widget-content-text">
 					<?= apply_filters( 'the_content', $content ); ?>
                 </div>
 
 				<?php if ( ! empty( $href['url'] ) ) : ?>
-                    <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>"
-                       title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
-                        <span><?= __( 'Read More', 'ipa' ); ?></span> <i
-                                class="fas fa-arrow-right fa-lg"></i>
+                    <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>" title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
+                        <span><?= __( 'Read More', 'ipa' ); ?></span> <i class="fas fa-arrow-right fa-lg"></i>
                     </a>
 				<?php endif; ?>
             </div>
@@ -57,7 +54,7 @@ add_shortcode( 'ipa_single_card', 'ipa_single_card_widget' );
 function ipa_card_integrateWithVC() {
 	try {
 		vc_map( array(
-			"name"                    => __( "Card", "my-text-domain" ),
+			"name"                    => __( "Card", "ipa" ),
 			"base"                    => "ipa_card",
 			"as_parent"               => array( 'only' => 'ipa_single_card' ),
 			"content_element"         => true,
@@ -67,61 +64,62 @@ function ipa_card_integrateWithVC() {
 			"params"                  => array(
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Extra class name", "my-text-domain" ),
+					"heading"     => __( "Extra class name", "ipa" ),
 					"param_name"  => "el_class",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				)
 			),
 			"js_view"                 => 'VcColumnView'
 		) );
 
 		vc_map( array(
-			"name"            => __( "Single Card", "my-text-domain" ),
+			"name"            => __( "Single Card", "ipa" ),
 			"base"            => "ipa_single_card",
 			"content_element" => true,
 			"as_child"        => array( 'only' => 'ipa_card' ),
 			"params"          => array(
 				array( // todo: convert to select field
 					"type"        => "textfield",
-					"heading"     => __( "Container Size", "my-text-domain" ),
+					"heading"     => __( "Container Size", "ipa" ),
 					"param_name"  => "size",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				),
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Title", "my-text-domain" ),
+					"heading"     => __( "Title", "ipa" ),
 					"param_name"  => "title",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" ),
+                    "holder"      => "p"
 				),
 				array(
 					"type"        => "attach_image",
 					"class"       => "",
-					"heading"     => __( "Icon", "my-text-domain" ),
+					"heading"     => __( "Icon", "ipa" ),
 					"param_name"  => "icon",
 					"value"       => '',
-					"description" => __( "Enter description.", "my-text-domain" )
+					"description" => __( "Enter description.", "ipa" )
 				),
 				array(
 					"type"        => "textarea_html",
 					"class"       => "",
-					"heading"     => __( "Content", "my-text-domain" ),
+					"heading"     => __( "Content", "ipa" ),
 					"param_name"  => "content",
 					"value"       => '',
-					"description" => __( "Enter description.", "my-text-domain" )
+					"description" => __( "Enter description.", "ipa" )
 				),
 				array(
 					"type"        => "vc_link",
 					"class"       => "",
-					"heading"     => __( "CTA Link", "my-text-domain" ),
+					"heading"     => __( "CTA Link", "ipa" ),
 					"param_name"  => "link",
 					"value"       => '',
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				),
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Extra class name", "my-text-domain" ),
+					"heading"     => __( "Extra class name", "ipa" ),
 					"param_name"  => "el_class",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				)
 			)
 		) );

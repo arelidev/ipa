@@ -1,10 +1,12 @@
 .ipa-accordion-widget {
+  background: transparent;
 
   .ipa-accordion-item {
     box-shadow: $global-box-shadow;
     margin-bottom: 35px;
     border-radius: 0 0 $global-radius $global-radius;
     border-top: 7px solid rgba($primary-color, .24);
+    background: $white;
 
     &.is-active {
       border-top-color: rgba($primary-color, 1);

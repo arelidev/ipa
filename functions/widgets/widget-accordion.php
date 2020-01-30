@@ -57,7 +57,7 @@ add_shortcode( 'ipa_accordion_item', 'ipa_accordion_widget_item' );
 function ipa_accordion_integrateWithVC() {
 	try {
 		vc_map( array(
-			"name"                    => __( "Accordion", "my-text-domain" ),
+			"name"                    => __( "Accordion", "ipa" ),
 			"base"                    => "ipa_accordion",
 			"as_parent"               => array( 'only' => 'ipa_accordion_item' ),
 			"content_element"         => true,
@@ -67,40 +67,40 @@ function ipa_accordion_integrateWithVC() {
 			"params"                  => array(
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Extra class name", "my-text-domain" ),
+					"heading"     => __( "Extra class name", "ipa" ),
 					"param_name"  => "el_class",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				)
 			),
 			"js_view"                 => 'VcColumnView'
 		) );
 
 		vc_map( array(
-			"name"            => __( "Accordion Item", "my-text-domain" ),
+			"name"            => __( "Accordion Item", "ipa" ),
 			"base"            => "ipa_accordion_item",
 			"content_element" => true,
 			"as_child"        => array( 'only' => 'ipa_accordion' ),
 			"params"          => array(
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Title", "my-text-domain" ),
+					"heading"     => __( "Title", "ipa" ),
 					"param_name"  => "title",
 					"holder"      => "h3",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				),
 				array(
 					"type"        => "textarea_html",
 					"class"       => "",
-					"heading"     => __( "Content", "my-text-domain" ),
+					"heading"     => __( "Content", "ipa" ),
 					"param_name"  => "content",
 					"value"       => '',
-					"description" => __( "Enter description.", "my-text-domain" )
+					"description" => __( "Enter description.", "ipa" )
 				),
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Extra class name", "my-text-domain" ),
+					"heading"     => __( "Extra class name", "ipa" ),
 					"param_name"  => "el_class",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				)
 			)
 		) );

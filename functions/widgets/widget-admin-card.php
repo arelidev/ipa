@@ -63,7 +63,7 @@ add_shortcode( 'ipa_single_admin_card', 'ipa_single_admin_card_widget' );
 function ipa_admin_card_integrateWithVC() {
 	try {
 		vc_map( array(
-			"name"                    => __( "Admin Cards", "my-text-domain" ),
+			"name"                    => __( "Admin Cards", "ipa" ),
 			"base"                    => "ipa_admin_card",
 			"as_parent"               => array( 'only' => 'ipa_single_admin_card' ),
 			"content_element"         => true,
@@ -73,60 +73,60 @@ function ipa_admin_card_integrateWithVC() {
 			"params"                  => array(
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Extra class name", "my-text-domain" ),
+					"heading"     => __( "Extra class name", "ipa" ),
 					"param_name"  => "el_class",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				)
 			),
 			"js_view"                 => 'VcColumnView'
 		) );
 
 		vc_map( array(
-			"name"            => __( "Single Card", "my-text-domain" ),
+			"name"            => __( "Single Card", "ipa" ),
 			"base"            => "ipa_single_admin_card",
 			"content_element" => true,
 			"as_child"        => array( 'only' => 'ipa_admin_card' ),
 			"params"          => array(
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Name", "my-text-domain" ),
+					"heading"     => __( "Name", "ipa" ),
 					"param_name"  => "name",
 					"holder"      => "h3",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				),
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Title", "my-text-domain" ),
+					"heading"     => __( "Title", "ipa" ),
 					"param_name"  => "title",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				),
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Email", "my-text-domain" ),
+					"heading"     => __( "Email", "ipa" ),
 					"param_name"  => "email",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				),
 				array(
 					"type"        => "attach_image",
 					"class"       => "",
-					"heading"     => __( "Image", "my-text-domain" ),
+					"heading"     => __( "Image", "ipa" ),
 					"param_name"  => "image",
 					"value"       => '',
-					"description" => __( "Enter description.", "my-text-domain" )
+					"description" => __( "Enter description.", "ipa" )
 				),
 				array(
 					"type"        => "textarea_html",
 					"class"       => "",
-					"heading"     => __( "Content", "my-text-domain" ),
+					"heading"     => __( "Content", "ipa" ),
 					"param_name"  => "content",
 					"value"       => '',
-					"description" => __( "Enter description.", "my-text-domain" )
+					"description" => __( "Enter description.", "ipa" )
 				),
 				array(
 					"type"        => "textfield",
-					"heading"     => __( "Extra class name", "my-text-domain" ),
+					"heading"     => __( "Extra class name", "ipa" ),
 					"param_name"  => "el_class",
-					"description" => __( "", "my-text-domain" )
+					"description" => __( "", "ipa" )
 				)
 			)
 		) );
