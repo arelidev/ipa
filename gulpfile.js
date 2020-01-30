@@ -53,6 +53,9 @@ const SOURCE = {
 		// Slick Slider
 		'node_modules/slick-carousel/slick/slick.js',
 
+		// Fancy Apps
+		'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js',
+
 		// Place custom JS here, files will be concantonated, minified if ran with --production
 		'assets/scripts/js/**/*.js',
     ],

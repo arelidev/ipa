@@ -20,7 +20,7 @@
             </li>
         </ul>
     </div>
-    <div class="small-12 medium-shrink cell show-for-large">
+    <div class="small-12 medium-shrink cell show-for-medium">
 		<?php joints_top_nav(); ?>
     </div>
     <div class="shrink cell border-left">
@@ -33,7 +33,7 @@
             </li>
         </ul>
     </div>
-    <div class="shrink cell">
+    <div class="shrink cell hide">
         <ul class="menu">
             <li><a href="#" class="button white">Get Started</a></li>
         </ul>
