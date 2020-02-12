@@ -60,8 +60,8 @@
 							<?php while ( have_rows( 'course_highlights' ) ) : the_row(); ?>
                                 <div class="grid-x grid-padding-x grid-padding-y">
                                     <div class="cell shrink">
-                                        <?php $image_id = get_sub_field( 'course_highlight_icon'); ?>
-										<?= wp_get_attachment_image( $image_id['id'], 'full'  ) ?>
+										<?php $image_id = get_sub_field( 'course_highlight_icon' ); ?>
+										<?= wp_get_attachment_image( $image_id['id'], 'full' ) ?>
                                     </div>
                                     <div class="cell auto">
                                         <p><b><?php the_sub_field( 'course_highlight_title' ); ?></b></p>
@@ -71,6 +71,27 @@
 							<?php endwhile; ?>
                         </div>
                     </div>
+				<?php endif; ?>
+
+				<?php if ( ! empty( $gallery = get_field( 'course_gallery' ) ) ) : ?>
+                    <div class="course-gallery">
+						<?php foreach ( $gallery as $item => $value ) : ?>
+                            <div class="gallery-slide">
+                                <a href="<?= wp_get_attachment_image_url( $value, 'full' ); ?>" data-fancybox>
+									<?= wp_get_attachment_image( $value, 'large' ); ?>
+                                </a>
+                            </div>
+						<?php endforeach; ?>
+                    </div>
+
+                <script type="text/javascript">
+                    jQuery(document).ready(function ($) {
+                        $('.course-gallery').slick({
+                            dots: true,
+                            arrows: true
+                        })
+                    })
+                </script>
 				<?php endif; ?>
             </div>
         </div>

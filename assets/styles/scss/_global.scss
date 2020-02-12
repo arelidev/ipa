@@ -509,6 +509,19 @@ IMAGE GALLERY STYLES
 .size-medium {}
 .size-thumbnail {}
 
+.course-gallery {
+	.gallery-slide {
+		img {
+			box-shadow: $global-box-shadow;
+			border-radius: $global-radius;
+			width: 100%;
+			height: 350px;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+}
+
 /*********************
 PAGE NAVI STYLES
 *********************/
