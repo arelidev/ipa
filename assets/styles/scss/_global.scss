@@ -529,6 +529,22 @@ PAGE NAVI STYLES
 	margin-top: 1rem;
 }
 
+.course-table-nav {
+	> li {
+		> a {
+			color: rgba($black, .35);
+			border-left: 3px solid rgba($black, .15);
+			background: transparent !important;
+			transition: all .2s ease-in-out;
+
+			&.is-active {
+				color: $black;
+				border-left-color: $primary-color;
+			}
+		}
+	}
+}
+
 /*********************
 COMMENT STYLES
 *********************/
