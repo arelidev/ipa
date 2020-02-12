@@ -41,7 +41,8 @@ function ipa_accordion_widget_item( $atts, $content ) {
 	?>
     <li class="accordion-item ipa-accordion-item <?= $atts['el_class']; ?>" data-accordion-item>
         <!-- Accordion tab title -->
-        <a href="#<?= $slug; ?>" class="accordion-title ipa-accordion-title text-color-black"><b><?= $atts['title']; ?></b></a>
+        <a href="#<?= $slug; ?>"
+           class="accordion-title ipa-accordion-title text-color-black"><b><?= $atts['title']; ?></b></a>
 
         <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
         <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= $slug; ?>">
