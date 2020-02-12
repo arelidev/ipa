@@ -1,0 +1,39 @@
+.widget-full-content-tabs-wrapper {
+
+  // tabs
+  #widget-full-content-tabs {
+    margin-bottom: 50px;
+
+    // tabs-title
+    .ipa-single-card-widget {
+      box-shadow: $global-box-shadow;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      border: none;
+      border-top: 3px solid transparent;
+      padding: 2rem 2rem 1rem;
+      transition: all .2s ease-in-out;
+
+      &:hover, &.is-active {
+        box-shadow: 0 4px 8px rgba($black, .3);
+        border-top-color: $primary-color;
+      }
+
+      &-inner {
+
+      }
+
+      &-icon {
+        margin-bottom: $global-margin;
+      }
+
+      &-title {
+        color: $black;
+      }
+
+      a {
+        background: transparent;
+      }
+    }
+  }
+}
