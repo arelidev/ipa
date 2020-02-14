@@ -33,7 +33,7 @@ $hero_type = get_field( 'hero_type' );
         </style>
         <header class="article-header hero hero-image">
             <div class="hero-inner grid-x align-middle">
-                <div class="small-12 medium-4 cell">
+                <div class="small-12 medium-4 cell small-order-2 medium-order-1">
                     <div class="hero-content-wrapper">
                         <h1 class="page-title"><b><?php the_title(); ?></b></h1>
 						<?php if ( has_excerpt() ) : ?>
@@ -46,7 +46,7 @@ $hero_type = get_field( 'hero_type' );
 						?>
                     </div>
                 </div>
-                <div class="small-12 medium-8 cell hero-image-wrapper">
+                <div class="small-12 medium-8 cell small-order-1 medium-order-2 hero-image-wrapper">
 					<?php the_post_thumbnail( 'full' ); ?>
                 </div>
             </div>

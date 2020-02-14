@@ -1,0 +1,36 @@
+let testimonialsSlider = jQuery('.testimonials-widget');
+
+// Testimonials Widget
+jQuery(document).ready(function ($) {
+    testimonialsSlider.slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        nextArrow: '.slick-next-custom',
+        prevArrow: '.slick-prev-custom',
+        dots: true,
+        adaptiveHeight: true
+    });
+});
+
+// Full Content Tabs Widget
+jQuery(document).ready(function ($) {
+
+    let tabsWrapper = ".widget-full-content-tabs-wrapper",
+        tabsContainer = ".widget-full-content-tab-container",
+        tabsNav = "#widget-full-content-tabs";
+
+    if ($(tabsWrapper).length) {
+        $(tabsContainer).each(function () {
+            $(tabsNav).append($(this).find($(".ipa-single-card-widget")));
+        });
+
+        let elem = new Foundation.Tabs($(tabsNav));
+
+        $(tabsNav).on('change.zf.tabs', function () {
+            if (testimonialsSlider.length) {
+                testimonialsSlider.slick('setPosition');
+            }
+        });
+    }
+});

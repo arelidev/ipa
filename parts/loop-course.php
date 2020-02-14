@@ -100,7 +100,7 @@
                 <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses"
                      data-magellan-target="courses">
                     <div class="cell">
-						<?= do_shortcode( "[ipa_courses_table course_cat='{$course_category}']" ); ?>
+						<?= do_shortcode( "[ipa_courses_table course_cat='{$course_category}' disable_sidebar='true']" ); ?>
                     </div>
                 </div>
 			<?php endif; ?>
