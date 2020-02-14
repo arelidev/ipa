@@ -11,6 +11,8 @@ jQuery(document).ready(function ($) {
         dots: true,
         adaptiveHeight: true
     });
+
+    let testimonialEqualizer = new Foundation.Equalizer(testimonialsSlider);
 });
 
 // Full Content Tabs Widget
@@ -25,7 +27,7 @@ jQuery(document).ready(function ($) {
             $(tabsNav).append($(this).find($(".ipa-single-card-widget")));
         });
 
-        let elem = new Foundation.Tabs($(tabsNav));
+        let tabsTab = new Foundation.Tabs($(tabsNav));
 
         $(tabsNav).on('change.zf.tabs', function () {
             if (testimonialsSlider.length) {

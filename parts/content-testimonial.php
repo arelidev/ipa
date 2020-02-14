@@ -8,7 +8,9 @@
             <li><i class="fas fa-star"></i></li>
         </ul>
 
-        <p class="testimonial-card-text"><?php the_content(); ?></p>
+        <div class="testimonial-card-text" data-equalizer-watch="testimonials-content">
+            <?php the_content(); ?>
+        </div>
 
         <div class="grid-x align-middle">
             <div class="shrink cell">

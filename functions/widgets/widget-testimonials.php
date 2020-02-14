@@ -1,12 +1,24 @@
 <?php
+/**
+ * Testimonials Shortcode Widget
+ *
+ * @param $atts
+ * @param null $content
+ *
+ * @return false|string
+ */
 function ipa_testimonials_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(), $atts );
 	ob_start();
 
-	$args = array( 'post_type' => 'testimonials', 'posts_per_page' => 3 );
+	$args = array(
+		'post_type'      => 'testimonials',
+		'posts_per_page' => 3
+	);
+
 	$loop = new WP_Query( $args );
 	?>
-    <div class="testimonials-widget">
+    <div class="testimonials-widget" data-equalizer="testimonials-content">
 		<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
 			<?php get_template_part( 'parts/content', 'testimonial' ); ?>
 		<?php endwhile; ?>

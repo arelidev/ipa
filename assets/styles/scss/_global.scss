@@ -304,7 +304,8 @@ HEADER STYLES
 
 	.custom-logo-link {
 		.custom-logo {
-			width: 400px;
+			width: 100%;
+			max-width: 200px;
 		}
 	}
 
@@ -890,6 +891,13 @@ FOOTER STYLES
 					> a {
 						line-height: 1.6;
 						padding: 2px 0;
+					}
+
+					&.active {
+						> a {
+							background: transparent;
+							font-weight: $global-weight-bold;
+						}
 					}
 				}
 			}
