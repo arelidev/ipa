@@ -6,7 +6,7 @@ function ipa_card_widget( $atts, $content = null ) {
 	ob_start();
 	?>
     <div class="ipa-card-widget grid-x grid-margin-x grid-margin-y <?= $atts['el_class']; ?>"
-         data-equalizer="ipa-card-widget-title">
+         data-equalizer="ipa-card-widget-title" data-equalize-by-row="true">
 		<?= do_shortcode( $content ); ?>
     </div>
 	<?php
