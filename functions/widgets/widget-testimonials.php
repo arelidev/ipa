@@ -24,6 +24,8 @@ function ipa_testimonials_widget( $atts, $content = null ) {
 		<?php endwhile; ?>
     </div>
 	<?php
+	wp_reset_postdata();
+
 	return ob_get_clean();
 }
 

@@ -10,7 +10,7 @@
 
 <footer class="footer" role="contentinfo">
 
-	<?php if ( ! get_field( 'disable_footer', get_the_ID() ) && ! is_page_template( 'template-course.php' ) ) : ?>
+	<?php if ( get_field( 'enable_custom_cta' ) && ! is_page_template( 'template-course.php' ) ) : ?>
 		<?php get_template_part( 'parts/content', 'get-started' ); ?>
 	<?php endif; ?>
 

@@ -1,38 +1,57 @@
 <div class="grid-container get-started">
-	<div class="get-started-inner grid-x grid-padding-x grid-padding-y align-middle">
-		<div class="small-12 medium-12 large-auto cell">
-			<h3 class="text-center large-text-left"><b>Ready to get stated?</b></h3>
-			<p class="text-center large-text-left text-color-dark-gray margin-bottom-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem quam, maximus ut metus at, accumsan dignissim tortor. Suspendisse potenti.</p>
-		</div>
-		<div class="small-12 medium-12 large-shrink cell">
-			<div class="grid-x grid-padding-x align-center-middle">
-				<div class="shrink cell">
-					<h3 class="text-center large-text-left"><b>I am a...</b></h3>
-				</div>
-				<div class="shrink large-auto cell">
-					<div class="select-box">
-						<div class="select-box__current" tabindex="1">
-							<div class="select-box__value">
-								<input class="select-box__input" type="radio" id="0" value="1" name="Ben" checked="checked"/>
-								<p class="select-box__input-text">Certified PT</p>
-							</div>
-							<div class="select-box__value">
-								<input class="select-box__input" type="radio" id="1" value="2" name="Ben" checked="checked"/>
-								<p class="select-box__input-text">Student</p>
-							</div>
-							<img class="select-box__icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
-						</div>
-						<ul class="select-box__list">
-							<li>
-								<label class="select-box__option" for="0" aria-hidden="true">Certified PT</label>
-							</li>
-							<li>
-								<label class="select-box__option" for="1" aria-hidden="true">Student</label>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="get-started-inner grid-x grid-padding-x grid-padding-y align-center-middle">
+        <div class="small-12 medium-12 large-12 cell">
+            <h3 class="text-center"><b><?= get_field( 'footer_cta_title' ); ?></b></h3>
+            <p class="text-center text-color-dark-gray margin-bottom-0">
+				<?= get_field( 'footer_cta_text' ); ?>
+            </p>
+        </div>
+        <div class="small-12 medium-12 large-shrink cell">
+            <div class="grid-x grid-padding-x align-center-middle">
+                <div class="shrink cell">
+                    <h3 class="text-center large-text-left">
+                        <b><?= get_field( 'footer_cta_select_label' ); ?></b>
+                    </h3>
+                </div>
+                <div class="shrink cell">
+                    <div class="select-box">
+
+						<?php if ( have_rows( 'footer_cta_select_options' ) ): $i = 0; ?>
+                            <div class="select-box__current" tabindex="1">
+								<?php while ( have_rows( 'footer_cta_select_options' ) ) : the_row(); ?>
+                                    <div class="select-box__value">
+                                        <input class="select-box__input" type="radio" id="<?= $i; ?>" value="<?= $i; ?>"
+                                               name="cta_link" <?= ( $i == 0 ) ? 'checked="checked"' : ''; ?>
+                                               data-link="<?php the_sub_field( 'footer_cta_select_option_link' ); ?>"/>
+                                        <p class="select-box__input-text">
+											<?php the_sub_field( 'footer_cta_select_option_title' ); ?>
+                                        </p>
+                                    </div>
+									<?php $i ++; ?>
+								<?php endwhile; ?>
+                                <img class="select-box__icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg"
+                                     alt="Arrow Icon" aria-hidden="true"/>
+                            </div>
+						<?php endif; ?>
+
+						<?php if ( have_rows( 'footer_cta_select_options' ) ): $i = 0; ?>
+                            <ul class="select-box__list">
+								<?php while ( have_rows( 'footer_cta_select_options' ) ) : the_row(); ?>
+                                    <li>
+                                        <label class="select-box__option" for="<?= $i; ?>" aria-hidden="true">
+											<?php the_sub_field( 'footer_cta_select_option_title' ); ?>
+                                        </label>
+                                    </li>
+									<?php $i ++; endwhile; ?>
+                            </ul>
+						<?php endif; ?>
+
+                    </div>
+                </div>
+                <div class="shrink cell">
+                    <button type="submit" class="button large" style="margin-bottom: 0;" id="footer_cta_submit">Go!</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
