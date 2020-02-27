@@ -19,11 +19,38 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 
 	$courses = get_sorted_courses( $atts['limit'], $category );
 	?>
-    <div class="grid-x grid-padding-x">
+    <div class="search-bar styled-container">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x grid-padding-y align-middle">
+                <div class="cell auto">
+                    <b>Filter by:</b>
+                </div>
+                <div class="cell auto">
+                    <label><span class="show-for-sr">Select Menu</span>
+                        <select>
+                            <option>Faculty</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="cell auto">
+                    <label><span class="show-for-sr">Input Label</span>
+                        <input type="text" placeholder="Zip Code">
+                    </label>
+                </div>
+                <div class="cell auto">
+                    <label><span class="show-for-sr">Input Label</span>
+                        <input type="text" placeholder="Search by instructor">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-x grid-padding-x grid-container">
 		<?php if ( ! $atts['disable_sidebar'] ) : ?>
-            <div class="small-12 medium-2 large-2 cell" data-sticky-container>
+            <div class="small-12 medium-2 large-2 cell" data-sticky-container data-options="stickyOn:small;">
                 <div class="sticky" data-sticky data-anchor="courses-table-widget-cell">
-                    <ul class="menu vertical course-table-nav" data-magellan>
+                    <ul class="menu vertical course-table-nav show-for-medium" data-magellan>
 						<?php foreach ( $courses as $title => $course_details ) : ?>
                             <li><a href="#<?= acf_slugify( $title ); ?>"><?= $title; ?></a></li>
 						<?php endforeach; ?>
