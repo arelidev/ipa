@@ -5,10 +5,10 @@ define( 'FACULTY_MEMBER_IMAGE_URL', 'http://staging.instituteofphysicalart.com/m
 
 // Connect to remove database
 $remote_db = new wpdb(
-	'ipastagi_areli',
-	'r)JZisIK$gl,',
-	'ipastagi_191111',
-	'staging.instituteofphysicalart.com'
+	'ipatest_areli',
+	's;cC@^zp.HF7',
+	'ipatest_191221',
+	'test.instituteofphysicalart.com'
 );
 
 /**
