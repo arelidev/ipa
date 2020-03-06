@@ -52,6 +52,9 @@ require_once( get_template_directory() . '/functions/custom-post-type.php' );
 // Customize the WordPress admin
 require_once( get_template_directory() . '/functions/admin.php' );
 
+// Register custom API endpoints
+require_once( get_template_directory() . '/functions/custom-api.php' );
+
 // Include all widget files dynamically
 foreach ( scandir( get_template_directory() . '/functions/widgets/' ) as $filename ) {
 	$path = get_template_directory() . '/functions/widgets/' . $filename;
