@@ -38,7 +38,7 @@
             </li>
         </ul>
     </div>
-    <div class="shrink cell show-for-large">
+    <div class="shrink cell hide-for-medium">
         <ul class="menu">
             <li>
                 <button class="menu-icon" type="button" data-toggle="off-canvas"></button>

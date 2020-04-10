@@ -14,8 +14,7 @@ function ipa_accordion_widget( $atts, $content = null ) {
 
 	ob_start();
 	?>
-    <ul class="accordion ipa-accordion-widget <?= $atts['el_class']; ?>"
-        data-accordion data-allow-all-closed="true" data-deep-link="true" data-deep-link-smudge="true">
+    <ul class="accordion ipa-accordion-widget <?= $atts['el_class']; ?>" data-accordion data-allow-all-closed="true" data-deep-link="true" data-deep-link-smudge="true">
 		<?= do_shortcode( $content ); ?>
     </ul>
 	<?php
@@ -40,11 +39,7 @@ function ipa_accordion_widget_item( $atts, $content ) {
 	$slug = clean( strtolower( $atts['title'] ) );
 	?>
     <li class="accordion-item ipa-accordion-item <?= $atts['el_class']; ?>" data-accordion-item>
-        <!-- Accordion tab title -->
-        <a href="#<?= $slug; ?>"
-           class="accordion-title ipa-accordion-title text-color-black"><b><?= $atts['title']; ?></b></a>
-
-        <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
+        <a href="#<?= $slug; ?>" class="accordion-title ipa-accordion-title text-color-black"><b><?= $atts['title']; ?></b></a>
         <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= $slug; ?>">
 			<?= do_shortcode( $content ); ?>
         </div>

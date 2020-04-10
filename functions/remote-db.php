@@ -1,7 +1,7 @@
 <?php
 global $remote_db;
 
-define( 'FACULTY_MEMBER_IMAGE_URL', 'http://staging.instituteofphysicalart.com/media/ipa/profile/general/' );
+define( 'FACULTY_MEMBER_IMAGE_URL', 'http://test.instituteofphysicalart.com/media/ipa/profile/general/' );
 
 // Connect to remove database
 $remote_db = new wpdb(
@@ -62,6 +62,7 @@ function get_sorted_courses( $limit = null, $category = null ) {
 		$sorted[ $element['course_type_name'] ][] = $element;
 	}
 
+	ksort( $sorted );
 	return $sorted;
 }
 

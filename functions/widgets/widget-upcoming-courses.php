@@ -3,7 +3,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(), $atts );
 	ob_start();
 
-	$courses = get_courses( 6 );
+	$courses = get_courses( 3 );
 	?>
     <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title"
          data-equalize-by-row="true">
