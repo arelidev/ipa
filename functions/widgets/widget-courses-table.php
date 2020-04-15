@@ -59,7 +59,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 					            <?= ( empty( $category ) ) ? $title : $category; ?>
                             </a>
 
-                            <div class="accordion-content  ipa-accordion-content" data-tab-content id="<?= $slug; ?>">
+                            <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= $slug; ?>">
                                 <table class="course-table hover"> <!-- .datatable -->
                                     <thead>
                                     <tr>

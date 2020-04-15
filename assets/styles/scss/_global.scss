@@ -377,6 +377,11 @@ POSTS & CONTENT STYLES
 			}
 
 			.hero-image-wrapper {
+				background-color: $white;
+				@include breakpoint(medium) {
+					clip-path: polygon(35% 0, 100% 0, 100% 100%, 0% 100%);
+				}
+
 				img {
 					width: 100%;
 					height: 300px;
@@ -384,7 +389,6 @@ POSTS & CONTENT STYLES
 					object-position: center;
 					@include breakpoint(medium) {
 						height: 500px;
-						clip-path: polygon(35% 0, 100% 0, 100% 100%, 0% 100%);
 					}
 				}
 			}

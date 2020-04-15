@@ -65,3 +65,28 @@ function cc_mime_types( $mimes ) {
 }
 
 add_filter( 'upload_mimes', 'cc_mime_types' );
+
+// Hero image settings
+function hero_image_css() {
+	global $post;
+
+	$post = $post->ID;
+
+	if ( get_field( 'hero_type', $post ) == 'image' ) :
+		echo "<style type='text/css'>";
+		echo ".hero-image .hero-inner .hero-image-wrapper img {";
+
+		if ( ! empty( $position = get_field( 'hero_image_position', $post ) ) ) {
+			echo "object-position: {$position}; ";
+		}
+
+		if ( ! empty( $size = get_field( 'hero_image_size', $post ) ) ) {
+			echo "object-fit: {$size}; ";
+		}
+
+		echo "}";
+		echo "</style>";
+	endif;
+}
+
+add_action( 'wp_head', 'hero_image_css' );
