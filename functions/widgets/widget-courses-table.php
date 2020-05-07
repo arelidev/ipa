@@ -22,31 +22,31 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 
     <?php if ( ! is_singular() ) : ?>
         <div class="search-bar styled-container">
-        <div class="grid-container">
-            <div class="grid-x grid-padding-x grid-padding-y align-middle">
-                <div class="cell auto">
-                    <b>Filter by:</b>
-                </div>
-                <div class="cell auto">
-                    <label><span class="show-for-sr">Select Menu</span>
-                        <select>
-                            <option>Faculty</option>
-                        </select>
-                    </label>
-                </div>
-                <div class="cell auto">
-                    <label><span class="show-for-sr">Input Label</span>
-                        <input type="text" placeholder="Zip Code">
-                    </label>
-                </div>
-                <div class="cell auto">
-                    <label><span class="show-for-sr">Input Label</span>
-                        <input type="text" placeholder="Search by instructor">
-                    </label>
+            <div class="grid-container">
+                <div class="grid-x grid-padding-x grid-padding-y align-middle">
+                    <div class="cell auto">
+                        <b>Filter by:</b>
+                    </div>
+                    <div class="cell auto">
+                        <label><span class="show-for-sr">Select Menu</span>
+                            <select>
+                                <option>Faculty</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="cell auto">
+                        <label><span class="show-for-sr">Input Label</span>
+                            <input type="text" placeholder="Zip Code">
+                        </label>
+                    </div>
+                    <div class="cell auto">
+                        <label><span class="show-for-sr">Input Label</span>
+                            <input type="text" placeholder="Search by instructor">
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <div class="grid-container grid-x grid-padding-x align-center">
