@@ -14,7 +14,7 @@ function widget_full_content_tabs( $atts, $content ) {
 	?>
     <div class="widget-full-content-tabs-wrapper">
 
-        <ul class="grid-container grid-x grid-margin-x grid-margin-y align-center" data-tabs id="widget-full-content-tabs"></ul>
+        <ul class="grid-container grid-x grid-margin-x grid-margin-y align-center no-bullet" data-tabs id="widget-full-content-tabs"></ul>
 
         <div data-tabs-content="widget-full-content-tabs">
 
@@ -46,7 +46,7 @@ function widget_full_content_tab( $atts, $content ) {
 	$title     = vc_slugify( $atts['title'] );
 	$is_active = ( $atts['is_active'] ) ? "is-active" : "";
 	?>
-    <div class="widget-full-content-tab-container tabs-panel <?= $is_active; ?>" id="<?= $title; ?>">
+    <div class="widget-full-content-tab-container tabs-panel grid-container <?= $is_active; ?>" id="<?= $title; ?>">
 
         <li class="tabs-title ipa-single-card-widget small-12 medium-4 cell <?= $is_active; ?>">
             <a href="#<?= $title; ?>" aria-selected="true">

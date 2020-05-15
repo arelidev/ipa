@@ -8,15 +8,30 @@
     .ipa-single-card-widget {
       box-shadow: $global-box-shadow;
       border-radius: 0 0 8px 8px;
-      overflow: hidden;
+      overflow: visible;
       border: none;
-      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
       padding: 2rem 2rem 1rem;
       transition: all .2s ease-in-out;
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        @include css-triangle(30px, $primary-color, down);
+        opacity: 0;
+        transition: opacity .2s ease-in-out;
+      }
 
       &:hover, &.is-active {
         box-shadow: 0 4px 8px rgba($black, .3);
-        border-top-color: $primary-color;
+        border-bottom-color: $primary-color;
+
+        &:after {
+          opacity: 1;
+        }
       }
 
       &-inner {
@@ -34,6 +49,19 @@
       a {
         background: transparent;
       }
+    }
+  }
+}
+
+.widget-full-content-tab-container {
+  box-shadow: $global-box-shadow;
+  border: 1px solid rgba($black, 0.05);
+  margin-bottom: 50px;
+
+  .ipa-single-card-widget {
+
+    &-inner {
+
     }
   }
 }
