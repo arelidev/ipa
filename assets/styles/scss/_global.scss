@@ -142,6 +142,25 @@ Stylesheet: Global Stylesheet
 	}
 }
 
+.ipa-filter-bar {
+	margin-bottom: 50px;
+
+	button {
+		font-size: 28px;
+		padding: 1rem;
+		color: $medium-gray;
+		transition: all .15s ease-in-out;
+		cursor: pointer;
+		border-bottom: 3px solid rgba($medium-gray, .5);
+		border-radius: 0;
+	}
+
+	.mixitup-control-active {
+		color: $primary-color;
+		border-bottom-color: $primary-color;
+	}
+}
+
 /*********************
 TYPOGRAPHY STYLES
 *********************/

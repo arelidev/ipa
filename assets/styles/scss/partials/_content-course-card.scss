@@ -19,14 +19,14 @@
   }
 
   &-trainer-wrapper {
-    position: absolute;
-    z-index: 1;
-    top: -30px;
-    right: 5px;
+    //position: absolute;
+    //z-index: 1;
+    //top: -30px;
+    //right: 5px;
 
     .course-card-trainer {
-      height: 60px;
-      width: 60px;
+      height: 40px;
+      width: 40px;
       object-position: center;
       object-fit: cover;
       border-radius: 50%;
@@ -81,6 +81,10 @@
 
   &-learn-more {
     margin-bottom: 0;
+
+    a {
+      margin-bottom: 0;
+    }
   }
 
   &-apply-now {

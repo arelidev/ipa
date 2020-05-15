@@ -8,20 +8,23 @@ $faculty_id   = get_query_var( 'faculty_id' );
 $faculty_data = get_faculty( $faculty_id );
 $faculty_data = $faculty_data[0];
 
-$address_1 = "{$faculty_data['billing_street']}";
-$address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']} {$faculty_data['billing_postcode']}";
+$address_1 = "{$faculty_data['work_street']}";
+$address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$faculty_data['work_zip']}";
 ?>
 
 <article id="faculty-<?= $faculty_id; ?>" role="article" itemscope itemtype="http://schema.org/WebPage">
 
     <header class="article-header hero hero-standard">
         <div class="hero-inner grid-container">
-            <h1 class="page-title"><b><?= $faculty_data['name']; ?></b></h1>
+            <h1 class="page-title text-center"><b><?= $faculty_data['name']; ?></b></h1>
+            <h5 class="ipa-faculty-member-credentials text-center">
+		        <?= $faculty_data['credentials']; ?>
+            </h5>
 			<?php
 			// todo: get link back to faculty page
-			if ( function_exists( 'yoast_breadcrumb' ) ) {
-				yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
-			}
+//			if ( function_exists( 'yoast_breadcrumb' ) ) {
+//				yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
+//			}
 			?>
         </div>
     </header> <!-- end article header -->
@@ -34,7 +37,7 @@ $address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']}
 					if ( ! empty( $image = $faculty_data['image'] ) ) :
 						$image_url = FACULTY_MEMBER_IMAGE_URL . $image;
 					else :
-						$image_url = "https://via.placeholder.com/500x500";
+						$image_url = "https://api.adorable.io/avatars/500/{$faculty_data['name']}.png";
 					endif; ?>
                     <img src="<?= $image_url; ?>" class="ipa-faculty-member-image" alt="<?= $faculty_data['name']; ?>">
                     <h3 class="ipa-faculty-member-name text-center"><b><?= $faculty_data['name']; ?></b></h3>
@@ -48,7 +51,7 @@ $address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']}
                             </div>
                             <div class="cell auto">
                                 <p class="ipa-faculty-member-email">
-                                    <a href="mailto:<?= $faculty_data['email']; ?>"><?= $faculty_data['email']; ?></a>
+                                    <a href="mailto:<?= $faculty_data['work_']; ?>"><?= $faculty_data['work_email']; ?></a>
                                 </p>
                             </div>
                         </div>
@@ -58,7 +61,7 @@ $address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']}
                             </div>
                             <div class="cell auto">
                                 <p class="ipa-faculty-member-phone">
-                                    <?= $faculty_data['billing_telephone']; ?>
+                                    <?= $faculty_data['work_telephone']; ?>
                                 </p>
                             </div>
                         </div>
@@ -77,6 +80,10 @@ $address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']}
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="small-12 medium-8 large-7 large-offset-1 cell">
+                <h5><b>About <?= $faculty_data['firstname']; ?></b></h5>
+				<?= apply_filters( 'the_content', $faculty_data['bio'] ); ?>
 
                 <style type="text/css">
                     #map {
@@ -112,13 +119,8 @@ $address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']}
                         });
                     }
                 </script>
-                <script async defer
-                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaA_DH8QjRXzfTsTZvdusqfzNCEAGT0Ps&callback=initMap">
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAD-IK4EX_Dq0gEx_FvIRJBfeCsAKOwW-A&callback=initMap">
                 </script>
-            </div>
-            <div class="small-12 medium-8 large-7 large-offset-1 cell">
-                <h5><b>About <?= $faculty_data['firstname']; ?></b></h5>
-				<?= apply_filters( 'the_content', $faculty_data['bio'] ); ?>
             </div>
         </div>
     </section> <!-- end article section -->
@@ -127,7 +129,7 @@ $address_2 = "{$faculty_data['billing_city']}, {$faculty_data['billing_region']}
         <div class="grid-x grid-padding-x">
             <div class="cell">
                 <h3><b><?= $faculty_data['firstname']; ?>'s Upcoming Courses</b></h3>
-			    <?= do_shortcode('[ipa_courses_table limit="5" course_cat="DFA"]'); ?>
+			    <?php get_instructor_course_table( $faculty_id ); ?>
             </div>
         </div>
     </footer> <!-- end article footer -->

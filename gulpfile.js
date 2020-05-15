@@ -56,6 +56,10 @@ const SOURCE = {
 		// Fancy Apps
 		'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js',
 
+		// Mixitup
+		// https://www.kunkalabs.com/mixitup/
+		'node_modules/mixitup/dist/mixitup.min.js',
+
 		// Place custom JS here, files will be concantonated, minified if ran with --production
 		'assets/scripts/js/**/*.js',
     ],
