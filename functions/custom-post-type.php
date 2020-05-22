@@ -18,5 +18,8 @@ require_once(get_template_directory().'/functions/post-types/clinics.php');
 // Jobs
 require_once(get_template_directory().'/functions/post-types/jobs.php');
 
+// Slider
+require_once(get_template_directory().'/functions/post-types/slider.php');
+
 // Testimonials
 require_once(get_template_directory().'/functions/post-types/testimonials.php');

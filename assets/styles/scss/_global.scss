@@ -237,6 +237,15 @@ ul.styled-ul {
 			color: $primary-color;
 		}
 	}
+
+	&.white {
+		li {
+			color: $white;
+			&:before {
+				color: $white;
+			}
+		}
+	}
 }
 
 ol.styled-ol {
@@ -268,7 +277,8 @@ HEADER STYLES
 body.home {
 	.header {
 		@include breakpoint(medium) {
-			top: 1rem;
+			padding-top: 1rem;
+			margin-bottom: 1rem;
 		}
 	}
 }
@@ -397,6 +407,12 @@ POSTS & CONTENT STYLES
 
 	&-large {
 		min-height: 70vh;
+	}
+
+	&.hero-bg {
+		@include breakpoint(large) {
+			background-image: url("../images/hero-background.jpg");
+		}
 	}
 
 	&-inner {
