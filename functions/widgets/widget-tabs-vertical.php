@@ -19,26 +19,21 @@ function ipa_vertical_tabs_widget( $atts, $content = null ) {
 	?>
     <div class="grid-x grid-margin-x ipa-vertical-tabs <?= $atts['el_class']; ?>">
         <div class="cell small-12 medium-12 large-5">
-            <ul class="vertical tabs" data-tabs id="vertical-tabs-widget">
-
+            <ul class="vertical tabs" id="vertical-tabs-widget" data-responsive-accordion-tabs="accordion large-tabs">
 				<?php foreach ( $tabs as $index => $value ) : $title = $value['tab_title']; ?>
                     <li class="tabs-title <?= ( $index == 0 ) ? "is-active" : ""; ?>">
                         <a href="#<?= vc_slugify( $title ); ?>" aria-selected="true"><?= $title; ?></a>
                     </li>
 				<?php endforeach; ?>
-
             </ul>
         </div>
         <div class="cell small-12 medium-12 large-7">
             <div class="tabs-content" data-tabs-content="vertical-tabs-widget">
-
 				<?php foreach ( $tabs as $index => $value ) : $title = $value['tab_title']; ?>
-                    <div class="tabs-panel <?= ( $index == 0 ) ? "is-active" : ""; ?>"
-                         id="<?= vc_slugify( $title ); ?>">
+                    <div class="tabs-panel <?= ( $index == 0 ) ? "is-active" : ""; ?>" id="<?= vc_slugify( $title ); ?>">
 						<?= apply_filters( 'the_content', $value['tab_content'] ); ?>
                     </div>
 				<?php endforeach; ?>
-
             </div>
         </div>
     </div>

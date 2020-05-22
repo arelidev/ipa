@@ -23,7 +23,7 @@ function ipa_courses_table_alt_widget( $atts, $content = null ) {
 		<div class="course-wrapper">
 			<?php foreach ( $courses as $title => $course_details ) : $slug = acf_slugify( $title ); ?>
 				<h4 class="course-table-title"><b><?= __( 'Locations & Dates', 'ipa' ); ?></b></h4>
-                <table class="course-table hover"> <!-- .datatable -->
+                <table class="course-table hover stack"> <!-- .datatable -->
                     <thead>
                     <tr>
                         <th><?= __( 'Location', 'ipa' ); ?></th>
@@ -36,13 +36,17 @@ function ipa_courses_table_alt_widget( $atts, $content = null ) {
 					<?php foreach ( $course_details as $course_detail ) : ?>
                         <tr>
                             <td class="course-table-location no-sort">
-								<?= $course_detail['city']; ?>, <?= $course_detail['state']; ?>
+								<span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course_detail['city']; ?>, <?= $course_detail['state']; ?>
                             </td>
                             <td class="course-table-date" data-order="<?= date( 'u', strtotime( $course_detail['date'] ) ); ?>">
-								<?= date( get_option( 'date_format' ), strtotime( $course_detail['date'] ) ); ?> - <?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
+                                <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>
+                                <?= date( get_option( 'date_format' ), strtotime( $course_detail['date'] ) ); ?>
+                                -
+                                <?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
                             </td>
                             <td class="course-table-instructor">
-								<?php if ( ! empty( $instructor_1 = $course_detail['instructor1'] ) ) : ?>
+                                <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
+                                <?php if ( ! empty( $instructor_1 = $course_detail['instructor1'] ) ) : ?>
                                     <img src="https://api.adorable.io/avatars/100/<?= $instructor_1; ?>.png" class="course-card-trainer" alt="<?= $instructor_1; ?>" data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
 								<?php endif; ?>
 								<?php if ( ! empty( $instructor_2 = $course_detail['instructor2'] ) ) : ?>

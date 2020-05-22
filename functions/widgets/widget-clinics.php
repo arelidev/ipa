@@ -14,6 +14,7 @@ function ipa_clinics_widget( $atts ) {
 	$args = array( 'post_type' => 'ipa_clinics', 'posts_per_page' => - 1 );
 	$loop = new WP_Query( $args );
 
+	$clinics = get_clinics();
 	?>
     <div class="ipa-clinics-widget">
 
@@ -55,10 +56,8 @@ function ipa_clinics_widget( $atts ) {
         <div class="grid-x">
             <div class="small-12 medium-6 large-6 cell small-order-2 large-order-1 ipa-clinic-card-wrapper">
                 <div class="grid-x grid-margin-x grid-container">
-					<?php
-					while ( $loop->have_posts() ) :
-						$loop->the_post();
-						$address = get_field( 'clinic_address' ) ?>
+					<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+						<?php $address = get_field( 'clinic_address' ); ?>
                         <div class="small-12 medium-6 large-6 cell single-clinic featured-clinic styled-container"
                              data-lat="<?= esc_attr( $address['lat'] ); ?>"
                              data-lng="<?= esc_attr( $address['lng'] ); ?>">
@@ -112,6 +111,85 @@ function ipa_clinics_widget( $atts ) {
                             </div>
                         </div>
 					<?php endwhile; ?>
+
+                    <?php foreach ( $clinics as $clinic ) : ?>
+                    <?php $address = build_address( $clinic ); ?>
+                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container"
+                             data-address="<?= $address['address']; ?>" data-country="<?= $clinic['work_country']; ?>" data-entity-id="<?= $clinic['entity_id']; ?>">
+                            <div class="single-clinic-inner">
+                                <div class="grid-x">
+                                    <div class="shrink cell">
+	                                    <?php
+	                                    if ( ! empty( $image = $clinic['image'] ) ) :
+		                                    $image_url = FACULTY_MEMBER_IMAGE_URL . $image;
+	                                    else :
+		                                    $image_url = "https://api.adorable.io/avatars/500/{$clinic['name']}.png";
+	                                    endif;
+	                                    ?>
+                                        <img src="<?= $image_url; ?>" class="ipa-faculty-member-image" alt="<?= $clinic['name']; ?>">
+                                    </div>
+                                    <div class="auto cell">
+                                        <h5 class="single-clinic-title"><b><?= $clinic['name']; ?></b></h5>
+					                    <?php if ( ! empty( $credentials =  $clinic['credentials'] ) ) : ?>
+                                            <p class="single-clinic-subtitle text-color-medium-gray"><?= $credentials; ?></p>
+					                    <?php endif; ?>
+	                                    <?php if ( ! empty( $business_name =  $clinic['business_name'] ) ) : ?>
+                                            <p class="single-clinic-business-name"><?= $business_name; ?></p>
+	                                    <?php endif; ?>
+                                    </div>
+                                </div>
+                                <hr>
+	                            <?php if ( ! empty( $email = $clinic['work_email'] ) ) : ?>
+                                    <div class="grid-x">
+                                        <div class="cell small-2">
+                                            <i class="far fa-envelope fa-lg"></i>
+                                        </div>
+                                        <div class="cell auto">
+                                            <p class="single-clinic-phone">
+                                                <a href="mailto:<?= $email; ?>"><?= $email; ?></a>
+                                            </p>
+                                        </div>
+                                    </div>
+	                            <?php endif; ?>
+			                    <?php if ( ! empty( $phone = $clinic['work_telephone'] ) ) : ?>
+                                    <div class="grid-x">
+                                        <div class="cell small-2">
+                                            <i class="far fa-mobile fa-lg"></i>
+                                        </div>
+                                        <div class="cell auto">
+                                            <p class="single-clinic-phone">
+                                                <a href="tel:<?= $phone; ?>"><?= $phone; ?></a>
+                                            </p>
+                                        </div>
+                                    </div>
+			                    <?php endif; ?>
+			                    <?php if ( ! empty( $address ) ) : ?>
+                                    <div class="grid-x">
+                                        <div class="cell small-2">
+                                            <i class="far fa-map-marker-alt fa-lg"></i>
+                                        </div>
+                                        <div class="cell auto">
+                                            <p class="single-clinic-address">
+	                                            <?= $address['formatted']; ?>
+                                            </p>
+                                        </div>
+                                    </div>
+			                    <?php endif; ?>
+			                    <?php if ( ! empty( $website = $clinic['customer_website'] ) ) : ?>
+                                    <div class="grid-x">
+                                        <div class="cell small-2">
+                                            <i class="far fa-external-link-alt fa-lg"></i>
+                                        </div>
+                                        <div class="cell auto">
+                                            <p class="single-clinic-website">
+                                                <a href="<?= $website; ?>" target="_blank"><?= $website; ?></a>
+                                            </p>
+                                        </div>
+                                    </div>
+			                    <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="small-12 medium-6 large-6 cell small-order-1 large-order-2">
@@ -141,6 +219,13 @@ function ipa_clinics_widget( $atts ) {
                     initMarker($(this), map);
                 });
 
+                // Add a marker clusterer to manage the markers.
+                let markerClusterer = new MarkerClusterer(map, map.markers, {
+                    maxZoom: 10,
+                    gridSize: 10,
+                    clusterClass: 'custom-clustericon'
+                });
+
                 // Center map based on markers.
                 centerMap(map);
 
@@ -150,49 +235,76 @@ function ipa_clinics_widget( $atts ) {
 
             function initMarker($marker, map) {
                 // Get position from marker.
-                let lat = $marker.data('lat');
-                let lng = $marker.data('lng');
-                let latLng = {
-                    lat: parseFloat(lat),
-                    lng: parseFloat(lng)
-                };
+                let address = $marker.data('address');
+                let entity = $marker.data('entity-id')
+                let marker = '';
+                let geocoder;
 
                 let iconBase = '<?= get_template_directory_uri(); ?>/assets/images/';
 
-                // Create marker instance.
-                let marker = new google.maps.Marker({
-                    position: latLng,
-                    map: map,
-                    // icon: iconBase + 'map-marker.png'
-                });
+                if ( $marker.data('lat') !== undefined && $marker.data('lng') !== undefined ) {
+                    let lat = $marker.data('lat');
+                    let lng = $marker.data('lng');
+
+                    let latLng = {
+                        lat: parseFloat(lat),
+                        lng: parseFloat(lng)
+                    };
+
+                    // Create marker instance.
+                    marker = new google.maps.Marker({
+                        position: latLng,
+                        map: map,
+                        // icon: iconBase + 'map-marker.png'
+                    });
+                } else if ( $marker.data('address').length > 0 && $marker.data('country') === 'United States' ) {
+                    // console.log( $marker.data('address') );
+                    geocoder = new google.maps.Geocoder();
+
+                    geocoder.geocode({'address': $marker.data('address')}, function(results, status) {
+                        if (status === 'OK') {
+                            // map.setCenter(results[0].geometry.location);
+                            marker = new google.maps.Marker({
+                                position: results[0].geometry.location,
+                                map: map
+                            });
+                        } else {
+                            console.log('Geocode was not successful for the following reason: ' + status);
+                        }
+                    });
+                } else {
+                    console.log('No address set for: ' + entity)
+                }
 
                 // Append to reference for later use.
-                map.markers.push(marker);
+                if ( marker !== '' ) {
+                    map.markers.push(marker);
 
-                // If marker contains HTML, add it to an infoWindow.
-                if ($marker.html()) {
-                    let infowindows = [];
+                    // If marker contains HTML, add it to an infoWindow.
+                    if ($marker.html()) {
+                        let infowindows = [];
 
-                    // Create info window.
-                    let infowindow = new google.maps.InfoWindow({
-                        content: $marker.html()
-                    });
+                        // Create info window.
+                        let infowindow = new google.maps.InfoWindow({
+                            content: $marker.html()
+                        });
 
-                    infowindows.push(infowindow);
+                        infowindows.push(infowindow);
 
-                    // Show info window when marker is clicked.
-                    google.maps.event.addListener(marker, 'click', function () {
-                        // close all
-                        for (let i = 0; i < infowindows.length; i++) {
-                            infowindows[i].close();
-                        }
+                        // Show info window when marker is clicked.
+                        google.maps.event.addListener(marker, 'click', function () {
+                            // close all
+                            for (let i = 0; i < infowindows.length; i++) {
+                                infowindows[i].close();
+                            }
 
-                        infowindow.open(map, marker);
-                    });
+                            infowindow.open(map, marker);
+                        });
 
-                    google.maps.event.addListener(map, 'click', function () {
-                        infowindow.close();
-                    });
+                        google.maps.event.addListener(map, 'click', function () {
+                            infowindow.close();
+                        });
+                    }
                 }
             }
 

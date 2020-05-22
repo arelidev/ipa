@@ -5,8 +5,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
 
 	$courses = get_courses( 3 );
 	?>
-    <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title"
-         data-equalize-by-row="true">
+    <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title" data-equalize-by-row="true">
 		<?php foreach ( $courses as $title => $course_details ) : ?>
             <div class="course-card cell small-12 medium-6 large-4">
                 <!--
@@ -52,7 +51,10 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
 
                     <p class="course-card-date">
                         <small>
-                            <i class="fal fa-clock"></i> <?= date( get_option( 'date_format' ), strtotime( $course_details['date'] ) ); ?> - <?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
+                            <i class="fal fa-clock"></i>
+                            <?= date( get_option( 'date_format' ), strtotime( $course_details['date'] ) ); ?>
+                            -
+                            <?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
                         </small>
                     </p>
 

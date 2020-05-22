@@ -100,6 +100,7 @@ $global-button-cursor: auto;
 $global-color-pick-contrast-tolerance: 0;
 $global-box-shadow: 0 4px 8px rgba($black, .07);
 $global-box-shadow-hover: 0 15px 25px rgba($black, .07);
+$global-box-shadow-dark: 0 4px 8px rgba($black, .3);
 $print-transparent-backgrounds: true;
 
 @include add-foundation-colors;

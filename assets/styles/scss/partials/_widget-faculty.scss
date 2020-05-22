@@ -1,4 +1,7 @@
 .ipa-faculty-widget {
+  @include breakpoint(small only) {
+    margin-top: 50px;
+  }
 
   .ipa-faculty-member {
     position: relative;

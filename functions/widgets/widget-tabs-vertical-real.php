@@ -20,9 +20,7 @@ function ipa_vertical_tabs_real_widget( $atts, $content = null ) {
 	?>
     <div class="grid-x grid-margin-x ipa-vertical-tabs <?= $atts['el_class']; ?>">
         <div class="cell small-12 medium-12 large-5">
-
-            <ul class="vertical tabs" data-tabs id="vertical-tabs-real">
-
+            <ul class="vertical tabs" data-responsive-accordion-tabs="accordion large-tabs" id="vertical-tabs-real">
 				<?php foreach ( $tabs as $index => $value ) : ?>
                     <li class="tabs-title <?= ( $index == 0 ) ? "is-active" : ""; ?>">
                         <a href="#panel-<?= $index; ?>" aria-selected="true">
@@ -33,22 +31,16 @@ function ipa_vertical_tabs_real_widget( $atts, $content = null ) {
                         </a>
                     </li>
 				<?php endforeach; ?>
-
             </ul>
-
         </div>
         <div class="cell small-12 medium-12 large-7">
-
             <div class="tabs-content" data-tabs-content="vertical-tabs-real">
-
 				<?php foreach ( $tabs as $index => $value ) : ?>
                     <div class="tabs-panel <?= ( $index == 0 ) ? "is-active" : ""; ?>" id="panel-<?= $index; ?>">
 						<?= apply_filters( 'the_content', $value['content'] ); ?>
                     </div>
 				<?php endforeach; ?>
-
             </div>
-
         </div>
     </div>
 	<?php

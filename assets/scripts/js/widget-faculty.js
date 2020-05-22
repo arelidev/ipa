@@ -1,12 +1,12 @@
 jQuery(document).ready(function ($) {
     // Mixitup filter
-    let filterSelect = $('#FilterSelect');
+    let filterSelect = $('.filter-select');
     let mixerContainer = '.faculty-filter-container';
     if ($(mixerContainer).length) {
         let mixer = mixitup(mixerContainer);
 
         filterSelect.on('change', function () {
-            mixer.filter();
+            mixer.filter(this.value);
         });
     }
 

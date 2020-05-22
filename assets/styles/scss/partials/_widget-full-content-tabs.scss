@@ -2,7 +2,9 @@
 
   // tabs
   #widget-full-content-tabs {
-    margin-bottom: 50px;
+    @include breakpoint(medium) {
+      margin-bottom: 50px;
+    }
 
     // tabs-title
     .ipa-single-card-widget {
@@ -11,18 +13,21 @@
       overflow: visible;
       border: none;
       border-bottom: 3px solid transparent;
-      padding: 2rem 2rem 1rem;
       transition: all .2s ease-in-out;
       position: relative;
-      &:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%, 100%);
-        @include css-triangle(30px, $primary-color, down);
-        opacity: 0;
-        transition: opacity .2s ease-in-out;
+      @include breakpoint(medium) {
+        padding: 2rem 2rem 1rem;
+
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translate(-50%, 100%);
+          @include css-triangle(30px, $primary-color, down);
+          opacity: 0;
+          transition: opacity .2s ease-in-out;
+        }
       }
 
       &:hover, &.is-active {
@@ -52,12 +57,22 @@
       }
     }
   }
+
+  // Responsive
+  .accordion-item {
+
+    .accordion-title {}
+
+    .accordion-content {}
+  }
 }
 
 .widget-full-content-tab-container {
   box-shadow: $global-box-shadow;
   border: 1px solid rgba($black, 0.05);
-  margin-bottom: 50px;
+  @include breakpoint(medium) {
+    margin-bottom: 50px;
+  }
 
   .ipa-single-card-widget {
 

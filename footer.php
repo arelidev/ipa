@@ -18,7 +18,7 @@
 
         <div class="grid-container">
 
-            <div class="grid-x grid-padding-x">
+            <div class="grid-x grid-padding-x grid-margin-x">
 
                 <div class="small-12 medium-6 large-3 cell">
 					<?php dynamic_sidebar( 'footer-1' ); ?>

@@ -1,0 +1,15 @@
+body.page-template-template-course {
+
+  .sidebar {
+    @include breakpoint(medium down) {
+      margin-bottom: 50px;
+    }
+  }
+
+  .magellan-bar {
+    @include breakpoint(small only) {
+      justify-content: center;
+      font-size: 12px;
+    }
+  }
+}

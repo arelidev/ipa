@@ -9,10 +9,14 @@
 
     &-inner {
       padding: 2rem;
+      height: 100%;
     }
 
     &-icon {
       margin-bottom: $global-margin;
+      height: 60px;
+      width: 60px;
+      object-fit: contain;
     }
 
     &-title {
@@ -22,7 +26,6 @@
     }
 
     &-content {
-      font-size: $small-font-size;
       color: $medium-gray;
 
       &-text {
@@ -30,12 +33,14 @@
       }
 
       &-link {
-        margin-top: $global-margin;
+        margin-top: 2rem;
         color: $medium-gray;
+        display: block;
 
         span {
           width: 0;
           font-size: 0;
+          opacity: 0;
           transition: all .2s ease-in-out;
         }
       }
@@ -56,6 +61,7 @@
           span {
             width: 100%;
             font-size: inherit;
+            opacity: 1;
           }
         }
       }

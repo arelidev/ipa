@@ -19,6 +19,16 @@
         color: #FFAD0D;
       }
 
+      .ipa-faculty-member-image {
+        height: 60px;
+        width: 60px;
+        object-fit: cover;
+        object-position: center;
+        margin: 0 10px $global-margin auto;
+        border-radius: 50%;
+        display: block;
+      }
+
       hr {
         margin: .75rem auto 1rem;
         border-bottom-color: #B0B7C3;

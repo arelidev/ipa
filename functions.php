@@ -4,6 +4,8 @@
  *
  */
 
+define( 'GOOGLE_MAPS_API_KEY', 'AIzaSyAD-IK4EX_Dq0gEx_FvIRJBfeCsAKOwW-A' );
+
 // Connect to the remote database
 require_once( get_template_directory() . '/functions/remote-db.php' );
 
@@ -47,7 +49,7 @@ require_once( get_template_directory() . '/functions/disable-emoji.php' );
 require_once( get_template_directory() . '/functions/custom-post-type.php' );
 
 // Customize the WordPress login menu
-// require_once(get_template_directory().'/functions/login.php');
+require_once(get_template_directory().'/functions/login.php');
 
 // Customize the WordPress admin
 require_once( get_template_directory() . '/functions/admin.php' );
@@ -66,13 +68,23 @@ foreach ( scandir( get_template_directory() . '/functions/widgets/' ) as $filena
 // Custom Rewrites
 require_once( get_template_directory() . '/functions/rewrite-faculty.php' );
 
-
-function stage_url( $path = '', $scheme = null ) {
-	return "http://staging.instituteofphysicalart.com/$path";
+// Enabled ACF Pro theme options
+// https://www.advancedcustomfields.com/resources/options-page/
+if ( function_exists( 'acf_add_options_page' ) ) {
+	acf_add_options_page();
 }
+
+// Add global Google API key for ACF Pro
+// https://www.advancedcustomfields.com/blog/google-maps-api-settings/
+function my_acf_init() {
+	acf_update_setting( 'google_api_key', GOOGLE_MAPS_API_KEY );
+}
+
+add_action( 'acf/init', 'my_acf_init' );
 
 /**
  * Slugify string
+ * todo: remove this function, it's redundant with acf_slugify()
  *
  * @param $string
  *
@@ -83,11 +95,3 @@ function clean( $string ) {
 
 	return preg_replace( '/[^A-Za-z0-9\-]/', '', $string ); // Removes special chars.
 }
-
-
-// https://www.advancedcustomfields.com/blog/google-maps-api-settings/
-function my_acf_init() {
-	acf_update_setting( 'google_api_key', GOOGLE_MAPS_API_KEY );
-}
-
-add_action( 'acf/init', 'my_acf_init' );

@@ -13,7 +13,7 @@ function joints_top_nav() {
 	wp_nav_menu( array(
 		'container'      => false,                        // Remove nav container
 		'menu_id'        => 'main-nav',                    // Adding custom nav id
-		'menu_class'     => 'medium-horizontal menu align-center',    // Adding custom nav class
+		'menu_class'     => 'medium-horizontal menu align-right',    // Adding custom nav class
 		'items_wrap'     => '<ul id="%1$s" class="%2$s" data-responsive-menu="accordion medium-dropdown">%3$s</ul>',
 		'theme_location' => 'main-nav',                    // Where it's located in the theme
 		'depth'          => 5,                            // Limit the depth of the nav
@@ -24,7 +24,7 @@ function joints_top_nav() {
 
 // Big thanks to Brett Mason (https://github.com/brettsmason) for the awesome walker
 class Topbar_Menu_Walker extends Walker_Nav_Menu {
-	function start_lvl( &$output, $depth = 0, $args = Array() ) {
+	function start_lvl( &$output, $depth = 0, $args = array() ) {
 		$indent = str_repeat( "\t", $depth );
 		$output .= "\n$indent<ul class=\"menu\">\n";
 	}
@@ -45,7 +45,7 @@ function joints_off_canvas_nav() {
 }
 
 class Off_Canvas_Menu_Walker extends Walker_Nav_Menu {
-	function start_lvl( &$output, $depth = 0, $args = Array() ) {
+	function start_lvl( &$output, $depth = 0, $args = array() ) {
 		$indent = str_repeat( "\t", $depth );
 		$output .= "\n$indent<ul class=\"vertical menu\">\n";
 	}

@@ -33,7 +33,7 @@ $hero_type = get_field( 'hero_type' );
         </style>
         <header class="article-header hero hero-image">
             <div class="hero-inner grid-x align-middle">
-                <div class="small-12 medium-4 cell small-order-2 medium-order-1">
+                <div class="small-12 large-4 cell small-order-2 large-order-1">
                     <div class="hero-content-wrapper">
                         <h1 class="page-title"><b><?php the_title(); ?></b></h1>
 						<?php if ( has_excerpt() ) : ?>
@@ -46,7 +46,7 @@ $hero_type = get_field( 'hero_type' );
 						?>
                     </div>
                 </div>
-                <div class="small-12 medium-8 cell small-order-1 medium-order-2 hero-image-wrapper">
+                <div class="small-12 large-8 cell small-order-1 large-order-2 hero-image-wrapper">
 					<?php the_post_thumbnail( 'full' ); ?>
                 </div>
             </div>
@@ -54,7 +54,7 @@ $hero_type = get_field( 'hero_type' );
 	<?php endif; ?>
 
     <div data-sticky-container>
-        <div class="sticky magellan-bar styled-container" data-sticky data-margin-top="0" data-anchor="entry-content">
+        <div class="sticky magellan-bar styled-container" data-sticky data-margin-top="0" data-anchor="entry-content" data-sticky-on="small">
             <div class="grid-container">
                 <div class="grid-x grid-padding-x grid-padding-y">
                     <div class="cell">
@@ -81,46 +81,47 @@ $hero_type = get_field( 'hero_type' );
             <div class="small-12 medium-12 large-8 small-order-2 large-order-1 cell" id="course-content">
 				<?php the_content(); ?>
             </div>
-            <div class="small-12 medium-12 large-4 small-order-1 large-order-2 cell">
-				<?php if ( have_rows( 'course_highlights' ) ): ?>
-                    <div class="course-sidebar" style="margin-bottom: 1rem;">
-                        <div class="course-sidebar-meta styled-container">
-							<?php while ( have_rows( 'course_highlights' ) ) : the_row(); ?>
-                                <div class="grid-x grid-padding-x grid-padding-y">
-                                    <div class="cell shrink">
-										<?php $image_id = get_sub_field( 'course_highlight_icon' ); ?>
-										<?= wp_get_attachment_image( $image_id['id'], 'full' ) ?>
+            <div class="small-12 medium-12 large-4 small-order-1 large-order-2 cell sidebar" data-sticky-container>
+                <div class="sticky" data-sticky data-anchor="course-content" data-margin-top="5" data-sticky-on="large">
+					<?php if ( have_rows( 'course_highlights' ) ): ?>
+                        <div class="course-sidebar" style="margin-bottom: 1rem;">
+                            <div class="course-sidebar-meta styled-container">
+								<?php while ( have_rows( 'course_highlights' ) ) : the_row(); ?>
+                                    <div class="grid-x grid-padding-x grid-padding-y">
+                                        <div class="cell shrink">
+											<?php $image_id = get_sub_field( 'course_highlight_icon' ); ?>
+											<?= wp_get_attachment_image( $image_id['id'], 'full' ) ?>
+                                        </div>
+                                        <div class="cell auto">
+                                            <p><b><?php the_sub_field( 'course_highlight_title' ); ?></b></p>
+											<?php the_sub_field( 'course_highlight_copy' ); ?>
+                                        </div>
                                     </div>
-                                    <div class="cell auto">
-                                        <p><b><?php the_sub_field( 'course_highlight_title' ); ?></b></p>
-										<?php the_sub_field( 'course_highlight_copy' ); ?>
-                                    </div>
-                                </div>
-							<?php endwhile; ?>
-                        </div>
-                    </div>
-				<?php endif; ?>
-
-				<?php if ( ! empty( $gallery = get_field( 'course_gallery' ) ) ) : ?>
-                    <div class="course-gallery">
-						<?php foreach ( $gallery as $item => $value ) : ?>
-                            <div class="gallery-slide">
-                                <a href="<?= wp_get_attachment_image_url( $value, 'full' ); ?>" data-fancybox>
-									<?= wp_get_attachment_image( $value, 'large' ); ?>
-                                </a>
+								<?php endwhile; ?>
                             </div>
-						<?php endforeach; ?>
-                    </div>
+                        </div>
+					<?php endif; ?>
 
-                <script type="text/javascript">
-                    jQuery(document).ready(function ($) {
-                        $('.course-gallery').slick({
-                            dots: true,
-                            arrows: true
-                        })
-                    })
-                </script>
-				<?php endif; ?>
+					<?php if ( ! empty( $gallery = get_field( 'course_gallery' ) ) ) : ?>
+                        <div class="course-gallery-wrapper position-relative">
+                            <div class="course-gallery">
+								<?php foreach ( $gallery as $item => $value ) : ?>
+                                    <div class="gallery-slide">
+                                        <a href="<?= wp_get_attachment_image_url( $value, 'full' ); ?>" data-fancybox>
+											<?= wp_get_attachment_image( $value, 'large' ); ?>
+                                        </a>
+                                    </div>
+								<?php endforeach; ?>
+                            </div>
+                            <button class="slick-prev-custom-single-course slick-custom-button slick-button-absolute-prev" aria-label="Previous" type="button">
+                                <i class="far fa-chevron-left fa-lg"></i>
+                            </button>
+                            <button class="slick-next-custom-single-course slick-custom-button slick-button-absolute-next" aria-label="Next" type="button">
+                                <i class="far fa-chevron-right fa-lg"></i>
+                            </button>
+                        </div>
+					<?php endif; ?>
+                </div>
             </div>
         </div>
         <div id="courses" data-magellan-target="courses">

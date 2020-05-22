@@ -30,11 +30,11 @@ function ipa_single_admin_card_widget( $atts, $content = null ) {
         <div class="ipa-single-admin-card-widget-inner">
             <div class="grid-x grid-padding-x align-bottom">
 				<?php if ( ! empty( $image = $atts['image'] ) ) : ?>
-                    <div class="small-12 medium-shrink cell">
+                    <div class="small-12 medium-shrink cell text-center medium-text-left">
 						<?= wp_get_attachment_image( $image, 'medium', false, array( 'class' => 'ipa-single-admin-card-widget-image' ) ); ?>
                     </div>
 				<?php endif; ?>
-                <div class="auto cell">
+                <div class="auto cell text-center medium-text-left">
                     <h4 class="ipa-single-admin-card-widget-name"><b><?= $atts['name']; ?></b></h4>
                     <p class="ipa-single-admin-card-widget-title text-color-medium-gray"><?= $atts['title']; ?></p>
                 </div>

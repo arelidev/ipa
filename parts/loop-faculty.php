@@ -38,7 +38,8 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
 						$image_url = FACULTY_MEMBER_IMAGE_URL . $image;
 					else :
 						$image_url = "https://api.adorable.io/avatars/500/{$faculty_data['name']}.png";
-					endif; ?>
+					endif;
+					?>
                     <img src="<?= $image_url; ?>" class="ipa-faculty-member-image" alt="<?= $faculty_data['name']; ?>">
                     <h3 class="ipa-faculty-member-name text-center"><b><?= $faculty_data['name']; ?></b></h3>
                     <p class="ipa-faculty-member-credentials text-center text-color-medium-gray">

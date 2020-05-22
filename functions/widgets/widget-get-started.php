@@ -14,17 +14,14 @@ function ipa_get_started_widget( $atts, $content = null ) {
                         <div class="select-box">
                             <div class="select-box__current" tabindex="1">
                                 <div class="select-box__value">
-                                    <input class="select-box__input" type="radio" id="0" value="1" name="Ben"
-                                           checked="checked"/>
+                                    <input class="select-box__input" type="radio" id="0" value="1" name="Ben" checked="checked"/>
                                     <p class="select-box__input-text">Certified PT</p>
                                 </div>
                                 <div class="select-box__value">
-                                    <input class="select-box__input" type="radio" id="1" value="2" name="Ben"
-                                           checked="checked"/>
+                                    <input class="select-box__input" type="radio" id="1" value="2" name="Ben" checked="checked"/>
                                     <p class="select-box__input-text">Student</p>
                                 </div>
-                                <img class="select-box__icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg"
-                                     alt="Arrow Icon" aria-hidden="true"/>
+                                <img class="select-box__icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
                             </div>
                             <ul class="select-box__list">
                                 <li>

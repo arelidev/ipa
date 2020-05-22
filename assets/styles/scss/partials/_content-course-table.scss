@@ -1,3 +1,7 @@
+#ipa-courses-widget{
+  margin-top: 50px;
+}
+
 .courses-table-widget {
 
   .course-wrapper {
@@ -16,6 +20,16 @@
         tr {
           box-shadow: $global-box-shadow;
           border-radius: $global-radius;
+        }
+      }
+
+      tbody {
+        tr {
+          @include breakpoint(small only) {
+            &:not(:last-child) {
+              border-bottom: 1px solid rgba($black, .2);
+            }
+          }
         }
       }
 

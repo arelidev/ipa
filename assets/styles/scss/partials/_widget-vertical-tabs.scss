@@ -12,13 +12,6 @@
         border-left: 3px solid rgba($black, .15);
         background: transparent !important;
         transition: all .2s ease-in-out;
-
-        span {
-          font-weight: normal;
-          display: block;
-          margin-top: 1rem;
-          font-size: 90%;
-        }
       }
 
       &.is-active {
@@ -40,5 +33,30 @@
     .tabs-panel {
 
     }
+  }
+
+  // Responsive
+  .accordion-item {
+    .accordion-title {
+      font-weight: bold;
+      color: rgba($black, .35);
+      border-bottom: 3px solid rgba($black, .15);
+      transition: all .2s ease-in-out;
+    }
+
+    &.is-active {
+      .accordion-title {
+        color: $black;
+        border-bottom-color: $primary-color;
+      }
+    }
+  }
+
+  .tabs-title-subtitle {
+    font-weight: normal;
+    display: block;
+    margin-top: 1rem;
+    font-size: 90%;
+    line-height: 1.6;
   }
 }

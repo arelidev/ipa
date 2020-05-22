@@ -1,8 +1,8 @@
-<div class="grid-container get-started">
+<div class="get-started">
     <div class="get-started-inner grid-x grid-padding-x grid-padding-y align-center-middle">
         <div class="small-12 medium-12 large-12 cell">
             <h3 class="text-center"><b><?= get_field( 'footer_cta_title' ); ?></b></h3>
-            <p class="text-center text-color-dark-gray margin-bottom-0">
+            <p class="text-center margin-bottom-0">
 				<?= get_field( 'footer_cta_text' ); ?>
             </p>
         </div>
@@ -29,8 +29,7 @@
                                     </div>
 									<?php $i ++; ?>
 								<?php endwhile; ?>
-                                <img class="select-box__icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg"
-                                     alt="Arrow Icon" aria-hidden="true"/>
+                                <i class="far fa-chevron-down fa-xs select-box__icon" aria-hidden="true"></i>
                             </div>
 						<?php endif; ?>
 
@@ -49,7 +48,7 @@
                     </div>
                 </div>
                 <div class="shrink cell">
-                    <button type="submit" class="button large" style="margin-bottom: 0;" id="footer_cta_submit">Go!</button>
+                    <button type="submit" class="button large white" style="margin-bottom: 0;" id="footer_cta_submit"><?= __( 'Go!', 'ipa' ); ?></button>
                 </div>
             </div>
         </div>

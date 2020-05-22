@@ -3,15 +3,26 @@
   display: block;
   width: 100%;
   margin: 0 auto;
-  font-size: 34px;
-  color: $primary-color;
+  font-size: 18px;
+  color: $white;
   min-width: 250px;
+  @include breakpoint(small only) {
+    margin-bottom: $global-margin;
+  }
+
+  @include breakpoint(medium) {
+    font-size: 24px;
+  }
+
+  @include breakpoint(large) {
+    font-size: 34px;
+  }
 
   &__current {
     position: relative;
     cursor: pointer;
     outline: none;
-    border-bottom: 2px solid $primary-color;
+    border-bottom: 2px solid $white;
     padding-right: 50px;
 
     &:focus {

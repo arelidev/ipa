@@ -14,7 +14,7 @@ function widget_full_content_tabs( $atts, $content ) {
 	?>
     <div class="widget-full-content-tabs-wrapper">
 
-        <ul class="grid-container grid-x grid-margin-x grid-margin-y align-center no-bullet" data-tabs id="widget-full-content-tabs"></ul>
+        <ul class="grid-container grid-x grid-margin-x grid-margin-y align-center no-bullet" data-responsive-accordion-tabs="accordion large-tabs" id="widget-full-content-tabs"></ul>
 
         <div data-tabs-content="widget-full-content-tabs">
 
