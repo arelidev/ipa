@@ -2,13 +2,12 @@ jQuery(document).ready(function ($) {
     let ipaAccordionWidget = $('.ipa-accordion-widget ');
     let ipaAccordionContent = $('.ipa-accordion-widget  .accordion-content');
 
-    // Mixitup filter
-    let filterSelect = $('.filter-select');
-    let couresMixerContainer = '.courses-filter-container';
-    if ($(couresMixerContainer).length) {
-        let courseMixer = mixitup(couresMixerContainer);
+    let courseFilterSelect = $('.course-filter-select');
+    let courseMixerContainer = '.courses-filter-container';
+    if ($(courseMixerContainer).length) {
+        let courseMixer = mixitup(courseMixerContainer);
 
-        filterSelect.on('change', function () {
+        courseFilterSelect.on('change', function () {
             courseMixer.filter(this.value);
 
             ipaAccordionWidget.foundation('down', ipaAccordionContent);
@@ -25,7 +24,6 @@ jQuery(document).ready(function ($) {
     let inputText;
     let $matching = $();
 
-    // Delay function
     let delay = (function () {
         let timer = 0;
         return function (callback, ms) {
@@ -34,12 +32,11 @@ jQuery(document).ready(function ($) {
         };
     })();
 
-    // Text filter
-    $("#FilterInput").keyup(function () {
+    $("#course-filter-instructor").keyup(function () {
         // Delay function invoked to make sure user stopped typing
         delay(function () {
-            inputText = $("#FilterInput").val().replace(/\s+/g, '-').toLowerCase();
-            let courseMixer = mixitup(couresMixerContainer);
+            inputText = $("#course-filter-instructor").val().replace(/\s+/g, '-').toLowerCase();
+            let courseMixer = mixitup(courseMixerContainer);
 
             // Check to see if input field is empty
             if ((inputText.length) > 0) {
@@ -53,11 +50,11 @@ jQuery(document).ready(function ($) {
                     }
                 });
 
-                // $(couresMixerContainer).mixItUp('filter', $matching);
+                // $(courseMixerContainer).mixItUp('filter', $matching);
                 courseMixer.filter($matching);
             } else {
                 // resets the filter to show all item if input is empty
-                // $(couresMixerContainer).mixItUp('filter', 'all');
+                // $(courseMixerContainer).mixItUp('filter', 'all');
                 courseMixer.filter('all');
             }
         }, 200);

@@ -115,7 +115,11 @@ function ipa_clinics_widget( $atts ) {
                     <?php foreach ( $clinics as $clinic ) : ?>
                     <?php $address = build_address( $clinic ); ?>
                         <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container"
-                             data-address="<?= $address['address']; ?>" data-country="<?= $clinic['work_country']; ?>" data-entity-id="<?= $clinic['entity_id']; ?>">
+                             data-address="<?= $address['address']; ?>"
+                             data-country="<?= $clinic['work_country']; ?>"
+                             data-entity-id="<?= $clinic['entity_id']; ?>"
+                             data-lat="<?= $clinic['work_latitude']; ?>"
+                             data-lng="<?= $clinic['work_longitude']; ?>">
                             <div class="single-clinic-inner">
                                 <div class="grid-x">
                                     <div class="shrink cell">
@@ -221,6 +225,7 @@ function ipa_clinics_widget( $atts ) {
 
                 // Add a marker clusterer to manage the markers.
                 let markerClusterer = new MarkerClusterer(map, map.markers, {
+                    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
                     maxZoom: 10,
                     gridSize: 10,
                     clusterClass: 'custom-clustericon'

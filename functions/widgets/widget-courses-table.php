@@ -46,7 +46,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                         <div class="cell small-12 medium-auto">
                             <label>
                                 <span class="hide-for-medium"><?= __( 'Select Faculty', 'ipa' ); ?></span>
-                                <select class="filter-select">
+                                <select class="course-filter-select">
                                     <option value="all">State</option>
                                     <option value="all">All</option>
                                     <option value=".AL">Alabama</option>
@@ -106,7 +106,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                         <div class="cell small-12 medium-auto">
                             <label>
                                 <span class="hide-for-medium"><?= __( 'Search by instructor', 'ipa' ); ?></span>
-                                <input type="text" placeholder="Search by instructor" id="FilterInput">
+                                <input type="text" placeholder="Search by instructor" id="course-filter-instructor">
                             </label>
                         </div>
                         <div class="cell small-12 hide-for-medium">
@@ -166,7 +166,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 											?>
                                             <tr class="<?= implode( " ", $course_classes ) ?>"
                                                 data-primary-instructor="<?= $instructor_1; ?>"
-                                                data-start-date="<?= date( 'm-d-y', strtotime( $course_detail['date'] ) ) ;?>" >
+                                                data-start-date="<?= date( 'm-d-y', strtotime( $course_detail['date'] ) ) ;?>">
                                                 <td class="course-table-location">
                                                     <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course_detail['city']; ?>, <?= $course_detail['state']; ?>
                                                 </td>
