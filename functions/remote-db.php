@@ -329,7 +329,7 @@ function get_clinics() {
        `at_lastname`.`value`           AS `lastname`,
        `at_suffix`.`value`             AS `suffix`,
        `at_image`.`value`        	   AS `image`,
-       `at_credentials`.`value`        AS `credentials`,
+	   `at_credentials`.`value`        AS `credentials`,
        `at_bio`.`value`                AS `bio`,
        CONCAT(IF(at_prefix.value IS NOT NULL AND at_prefix.value != '', CONCAT(LTRIM(RTRIM(at_prefix.value)), ' '), ''),
               LTRIM(RTRIM(at_firstname.value)), ' ', IF(at_middlename.value IS NOT NULL AND at_middlename.value != '',
@@ -339,22 +339,24 @@ function get_clinics() {
                  ''))                  AS `name`,
 
        `at_work_street`.`value`     	AS `work_street`,
-       `at_work_street2`.`value`     	AS `work_street2`,
+       `at_work_street2`.`value`     	AS `work_street2`,	   
        `at_work_city`.`value`       	AS `work_city`,
        `at_work_state`.`value`       	AS `work_state`,
-       `at_work_zip`.`value`   			AS `work_zip`,
+       `at_work_zip`.`value`   			AS `work_zip`,	   
        `at_work_phone`.`value`  		AS `work_telephone`,
        `at_work_email`.`value`     		AS `work_email`,
-       `at_business_name`.`value`     	AS `business_name`,
+       `at_business_name`.`value`     	AS `business_name`,	   
        `at_work_country`.`value` 		AS `work_country`,
+       `at_work_latitude`.`value` 		AS `work_latitude`,
+       `at_work_longitude`.`value` 		AS `work_longitude`,	   
        `at_customer_website`.`value`    AS `customer_website`,
-       `at_in_referral`.`value`   		AS `in_referral`,
-       `at_referral_approved`.`value`   AS `referral_approved`,
-       `at_cfmt_honors`.`value`   		AS `cfmt_honors`,
-       `at_cfmt_distinction`.`value`   	AS `cfmt_distinction`,
-       `at_FAAOMPT`.`value`   			AS `FAAOMPT`,
-       `at_current_fellow`.`value`   	AS `current_fellow`,
-       `at_cfmt`.`value`   				AS `cfmt`
+	   `at_in_referral`.`value`   		AS `in_referral`,
+	   `at_referral_approved`.`value`   AS `referral_approved`,
+	   `at_cfmt_honors`.`value`   		AS `cfmt_honors`,
+	   `at_cfmt_distinction`.`value`   	AS `cfmt_distinction`,
+	   `at_FAAOMPT`.`value`   			AS `FAAOMPT`,
+	   `at_current_fellow`.`value`   	AS `current_fellow`,
+	   `at_cfmt`.`value`   				AS `cfmt`	   
 FROM `customer_entity` AS `e`
          LEFT JOIN `customer_entity_varchar` AS `at_prefix`
                    ON (`at_prefix`.`entity_id` = `e`.`entity_id`) AND (`at_prefix`.`attribute_id` = '4')
@@ -367,49 +369,53 @@ FROM `customer_entity` AS `e`
          LEFT JOIN `customer_entity_varchar` AS `at_suffix`
                    ON (`at_suffix`.`entity_id` = `e`.`entity_id`) AND (`at_suffix`.`attribute_id` = '8')
          LEFT JOIN `customer_entity_varchar` AS `at_image`
-                   ON (`at_image`.`entity_id` = `e`.`entity_id`) AND (`at_image`.`attribute_id` = '119')
+                   ON (`at_image`.`entity_id` = `e`.`entity_id`) AND (`at_image`.`attribute_id` = '119')				   
          LEFT JOIN `customer_entity_varchar` AS `at_credentials`
                    ON (`at_credentials`.`entity_id` = `e`.`entity_id`) AND (`at_credentials`.`attribute_id` = '164')
          LEFT JOIN `customer_entity_text` AS `at_bio`
                    ON (`at_bio`.`entity_id` = `e`.`entity_id`) AND (`at_bio`.`attribute_id` = '121')
-         LEFT JOIN `customer_entity_text` AS `at_work_street`
+		LEFT JOIN `customer_entity_text` AS `at_work_street`
                    ON (`at_work_street`.`entity_id` = `e`.`entity_id`) AND (`at_work_street`.`attribute_id` = '178')
-         LEFT JOIN `customer_entity_text` AS `at_work_street2`
-                   ON (`at_work_street2`.`entity_id` = `e`.`entity_id`) AND (`at_work_street2`.`attribute_id` = '219')
-         LEFT JOIN `customer_entity_varchar` AS `at_work_city`
+		LEFT JOIN `customer_entity_text` AS `at_work_street2`
+                   ON (`at_work_street2`.`entity_id` = `e`.`entity_id`) AND (`at_work_street2`.`attribute_id` = '219')				   
+		LEFT JOIN `customer_entity_varchar` AS `at_work_city`
                    ON (`at_work_city`.`entity_id` = `e`.`entity_id`) AND (`at_work_city`.`attribute_id` = '179')
-         LEFT JOIN `customer_entity_varchar` AS `at_work_state`
+		LEFT JOIN `customer_entity_varchar` AS `at_work_state`
                    ON (`at_work_state`.`entity_id` = `e`.`entity_id`) AND (`at_work_state`.`attribute_id` = '180')
-         LEFT JOIN `customer_entity_varchar` AS `at_work_zip`
-                   ON (`at_work_zip`.`entity_id` = `e`.`entity_id`) AND (`at_work_zip`.`attribute_id` = '181')
-         LEFT JOIN `customer_entity_varchar` AS `at_work_phone`
-                   ON (`at_work_phone`.`entity_id` = `e`.`entity_id`) AND (`at_work_phone`.`attribute_id` = '182')
-         LEFT JOIN `customer_entity_varchar` AS `at_business_name`
+		LEFT JOIN `customer_entity_varchar` AS `at_work_zip`				   
+                   ON (`at_work_zip`.`entity_id` = `e`.`entity_id`) AND (`at_work_zip`.`attribute_id` = '181')				   
+		LEFT JOIN `customer_entity_varchar` AS `at_work_phone`
+                   ON (`at_work_phone`.`entity_id` = `e`.`entity_id`) AND (`at_work_phone`.`attribute_id` = '182')				   
+		LEFT JOIN `customer_entity_varchar` AS `at_business_name`
                    ON (`at_business_name`.`entity_id` = `e`.`entity_id`) AND (`at_business_name`.`attribute_id` = '208')
-         LEFT JOIN `customer_entity_varchar` AS `at_work_email`
+		LEFT JOIN `customer_entity_varchar` AS `at_work_email`
                    ON (`at_work_email`.`entity_id` = `e`.`entity_id`) AND (`at_work_email`.`attribute_id` = '183')
-         LEFT JOIN `customer_entity_varchar` AS `at_work_country`
+		LEFT JOIN `customer_entity_varchar` AS `at_work_country`
                    ON (`at_work_country`.`entity_id` = `e`.`entity_id`) AND (`at_work_country`.`attribute_id` = '217')
-         LEFT JOIN `customer_entity_text` AS `at_customer_website`
-                   ON (`at_customer_website`.`entity_id` = `e`.`entity_id`) AND (`at_customer_website`.`attribute_id` = '184')
-         LEFT JOIN `customer_entity_int` AS `at_in_referral`
-                   ON (`at_in_referral`.`entity_id` = `e`.`entity_id`) AND (`at_in_referral`.`attribute_id` = '125')
-         LEFT JOIN `customer_entity_int` AS `at_referral_approved`
+		LEFT JOIN `customer_entity_varchar` AS `at_work_latitude`
+                   ON (`at_work_latitude`.`entity_id` = `e`.`entity_id`) AND (`at_work_latitude`.`attribute_id` = '215')
+		LEFT JOIN `customer_entity_varchar` AS `at_work_longitude`
+                   ON (`at_work_longitude`.`entity_id` = `e`.`entity_id`) AND (`at_work_longitude`.`attribute_id` = '216')
+		LEFT JOIN `customer_entity_text` AS `at_customer_website`
+                   ON (`at_customer_website`.`entity_id` = `e`.`entity_id`) AND (`at_customer_website`.`attribute_id` = '184')					   
+		LEFT JOIN `customer_entity_int` AS `at_in_referral`
+                   ON (`at_in_referral`.`entity_id` = `e`.`entity_id`) AND (`at_in_referral`.`attribute_id` = '125')	
+		LEFT JOIN `customer_entity_int` AS `at_referral_approved`
                    ON (`at_referral_approved`.`entity_id` = `e`.`entity_id`) AND (`at_referral_approved`.`attribute_id` = '188')
-         LEFT JOIN `customer_entity_int` AS `at_cfmt_honors`
+		LEFT JOIN `customer_entity_int` AS `at_cfmt_honors`
                    ON (`at_cfmt_honors`.`entity_id` = `e`.`entity_id`) AND (`at_cfmt_honors`.`attribute_id` = '189')
-         LEFT JOIN `customer_entity_int` AS `at_cfmt_distinction`
+		LEFT JOIN `customer_entity_int` AS `at_cfmt_distinction`
                    ON (`at_cfmt_distinction`.`entity_id` = `e`.`entity_id`) AND (`at_cfmt_distinction`.`attribute_id` = '190')
-         LEFT JOIN `customer_entity_int` AS `at_FAAOMPT`
+		LEFT JOIN `customer_entity_int` AS `at_FAAOMPT`
                    ON (`at_FAAOMPT`.`entity_id` = `e`.`entity_id`) AND (`at_FAAOMPT`.`attribute_id` = '191')
-         LEFT JOIN `customer_entity_int` AS `at_current_fellow`
+		LEFT JOIN `customer_entity_int` AS `at_current_fellow`
                    ON (`at_current_fellow`.`entity_id` = `e`.`entity_id`) AND (`at_current_fellow`.`attribute_id` = '192')
-         LEFT JOIN `customer_entity_int` AS `at_cfmt`
-                   ON (`at_cfmt`.`entity_id` = `e`.`entity_id`) AND (`at_cfmt`.`attribute_id` = '211')
-
+		LEFT JOIN `customer_entity_int` AS `at_cfmt`
+                   ON (`at_cfmt`.`entity_id` = `e`.`entity_id`) AND (`at_cfmt`.`attribute_id` = '211')				   
+				   
 WHERE (`at_in_referral`.`value` = 1)
   AND (`at_referral_approved`.`value` = 1)
-ORDER BY `work_country`, `work_state`, `lastname`;
+ORDER BY `work_country` ASC, `work_state` ASC, `lastname` ASC;;
 ";
 
 	return $remote_db->get_results( $sql, ARRAY_A );

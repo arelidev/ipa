@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * Template part for displaying page content in page.php
  */
@@ -32,16 +32,16 @@ $hero_type = get_field( 'hero_type' );
             }
         </style>
         <header class="article-header hero hero-image">
-            <div class="hero-inner grid-x align-middle">
-                <div class="small-12 large-4 cell small-order-2 large-order-1">
+            <div class="hero-inner grid-x align-middle" data-equalizer>
+                <div class="small-12 large-4 cell small-order-2 large-order-1" data-equalizer-watch>
                     <div class="hero-content-wrapper">
-                        <h1 class="page-title"><b><?php the_title(); ?></b></h1>
+                        <h1 class="page-title h2"><b><?php the_title(); ?></b></h1>
 						<?php if ( has_excerpt() ) : ?>
                             <p><small><?php the_excerpt(); ?></small></p>
 						<?php endif; ?>
 						<?php
 						if ( function_exists( 'yoast_breadcrumb' ) ) {
-							yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
+							yoast_breadcrumb( '<p id="breadcrumbs"><small>', '</small></p>' );
 						}
 						?>
                     </div>

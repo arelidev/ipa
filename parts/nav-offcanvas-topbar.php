@@ -19,7 +19,7 @@
     </div>
     <div class="small-12 medium-shrink cell show-for-medium border-left">
         <ul class="menu">
-            <li><a href="#"><i class="fas fa-search"></i></a></li>
+            <li class="hide"><a href="#"><i class="fas fa-search"></i></a></li>
             <li>
                 <a href="<?= get_field( 'magento_cart_url', 'options' ); ?>">
                     <i class="far fa-shopping-cart"></i>

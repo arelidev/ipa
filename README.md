@@ -54,10 +54,10 @@ Compiles and minifies all scripts and styles.
 * `assets/images/` - place your theme images here. Each image will be optimized when the build process is ran.
 
 ## Remote Database Connection
-* Host: `staging.instituteofphysicalart.com`
-* Username: `ipastagi_areli`
-* Password: `r)JZisIK$gl,`
-* Database: `ipastagi_191010`
+* Host: `test.instituteofphysicalart.com`
+* Username: `ipatest_areli`
+* Password: `s;cC@^zp.HF7,`
+* Database: `ipatest_191221`
 
 ## WP Migrate DB Pro
 * License `d651e73a-3cd5-41f8-a29a-1e217fef0251`
