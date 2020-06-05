@@ -11,6 +11,13 @@
 
   .single-clinic {
     margin-bottom: $global-margin * 2;
+    transition: all .15s ease-in-out;
+    transform: translateY(0);
+    cursor: pointer;
+    &:hover {
+      box-shadow: $global-box-shadow-hover;
+      transform: translateY(-10px);
+    }
 
     &-inner {
       padding: $global-padding $global-padding 0;
