@@ -109,6 +109,12 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                 <input type="text" placeholder="Search by instructor" id="course-filter-instructor">
                             </label>
                         </div>
+                        <div class="cell small-12 medium-auto">
+                            <label>
+                                <span class="hide-for-medium"><?= __( 'Start Date', 'ipa' ); ?></span>
+                                <input type="text" placeholder="Start Date" id="course-filter-date">
+                            </label>
+                        </div>
                         <div class="cell small-12 hide-for-medium">
                             <label>
                                 <span class="hide-for-medium"><?= __( 'Instructor Status', 'ipa' ); ?></span>
@@ -205,6 +211,8 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                 </div>
             </div>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script>
 
     </div>
 	<?php

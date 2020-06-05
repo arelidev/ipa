@@ -25,40 +25,45 @@ function ipa_clinics_widget( $atts ) {
                 </div>
                 <div class="cell auto">
                     <label><span class="show-for-sr">Select Menu</span>
-                        <select>
-                            <option>Faculty</option>
+                        <select id="clinics-filter-select">
+                            <option value="">All</option>
+                            <option value="faculty">Faculty</option>
+                            <option value="clinic">Clinic</option>
                         </select>
                     </label>
                 </div>
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
-                        <input type="text" placeholder="State">
+                        <input type="text" placeholder="State" id="clinics-filter-state">
                     </label>
                 </div>
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
-                        <input type="text" placeholder="Zip Code">
+                        <input type="text" placeholder="Zip Code" id="clinics-filter-zip">
                     </label>
                 </div>
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
-                        <input type="text" placeholder="Certification">
+                        <input type="text" placeholder="Certification" id="clinics-filter-certification">
                     </label>
                 </div>
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
-                        <input type="text" placeholder="Search by instructor">
+                        <input type="text" placeholder="Search by instructor" id="clinics-filter-instructor">
                     </label>
                 </div>
             </div>
         </div>
 
         <div class="grid-x">
-            <div class="small-12 medium-6 large-6 cell small-order-2 large-order-1 ipa-clinic-card-wrapper">
+            <div class="small-12 medium-6 large-6 cell small-order-2 large-order-1 ipa-clinic-card-wrapper" id="ipa-clinic-card-wrapper">
                 <div class="grid-x grid-margin-x grid-container">
 					<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
 						<?php $address = get_field( 'clinic_address' ); ?>
-                        <div class="small-12 medium-6 large-6 cell single-clinic featured-clinic styled-container"
+                        <div class="small-12 medium-6 large-6 cell single-clinic featured-clinic styled-container mix"
+                             data-type="clinic"
+                             data-address="<?= $address['address']; ?>"
+                             data-title="<?php the_title(); ?>"
                              data-lat="<?= esc_attr( $address['lat'] ); ?>"
                              data-lng="<?= esc_attr( $address['lng'] ); ?>">
                             <div class="single-clinic-inner">
@@ -114,10 +119,13 @@ function ipa_clinics_widget( $atts ) {
 
                     <?php foreach ( $clinics as $clinic ) : ?>
                     <?php $address = build_address( $clinic ); ?>
-                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container"
+                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix"
+                             data-type="faculty"
                              data-address="<?= $address['address']; ?>"
                              data-country="<?= $clinic['work_country']; ?>"
                              data-entity-id="<?= $clinic['entity_id']; ?>"
+                             data-title="<?= $clinic['name'];; ?>"
+                             data-certification="<?= $clinic['credentials'] ?>"
                              data-lat="<?= $clinic['work_latitude']; ?>"
                              data-lng="<?= $clinic['work_longitude']; ?>">
                             <div class="single-clinic-inner">
@@ -205,17 +213,20 @@ function ipa_clinics_widget( $atts ) {
     <script src="https://maps.googleapis.com/maps/api/js?key=<?= GOOGLE_MAPS_API_KEY; ?>"></script>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
+            var map;
+            var prevInfoWindow;
+
             function initMap($el) {
 
                 // Find marker elements within map.
-                let $markers = $('.single-clinic');
+                let $markers = $('.single-clinic:visible');
 
                 // Create gerenic map.
                 let mapArgs = {
                     zoom: $el.data('zoom') || 16,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
-                let map = new google.maps.Map($el[0], mapArgs);
+                map = new google.maps.Map($el[0], mapArgs);
 
                 // Add markers.
                 map.markers = [];
@@ -262,6 +273,7 @@ function ipa_clinics_widget( $atts ) {
                         map: map,
                         // icon: iconBase + 'map-marker.png'
                     });
+                    
                 } else if ( $marker.data('address').length > 0 && $marker.data('country') === 'United States' ) {
                     // console.log( $marker.data('address') );
                     geocoder = new google.maps.Geocoder();
@@ -300,15 +312,41 @@ function ipa_clinics_widget( $atts ) {
                         google.maps.event.addListener(marker, 'click', function () {
                             // close all
                             for (let i = 0; i < infowindows.length; i++) {
-                                infowindows[i].close();
+                                infowindows[i].close(map);
+                                infowindow.close()
+                            }
+
+                            // Close previously opened info window
+                            if (prevInfoWindow) {
+                                prevInfoWindow.close()
                             }
 
                             infowindow.open(map, marker);
+
+                            // Set new prev window
+                            prevInfoWindow = infowindow;
                         });
 
                         google.maps.event.addListener(map, 'click', function () {
                             infowindow.close();
                         });
+
+                        google.maps.event.addListener(map, 'click', function () {
+                            infowindow.close();
+                        });
+
+                        // Move map to marker position on click
+                        $marker.on('click', function() {
+                            map.setCenter(marker.getPosition());
+                            map.setZoom(11)
+
+                            if (prevInfoWindow) {
+                                prevInfoWindow.close()
+                            }
+
+                            infowindow.open(map, marker);
+                            prevInfoWindow = infowindow;
+                        })
                     }
                 }
             }
@@ -336,6 +374,29 @@ function ipa_clinics_widget( $atts ) {
             $('.acf-map').each(function () {
                 let map = initMap($(this));
             });
+
+            // Detect filter changes and reset map w/ markers
+            $(document).on('change', 'select', function() {
+                delay( function() {
+                    initMap( $('.acf-map') )
+                }, 2200)
+            })
+
+            // Detect changes to text filters and reset map w/ markers
+            $(document).on('keyup', 'input', function() {
+                delay( function() {
+                    initMap( $('.acf-map') )
+                }, 2200)
+            })
+
+              // Delay function
+            let delay = (function () {
+                let timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
         })
     </script>
 	<?php
