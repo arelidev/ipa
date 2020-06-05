@@ -445,3 +445,17 @@ function build_address( $data ) {
 		'formatted' => $address_build
 	);
 }
+
+function get_clinic_certifications( $clinics ) {
+    $credentials_array = [];
+    
+    foreach($clinics as $clinic) {
+        foreach (explode(',',$clinic['credentials']) as $creds) {
+            $creds = preg_replace('/^ /', '', $creds, 1);
+            if ($creds) {
+                array_push($credentials_array, $creds);
+            }
+        }
+    }
+    return $credentials_array = array_unique($credentials_array);
+}

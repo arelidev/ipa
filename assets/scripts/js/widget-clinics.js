@@ -30,20 +30,20 @@ jQuery(document).ready(function ($) {
         filterByText(input, field)
     });
 
-    stateFilter.keyup(function () {
+    stateFilter.on('change', function () {
         let input = $(this).val().replace(/\s+/g, '-').toLowerCase();
-        let field = 'data-address'
+        let field = 'data-state'
         filterByText(input, field)
     });
 
     zipFilter.keyup(function () {
         let input = $(this).val().replace(/\s+/g, '-').toLowerCase();
-        let field = 'data-address'
+        let field = 'data-zip'
         filterByText(input, field)
     });
 
-    certFilter.keyup(function () {
-        let input = $(this).val().replace(/\s+/g, '-').toLowerCase();
+    certFilter.on('change', function () {
+        let input = $(this).val().toLowerCase();
         let field = 'data-certification'
         filterByText(input, field)
     });
