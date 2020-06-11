@@ -260,6 +260,7 @@ function get_instructor_course_table( $id ) {
             <table class="course-table hover stack">
                 <thead>
                 <tr>
+                    <th><?= __( 'Course', 'ipa' ); ?></th>
                     <th><?= __( 'Location', 'ipa' ); ?></th>
                     <th><?= __( 'Date', 'ipa' ); ?></th>
                     <th><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?></th>
@@ -269,6 +270,9 @@ function get_instructor_course_table( $id ) {
                 <tbody>
 				<?php foreach ( $courses as $course ) : ?>
                     <tr>
+                        <td class="course-table-location no-sort">
+                            <span class="hide-for-medium"><b><?= __( 'Course', 'ipa' ); ?>:</b></span> <?= $course['course_type_name']; ?>
+                        </td>
                         <td class="course-table-location no-sort">
                             <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course['city']; ?>
                             , <?= $course['state']; ?>
@@ -448,7 +452,7 @@ function build_address( $data ) {
 
 function get_clinic_certifications( $clinics ) {
     $credentials_array = [];
-    
+
     foreach($clinics as $clinic) {
         foreach (explode(',',$clinic['credentials']) as $creds) {
             $creds = preg_replace('/^ /', '', $creds, 1);
