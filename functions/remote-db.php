@@ -19,7 +19,7 @@ $remote_db = new wpdb(
  *
  * @return array|object|null
  */
-function get_courses( $limit = null, $category = null ) {
+function get_courses( $limit = null, $category = null, $popular = false ) {
 	global $remote_db;
 
 	$sql = "select `e`.*,
@@ -27,6 +27,7 @@ function get_courses( $limit = null, $category = null ) {
        `at_status`.`value`           	AS `status`,
        `at_visibility`.`value`           	AS `visibility`,
        `at_end_date`.`value`             AS `end_date`,
+              `at_popular_course`.`value`                                             AS `popular_course`,
        CONCAT(TRIM(at_instr1_fname.value), ' ', TRIM(at_instr1_lname.value))                  AS `instructor1`,
        CONCAT(TRIM(at_instr2_fname.value), ' ', TRIM(at_instr2_lname.value))                  AS `instructor2`,
        CONCAT(TRIM(at_instr3_fname.value), ' ', TRIM(at_instr3_lname.value))                  AS `instructor3`,
@@ -48,6 +49,8 @@ from `ipa_course_details` as `e`
                    on (`at_instr1`.`value` = `at_instr1_fname`.`entity_id` and `at_instr1_fname`.`attribute_id` = 5)
          left join `catalog_product_entity_int` as `at_instr2`
                    on (`at_instr2`.`entity_id` = `e`.`id`) AND (`at_instr2`.`attribute_id`= 138)
+    left join `catalog_product_entity_int` as `at_popular_course`
+                   on (`at_popular_course`.`entity_id` = `e`.`id`) AND (`at_popular_course`.`attribute_id` = 244)
          left join `customer_entity_varchar` as `at_instr2_lname`
                    on (`at_instr2`.`value` = `at_instr2_lname`.`entity_id` and `at_instr2_lname`.`attribute_id` = 7)
          left join `customer_entity_varchar` as `at_instr2_fname`
@@ -74,6 +77,10 @@ where	`at_end_date`.`value` >= DATE(NOW())
 
 	if ( ! empty( $category ) ) :
 		$sql .= " AND e.course_type_name = '{$category}'";
+	endif;
+
+	if ( $popular ) :
+		$sql .= " AND `at_popular_course`.`value` = 1";
 	endif;
 
 	$sql .= " ORDER BY `course_type_name`, `end_date`";
@@ -433,11 +440,11 @@ ORDER BY `work_country` ASC, `work_state` ASC, `lastname` ASC;;
  * @return string[]
  */
 function build_address( $data ) {
-	$street  = $data['work_street'];
-	$suite   = $data['work_street2'];
-	$city    = $data['work_city'];
-	$state   = $data['work_state'];
-	$zip     = $data['work_zip'];
+	$street = $data['work_street'];
+	$suite  = $data['work_street2'];
+	$city   = $data['work_city'];
+	$state  = $data['work_state'];
+	$zip    = $data['work_zip'];
 
 	$address_single = ( ! empty( $street ) ) ? "{$street}, " : "";
 	// $address_single .= ( ! empty( $suite ) ) ? "{$suite}, " : "";
@@ -465,17 +472,18 @@ function build_address( $data ) {
  * @return array
  */
 function get_clinic_certifications( $clinics ) {
-    $credentials_array = [];
+	$credentials_array = [];
 
-    foreach($clinics as $clinic) {
-        foreach (explode(',',$clinic['credentials']) as $creds) {
-            $creds = preg_replace('/^ /', '', $creds, 1);
-            if ($creds) {
-                array_push($credentials_array, $creds);
-            }
-        }
-    }
-    return $credentials_array = array_unique($credentials_array);
+	foreach ( $clinics as $clinic ) {
+		foreach ( explode( ',', $clinic['credentials'] ) as $creds ) {
+			$creds = preg_replace( '/^ /', '', $creds, 1 );
+			if ( $creds ) {
+				array_push( $credentials_array, $creds );
+			}
+		}
+	}
+
+	return $credentials_array = array_unique( $credentials_array );
 }
 
 /**
@@ -486,13 +494,13 @@ function get_clinic_certifications( $clinics ) {
  * @return float|int|string
  */
 function get_instructor_image( $image = null ) {
-    $default = get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
+	$default = get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
 
-    if ( ! empty( $image ) ) :
+	if ( ! empty( $image ) ) :
 		$image_url = FACULTY_MEMBER_IMAGE_URL . $image;
-	    if ( ! exif_imagetype( $image_url ) ) :
-		    $image_url = $default;
-        endif;
+		if ( ! exif_imagetype( $image_url ) ) :
+			$image_url = $default;
+		endif;
 	else :
 		$image_url = $default;
 	endif;
