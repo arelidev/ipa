@@ -163,3 +163,9 @@ function updateNavigation( slickIndex ) {
     slideNavigation.find('button').removeClass('active');
     slideNavigation.find('button[data-slick-index=' + slickIndex + ']').addClass('active');
 }
+
+jQuery(document).ready(function ($) {
+    $('.page-template-template-course .page-title').each(function() {
+        $(this).html($(this).text().replace(/:.*$/, '<span class="after">$&</span>'));
+    });
+})

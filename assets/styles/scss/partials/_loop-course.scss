@@ -1,5 +1,15 @@
 body.page-template-template-course {
 
+  header {
+    .page-title {
+      font-weight: bold;
+
+      .after {
+        font-weight: 200;
+      }
+    }
+  }
+
   .sidebar {
     @include breakpoint(medium down) {
       margin-bottom: 50px;
