@@ -32,16 +32,16 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                         <div class="small-12 medium-12 large-shrink cell">
                             <div class="course-card-trainer-wrapper">
 		                        <?php if ( ! empty( $instructor_1 = $course_details['instructor1'] ) ) : ?>
-                                    <img src="https://api.adorable.io/avatars/100/<?= $instructor_1; ?>.png" class="course-card-trainer" alt="<?= $instructor_1; ?>" data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
+                                    <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_1; ?>" data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
 		                        <?php endif; ?>
 		                        <?php if ( ! empty( $instructor_2 = $course_details['instructor2'] ) ) : ?>
-                                    <img src="https://api.adorable.io/avatars/100/<?= $instructor_2; ?>.png" class="course-card-trainer" alt="<?= $instructor_2; ?>" data-tooltip tabindex="2" title="<?= $instructor_2; ?>">
+                                    <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_2; ?>" data-tooltip tabindex="2" title="<?= $instructor_2; ?>">
 		                        <?php endif; ?>
 		                        <?php if ( ! empty( $instructor_3 = $course_details['instructor3'] ) ) : ?>
-                                    <img src="https://api.adorable.io/avatars/100/<?= $instructor_3; ?>.png" class="course-card-trainer" alt="<?= $instructor_3; ?>" data-tooltip tabindex="2" title="<?= $instructor_3; ?>">
+                                    <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_3; ?>" data-tooltip tabindex="2" title="<?= $instructor_3; ?>">
 		                        <?php endif; ?>
 		                        <?php if ( ! empty( $instructor_4 = $course_details['instructor4'] ) ) : ?>
-                                    <img src="https://api.adorable.io/avatars/100/<?= $instructor_4; ?>.png" class="course-card-trainer" alt="<?= $instructor_4; ?>" data-tooltip tabindex="2" title="<?= $instructor_4; ?>">
+                                    <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_4; ?>" data-tooltip tabindex="2" title="<?= $instructor_4; ?>">
 		                        <?php endif; ?>
                             </div>
                         </div>

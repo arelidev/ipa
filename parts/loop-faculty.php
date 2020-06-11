@@ -33,14 +33,7 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
         <div class="grid-x grid-padding-x">
             <div class="small-12 medium-4 large-4 cell">
                 <div class="ipa-faculty-member styled-container">
-					<?php
-					if ( ! empty( $image = $faculty_data['image'] ) ) :
-						$image_url = FACULTY_MEMBER_IMAGE_URL . $image;
-					else :
-						$image_url = "https://api.adorable.io/avatars/500/{$faculty_data['name']}.png";
-					endif;
-					?>
-                    <img src="<?= $image_url; ?>" class="ipa-faculty-member-image" alt="<?= $faculty_data['name']; ?>">
+                    <img src="<?= get_instructor_image( $faculty_data['image'] ); ?>" class="ipa-faculty-member-image" alt="<?= $faculty_data['name']; ?>">
                     <h3 class="ipa-faculty-member-name text-center"><b><?= $faculty_data['name']; ?></b></h3>
                     <p class="ipa-faculty-member-credentials text-center text-color-medium-gray">
 						<?= $faculty_data['credentials']; ?>

@@ -16,7 +16,7 @@ function ipa_clinics_widget( $atts ) {
 
     $clinics = get_clinics();
     $certifications_filter = get_clinic_certifications ( $clinics )
-    
+
 	?>
     <div class="ipa-clinics-widget">
 
@@ -196,14 +196,7 @@ function ipa_clinics_widget( $atts ) {
                             <div class="single-clinic-inner">
                                 <div class="grid-x">
                                     <div class="shrink cell">
-	                                    <?php
-	                                    if ( ! empty( $image = $clinic['image'] ) ) :
-		                                    $image_url = FACULTY_MEMBER_IMAGE_URL . $image;
-	                                    else :
-		                                    $image_url = "https://api.adorable.io/avatars/500/{$clinic['name']}.png";
-	                                    endif;
-	                                    ?>
-                                        <img src="<?= $image_url; ?>" class="ipa-faculty-member-image" alt="<?= $clinic['name']; ?>">
+                                        <img src="<?= get_instructor_image( $clinic['image'] ); ?>" class="ipa-faculty-member-image" alt="<?= $clinic['name']; ?>">
                                     </div>
                                     <div class="auto cell">
                                         <h5 class="single-clinic-title"><b><?= $clinic['name']; ?></b></h5>
@@ -338,7 +331,7 @@ function ipa_clinics_widget( $atts ) {
                         map: map,
                         // icon: iconBase + 'map-marker.png'
                     });
-                    
+
                 } else if ( $marker.data('address').length > 0 && $marker.data('country') === 'United States' ) {
                     // console.log( $marker.data('address') );
                     geocoder = new google.maps.Geocoder();

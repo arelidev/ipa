@@ -286,22 +286,22 @@ function get_instructor_course_table( $id ) {
                         <td class="course-table-instructor">
                             <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
 							<?php if ( ! empty( $instructor_1 = $course['instructor1'] ) ) : ?>
-                                <img src="https://api.adorable.io/avatars/100/<?= $instructor_1; ?>.png"
+                                <img src="<?= get_instructor_image( $instructor_1 ); ?>"
                                      class="course-card-trainer" alt="<?= $instructor_1; ?>" data-tooltip tabindex="2"
                                      title="<?= $instructor_1; ?>">
 							<?php endif; ?>
 							<?php if ( ! empty( $instructor_2 = $course['instructor2'] ) ) : ?>
-                                <img src="https://api.adorable.io/avatars/100/<?= $instructor_2; ?>.png"
+                                <img src="<?= get_instructor_image( $instructor_2 ); ?>"
                                      class="course-card-trainer" alt="<?= $instructor_2; ?>" data-tooltip tabindex="2"
                                      title="<?= $instructor_2; ?>">
 							<?php endif; ?>
 							<?php if ( ! empty( $instructor_3 = $course['instructor3'] ) ) : ?>
-                                <img src="https://api.adorable.io/avatars/100/<?= $instructor_3; ?>.png"
+                                <img src="<?= get_instructor_image( $instructor_3 ); ?>"
                                      class="course-card-trainer" alt="<?= $instructor_3; ?>" data-tooltip tabindex="2"
                                      title="<?= $instructor_3; ?>">
 							<?php endif; ?>
 							<?php if ( ! empty( $instructor_4 = $course['instructor4'] ) ) : ?>
-                                <img src="https://api.adorable.io/avatars/100/<?= $instructor_4; ?>.png"
+                                <img src="<?= get_instructor_image( $instructor_4 ); ?>"
                                      class="course-card-trainer" alt="<?= $instructor_4; ?>" data-tooltip tabindex="2"
                                      title="<?= $instructor_4; ?>">
 							<?php endif; ?>
@@ -425,6 +425,13 @@ ORDER BY `work_country` ASC, `work_state` ASC, `lastname` ASC;;
 	return $remote_db->get_results( $sql, ARRAY_A );
 }
 
+/**
+ * Build address
+ *
+ * @param $data
+ *
+ * @return string[]
+ */
 function build_address( $data ) {
 	$street  = $data['work_street'];
 	$suite   = $data['work_street2'];
@@ -450,6 +457,13 @@ function build_address( $data ) {
 	);
 }
 
+/**
+ * Get Instructor Certifications
+ *
+ * @param $clinics
+ *
+ * @return array
+ */
 function get_clinic_certifications( $clinics ) {
     $credentials_array = [];
 
@@ -462,4 +476,26 @@ function get_clinic_certifications( $clinics ) {
         }
     }
     return $credentials_array = array_unique($credentials_array);
+}
+
+/**
+ * Get Instructor Image
+ *
+ * @param null $image
+ *
+ * @return float|int|string
+ */
+function get_instructor_image( $image = null ) {
+    $default = get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
+
+    if ( ! empty( $image ) ) :
+		$image_url = FACULTY_MEMBER_IMAGE_URL . $image;
+	    if ( ! exif_imagetype( $image_url ) ) :
+		    $image_url = $default;
+        endif;
+	else :
+		$image_url = $default;
+	endif;
+
+	return $image_url;
 }

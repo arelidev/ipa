@@ -185,16 +185,16 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                                 <td class="course-table-instructor">
                                                     <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
 													<?php if ( ! empty( $instructor_1 = $course_detail['instructor1'] ) ) : ?>
-                                                        <img src="https://api.adorable.io/avatars/100/<?= $instructor_1; ?>.png" class="course-card-trainer" alt="<?= $instructor_1; ?>" data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
+                                                        <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_1; ?>" data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
 													<?php endif; ?>
 													<?php if ( ! empty( $instructor_2 = $course_detail['instructor2'] ) ) : ?>
-                                                        <img src="https://api.adorable.io/avatars/100/<?= $instructor_2; ?>.png" class="course-card-trainer" alt="<?= $instructor_2; ?>" data-tooltip tabindex="2" title="<?= $instructor_2; ?>">
+                                                        <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_2; ?>" data-tooltip tabindex="2" title="<?= $instructor_2; ?>">
 													<?php endif; ?>
 													<?php if ( ! empty( $instructor_3 = $course_detail['instructor3'] ) ) : ?>
-                                                        <img src="https://api.adorable.io/avatars/100/<?= $instructor_3; ?>.png" class="course-card-trainer" alt="<?= $instructor_3; ?>" data-tooltip tabindex="2" title="<?= $instructor_3; ?>">
+                                                        <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_3; ?>" data-tooltip tabindex="2" title="<?= $instructor_3; ?>">
 													<?php endif; ?>
 													<?php if ( ! empty( $instructor_4 = $course_detail['instructor4'] ) ) : ?>
-                                                        <img src="https://api.adorable.io/avatars/100/<?= $instructor_4; ?>.png" class="course-card-trainer" alt="<?= $instructor_4; ?>" data-tooltip tabindex="2" title="<?= $instructor_4; ?>">
+                                                        <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_4; ?>" data-tooltip tabindex="2" title="<?= $instructor_4; ?>">
 													<?php endif; ?>
                                                 </td>
                                                 <td class="course-table-apply">

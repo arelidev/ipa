@@ -134,13 +134,7 @@ function ipa_faculty_widget( $atts, $content = null ) {
 					?>
                     <div class="<?= implode( " ", $faculty_classes ) ?>" data-title="<?= acf_slugify( $full_name ); ?>">
                         <div class="ipa-faulty-member-info">
-							<?php
-							if ( ! empty( $image = $value['image'] ) ) :
-								$image_url = FACULTY_MEMBER_IMAGE_URL . $image;
-							else :
-								$image_url = "https://api.adorable.io/avatars/500/{$value['name']}.png";
-							endif; ?>
-                            <img src="<?= $image_url; ?>" class="ipa-faculty-member-image" alt="Image for <?= $value['name']; ?>">
+                            <img src="<?= get_instructor_image( $value['image'] ); ?>" class="ipa-faculty-member-image" alt="Image for <?= $value['name']; ?>">
                             <h5 class="ipa-faulty-member-name"><b><?= $value['name']; ?></b></h5>
                             <p class="ipa-faulty-member-credentials text-color-medium-gray"><?= $value['credentials']; ?></p>
                             <p class="ipa-faulty-member-city"><?= $value['work_city'] . ", " . $value['work_state']; ?></p>
