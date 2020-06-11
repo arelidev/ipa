@@ -26,10 +26,10 @@
     }
 
     &-content {
-      color: $medium-gray;
 
       &-text {
-
+        color: $medium-gray;
+        transition: color .2s ease-in-out;
       }
 
       &-link {
@@ -51,9 +51,7 @@
 
       .ipa-single-card-widget-content {
 
-        &-text {
-
-        }
+        &-text {}
 
         &-link {
           color: $primary-color;
