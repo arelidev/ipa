@@ -25,60 +25,67 @@ jQuery(document).ready(function ($) {
 
     // Filter Bindings
     filterSelect.on('change', function () {
-        let input = $(this).val();
-        let field = 'data-type';
-        filterByText(input, field)
+        filterMix()
     });
 
     stateFilter.on('change', function () {
-        let input = $(this).val().replace(/\s+/g, '-').toLowerCase();
-        let field = 'data-state'
-        filterByText(input, field)
+        filterMix()
     });
 
     zipFilter.keyup(function () {
-        let input = $(this).val().replace(/\s+/g, '-').toLowerCase();
-        let field = 'data-zip'
-        filterByText(input, field)
+        filterMix()
     });
 
     certFilter.on('change', function () {
-        let input = $(this).val().toLowerCase();
-        let field = 'data-certification'
-        filterByText(input, field)
+        filterMix()
     });
 
-    instructorFilter.keyup(function () {
-        let input = $(this).val().replace(/\s+/g, '-').toLowerCase();
-        let field = 'data-title'
-        filterByText(input, field)
+    instructorFilter.on('change', function () {
+        filterMix()
     });
 
-    // Text Filter Function
-    function filterByText(input, field) {
+    // Filter function
+    function filterMix(input, field) {
+
         // Delay function invoked to make sure user stopped typing
         delay(function () {
             let mixer = mixitup(mixerContainer);
 
-            // Check to see if input field is empty
-            if ((input.length) > 0) {
-                $('.mix').each(function () {
-                    // add item to be filtered out if input text matches items inside the title
-                    if ($(this).attr(field) && $(this).attr(field).toLowerCase().match(input)) {
-                        $matching = $matching.add(this);
-                    } else {
-                        // removes any previously matched item
+            $('.mix').each(function () {
+                $matching = $matching.add(this);
+
+                if ( filterSelect.val() && filterSelect.val() != 'all' ) {
+                    if (!$(this).attr('data-type') || !$(this).attr('data-type').match( filterSelect.val().toLowerCase() )) {
                         $matching = $matching.not(this);
                     }
-                });
+                }
 
-                // $(mixerContainer).mixItUp('filter', $matching);
-                mixer.filter($matching);
-            } else {
-                // resets the filter to show all item if input is empty
-                // $(mixerContainer).mixItUp('filter', 'all');
-                mixer.filter('all');
-            }
+                if ( stateFilter.val() && stateFilter.val() != 'all' ) {
+                    if (!$(this).attr('data-state') || !$(this).attr('data-state').match( stateFilter.val() )) {
+                        $matching = $matching.not(this);
+                    }
+                }
+
+                if ( zipFilter.val() && zipFilter.val() != '' ) {
+                    if (!$(this).attr('data-zip') || !$(this).attr('data-zip').match( zipFilter.val().replace(/\s+/g, '-').toLowerCase() )) {
+                        $matching = $matching.not(this);
+                    }
+                }
+
+                if ( certFilter.val() && certFilter.val() != 'all' ) {
+                    if (!$(this).attr('data-certification') || !$(this).attr('data-certification').match( certFilter.val() )) {
+                        $matching = $matching.not(this);
+                    }
+                }
+
+                if ( instructorFilter.val() && instructorFilter.val() != 'all' ) {
+                    if (!$(this).attr('data-title') || !$(this).attr('data-title').match( instructorFilter.val() )) {
+                        $matching = $matching.not(this);
+                    }
+                }
+            });
+            mixer.filter($matching);
+
         }, 200);
     }
 });

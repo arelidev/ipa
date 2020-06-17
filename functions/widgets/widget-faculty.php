@@ -87,7 +87,15 @@ function ipa_faculty_widget( $atts, $content = null ) {
                         <div class="cell small-12 medium-auto">
                             <label>
                                 <span class="hide-for-medium"><?= __( 'Search by instructor', 'ipa' ); ?></span>
-                                <input type="text" placeholder="Search by instructor" id="FilterInput">
+                                <select class="clinics-filter-certification" id="FilterInput">
+                                    <option value="all">Primary Instructor</option>
+                                    <option value="all">All</option>
+                                    <?php foreach ($faculty as $option): ?>
+                                        <?php if ($option['instructor_status'] == 1): ?>
+                                            <option value="<?= acf_slugify( '.'.$option['firstname'] . " " . $option['lastname'] ) ?>"><?= $option['name'] ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
                             </label>
                         </div>
                         <div class="cell small-12 hide-for-medium">
@@ -107,16 +115,18 @@ function ipa_faculty_widget( $atts, $content = null ) {
 
         <div class="ipa-faculty-statuses ipa-filter-bar grid-container show-for-medium">
             <div class="grid-x grid-padding-x grid-padding-y grid-margin-x grid-margin-y">
-                <button type="button" data-filter="all">All</button>
-                <button type="button" data-filter=".instructor-status-1"><?= __( 'Primary Instructor', 'ipa' ); ?></button>
-                <button type="button" data-filter=".instructor-status-2"><?= __( 'Associate Instructor', 'ipa' ); ?></button>
+                <button type="button" data-filter="all" class="mixitup-control">All</button>
+                <button type="button" data-filter=".instructor-status-1" class="mixitup-control"><?= __( 'Primary Instructor', 'ipa' ); ?></button>
+                <button type="button" data-filter=".instructor-status-2" class="mixitup-control"><?= __( 'Associate Instructor', 'ipa' ); ?></button>
             </div>
         </div>
 
         <div class="ipa-faculty-widget grid-container" id="ipa-faculty-widget">
             <div class="grid-x grid-padding-x grid-padding-y grid-margin-x grid-margin-y">
 				<?php foreach ( $faculty as $item => $value ) : ?>
-					<?php
+                    <?php
+					$full_name = $value['firstname'] . " " . $value['lastname'];
+                    
 					$faculty_classes = array(
 						'ipa-faculty-member',
 						'small-12',
@@ -127,10 +137,10 @@ function ipa_faculty_widget( $atts, $content = null ) {
 						'styled-container',
 						'mix',
 						'instructor-status-' . $value['instructor_status'],
-                        $value['work_state']
+                        $value['work_state'],
+                        acf_slugify( $full_name )
 					);
 
-					$full_name = $value['firstname'] . " " . $value['lastname'];
 					?>
                     <div class="<?= implode( " ", $faculty_classes ) ?>" data-title="<?= acf_slugify( $full_name ); ?>">
                         <div class="ipa-faulty-member-info">

@@ -17,7 +17,16 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 
 	$category = $atts['course_cat'];
 
-	$courses = get_sorted_courses( $atts['limit'], $category );
+    $courses = get_sorted_courses( $atts['limit'], $category );
+    
+    $instructors = [];
+    foreach ($courses as $option_course) {
+        foreach( $option_course as $option ) {
+            array_push( $instructors, $option['instructor1'] );
+        }
+    }
+
+    $instructors = array_unique( $instructors );
 	// Course Type
 	// Primary Instructor
 	// State
@@ -106,7 +115,13 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                         <div class="cell small-12 medium-auto">
                             <label>
                                 <span class="hide-for-medium"><?= __( 'Search by instructor', 'ipa' ); ?></span>
-                                <input type="text" placeholder="Search by instructor" id="course-filter-instructor">
+                                <select class="clinics-filter-certification" id="course-filter-instructor">
+                                    <option value="all">Primary Instructor</option>
+                                    <?php foreach ($instructors as $option): ?>
+                                        <option value="<?= $option ?>"><?= $option ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <!-- <input type="text" placeholder="Search by instructor" id="course-filter-instructor"> -->
                             </label>
                         </div>
                         <div class="cell small-12 medium-auto">
@@ -171,6 +186,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 											$instructor_1 = $course_detail['instructor1'];
 											?>
                                             <tr class="<?= implode( " ", $course_classes ) ?>"
+                                                data-state=".<?= $course_detail['state'] ?>"
                                                 data-primary-instructor="<?= $instructor_1; ?>"
                                                 data-start-date="<?= date( 'm-d-y', strtotime( $course_detail['date'] ) ) ;?>">
                                                 <td class="course-table-location">

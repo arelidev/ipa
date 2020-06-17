@@ -1,17 +1,21 @@
 jQuery(document).ready(function ($) {
     let ipaAccordionWidget = $('.ipa-accordion-widget ');
     let ipaAccordionContent = $('.ipa-accordion-widget  .accordion-content');
+    let startDate, endDate = '';
 
     let courseFilterSelect = $('.course-filter-select');
+    let courseFilterInstructor = $('#course-filter-instructor')
     let courseMixerContainer = '.courses-filter-container';
     if ($(courseMixerContainer).length) {
         let courseMixer = mixitup(courseMixerContainer);
 
         courseFilterSelect.on('change', function () {
-            courseMixer.filter(this.value);
-
-            ipaAccordionWidget.foundation('down', ipaAccordionContent);
+            filterMix()
         });
+
+        courseFilterInstructor.on('change', function () {
+            filterMix()
+        })    
 
         $('.scroll-to').on('change', function () {
             $('html, body').animate({
@@ -43,76 +47,55 @@ jQuery(document).ready(function ($) {
             moduleRanges: true,
             useResetBtn: true,
             onSelect: function (date1, date2) {
-                filterByDate(date1, date2)
+                startDate = date1;
+                endDate = date2;
+                filterMix()
             }
         })
     }
 
     // Clear the mix when the user clears the input
     $(document).on('click', '.reset-button', function () {
-        filterByDate()
+        startDate,endDate = '';
+        filterMix()
     })
 
-    function filterByDate(startDate, endDate) {
+
+    function filterMix() {
         let courseMixer = mixitup(courseMixerContainer);
 
         // Open Accordion if not already open 
         ipaAccordionWidget.foundation('down', ipaAccordionContent);
 
-        // Check to see if input field is empty
-        if (startDate && endDate) {
-            $('.mix').each(function () {
-                // add item to be filtered out if input text matches items inside the title
+        $('.mix').each(function () {
+            $matching = $matching.add(this);
+
+            if (startDate && endDate) {
                 let courseDate = new Date($(this).attr('data-start-date'))
 
-                // Check if course start date is between the selected date range
-                if (startDate < courseDate && courseDate < endDate) {
-                    $matching = $matching.add(this);
-                } else {
-                    // removes any previously matched item
+                if (!(startDate < courseDate && courseDate < endDate)) {
                     $matching = $matching.not(this);
                 }
-            });
-
-            // $(courseMixerContainer).mixItUp('filter', $matching);
-            courseMixer.filter($matching);
-        } else {
-            // resets the filter to show all item if input is empty
-            // $(courseMixerContainer).mixItUp('filter', 'all');
-            courseMixer.filter('all');
-        }
-    }
-
-    $("#course-filter-instructor").keyup(function () {
-        // Delay function invoked to make sure user stopped typing
-        delay(function () {
-            inputText = $("#course-filter-instructor").val().replace(/\s+/g, '-').toLowerCase();
-            let courseMixer = mixitup(courseMixerContainer);
-
-            // Open Accordion if not already open 
-            ipaAccordionWidget.foundation('down', ipaAccordionContent);
-
-            // Check to see if input field is empty
-            if ((inputText.length) > 0) {
-                $('.mix').each(function () {
-                    // add item to be filtered out if input text matches items inside the title
-                    if ($(this).attr('data-primary-instructor').toLowerCase().match(inputText)) {
-                        $matching = $matching.add(this);
-                    } else {
-                        // removes any previously matched item
-                        $matching = $matching.not(this);
-                    }
-                });
-
-                // $(courseMixerContainer).mixItUp('filter', $matching);
-                courseMixer.filter($matching);
-            } else {
-                // resets the filter to show all item if input is empty
-                // $(courseMixerContainer).mixItUp('filter', 'all');
-                courseMixer.filter('all');
             }
-        }, 200);
-    });
+
+            if ( courseFilterInstructor.val() && courseFilterInstructor.val() != 'all' ) {
+                let instructor = courseFilterInstructor.val().toLowerCase();
+
+                if (!$(this).attr('data-primary-instructor').toLowerCase().match( instructor )) {
+                    $matching = $matching.not(this);
+                }
+            }
+
+            if ( courseFilterSelect.val() && courseFilterSelect.val() != 'all' ) {
+                if (!$(this).attr('data-state').match( courseFilterSelect.val() )) {
+                    $matching = $matching.not(this);
+                }
+            }
+        });
+
+        courseMixer.filter($matching);
+
+    }
 
     $('#expand').on('click', function (e) {
         // e.preventDefault();

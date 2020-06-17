@@ -1,14 +1,45 @@
 jQuery(document).ready(function ($) {
     // Mixitup filter
     let filterSelect = $('.filter-select');
+    let filterInput = $('#FilterInput');
+    let mixButton = $('.mixitup-control')
     let mixerContainer = '.faculty-filter-container';
     if ($(mixerContainer).length) {
-        let mixer = mixitup(mixerContainer);
+        let mixer = mixitup(mixerContainer, {
+            controls: {
+                toggleLogic: 'and'
+            }
+        });
 
         filterSelect.on('change', function () {
-            mixer.filter(this.value);
+            filterMix()
         });
+
+        filterInput.on('change', function() {
+            filterMix()
+        })
+
+        function filterMix() {
+            let condition = ''
+            if ( filterSelect.val() != 'all' ) {
+                condition += filterSelect.val()
+            }
+            if ( filterInput.val() != 'all' ) {
+                condition += filterInput.val()
+            }
+
+            if (condition != '') {
+                mixer.filter(condition);
+            } else {
+                mixer.filter('all')
+            }
+        }
     }
+
+    mixButton.on('click', function() {
+        filterSelect.val('all');
+        filterInput.val('all')
+    })
 
     let inputText;
     let $matching = $();
@@ -22,7 +53,7 @@ jQuery(document).ready(function ($) {
         };
     })();
 
-    // Text filter
+    // Text filter | Legacy
     $("#FilterInput").keyup(function () {
         // Delay function invoked to make sure user stopped typing
         delay(function () {

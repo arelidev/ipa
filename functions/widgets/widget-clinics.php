@@ -37,8 +37,8 @@ function ipa_clinics_widget( $atts ) {
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
                         <select class="clinics-filter-state" id="clinics-filter-state">
-                            <option value="">State</option>
-                            <option value="">All</option>
+                            <option value="all">State</option>
+                            <option value="all">All</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
                             <option value="AZ">Arizona</option>
@@ -101,7 +101,8 @@ function ipa_clinics_widget( $atts ) {
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
                         <select class="clinics-filter-certification" id="clinics-filter-certification">
-                            <option value="">All</option>
+                            <option value="all">Certification</option>
+                            <option value="all">All</option>
                             <?php foreach ($certifications_filter as $option): ?>
                                 <option value="<?= $option ?>"><?= $option ?></option>
                             <?php endforeach; ?>
@@ -110,7 +111,13 @@ function ipa_clinics_widget( $atts ) {
                 </div>
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
-                        <input type="text" placeholder="Search by instructor" id="clinics-filter-instructor">
+                        <select class="clinics-filter-certification" id="clinics-filter-instructor">
+                            <option value="all">Instructor</option>
+                            <option value="all">All</option>
+                            <?php foreach ($clinics as $option): ?>
+                                <option value="<?= $option['name'] ?>"><?= $option['name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </label>
                 </div>
             </div>
