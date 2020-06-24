@@ -369,10 +369,6 @@ body.home {
 
 		.custom-logo {
 			width: 100%;
-			max-width: 100px;
-			@include breakpoint(medium) {
-				max-width: 200px;
-			}
 		}
 	}
 
