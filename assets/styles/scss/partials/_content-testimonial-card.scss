@@ -5,6 +5,7 @@
     padding: 2rem;
     position: relative;
     box-shadow: $global-box-shadow;
+    background: $white;
     border-radius: $global-radius;
     transition: box-shadow .2s ease-in-out;
     &:hover {

@@ -23,57 +23,46 @@ function full_slider_widget( $atts, $content = null ) {
 	$loop = new WP_Query( $args );
 
 	?>
-
-    <div class="full-slider-widget">
-        <div class="grid-x grid-padding-x grid-padding-y align-middle full-slider-inner">
-            <div class="shrink cell show-for-large">
-                <ul id="slide-navigation" class="menu vertical"></ul>
-            </div>
-
-            <div class="auto cell">
-
-                <div class="full-slider">
-
-                    <?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
-
-					<?php if ( have_rows( 'slides' ) ): while ( have_rows( 'slides' ) ) : the_row(); ?>
-
-                        <div class="single-full-slide" id="<?= acf_slugify( get_sub_field( 'slide_title' ) ); ?>" data-title="<?php the_sub_field('slide_title'); ?>">
-
-                            <div class="grid-container grid-x grid-padding-x grid-padding-y <?= get_sub_field( 'align_row' ); ?>">
-
-		                        <?php if ( have_rows( 'left_column' ) ): while ( have_rows( 'left_column' ) ) : the_row(); ?>
-                                    <div class="cell small-order-2 medium-order-2 large-order-1 small-12 medium-12 <?= get_sub_field( 'size' ); ?> <?= get_sub_field( 'extra_class' ); ?>">
-				                        <?= apply_filters( 'the_content', get_sub_field( 'content' ) ); ?>
-                                    </div>
-		                        <?php endwhile;endif; ?>
-
-		                        <?php if ( have_rows( 'right_column' ) ): while ( have_rows( 'right_column' ) ) : the_row(); ?>
-                                    <div class="cell small-order-1 medium-order-1 large-order-2 small-12 medium-12 <?= get_sub_field( 'size' ); ?> <?= get_sub_field( 'extra_class' ); ?>">
-				                        <?= apply_filters( 'the_content', get_sub_field( 'content' ) ); ?>
-                                    </div>
-		                        <?php endwhile;endif; ?>
-
+	<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+        <div class="full-slider-widget">
+            <div class="grid-x grid-padding-x grid-padding-y align-middle full-slider-inner">
+                <div class="small-12 medium-12 large-12 cell">
+                    <div class="full-slider">
+						<?php if ( have_rows( 'slides' ) ): while ( have_rows( 'slides' ) ) : the_row(); ?>
+                            <div class="single-full-slide" id="<?= acf_slugify( get_sub_field( 'slide_title' ) ); ?>">
+                                <div class="grid-container grid-x grid-padding-x grid-padding-y <?= get_sub_field( 'align_row' ); ?>">
+									<?php if ( have_rows( 'left_column' ) ): while ( have_rows( 'left_column' ) ) : the_row(); ?>
+                                        <div class="cell small-order-2 medium-order-2 large-order-1 small-12 medium-12 <?= get_sub_field( 'size' ); ?> <?= get_sub_field( 'extra_class' ); ?>">
+											<?= apply_filters( 'the_content', get_sub_field( 'content' ) ); ?>
+                                        </div>
+									<?php endwhile;endif; ?>
+									<?php if ( have_rows( 'right_column' ) ): while ( have_rows( 'right_column' ) ) : the_row(); ?>
+                                        <div class="cell small-order-1 medium-order-1 large-order-2 small-12 medium-12 <?= get_sub_field( 'size' ); ?> <?= get_sub_field( 'extra_class' ); ?>">
+											<?= apply_filters( 'the_content', get_sub_field( 'content' ) ); ?>
+                                        </div>
+									<?php endwhile;endif; ?>
+                                </div>
                             </div>
-
-                        </div>
-
-					<?php endwhile;endif; ?>
-
-				<?php endwhile; ?>
-
+						<?php endwhile; endif; ?>
+                    </div>
                 </div>
 
+                <div class="small-12 medium-12 large-12 cell" style="margin-bottom: -100px; transform: translateY(-25px);">
+                    <div class="full-slider-nav">
+	                    <?php if ( have_rows( 'slides' ) ): while ( have_rows( 'slides' ) ) : the_row(); ?>
+                            <div class="single-full-slide testimonial-card">
+	                            <div class="testimonial-card-inner">
+		                            <p class="text-color-black text-center" style="margin-bottom: 0;">
+                                        <b><?= get_sub_field( 'slide_title' ); ?></b>
+                                    </p>
+                                </div>
+                            </div>
+	                    <?php endwhile; endif; ?>
+                    </div>
+                </div>
             </div>
-
-            <div class="shrink cell show-for-large">
-	            <?= do_shortcode( '[social_icons_group id="51"]' ); ?>
-            </div>
-
-            <div class="small-12 cell" id="appendDots"></div>
         </div>
-    </div>
-
+	<?php endwhile; ?>
 	<?php
 	return ob_get_clean();
 }

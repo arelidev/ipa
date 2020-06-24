@@ -115,54 +115,25 @@ jQuery(document).ready(function ($) {
 
 // Full Slider
 jQuery(document).ready(function ($) {
-    $('.full-slider').on('init', function (event, slick, direction) {
-
-    }).slick({
-        dots: true,
+    $('.full-slider').slick({
+        dots: false,
         arrows: false,
         infinite: false,
         slidesToShow: 1,
         slidesToScroll: 1,
-        customPaging: function (slick, index) {
-            return '<button type="button" data-role="none" data-slick-index="' + index + '">' + index + '</button>';
-        },
+        adaptiveHeight: true,
         nextArrow: '.slick-next-custom-full-slider',
         prevArrow: '.slick-prev-custom-full-slider',
-    }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-        updateNavigation(currentSlide);
-    }).on('afterChange', function (event, slick, currentSlide, nextSlide) {
-        updateNavigation(currentSlide);
+        asNavFor: '.full-slider-nav'
     })
 
-    $('.full-slider .slick-dots > li').each(function () {
-        let pagerItem = $(this),
-            slickIndex = pagerItem.find('button').attr('data-slick-index'),
-            matchingSlide = $('.full-slider .slick-slide[data-slick-index="' + slickIndex + '"]'),
-            titleContent = matchingSlide.find('.single-full-slide').attr('data-title');
-
-        $('#slide-navigation').append(
-            "<li><button data-slick-index='" + slickIndex + "'>" + titleContent + "</li></button>"
-        )
-    });
-
-    $('#slide-navigation button').on('click', function () {
-        let slickIndex = $(this).data('slick-index');
-
-        updateNavigation(slickIndex);
-
-        $('.full-slider').slick('slickGoTo', slickIndex);
-    });
-
-    let startSlide = $('.full-slider .slick-current').attr("data-slick-index");
-
-    updateNavigation(startSlide);
+    $('.full-slider-nav').slick({
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        asNavFor: '.full-slider',
+        focusOnSelect: true
+    })
 })
-
-function updateNavigation( slickIndex ) {
-    let slideNavigation = jQuery('#slide-navigation');
-    slideNavigation.find('button').removeClass('active');
-    slideNavigation.find('button[data-slick-index=' + slickIndex + ']').addClass('active');
-}
 
 jQuery(document).ready(function ($) {
     $('.page-template-template-course .page-title').each(function() {
