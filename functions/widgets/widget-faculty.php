@@ -12,7 +12,8 @@ function ipa_faculty_widget( $atts, $content = null ) {
 
 	ob_start();
 
-	$faculty = get_faculty();
+    $faculty = get_faculty();
+    $faculty_filter = get_primary_faculty_names( $faculty );
 	?>
 
     <div class="faculty-filter-container">
@@ -90,10 +91,8 @@ function ipa_faculty_widget( $atts, $content = null ) {
                                 <select class="clinics-filter-certification" id="FilterInput">
                                     <option value="all">Primary Instructor</option>
                                     <option value="all">All</option>
-                                    <?php foreach ($faculty as $option): ?>
-                                        <?php if ($option['instructor_status'] == 1): ?>
-                                            <option value="<?= acf_slugify( '.'.$option['firstname'] . " " . $option['lastname'] ) ?>"><?= $option['name'] ?></option>
-                                        <?php endif; ?>
+                                    <?php foreach ($faculty_filter as $key => $option): ?>
+                                        <option value="<?= acf_slugify( '.'.$key ) ?>"><?= $option ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </label>

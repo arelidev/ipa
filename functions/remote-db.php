@@ -487,6 +487,50 @@ function get_clinic_certifications( $clinics ) {
 }
 
 /**
+ * Get Instructor Names
+ *
+ * @param $clinics
+ *
+ * @return array
+ */
+function get_clinic_names( $clinics ) {
+	$names_array = [];
+
+	foreach ( $clinics as $clinic ) {
+        array_push( $names_array, $clinic['name'] );
+    }
+    
+    sort( $names_array );
+
+	return array_unique( $names_array );
+}
+
+
+/**
+ * Get Faculty Names
+ *
+ * @param $clinics
+ *
+ * @return array
+ */
+function get_primary_faculty_names( $faculty ) {
+    $names_array = [];
+
+	foreach ( $faculty as $fac ) {
+
+        if ( $fac['instructor_status'] == 1 ) {
+            $names_array[$fac['firstname'].' '.$fac['lastname']] = $fac['name'];
+        }
+
+    }
+    
+    ksort( $names_array );
+
+	return array_unique( $names_array );
+}
+
+
+/**
  * Get Instructor Image
  *
  * @param null $image

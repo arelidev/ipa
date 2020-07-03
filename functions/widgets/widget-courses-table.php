@@ -27,6 +27,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
     }
 
     $instructors = array_unique( $instructors );
+    sort( $instructors );
 	// Course Type
 	// Primary Instructor
 	// State

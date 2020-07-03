@@ -15,7 +15,8 @@ function ipa_clinics_widget( $atts ) {
 	$loop = new WP_Query( $args );
 
     $clinics = get_clinics();
-    $certifications_filter = get_clinic_certifications ( $clinics )
+    $certifications_filter = get_clinic_certifications ( $clinics );
+    $instructor_filter = get_clinic_names( $clinics );
 
 	?>
     <div class="ipa-clinics-widget">
@@ -114,8 +115,8 @@ function ipa_clinics_widget( $atts ) {
                         <select class="clinics-filter-certification" id="clinics-filter-instructor">
                             <option value="all">Instructor</option>
                             <option value="all">All</option>
-                            <?php foreach ($clinics as $option): ?>
-                                <option value="<?= $option['name'] ?>"><?= $option['name'] ?></option>
+                            <?php foreach ($instructor_filter as $option): ?>
+                                <option value="<?= $option ?>"><?= $option ?></option>
                             <?php endforeach; ?>
                         </select>
                     </label>
