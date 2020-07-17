@@ -367,9 +367,24 @@ function ipa_clinics_widget( $atts ) {
                     if ($marker.html()) {
                         let infowindows = [];
 
+                        let existing = map.markers.filter( mark => mark.getPosition().lat() == marker.getPosition().lat() && mark.getPosition().lng() == marker.getPosition().lng())
+                        // Map cards, map markers, infowindows. All separate
+                        let windowContent = '';
+
+                        if (existing.length > 1) {
+                            let $mark = existing[0]
+                            existing = [];
+                            $('.single-clinic[data-lat="'+$mark.getPosition().lat()+'"][data-lng="'+$mark.getPosition().lng()+'"]').each( function() {
+                                existing.push($(this))
+                                windowContent += $(this).html()
+                            })
+                        } else {
+                            windowContent = $marker.html()
+                        }
+
                         // Create info window.
                         let infowindow = new google.maps.InfoWindow({
-                            content: $marker.html()
+                            content: windowContent
                         });
 
                         infowindows.push(infowindow);
@@ -402,17 +417,28 @@ function ipa_clinics_widget( $atts ) {
                         });
 
                         // Move map to marker position on click
-                        $marker.on('click', function() {
-                            map.setCenter(marker.getPosition());
-                            map.setZoom(11)
+                        if (existing.length > 1) {
+                            existing.forEach( function( $mark ) {
+                                $mark.unbind()
+                                bindClickEvent( $mark, map, infowindow, prevInfoWindow)
+                            })
+                        } else {
+                            bindClickEvent( $marker, map, infowindow, prevInfoWindow)
+                        }
 
-                            if (prevInfoWindow) {
-                                prevInfoWindow.close()
-                            }
+                        function bindClickEvent( $marker, map, infowindow, prevInfoWindow) {
+                            $marker.on('click', function() {
+                                map.setCenter(marker.getPosition());
+                                map.setZoom(11)
 
-                            infowindow.open(map, marker);
-                            prevInfoWindow = infowindow;
-                        })
+                                if (prevInfoWindow) {
+                                    prevInfoWindow.close()
+                                }
+
+                                infowindow.open(map, marker);
+                                prevInfoWindow = infowindow;
+                            })
+                        }
                     }
                 }
             }

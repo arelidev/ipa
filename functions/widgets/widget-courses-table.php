@@ -230,6 +230,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/litepicker-module-ranges/dist/index.js"></script>
 
     </div>
 	<?php
