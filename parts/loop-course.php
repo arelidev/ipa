@@ -41,7 +41,7 @@ $hero_type = get_field( 'hero_type' );
 						<?php endif; ?>
 						<?php
 						if ( function_exists( 'yoast_breadcrumb' ) ) {
-							yoast_breadcrumb( '<p id="breadcrumbs"><small>', '</small></p>' );
+							// yoast_breadcrumb( '<p id="breadcrumbs"><small>', '</small></p>' );
 						}
 						?>
                     </div>

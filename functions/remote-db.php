@@ -196,7 +196,7 @@ WHERE (`e`.`entity_type_id` = '1')
 		$sql .= " AND (`e`.`entity_id` = '{$id}')";
 	endif;
 
-	$sql .= "ORDER BY `instructor_status`, `lastname`;";
+	$sql .= "ORDER BY `lastname`;";
 
 	return $remote_db->get_results( $sql, ARRAY_A );
 }
@@ -367,6 +367,7 @@ function get_clinics() {
 	   `at_cfmt_distinction`.`value`   	AS `cfmt_distinction`,
 	   `at_FAAOMPT`.`value`   			AS `FAAOMPT`,
 	   `at_current_fellow`.`value`   	AS `current_fellow`,
+       `at_instructor_status`.`value` AS `instructor_status`,
 	   `at_cfmt`.`value`   				AS `cfmt`	   
 FROM `customer_entity` AS `e`
          LEFT JOIN `customer_entity_varchar` AS `at_prefix`
@@ -422,7 +423,10 @@ FROM `customer_entity` AS `e`
 		LEFT JOIN `customer_entity_int` AS `at_current_fellow`
                    ON (`at_current_fellow`.`entity_id` = `e`.`entity_id`) AND (`at_current_fellow`.`attribute_id` = '192')
 		LEFT JOIN `customer_entity_int` AS `at_cfmt`
-                   ON (`at_cfmt`.`entity_id` = `e`.`entity_id`) AND (`at_cfmt`.`attribute_id` = '211')				   
+                   ON (`at_cfmt`.`entity_id` = `e`.`entity_id`) AND (`at_cfmt`.`attribute_id` = '211')				  
+        LEFT JOIN `customer_entity_int` AS `at_instructor_status`
+                   ON (`at_instructor_status`.`entity_id` = `e`.`entity_id`) AND
+                      (`at_instructor_status`.`attribute_id` = '243') 
 				   
 WHERE (`at_in_referral`.`value` = 1)
   AND (`at_referral_approved`.`value` = 1)

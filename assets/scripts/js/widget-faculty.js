@@ -36,6 +36,8 @@ jQuery(document).ready(function ($) {
         }
     }
 
+    $('.mixitup-control[data-filter=".instructor-status-1"]').trigger('click')
+
     mixButton.on('click', function() {
         filterSelect.val('all');
         filterInput.val('all')

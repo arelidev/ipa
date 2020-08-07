@@ -141,8 +141,8 @@ function ipa_faculty_widget( $atts, $content = null ) {
 					);
 
 					?>
-                    <div class="<?= implode( " ", $faculty_classes ) ?>" data-title="<?= acf_slugify( $full_name ); ?>">
-                        <div class="ipa-faulty-member-info">
+                    <div class="<?= implode( " ", $faculty_classes ) ?>" data-title="<?= acf_slugify( $full_name ); ?>" <?= $value['instructor_status'] != 1 ? 'style="display: none"' : '' ?>>
+                        <div class="ipa-faulty-member-info" >
                             <img src="<?= get_instructor_image( $value['image'] ); ?>" class="ipa-faculty-member-image" alt="Image for <?= $value['name']; ?>">
                             <h5 class="ipa-faulty-member-name"><b><?= $value['name']; ?></b></h5>
                             <p class="ipa-faulty-member-credentials text-color-medium-gray"><?= $value['credentials']; ?></p>

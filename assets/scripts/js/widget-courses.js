@@ -4,6 +4,7 @@ jQuery(document).ready(function ($) {
     let startDate, endDate = '';
 
     let courseFilterSelect = $('.course-filter-select');
+    let courseFilterRegion = $('.course-filter-region');
     let courseFilterInstructor = $('#course-filter-instructor')
     let courseMixerContainer = '.courses-filter-container';
     if ($(courseMixerContainer).length) {
@@ -13,13 +14,18 @@ jQuery(document).ready(function ($) {
             filterMix()
         });
 
+
+        courseFilterRegion.on('change', function () {
+            filterMix()
+        });
+
         courseFilterInstructor.on('change', function () {
             filterMix()
         })    
 
         $('.scroll-to').on('change', function () {
             $('html, body').animate({
-                scrollTop: $(this.value).offset().top,
+                scrollTop: $(this.value).offset().top - 100,
             }, 500, 'linear'
             )
         })
@@ -88,6 +94,12 @@ jQuery(document).ready(function ($) {
 
             if ( courseFilterSelect.val() && courseFilterSelect.val() != 'all' ) {
                 if (!$(this).attr('data-state').match( courseFilterSelect.val() )) {
+                    $matching = $matching.not(this);
+                }
+            }
+
+            if ( courseFilterRegion.val() && courseFilterRegion.val() != 'all' ) {
+                if (!$(this).attr('data-region').match( courseFilterRegion.val() )) {
                     $matching = $matching.not(this);
                 }
             }

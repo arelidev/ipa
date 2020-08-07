@@ -7,6 +7,32 @@
  *
  * @return false|string
  */
+
+function lastNameSort($a, $b) {
+    $aLast = end(explode(' ', $a));
+    $bLast = end(explode(' ', $b));
+
+    return strcasecmp($aLast, $bLast);
+}
+
+function get_region_by_state( $state ) {
+    $regions = array(
+        'midatlantic' => 'PA MD DC VA WV',
+        'midwest' => 'ND SD NE IA MN WI MI IL IN OH KS MO AR',
+        'northeast' => 'CT ME MA NH NJ NY PA RI VT DE',
+        'northwest' => 'MT WY ID OR WA AK',
+        'southwest' => 'TX AR LA OK NM',
+        'southeast' => 'KY TN NC SC MS GA AL FL',
+        '-west' => 'AZ CA NV HI CO UT',
+    );
+    foreach ($regions as $key => $value) {
+        if (strpos($value, $state) !== false) {
+            return $key;
+        }
+    }
+    return false;
+}
+
 function ipa_courses_table_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(
 		'limit'           => null,
@@ -25,9 +51,11 @@ function ipa_courses_table_widget( $atts, $content = null ) {
             array_push( $instructors, $option['instructor1'] );
         }
     }
-
+    
     $instructors = array_unique( $instructors );
-    sort( $instructors );
+
+    uasort($instructors, 'lastNameSort');
+
 	// Course Type
 	// Primary Instructor
 	// State
@@ -115,6 +143,22 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                         </div>
                         <div class="cell small-12 medium-auto">
                             <label>
+                                <span class="hide-for-medium"><?= __( 'Select Region', 'ipa' ); ?></span>
+                                <select class="course-filter-region">
+                                    <option value="all">Region</option>
+                                    <option value="all">All</option>
+                                    <option value="midatlantic">Mid-Atlantic</option>
+                                    <option value="midwest">Mid-West</option>
+                                    <option value="northeast">Northeast</option>
+                                    <option value="northwest">Northwest</option>
+                                    <option value="southwest">Southwest</option>
+                                    <option value="southeast">Southeast</option>
+                                    <option value="-west">West</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="cell small-12 medium-auto">
+                            <label>
                                 <span class="hide-for-medium"><?= __( 'Search by instructor', 'ipa' ); ?></span>
                                 <select class="clinics-filter-certification" id="course-filter-instructor">
                                     <option value="all">Primary Instructor</option>
@@ -189,6 +233,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                             <tr class="<?= implode( " ", $course_classes ) ?>"
                                                 data-state=".<?= $course_detail['state'] ?>"
                                                 data-primary-instructor="<?= $instructor_1; ?>"
+                                                data-region="<?= get_region_by_state($course_detail['state']) ?>"
                                                 data-start-date="<?= date( 'm-d-y', strtotime( $course_detail['date'] ) ) ;?>">
                                                 <td class="course-table-location">
                                                     <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course_detail['city']; ?>, <?= $course_detail['state']; ?>

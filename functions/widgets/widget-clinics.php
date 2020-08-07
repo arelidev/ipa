@@ -29,9 +29,12 @@ function ipa_clinics_widget( $atts ) {
                 <div class="cell auto">
                     <label><span class="show-for-sr">Select Menu</span>
                         <select id="clinics-filter-select">
+                            <option value="">Type</option>
                             <option value="">All</option>
-                            <option value="faculty">Faculty</option>
-                            <option value="clinic">Clinic</option>
+                            <option value="faculty primary">Primary Faculty</option>
+                            <option value="faculty">All Faculty</option>
+                            <option value="fellow faculty">FMT Fellows</option>
+                            <option value="clinic">IPA Clinics</option>
                         </select>
                     </label>
                 </div>
@@ -191,7 +194,7 @@ function ipa_clinics_widget( $atts ) {
                     <?php foreach ( $clinics as $clinic ) : ?>
                     <?php $address = build_address( $clinic ); ?>
                         <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix"
-                             data-type="faculty"
+                             data-type="<?= $clinic['current_fellow'] == 1 ? 'fellow' : ''?> faculty <?= $clinic['instructor_status']  == 1 ? 'primary' : ''?>"
                              data-address="<?= $address['address']; ?>"
                              data-country="<?= $clinic['work_country']; ?>"
                              data-entity-id="<?= $clinic['entity_id']; ?>"
@@ -200,7 +203,8 @@ function ipa_clinics_widget( $atts ) {
                              data-title="<?= $clinic['name']; ?>"
                              data-certification="<?= $clinic['credentials'] ?>"
                              data-lat="<?= $clinic['work_latitude']; ?>"
-                             data-lng="<?= $clinic['work_longitude']; ?>">
+                             data-lng="<?= $clinic['work_longitude']; ?>"
+                             data-fellow="<?= $clinic['current_fellow']; ?>">
                             <div class="single-clinic-inner">
                                 <div class="grid-x">
                                     <div class="shrink cell">
@@ -471,14 +475,14 @@ function ipa_clinics_widget( $atts ) {
             $(document).on('change', 'select', function() {
                 delay( function() {
                     initMap( $('.acf-map') )
-                }, 2200)
+                }, 2500)
             })
 
             // Detect changes to text filters and reset map w/ markers
             $(document).on('keyup', 'input', function() {
                 delay( function() {
                     initMap( $('.acf-map') )
-                }, 2200)
+                }, 2500)
             })
 
               // Delay function
