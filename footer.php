@@ -40,20 +40,16 @@
 
             <div class="grid-x grid-margin-x grid-padding-x align-middle">
 
-                <div class="small-12 medium-12 large-shrink cell">
-                    <p class="source-org copyright text-center large-text-left">
-                        &copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>.
-                    </p>
-                </div>
-
                 <div class="small-12 medium-12 large-auto cell">
                     <nav role="navigation">
-						<?php joints_footer_links(); ?>
+						<?php // joints_footer_links(); ?>
                     </nav>
                 </div>
 
-                <div class="small-12 medium-12 large-shrink cell">
-					<?= do_shortcode( '[social_icons_group id="51"]' ); ?>
+                <div class="small-12 medium-12 large-12 cell">
+                    <div class="source-org copyright text-color-medium-gray">
+			            <?php the_field( 'footer_copyright', 'options' ); ?>
+                    </div>
                 </div>
 
             </div>

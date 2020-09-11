@@ -394,7 +394,8 @@ POSTS & CONTENT STYLES
 .hero {
 	color: $white;
 	background-size: 100% 100%;
-	background-image: linear-gradient(224deg, #567BCE 0%, #3C5895 85%);
+	// background-image: linear-gradient(224deg, #567BCE 0%, #3C5895 85%);
+	background-color: $primary-color;
 
 	&-large {
 		min-height: 70vh;
@@ -437,20 +438,25 @@ POSTS & CONTENT STYLES
 
 			.hero-content-wrapper {
 				padding: $global-padding;
-				@include breakpoint(large) {
-					transform: translateX(75px);
-					max-width: rem-calc(600);
-					margin-left: auto;
-				}
 			}
 
 			.hero-image-wrapper {
 				background-color: $white;
-				@include breakpoint(large) {
-					clip-path: polygon(35% 0, 100% 0, 100% 100%, 0% 100%);
+				position: relative;
+
+				.hero-separator {
+					position: absolute;
+					top: 0;
+					left: -1px;
+					height: 100%;
+					width: auto;
+					display: none;
+					@include breakpoint(large) {
+						display: block;
+					}
 				}
 
-				img {
+				.wp-post-image {
 					width: 100%;
 					object-fit: cover;
 					object-position: center;
@@ -941,12 +947,7 @@ FOOTER STYLES
 			padding-top: 75px;
 		}
 
-		.source-org, .copyright {
-			margin-top: $global-margin;
-			@include breakpoint(large) {
-				margin-bottom: 0;
-			}
-		}
+		.source-org, .copyright {}
 
 		.widget {
 			.widgettitle {

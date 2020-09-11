@@ -8,29 +8,32 @@
  * @return false|string
  */
 
-function lastNameSort($a, $b) {
-    $aLast = end(explode(' ', $a));
-    $bLast = end(explode(' ', $b));
+function lastNameSort( $a, $b ) {
+	$array  = explode( ' ', $a );
+	$aLast  = end( $array );
+	$array1 = explode( ' ', $b );
+	$bLast  = end( $array1 );
 
-    return strcasecmp($aLast, $bLast);
+	return strcasecmp( $aLast, $bLast );
 }
 
 function get_region_by_state( $state ) {
-    $regions = array(
-        'midatlantic' => 'PA MD DC VA WV',
-        'midwest' => 'ND SD NE IA MN WI MI IL IN OH KS MO AR',
-        'northeast' => 'CT ME MA NH NJ NY PA RI VT DE',
-        'northwest' => 'MT WY ID OR WA AK',
-        'southwest' => 'TX AR LA OK NM',
-        'southeast' => 'KY TN NC SC MS GA AL FL',
-        '-west' => 'AZ CA NV HI CO UT',
-    );
-    foreach ($regions as $key => $value) {
-        if (strpos($value, $state) !== false) {
-            return $key;
-        }
-    }
-    return false;
+	$regions = array(
+		'midatlantic' => 'PA MD DC VA WV',
+		'midwest'     => 'ND SD NE IA MN WI MI IL IN OH KS MO AR',
+		'northeast'   => 'CT ME MA NH NJ NY PA RI VT DE',
+		'northwest'   => 'MT WY ID OR WA AK',
+		'southwest'   => 'TX AR LA OK NM',
+		'southeast'   => 'KY TN NC SC MS GA AL FL',
+		'-west'       => 'AZ CA NV HI CO UT',
+	);
+	foreach ( $regions as $key => $value ) {
+		if ( strpos( $value, $state ) !== false ) {
+			return $key;
+		}
+	}
+
+	return false;
 }
 
 function ipa_courses_table_widget( $atts, $content = null ) {
@@ -43,18 +46,18 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 
 	$category = $atts['course_cat'];
 
-    $courses = get_sorted_courses( $atts['limit'], $category );
-    
-    $instructors = [];
-    foreach ($courses as $option_course) {
-        foreach( $option_course as $option ) {
-            array_push( $instructors, $option['instructor1'] );
-        }
-    }
-    
-    $instructors = array_unique( $instructors );
+	$courses = get_sorted_courses( $atts['limit'], $category );
 
-    uasort($instructors, 'lastNameSort');
+	$instructors = [];
+	foreach ( $courses as $option_course ) {
+		foreach ( $option_course as $option ) {
+			array_push( $instructors, $option['instructor1'] );
+		}
+	}
+
+	$instructors = array_unique( $instructors );
+
+	uasort( $instructors, 'lastNameSort' );
 
 	// Course Type
 	// Primary Instructor
@@ -75,9 +78,9 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                 <span class="hide-for-medium"><?= __( 'Course Type', 'ipa' ); ?></span>
                                 <select class="scroll-to">
                                     <option value="all">Course Type</option>
-	                                <?php foreach ( $courses as $title => $course_details ) : ?>
+									<?php foreach ( $courses as $title => $course_details ) : ?>
                                         <option value="#<?= $title; ?>"><?= $title; ?></option>
-	                                <?php endforeach; ?>
+									<?php endforeach; ?>
                                 </select>
                             </label>
                         </div>
@@ -162,9 +165,9 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                 <span class="hide-for-medium"><?= __( 'Search by instructor', 'ipa' ); ?></span>
                                 <select class="clinics-filter-certification" id="course-filter-instructor">
                                     <option value="all">Primary Instructor</option>
-                                    <?php foreach ($instructors as $option): ?>
+									<?php foreach ( $instructors as $option ): ?>
                                         <option value="<?= $option ?>"><?= $option ?></option>
-                                    <?php endforeach; ?>
+									<?php endforeach; ?>
                                 </select>
                                 <!-- <input type="text" placeholder="Search by instructor" id="course-filter-instructor"> -->
                             </label>
@@ -205,7 +208,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 						<?php foreach ( $courses as $title => $course_details ) : $slug = acf_slugify( $title ); ?>
                             <li class="accordion-item ipa-accordion-item" data-accordion-item id="<?= $title; ?>">
                                 <a href="#" class="accordion-title ipa-accordion-title text-color-black">
-									<?= ( empty( $category ) ) ? $title : $category; ?>
+									<?= ( empty( $category ) ) ? $course_details[0]['name'] : $category; ?>
                                 </a>
 
                                 <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= $slug; ?>">
@@ -233,30 +236,40 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                             <tr class="<?= implode( " ", $course_classes ) ?>"
                                                 data-state=".<?= $course_detail['state'] ?>"
                                                 data-primary-instructor="<?= $instructor_1; ?>"
-                                                data-region="<?= get_region_by_state($course_detail['state']) ?>"
-                                                data-start-date="<?= date( 'm-d-y', strtotime( $course_detail['date'] ) ) ;?>">
+                                                data-region="<?= get_region_by_state( $course_detail['state'] ) ?>"
+                                                data-start-date="<?= date( 'm-d-y', strtotime( $course_detail['date'] ) ); ?>">
                                                 <td class="course-table-location">
-                                                    <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course_detail['city']; ?>, <?= $course_detail['state']; ?>
+                                                    <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course_detail['city']; ?>
+                                                    , <?= $course_detail['state']; ?>
                                                 </td>
-                                                <td class="course-table-date" data-order="<?= date( 'u', strtotime( $course_detail['date'] ) ); ?>">
+                                                <td class="course-table-date"
+                                                    data-order="<?= date( 'u', strtotime( $course_detail['date'] ) ); ?>">
                                                     <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>
 													<?= date( get_option( 'date_format' ), strtotime( $course_detail['date'] ) ); ?>
                                                     -
-													<?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
+													<?= date( get_option( 'date_format' ), strtotime( $course_detail['end_date'] ) ); ?>
                                                 </td>
                                                 <td class="course-table-instructor">
                                                     <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
 													<?php if ( ! empty( $instructor_1 = $course_detail['instructor1'] ) ) : ?>
-                                                        <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_1; ?>" data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
+                                                        <img src="<?= get_instructor_image(); ?>"
+                                                             class="course-card-trainer" alt="<?= $instructor_1; ?>"
+                                                             data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
 													<?php endif; ?>
 													<?php if ( ! empty( $instructor_2 = $course_detail['instructor2'] ) ) : ?>
-                                                        <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_2; ?>" data-tooltip tabindex="2" title="<?= $instructor_2; ?>">
+                                                        <img src="<?= get_instructor_image(); ?>"
+                                                             class="course-card-trainer" alt="<?= $instructor_2; ?>"
+                                                             data-tooltip tabindex="2" title="<?= $instructor_2; ?>">
 													<?php endif; ?>
 													<?php if ( ! empty( $instructor_3 = $course_detail['instructor3'] ) ) : ?>
-                                                        <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_3; ?>" data-tooltip tabindex="2" title="<?= $instructor_3; ?>">
+                                                        <img src="<?= get_instructor_image(); ?>"
+                                                             class="course-card-trainer" alt="<?= $instructor_3; ?>"
+                                                             data-tooltip tabindex="2" title="<?= $instructor_3; ?>">
 													<?php endif; ?>
 													<?php if ( ! empty( $instructor_4 = $course_detail['instructor4'] ) ) : ?>
-                                                        <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_4; ?>" data-tooltip tabindex="2" title="<?= $instructor_4; ?>">
+                                                        <img src="<?= get_instructor_image(); ?>"
+                                                             class="course-card-trainer" alt="<?= $instructor_4; ?>"
+                                                             data-tooltip tabindex="2" title="<?= $instructor_4; ?>">
 													<?php endif; ?>
                                                 </td>
                                                 <td class="course-table-apply">

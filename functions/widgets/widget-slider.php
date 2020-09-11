@@ -22,7 +22,17 @@ function slider_widget( $atts, $content = null ) {
             <div class="slider-widget-slider">
 				<?php foreach ( $image_ids as $image_id ) : ?>
                     <div class="slider-widget-image">
-						<?= wp_get_attachment_image( $image_id, 'large-thumbnail', false, array( 'class' => 'box-shadow' ) ); ?>
+						<?php
+						$logo    = wp_get_attachment_image( $image_id, 'large-thumbnail', false, array( 'class' => 'box-shadow' ) );
+						$caption = wp_get_attachment_caption( $image_id );
+						?>
+						<?php if ( ! empty( $caption ) ) : ?>
+                            <a href="<?= $caption; ?>" rel="external" target="_blank">
+								<?= $logo; ?>
+                            </a>
+						<?php else : ?>
+							<?= $logo; ?>
+						<?php endif; ?>
                     </div>
 				<?php endforeach; ?>
             </div>

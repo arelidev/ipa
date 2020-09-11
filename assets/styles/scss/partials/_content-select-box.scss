@@ -70,6 +70,7 @@
 
   &__list {
     position: absolute;
+    z-index: 99;
     width: 100%;
     padding: 0;
     list-style: none;

@@ -39,14 +39,10 @@ $hero_type = get_field( 'hero_type' );
 						<?php if ( has_excerpt() ) : ?>
                             <p><small><?php the_excerpt(); ?></small></p>
 						<?php endif; ?>
-						<?php
-						if ( function_exists( 'yoast_breadcrumb' ) ) {
-							// yoast_breadcrumb( '<p id="breadcrumbs"><small>', '</small></p>' );
-						}
-						?>
                     </div>
                 </div>
                 <div class="small-12 large-8 cell small-order-1 large-order-2 hero-image-wrapper">
+                    <img src="<?= get_template_directory_uri(); ?>/assets/images/curved-border.svg" alt="" aria-hidden="true" class="hero-separator">
 					<?php the_post_thumbnail( 'full' ); ?>
                 </div>
             </div>
@@ -58,7 +54,7 @@ $hero_type = get_field( 'hero_type' );
             <div class="grid-container">
                 <div class="grid-x grid-padding-x grid-padding-y">
                     <div class="cell">
-                        <ul class="menu" data-magellan>
+                        <ul class="menu" id="course-magellan">
 							<?php if ( have_rows( 'course_magellan_navigation' ) ): ?>
 								<?php while ( have_rows( 'course_magellan_navigation' ) ) : the_row(); ?>
                                     <li>
@@ -68,7 +64,7 @@ $hero_type = get_field( 'hero_type' );
                                     </li>
 								<?php endwhile; ?>
 							<?php endif; ?>
-                            <li><a href="#courses"><?php _e( 'Courses', 'ipa' ); ?></a></li>
+                            <li><a href="#courses"><?php _e( 'Locations & Dates', 'ipa' ); ?></a></li>
                         </ul>
                     </div>
                 </div>
@@ -107,7 +103,7 @@ $hero_type = get_field( 'hero_type' );
                             <div class="course-gallery">
 								<?php foreach ( $gallery as $item => $value ) : ?>
                                     <div class="gallery-slide">
-                                        <a href="<?= wp_get_attachment_image_url( $value, 'full' ); ?>" data-fancybox>
+                                        <a href="<?= wp_get_attachment_image_url( $value, 'full' ); ?>" data-fancybox="gallery">
 											<?= wp_get_attachment_image( $value, 'large' ); ?>
                                         </a>
                                     </div>
