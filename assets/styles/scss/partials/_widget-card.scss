@@ -77,20 +77,20 @@
   &.blue {
     .ipa-single-card-widget {
       background: $primary-color;
-      color: $white;
+      color: $white !important;
 
       &-title {
-        color: $white;
+        color: $white !important;
       }
 
       &-content {
 
         &-text {
-          color: $white;
+          color: $white !important;
         }
 
         &-link {
-          color: $white;
+          color: $white !important;
         }
       }
     }
