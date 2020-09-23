@@ -24,14 +24,22 @@
   }
 
   .tabs-content {
-    box-shadow: $global-box-shadow;
-    border-radius: $global-radius;
-    overflow: hidden;
-    border: none;
-    padding: 2rem 2rem 1rem;
 
     .tabs-panel {
 
+      .tabs-content-inner {
+        box-shadow: $global-box-shadow;
+        border-radius: $global-radius;
+        overflow: hidden;
+        border: none;
+        padding: 2rem 2rem 1rem;
+        background: $primary-color;
+        color: $white;
+
+        ol.styled-ol>li:before {
+          color: $white;
+        }
+      }
     }
   }
 

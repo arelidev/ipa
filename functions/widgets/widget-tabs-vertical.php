@@ -17,8 +17,8 @@ function ipa_vertical_tabs_widget( $atts, $content = null ) {
 
 	$tabs = vc_param_group_parse_atts( $atts['tabs'] );
 	?>
-    <div class="grid-x grid-margin-x ipa-vertical-tabs <?= $atts['el_class']; ?>">
-        <div class="cell small-12 medium-12 large-5">
+    <div class="grid-x ipa-vertical-tabs <?= $atts['el_class']; ?>">
+        <div class="cell small-12 medium-6 large-4">
             <ul class="vertical tabs" id="vertical-tabs-widget" data-responsive-accordion-tabs="accordion large-tabs">
 				<?php foreach ( $tabs as $index => $value ) : $title = $value['tab_title']; ?>
                     <li class="tabs-title <?= ( $index == 0 ) ? "is-active" : ""; ?>">
@@ -27,11 +27,21 @@ function ipa_vertical_tabs_widget( $atts, $content = null ) {
 				<?php endforeach; ?>
             </ul>
         </div>
-        <div class="cell small-12 medium-12 large-7">
+        <div class="cell small-12 medium-6 large-auto">
             <div class="tabs-content" data-tabs-content="vertical-tabs-widget">
 				<?php foreach ( $tabs as $index => $value ) : $title = $value['tab_title']; ?>
-                    <div class="tabs-panel <?= ( $index == 0 ) ? "is-active" : ""; ?>" id="<?= vc_slugify( $title ); ?>">
-						<?= apply_filters( 'the_content', $value['tab_content'] ); ?>
+                    <div class="tabs-panel <?= ( $index == 0 ) ? "is-active" : ""; ?>"
+                         id="<?= vc_slugify( $title ); ?>">
+                        <div class="grid-x grid-padding-x">
+                            <div class="cell auto tabs-content-inner">
+								<?= apply_filters( 'the_content', $value['tab_content'] ); ?>
+                            </div>
+							<?php if ( ! empty( $image = $value['image'] ) ) : ?>
+                                <div class="cell small-12 medium-12 large-6">
+									<?= wp_get_attachment_image( $image, 'full' ); ?>
+                                </div>
+							<?php endif; ?>
+                        </div>
                     </div>
 				<?php endforeach; ?>
             </div>
@@ -63,16 +73,21 @@ function ipa_vertical_tabs_integrateWithVC() {
 							"heading"    => __( "Title", "ipa" ),
 							"param_name" => "tab_title",
 							"value"      => __( "", "ipa" ),
-							// "description" => __( "Enter description.", "ipa" )
 						),
 						array(
-							"type"        => "textarea",
-							"class"       => "",
-							"heading"     => __( "Content", "ipa" ),
-							"param_name"  => "tab_content",
-							"value"       => __( "", "ipa" ),
-							"description" => __( "HTML elements are allowed.", "ipa" )
-						)
+							"type"       => "textarea",
+							"class"      => "",
+							"heading"    => __( "Content", "ipa" ),
+							"param_name" => "tab_content",
+							"value"      => __( "", "ipa" ),
+						),
+						array(
+							"type"       => "attach_image",
+							"class"      => "",
+							"heading"    => __( "Image", "ipa" ),
+							"param_name" => "image",
+							"value"      => '',
+						),
 					)
 				)
 			),
