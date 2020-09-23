@@ -1,12 +1,14 @@
 <?php
 function ipa_card_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(
-		'el_class' => ''
+		'color_scheme' => '',
+		'el_class'     => ''
 	), $atts );
+
 	ob_start();
 	?>
-    <div class="ipa-card-widget <?= $atts['el_class']; ?>" data-equalizer="ipa-card-widget-title" data-equalize-by-row="true">
-        <div class="grid-x grid-margin-x grid-margin-y" data-equalizer="ipa-card-widget-content" data-equalize-by-row="true">
+    <div class="ipa-card-widget <?= $atts['color_scheme']; ?> <?= $atts['el_class']; ?>" data-equalizer="ipa-card-widget-title" data-equalize-by-row="true">
+        <div class="grid-x grid-margin-x grid-margin-y align-center" data-equalizer="ipa-card-widget-content" data-equalize-by-row="true">
 	        <?= do_shortcode( $content ); ?>
         </div>
     </div>
@@ -43,7 +45,7 @@ function ipa_single_card_widget( $atts, $content = null ) {
 
 	        <?php if ( ! empty( $href['url'] ) ) : ?>
                 <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>" title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
-                    <span><?= __( 'Read More', 'ipa' ); ?></span> <i class="fas fa-arrow-right fa-lg"></i>
+                    <span><?= ( ! empty( $href['title'] ) ) ? $href['title'] : __( 'Read More', 'ipa' ); ?></span> <i class="fas fa-arrow-right fa-lg"></i>
                 </a>
 	        <?php endif; ?>
         </div>
@@ -65,6 +67,16 @@ function ipa_card_integrateWithVC() {
 			"is_container"            => true,
 			"category"                => __( "Custom", "ipa" ),
 			"params"                  => array(
+				array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Color Scheme', "ipa" ),
+					'param_name'  => 'color_scheme',
+					'value'       => array(
+						__( 'Default', "ipa" ) => 'default',
+						__( 'Blue', "ipa" )    => 'blue',
+					),
+					"description" => __( "", "ipa" )
+				),
 				array(
 					"type"        => "textfield",
 					"heading"     => __( "Extra class name", "ipa" ),

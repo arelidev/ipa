@@ -73,4 +73,26 @@
       }
     }
   }
+
+  &.blue {
+    .ipa-single-card-widget {
+      background: $primary-color;
+      color: $white;
+
+      &-title {
+        color: $white;
+      }
+
+      &-content {
+
+        &-text {
+          color: $white;
+        }
+
+        &-link {
+          color: $white;
+        }
+      }
+    }
+  }
 }
