@@ -47,6 +47,7 @@ $hero_type = get_field( 'hero_type' );
                     </div>
                 </div>
                 <div class="small-12 large-8 cell small-order-1 large-order-2 hero-image-wrapper">
+                    <img src="<?= get_template_directory_uri(); ?>/assets/images/curved-border.svg" alt="" aria-hidden="true" class="hero-separator">
 					<?php the_post_thumbnail( 'full' ); ?>
                 </div>
             </div>
