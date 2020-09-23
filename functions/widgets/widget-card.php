@@ -20,16 +20,17 @@ add_shortcode( 'ipa_card', 'ipa_card_widget' );
 
 function ipa_single_card_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(
-		'title'    => '',
-		'icon'     => '',
-		'size'     => '',
-		'link'     => '',
-		'el_class' => ''
+		'title'      => '',
+		'icon'       => '',
+		'background' => '',
+		'size'       => '',
+		'link'       => '',
+		'el_class'   => ''
 	), $atts );
 
 	$href = vc_build_link( $atts['link'] );
 	?>
-    <div class="ipa-single-card-widget cell <?= $atts['size']; ?>">
+    <div class="ipa-single-card-widget cell <?= $atts['size']; ?>" <?= ( ! empty( $backgound = $atts['background'] ) ) ? 'style="background-image:url('.$backgound .')' : ''; ?>>
         <div class="ipa-single-card-widget-inner">
 			<?php if ( ! empty( $atts['icon'] ) ) : ?>
 				<?= wp_get_attachment_image( $atts['icon'], 'full', true, array( 'class' => 'ipa-single-card-widget-icon' ) ); ?>
@@ -112,7 +113,15 @@ function ipa_card_integrateWithVC() {
 					"heading"     => __( "Icon", "ipa" ),
 					"param_name"  => "icon",
 					"value"       => '',
-					"description" => __( "Enter description.", "ipa" )
+					"description" => __( "", "ipa" )
+				),
+				array(
+					"type"        => "attach_image",
+					"class"       => "",
+					"heading"     => __( "Background Image", "ipa" ),
+					"param_name"  => "background",
+					"value"       => '',
+					"description" => __( "", "ipa" )
 				),
 				array(
 					"type"        => "textarea_html",
