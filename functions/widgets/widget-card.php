@@ -28,9 +28,10 @@ function ipa_single_card_widget( $atts, $content = null ) {
 		'el_class'   => ''
 	), $atts );
 
-	$href = vc_build_link( $atts['link'] );
+	$href       = vc_build_link( $atts['link'] );
+	$background = wp_get_attachment_image_url( $atts['background'], 'full' );
 	?>
-    <div class="ipa-single-card-widget cell <?= $atts['size']; ?>" <?= ( ! empty( $backgound = $atts['background'] ) ) ? 'style="background-image:url('.$backgound .')' : ''; ?>>
+    <div class="ipa-single-card-widget cell <?= ( ! empty( $background ) ) ? 'has-background' : ''; ?> <?= $atts['size']; ?>" <?= ( ! empty( $background ) ) ? 'style="background-image:url(' . $background . ')"' : ''; ?>>
         <div class="ipa-single-card-widget-inner">
 			<?php if ( ! empty( $atts['icon'] ) ) : ?>
 				<?= wp_get_attachment_image( $atts['icon'], 'full', true, array( 'class' => 'ipa-single-card-widget-icon' ) ); ?>

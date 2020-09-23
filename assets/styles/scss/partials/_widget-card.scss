@@ -6,6 +6,32 @@
     border-radius: $global-radius;
     transition: box-shadow .2s ease-in-out;
     background: $white;
+    overflow: hidden;
+
+    &.has-background {
+      background-size: cover;
+      background-position: center;
+
+      .ipa-single-card-widget-inner {
+        background: rgba($black, .65);
+        color: $white !important;
+
+        .ipa-single-card-widget-title {
+          color: $white !important;
+        }
+
+        .ipa-single-card-widget-content {
+
+          &-text {
+            color: $white !important;
+          }
+
+          &-link {
+            color: $white !important;
+          }
+        }
+      }
+    }
 
     &-inner {
       padding: 2rem;
