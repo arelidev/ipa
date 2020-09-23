@@ -25,10 +25,12 @@ function ipa_single_card_widget( $atts, $content = null ) {
 		'background' => '',
 		'size'       => '',
 		'link'       => '',
+		'link_2'     => '',
 		'el_class'   => ''
 	), $atts );
 
 	$href       = vc_build_link( $atts['link'] );
+	$href2      = vc_build_link( $atts['link_2'] );
 	$background = wp_get_attachment_image_url( $atts['background'], 'full' );
 	?>
     <div class="ipa-single-card-widget cell <?= ( ! empty( $background ) ) ? 'has-background' : ''; ?> <?= $atts['size']; ?>" <?= ( ! empty( $background ) ) ? 'style="background-image:url(' . $background . ')"' : ''; ?>>
@@ -48,6 +50,13 @@ function ipa_single_card_widget( $atts, $content = null ) {
 	        <?php if ( ! empty( $href['url'] ) ) : ?>
                 <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>" title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
                     <span><?= ( ! empty( $href['title'] ) ) ? $href['title'] : __( 'Read More', 'ipa' ); ?></span> <i class="fas fa-arrow-right fa-lg"></i>
+                </a>
+	        <?php endif; ?>
+
+	        <?php if ( ! empty( $href2['url'] ) ) : ?>
+             /
+                <a href="<?= $href2['url']; ?>" target="<?= $href2['target']; ?>" rel="<?= $href2['rel']; ?>" title="<?= $href2['title']; ?>" class="ipa-single-card-widget-content-link">
+                    <span><?= ( ! empty( $href2['title'] ) ) ? $href2['title'] : __( 'Read More', 'ipa' ); ?></span> <i class="fas fa-arrow-right fa-lg"></i>
                 </a>
 	        <?php endif; ?>
         </div>
@@ -137,6 +146,14 @@ function ipa_card_integrateWithVC() {
 					"class"       => "",
 					"heading"     => __( "CTA Link", "ipa" ),
 					"param_name"  => "link",
+					"value"       => '',
+					"description" => __( "", "ipa" )
+				),
+				array(
+					"type"        => "vc_link",
+					"class"       => "",
+					"heading"     => __( "Second CTA Link", "ipa" ),
+					"param_name"  => "link_2",
 					"value"       => '',
 					"description" => __( "", "ipa" )
 				),
