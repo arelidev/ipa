@@ -14,7 +14,9 @@ function widget_full_content_tabs( $atts, $content ) {
 	?>
     <div class="widget-full-content-tabs-wrapper">
 
-        <ul class="grid-container grid-x grid-margin-x grid-margin-y align-center no-bullet" data-responsive-accordion-tabs="accordion large-tabs" data-deep-link="true" id="widget-full-content-tabs"></ul>
+        <ul class="grid-container grid-x grid-margin-x grid-margin-y align-center no-bullet"
+            data-responsive-accordion-tabs="accordion large-tabs" data-deep-link="true"
+            id="widget-full-content-tabs"></ul>
 
         <div data-tabs-content="widget-full-content-tabs">
 
@@ -38,9 +40,10 @@ add_shortcode( 'full_content_tabs', 'widget_full_content_tabs' );
  */
 function widget_full_content_tab( $atts, $content ) {
 	$atts = shortcode_atts( array(
-		'title'     => '',
-		'icon'      => '',
-		'is_active' => false
+		'title'       => '',
+		'icon'        => '',
+		'description' => '',
+		'is_active'   => false
 	), $atts );
 
 	$title     = vc_slugify( $atts['title'] );
@@ -56,6 +59,10 @@ function widget_full_content_tab( $atts, $content ) {
 					<?php endif; ?>
 
                     <h3 class="ipa-single-card-widget-title"><?= $atts['title']; ?></h3>
+
+					<?php if ( ! empty( $description = $atts['description'] ) ) : ?>
+                        <h5 class="text-color-dark-gray"><?= $description; ?></h5>
+					<?php endif; ?>
                 </div>
             </a>
         </li>
@@ -105,7 +112,13 @@ function full_content_tabs_integrateWithVC() {
 					"heading"    => __( "Title", "ipa" ),
 					"param_name" => "title",
 					"value"      => __( "", "ipa" ),
-					// "description" => __( "Enter description.", "ipa" )
+				),
+				array(
+					"type"        => "textarea",
+					"class"       => "",
+					"heading"     => __( "Description", "ipa" ),
+					"param_name"  => "description",
+					"value"       => __( "", "ipa" ),
 				),
 				array(
 					"type"        => "attach_image",
@@ -113,21 +126,19 @@ function full_content_tabs_integrateWithVC() {
 					"heading"     => __( "Icon", "ipa" ),
 					"param_name"  => "icon",
 					"value"       => '',
-					"description" => __( "Enter description.", "ipa" )
 				),
 				array(
 					"type"        => "checkbox",
 					"class"       => "",
-					"heading"     => __( "Is Active", "my-text-domain" ),
+					"heading"     => __( "Is Active", "ipa" ),
 					"param_name"  => "is_active",
-					"value"       => __( "", "my-text-domain" ),
-					"description" => __( "Check for only the first tab.", "my-text-domain" )
+					"value"       => __( "", "ipa" ),
+					"description" => __( "Check for only the first tab.", "ipa" )
 				),
 				array(
 					"type"        => "textfield",
 					"heading"     => __( "Extra class name", "ipa" ),
 					"param_name"  => "el_class",
-					"description" => __( "", "ipa" )
 				)
 			),
 			"js_view"                 => 'VcColumnView'
