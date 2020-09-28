@@ -42,7 +42,7 @@ function ipa_courses_table_alt_widget( $atts, $content = null ) {
                                 <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>
                                 <?= date( get_option( 'date_format' ), strtotime( $course_detail['date'] ) ); ?>
                                 -
-                                <?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
+                                <?= date( get_option( 'date_format' ), strtotime( $course_detail['end_date'] ) ); ?>
                             </td>
                             <td class="course-table-instructor">
                                 <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
