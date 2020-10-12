@@ -23,53 +23,57 @@ function get_courses( $limit = null, $category = null, $popular = false ) {
 	global $remote_db;
 
 	$sql = "select `e`.*,
-       `r`.`request_path`                AS `request_path`,
-       `at_status`.`value`           	AS `status`,
-       `at_visibility`.`value`           	AS `visibility`,
-       `at_end_date`.`value`             AS `end_date`,
-              `at_popular_course`.`value`                                             AS `popular_course`,
-       CONCAT(TRIM(at_instr1_fname.value), ' ', TRIM(at_instr1_lname.value))                  AS `instructor1`,
-       CONCAT(TRIM(at_instr2_fname.value), ' ', TRIM(at_instr2_lname.value))                  AS `instructor2`,
-       CONCAT(TRIM(at_instr3_fname.value), ' ', TRIM(at_instr3_lname.value))                  AS `instructor3`,
-       CONCAT(TRIM(at_instr4_fname.value), ' ', TRIM(at_instr4_lname.value))                  AS `instructor4`
+       `r`.`request_path`                                                    AS `request_path`,
+       `at_status`.`value`                                                   AS `status`,
+       `at_visibility`.`value`                                               AS `visibility`,
+       `at_end_date`.`value`                                                 AS `end_date`,
+       `at_image`.`value`                                                    AS `image`,
+       `at_popular_course`.`value`                                           AS `popular_course`,
+       CONCAT(TRIM(at_instr1_fname.value), ' ', TRIM(at_instr1_lname.value)) AS `instructor1`,
+       CONCAT(TRIM(at_instr2_fname.value), ' ', TRIM(at_instr2_lname.value)) AS `instructor2`,
+       CONCAT(TRIM(at_instr3_fname.value), ' ', TRIM(at_instr3_lname.value)) AS `instructor3`,
+       CONCAT(TRIM(at_instr4_fname.value), ' ', TRIM(at_instr4_lname.value)) AS `instructor4`
 from `ipa_course_details` as `e`
          LEFT JOIN core_url_rewrite as `r`
                    ON `e`.`id` = `r`.`product_id`
          left join `catalog_product_entity_int` as `at_status`
-                   on (`at_status`.`entity_id` = `e`.`id`) AND (`at_status`.`attribute_id`= 84)
+                   on (`at_status`.`entity_id` = `e`.`id`) AND (`at_status`.`attribute_id` = 84)
          left join `catalog_product_entity_int` as `at_visibility`
-                   on (`at_visibility`.`entity_id` = `e`.`id`) AND (`at_visibility`.`attribute_id`= 91)
+                   on (`at_visibility`.`entity_id` = `e`.`id`) AND (`at_visibility`.`attribute_id` = 91)
          left join `catalog_product_entity_datetime` as `at_end_date`
-                   on (`at_end_date`.`entity_id` = `e`.`id`) AND (`at_end_date`.`attribute_id`= 156)
+                   on (`at_end_date`.`entity_id` = `e`.`id`) AND (`at_end_date`.`attribute_id` = 156)
          left join `catalog_product_entity_int` as `at_instr1`
-                   on (`at_instr1`.`entity_id` = `e`.`id`) AND (`at_instr1`.`attribute_id`= 137)
+                   on (`at_instr1`.`entity_id` = `e`.`id`) AND (`at_instr1`.`attribute_id` = 137)
          left join `customer_entity_varchar` as `at_instr1_lname`
                    on (`at_instr1`.`value` = `at_instr1_lname`.`entity_id` and `at_instr1_lname`.`attribute_id` = 7)
          left join `customer_entity_varchar` as `at_instr1_fname`
                    on (`at_instr1`.`value` = `at_instr1_fname`.`entity_id` and `at_instr1_fname`.`attribute_id` = 5)
+         LEFT JOIN `customer_entity_varchar` AS `at_image`
+                   ON (`at_instr1`.`value` = `at_image`.`entity_id`) AND (`at_image`.`attribute_id` = '119')
          left join `catalog_product_entity_int` as `at_instr2`
-                   on (`at_instr2`.`entity_id` = `e`.`id`) AND (`at_instr2`.`attribute_id`= 138)
-    left join `catalog_product_entity_int` as `at_popular_course`
+                   on (`at_instr2`.`entity_id` = `e`.`id`) AND (`at_instr2`.`attribute_id` = 138)
+         left join `catalog_product_entity_int` as `at_popular_course`
                    on (`at_popular_course`.`entity_id` = `e`.`id`) AND (`at_popular_course`.`attribute_id` = 244)
          left join `customer_entity_varchar` as `at_instr2_lname`
                    on (`at_instr2`.`value` = `at_instr2_lname`.`entity_id` and `at_instr2_lname`.`attribute_id` = 7)
          left join `customer_entity_varchar` as `at_instr2_fname`
                    on (`at_instr2`.`value` = `at_instr2_fname`.`entity_id` and `at_instr2_fname`.`attribute_id` = 5)
          left join `catalog_product_entity_int` as `at_instr3`
-                   on (`at_instr3`.`entity_id` = `e`.`id`) AND (`at_instr3`.`attribute_id`= 139)
+                   on (`at_instr3`.`entity_id` = `e`.`id`) AND (`at_instr3`.`attribute_id` = 139)
          left join `customer_entity_varchar` as `at_instr3_lname`
                    on (`at_instr3`.`value` = `at_instr3_lname`.`entity_id` and `at_instr3_lname`.`attribute_id` = 7)
          left join `customer_entity_varchar` as `at_instr3_fname`
                    on (`at_instr3`.`value` = `at_instr3_fname`.`entity_id` and `at_instr3_fname`.`attribute_id` = 5)
          left join `catalog_product_entity_int` as `at_instr4`
-                   on (`at_instr4`.`entity_id` = `e`.`id`) AND (`at_instr4`.`attribute_id`= 140)
+                   on (`at_instr4`.`entity_id` = `e`.`id`) AND (`at_instr4`.`attribute_id` = 140)
          left join `customer_entity_varchar` as `at_instr4_lname`
                    on (`at_instr4`.`value` = `at_instr4_lname`.`entity_id` and `at_instr4_lname`.`attribute_id` = 7)
          left join `customer_entity_varchar` as `at_instr4_fname`
                    on (`at_instr4`.`value` = `at_instr4_fname`.`entity_id` and `at_instr4_fname`.`attribute_id` = 5)
-where	`at_end_date`.`value` >= DATE(NOW())
+
+where `at_end_date`.`value` >= DATE(NOW())
   and `at_status`.`value` = 1
-  and `at_visibility`.`value` IN (2,4)
+  and `at_visibility`.`value` IN (2, 4)
   AND `r`.`store_id` = 1
   AND `r`.`is_system` = 1
   AND `r`.`category_id` IS NOT NULL
@@ -501,14 +505,13 @@ function get_clinic_names( $clinics ) {
 	$names_array = [];
 
 	foreach ( $clinics as $clinic ) {
-        array_push( $names_array, $clinic['name'] );
-    }
-    
-    sort( $names_array );
+		array_push( $names_array, $clinic['name'] );
+	}
+
+	sort( $names_array );
 
 	return array_unique( $names_array );
 }
-
 
 /**
  * Get Faculty Names
@@ -518,21 +521,20 @@ function get_clinic_names( $clinics ) {
  * @return array
  */
 function get_primary_faculty_names( $faculty ) {
-    $names_array = [];
+	$names_array = [];
 
 	foreach ( $faculty as $fac ) {
 
-        if ( $fac['instructor_status'] == 1 ) {
-            $names_array[$fac['firstname'].' '.$fac['lastname']] = $fac['name'];
-        }
+		if ( $fac['instructor_status'] == 1 ) {
+			$names_array[ $fac['firstname'] . ' ' . $fac['lastname'] ] = $fac['name'];
+		}
 
-    }
-    
-    ksort( $names_array );
+	}
+
+	ksort( $names_array );
 
 	return array_unique( $names_array );
 }
-
 
 /**
  * Get Instructor Image

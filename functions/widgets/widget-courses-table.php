@@ -262,7 +262,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                                     <td class="course-table-instructor">
                                                         <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
                                                         <?php if ( ! empty( $instructor_1 = $course_detail['instructor1'] ) ) : ?>
-                                                            <img src="<?= get_instructor_image(); ?>"
+                                                            <img src="<?= get_instructor_image( $course_detail['image'] ); ?>"
                                                                 class="course-card-trainer" alt="<?= $instructor_1; ?>"
                                                                 data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
                                                         <?php endif; ?>

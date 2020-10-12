@@ -25,41 +25,26 @@ function full_slider_widget( $atts, $content = null ) {
 	?>
 	<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
         <div class="full-slider-widget">
-            <div class="grid-x grid-padding-x grid-padding-y align-middle full-slider-inner">
-                <div class="small-12 medium-12 large-12 cell">
-                    <div class="full-slider">
-						<?php if ( have_rows( 'slides' ) ): while ( have_rows( 'slides' ) ) : the_row(); ?>
-                            <div class="single-full-slide" id="<?= acf_slugify( get_sub_field( 'slide_title' ) ); ?>">
-                                <div class="grid-container grid-x grid-padding-x grid-padding-y <?= get_sub_field( 'align_row' ); ?>">
-									<?php if ( have_rows( 'left_column' ) ): while ( have_rows( 'left_column' ) ) : the_row(); ?>
-                                        <div class="cell small-order-2 medium-order-2 large-order-1 small-12 medium-12 <?= get_sub_field( 'size' ); ?> <?= get_sub_field( 'extra_class' ); ?>">
-											<?= apply_filters( 'the_content', get_sub_field( 'content' ) ); ?>
-                                        </div>
-									<?php endwhile;endif; ?>
-									<?php if ( have_rows( 'right_column' ) ): while ( have_rows( 'right_column' ) ) : the_row(); ?>
-                                        <div class="cell small-order-1 medium-order-1 large-order-2 small-12 medium-12 <?= get_sub_field( 'size' ); ?> <?= get_sub_field( 'extra_class' ); ?>">
-											<?= apply_filters( 'the_content', get_sub_field( 'content' ) ); ?>
-                                        </div>
-									<?php endwhile;endif; ?>
+            <div class="full-slider-inner">
+                <div class="full-slider">
+                    <?php if ( have_rows( 'slides' ) ): while ( have_rows( 'slides' ) ) : the_row(); ?>
+                        <div class="single-full-slide" id="<?= acf_slugify( get_sub_field( 'slide_title' ) ); ?>" style="background-image: url(<?php the_sub_field( 'background_image' ); ?>">
+                            <div class="grid-container">
+                                <div class="grid-x grid-padding-x align-center">
+                                    <div class="small-10 medium-10 large-8 cell">
+	                                    <?= apply_filters( 'the_content', get_sub_field( 'content' ) ); ?>
+                                    </div>
                                 </div>
                             </div>
-						<?php endwhile; endif; ?>
-                    </div>
+                        </div>
+                    <?php endwhile; endif; ?>
                 </div>
-
-                <div class="small-12 medium-12 large-12 cell" style="margin-bottom: -100px; transform: translateY(-25px);">
-                    <div class="full-slider-nav">
-	                    <?php if ( have_rows( 'slides' ) ): while ( have_rows( 'slides' ) ) : the_row(); ?>
-                            <div class="single-full-slide testimonial-card">
-	                            <div class="testimonial-card-inner">
-		                            <p class="text-color-black text-center" style="margin-bottom: 0;">
-                                        <b><?= get_sub_field( 'slide_title' ); ?></b>
-                                    </p>
-                                </div>
-                            </div>
-	                    <?php endwhile; endif; ?>
-                    </div>
-                </div>
+                <button class="slick-prev-custom-full-slider slick-custom-button" aria-label="Previous" type="button">
+                    <i class="far fa-chevron-left fa-lg"></i>
+                </button>
+                <button class="slick-next-custom-full-slider slick-custom-button" aria-label="Next" type="button">
+                    <i class="far fa-chevron-right fa-lg"></i>
+                </button>
             </div>
         </div>
 	<?php endwhile; ?>

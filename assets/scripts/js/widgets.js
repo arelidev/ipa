@@ -117,21 +117,14 @@ jQuery(document).ready(function ($) {
 jQuery(document).ready(function ($) {
     $('.full-slider').slick({
         dots: false,
-        arrows: false,
-        infinite: false,
+        arrows: true,
+        infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        adaptiveHeight: true,
         nextArrow: '.slick-next-custom-full-slider',
         prevArrow: '.slick-prev-custom-full-slider',
-        asNavFor: '.full-slider-nav'
-    })
-
-    $('.full-slider-nav').slick({
-        slidesToShow: 5,
-        slidesToScroll: 5,
-        asNavFor: '.full-slider',
-        focusOnSelect: true
+    }).on('setPosition', function (event, slick) {
+        $('.single-full-slide').css('height', slick.$slideTrack.height() + 'px');
     })
 })
 
