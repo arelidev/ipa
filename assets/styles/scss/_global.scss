@@ -31,7 +31,7 @@ Stylesheet: Global Stylesheet
 
 .styled-image img {
 	border-radius: $global-radius;
-	box-shadow: 0 4px 8px rgba($black, .33);;
+	box-shadow: 0 4px 8px rgba($black, .33);
 }
 
 .margin-bottom-0 {
@@ -532,13 +532,13 @@ body {
 	video, object {
 		max-width: 100%;
 		height: auto;
-		}
+	}
 
 	pre {
 		background: #eee;
 		border: 1px solid #cecece;
 		padding: 10px;
-		}
+	}
 
 }
 
@@ -614,8 +614,8 @@ IMAGE GALLERY STYLES
 	padding-right: 0.9375rem;
 }
 .gallery dl:last-child:not(:first-child) {
-  float: right;
- }
+	float: right;
+}
 
 // Gallery caption styles
 .gallery-caption {}
@@ -860,9 +860,9 @@ COMMENT FORM STYLES
 				border-color: #fbc2c4;
 				background-color: #f6e7eb;
 				-webkit-box-shadow: none;
-				   -moz-box-shadow: none;
-				    -ms-box-shadow: none;
-						box-shadow: none;
+				-moz-box-shadow: none;
+				-ms-box-shadow: none;
+				box-shadow: none;
 			}
 		}
 
@@ -997,7 +997,7 @@ VISUAL EDITOR STYLES
 *********************/
 // Makes content look better in visual editor
 body#tinymce {
-   	margin: 20px;
+	margin: 20px;
 }
 
 /*********************
@@ -1005,8 +1005,8 @@ PLUGIN STYLES
 *********************/
 // Makes Gravity Forms play nice with Foundation Form styles
 .gform_body ul {
-    list-style: none outside none;
-    margin: 0;
+	list-style: none outside none;
+	margin: 0;
 }
 
 // Hide Gravity Forms validation fields when GFCSS is disabled
@@ -1015,9 +1015,9 @@ PLUGIN STYLES
 body .gform_wrapper li.gform_validation_container,
 body .gform_wrapper .gform_body ul.gform_fields li.gfield.gform_validation_container,
 body .gform_wrapper ul.gform_fields li.gfield.gform_validation_container {
-    display: none !important;
-    position: absolute !important;
-    left: -9000px;
+	display: none !important;
+	position: absolute !important;
+	left: -9000px;
 }
 
 // Social Icons
@@ -1138,4 +1138,40 @@ span.wpcf7-not-valid-tip {
 
 .wpcf7-not-valid {
 	border: 1px solid $alert-color;
+}
+
+// Visual Composer
+.vc_tta-tabs.ipa-vc-tabs {
+	.vc_tta-tabs-container {
+		.vc_tta-tabs-list {
+			margin-bottom: $global-margin;
+
+			.vc_tta-tab {
+				a {
+					border-radius: 0 !important;
+					background: none !important;
+					border: none !important;
+					border-bottom: 2px solid rgba($primary-color, .3) !important;
+					transition: all .2s ease-in-out;
+
+					.vc_tta-title-text {}
+				}
+			}
+
+			.vc_active {
+				a {
+					border-bottom-color: $primary-color !important;
+					color: $primary-color !important;
+				}
+			}
+		}
+	}
+
+	.vc_tta-panels-container {
+		.vc_tta-panels {
+			background: $white !important;
+			border: none !important;
+			box-shadow: 0 4px 8px rgba($black, .33);
+		}
+	}
 }
