@@ -134,6 +134,7 @@ function ipa_clinics_widget( $atts ) {
                         <?php $address = get_field( 'clinic_address' ); ?>
                         <div class="small-12 medium-6 large-6 cell single-clinic featured-clinic styled-container mix"
                              data-type="clinic"
+                             data-entity-id="<?= the_ID() ?>"
                              data-address="<?= $address['address']; ?>"
                              data-zip="<?= $address['post_code'] ?>"
                              data-state="<?= $address['state_short'] ?>"
@@ -149,6 +150,8 @@ function ipa_clinics_widget( $atts ) {
 										<?php endif; ?>
                                     </div>
                                     <div class="shrink cell">
+                                            <!-- <img src="<?= get_instructor_image(); ?>"
+                                                    class="map-icon-circle"> -->
                                         <i class="fas fa-star fa-lg"></i>
                                     </div>
                                 </div>
@@ -282,8 +285,10 @@ function ipa_clinics_widget( $atts ) {
 
     <script src="https://maps.googleapis.com/maps/api/js?key=<?= GOOGLE_MAPS_API_KEY; ?>"></script>
     <script type="text/javascript">
+        var map;
+        var init;
+
         jQuery(document).ready(function ($) {
-            var map;
             var prevInfoWindow;
 
             function initMap($el) {
@@ -321,12 +326,19 @@ function ipa_clinics_widget( $atts ) {
 
             function initMarker($marker, map) {
                 // Get position from marker.
-                let address = $marker.data('address');
+                let address = $marker.data('address')
                 let entity = $marker.data('entity-id')
+                let type = $marker.data('type')
                 let marker = '';
                 let geocoder;
+                let icon;
 
                 let iconBase = '<?= get_template_directory_uri(); ?>/assets/images/';
+                if ( type == 'clinic') {
+                    icon = iconBase + '/clinic-map-marker.png' 
+                } else {
+                    icon = null
+                }
 
                 if ( $marker.data('lat') !== undefined && $marker.data('lng') !== undefined ) {
                     let lat = $marker.data('lat');
@@ -341,7 +353,8 @@ function ipa_clinics_widget( $atts ) {
                     marker = new google.maps.Marker({
                         position: latLng,
                         map: map,
-                        // icon: iconBase + 'map-marker.png'
+                        entity: entity,
+                        icon: icon
                     });
 
                 } else if ( $marker.data('address').length > 0 && $marker.data('country') === 'United States' ) {
@@ -419,7 +432,7 @@ function ipa_clinics_widget( $atts ) {
                         google.maps.event.addListener(map, 'click', function () {
                             infowindow.close();
                         });
-
+                        
                         // Move map to marker position on click
                         if (existing.length > 1) {
                             existing.forEach( function( $mark ) {
@@ -471,21 +484,9 @@ function ipa_clinics_widget( $atts ) {
                 let map = initMap($(this));
             });
 
-            // Detect filter changes and reset map w/ markers
-            $(document).on('change', 'select', function() {
-                delay( function() {
-                    initMap( $('.acf-map') )
-                }, 2500)
-            })
+            init = initMap
 
-            // Detect changes to text filters and reset map w/ markers
-            $(document).on('keyup', 'input', function() {
-                delay( function() {
-                    initMap( $('.acf-map') )
-                }, 2500)
-            })
-
-              // Delay function
+            // Delay function
             let delay = (function () {
                 let timer = 0;
                 return function (callback, ms) {

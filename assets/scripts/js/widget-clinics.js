@@ -13,6 +13,7 @@ jQuery(document).ready(function ($) {
 
     let inputText;
     let $matching = $();
+    var entities = [];
 
     // Delay function
     let delay = (function () {
@@ -33,7 +34,19 @@ jQuery(document).ready(function ($) {
     });
 
     zipFilter.keyup(function () {
-        filterMix()
+        delay( function() {
+            geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({'address': zipFilter.val()}, function(results, status) {
+                if (status === 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(13)
+                } else {
+                    console.log('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+
+        }, 300)
     });
 
     certFilter.on('change', function () {
@@ -44,8 +57,15 @@ jQuery(document).ready(function ($) {
         filterMix()
     });
 
+    bindMapEvent()
+
+    function reinitMap() {
+        init($('.acf-map'))
+        bindMapEvent()
+    }
+
     // Filter function
-    function filterMix(input, field) {
+    function filterMix( map = false ) {
 
         // Delay function invoked to make sure user stopped typing
         delay(function () {
@@ -53,6 +73,10 @@ jQuery(document).ready(function ($) {
 
             $('.mix').each(function () {
                 $matching = $matching.add(this);
+
+                if (map == true && !entities.includes( parseInt($(this).attr('data-entity-id')) ) ) {
+                    $matching = $matching.not(this);
+                }
 
                 if ( filterSelect.val() && filterSelect.val() != 'all' ) {
                     if (!$(this).attr('data-type') || !$(this).attr('data-type').match( filterSelect.val().toLowerCase() )) {
@@ -67,9 +91,11 @@ jQuery(document).ready(function ($) {
                 }
 
                 if ( zipFilter.val() && zipFilter.val() != '' ) {
-                    if (!$(this).attr('data-zip') || !$(this).attr('data-zip').match( zipFilter.val().replace(/\s+/g, '-').toLowerCase() )) {
-                        $matching = $matching.not(this);
-                    }
+                    // Don't filter mix, instead rely on map zoom to filter
+
+                    // if (!$(this).attr('data-zip') || !$(this).attr('data-zip').match( zipFilter.val().replace(/\s+/g, '-').toLowerCase() )) {
+                    //     $matching = $matching.not(this);
+                    // }
                 }
 
                 if ( certFilter.val() && certFilter.val() != 'all' ) {
@@ -86,6 +112,30 @@ jQuery(document).ready(function ($) {
             });
             mixer.filter($matching);
 
+            if (!map) {
+                delay( function() {
+                    reinitMap()
+                }, 800)
+            }
+  
         }, 200);
+    }
+
+    function bindMapEvent() {
+        if ( typeof google !== 'undefined') {
+            google.maps.event.addListener(map, 'bounds_changed', function() {
+                delay( function() {
+                    entities = [];
+                    // Check available markers on map, and if not on map, hide the card on the left via mix
+                    map.markers.forEach(function (marker) {
+                        if (map.getBounds().contains(marker.getPosition())) {
+                            entities.push( $(marker)[0].entity )
+                        }
+                    })
+                    filterMix( true )
+                }, 500)
+            })
+        }
+
     }
 });
