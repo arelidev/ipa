@@ -15,6 +15,11 @@
       .ipa-single-card-widget-inner {
         background: rgba($black, .65);
         color: $white !important;
+        transition: background .2s ease-in-out;
+
+        &:hover {
+          background: rgba($black, .8);
+        }
 
         .ipa-single-card-widget-title {
           color: $white !important;
