@@ -50,7 +50,7 @@ $hero_type = get_field( 'hero_type' );
 	<?php endif; ?>
 
     <div data-sticky-container>
-        <div class="sticky magellan-bar styled-container" data-sticky data-margin-top="0" data-anchor="entry-content" data-sticky-on="small">
+        <div class="sticky magellan-bar styled-container" data-sticky data-margin-top="0" data-anchor="entry-content" data-sticky-on="small" data-offset="70">
             <div class="grid-container">
                 <div class="grid-x grid-padding-x grid-padding-y">
                     <div class="cell">
