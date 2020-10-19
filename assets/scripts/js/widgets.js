@@ -118,7 +118,7 @@ jQuery(document).ready(function ($) {
     $('.full-slider').slick({
         dots: false,
         arrows: true,
-        infinite: true,
+        infinite: false,
         slidesToShow: 1,
         slidesToScroll: 1,
         nextArrow: '.slick-next-custom-full-slider',

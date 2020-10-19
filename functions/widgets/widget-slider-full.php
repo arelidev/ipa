@@ -27,24 +27,36 @@ function full_slider_widget( $atts, $content = null ) {
         <div class="full-slider-widget">
             <div class="full-slider-inner">
                 <div class="full-slider">
-                    <?php if ( have_rows( 'slides' ) ): while ( have_rows( 'slides' ) ) : the_row(); ?>
-                        <div class="single-full-slide" id="<?= acf_slugify( get_sub_field( 'slide_title' ) ); ?>" style="background-image: url(<?php the_sub_field( 'background_image' ); ?>">
+					<?php if ( have_rows( 'slides' ) ): while ( have_rows( 'slides' ) ) : the_row(); ?>
+                        <div class="single-full-slide" id="<?= acf_slugify( get_sub_field( 'slide_title' ) ); ?>"
+                             style="background-image: url(<?php the_sub_field( 'background_image' ); ?>">
                             <div class="grid-container">
                                 <div class="grid-x grid-padding-x align-center">
                                     <div class="small-10 medium-10 large-8 cell">
-	                                    <?= apply_filters( 'the_content', get_sub_field( 'content' ) ); ?>
+										<?= apply_filters( 'the_content', get_sub_field( 'content' ) ); ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    <?php endwhile; endif; ?>
+					<?php endwhile; endif; ?>
                 </div>
+
                 <button class="slick-prev-custom-full-slider slick-custom-button" aria-label="Previous" type="button">
                     <i class="far fa-chevron-left fa-lg"></i>
                 </button>
                 <button class="slick-next-custom-full-slider slick-custom-button" aria-label="Next" type="button">
                     <i class="far fa-chevron-right fa-lg"></i>
                 </button>
+
+				<?php if ( have_rows( 'slides' ) ): ?>
+                    <div id="slide-navigation" class="grid-container grid-x grid-margin-x show-for-medium">
+						<?php while ( have_rows( 'slides' ) ) : the_row(); ?>
+                            <div class="cell auto" data-tooltip tabindex="1" title="<?php the_sub_field( 'title' ); ?>">
+                                <span class="show-for-sr"><?php the_sub_field( 'title' ); ?></span>
+                            </div>
+						<?php endwhile; ?>
+                    </div>
+				<?php endif; ?>
             </div>
         </div>
 	<?php endwhile; ?>
