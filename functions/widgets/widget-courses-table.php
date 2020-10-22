@@ -58,11 +58,6 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 	$instructors = array_unique( $instructors );
 
 	uasort( $instructors, 'lastNameSort' );
-
-	// Course Type
-	// Primary Instructor
-	// State
-	// Date
 	?>
     <div class="courses-filter-parent">
         <div class="courses-filter-container">
@@ -255,32 +250,48 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                                     <td class="course-table-date"
                                                         data-order="<?= date( 'u', strtotime( $course_detail['date'] ) ); ?>">
                                                         <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>
-                                                        <?= date( get_option( 'date_format' ), strtotime( $course_detail['date'] ) ); ?>
+			                                            <?= date( get_option( 'date_format' ), strtotime( $course_detail['date'] ) ); ?>
                                                         -
-                                                        <?= date( get_option( 'date_format' ), strtotime( $course_detail['end_date'] ) ); ?>
+			                                            <?= date( get_option( 'date_format' ), strtotime( $course_detail['end_date'] ) ); ?>
                                                     </td>
                                                     <td class="course-table-instructor">
                                                         <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
-                                                        <?php if ( ! empty( $instructor_1 = $course_detail['instructor1'] ) ) : ?>
-                                                            <img src="<?= get_instructor_image( $course_detail['image'] ); ?>"
-                                                                class="course-card-trainer" alt="<?= $instructor_1; ?>"
-                                                                data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
-                                                        <?php endif; ?>
-                                                        <?php if ( ! empty( $instructor_2 = $course_detail['instructor2'] ) ) : ?>
-                                                            <img src="<?= get_instructor_image(); ?>"
-                                                                class="course-card-trainer" alt="<?= $instructor_2; ?>"
-                                                                data-tooltip tabindex="2" title="<?= $instructor_2; ?>">
-                                                        <?php endif; ?>
-                                                        <?php if ( ! empty( $instructor_3 = $course_detail['instructor3'] ) ) : ?>
-                                                            <img src="<?= get_instructor_image(); ?>"
-                                                                class="course-card-trainer" alt="<?= $instructor_3; ?>"
-                                                                data-tooltip tabindex="2" title="<?= $instructor_3; ?>">
-                                                        <?php endif; ?>
-                                                        <?php if ( ! empty( $instructor_4 = $course_detail['instructor4'] ) ) : ?>
-                                                            <img src="<?= get_instructor_image(); ?>"
-                                                                class="course-card-trainer" alt="<?= $instructor_4; ?>"
-                                                                data-tooltip tabindex="2" title="<?= $instructor_4; ?>">
-                                                        <?php endif; ?>
+			                                            <?php if ( ! empty( $instructor_1 = $course_detail['instructor1'] ) ) : ?>
+                                                            <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_1 ); ?>/<?= $course_detail['instr1']; ?>">
+                                                                <img src="<?= get_instructor_image( $course_detail['image1'] ); ?>"
+                                                                     class="course-card-trainer"
+                                                                     alt="<?= $instructor_1; ?>"
+                                                                     data-tooltip tabindex="1"
+                                                                     title="<?= $instructor_1; ?>">
+                                                            </a>
+			                                            <?php endif; ?>
+			                                            <?php if ( ! empty( $instructor_2 = $course_detail['instructor2'] ) ) : ?>
+                                                            <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_2 ); ?>/<?= $course_detail['instr2']; ?>">
+                                                                <img src="<?= get_instructor_image( $course_detail['image2'] ); ?>"
+                                                                     class="course-card-trainer"
+                                                                     alt="<?= $instructor_2; ?>"
+                                                                     data-tooltip tabindex="2"
+                                                                     title="<?= $instructor_2; ?>">
+                                                            </a>
+			                                            <?php endif; ?>
+			                                            <?php if ( ! empty( $instructor_3 = $course_detail['instructor3'] ) ) : ?>
+                                                            <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_3 ); ?>/<?= $course_detail['instr3']; ?>">
+                                                                <img src="<?= get_instructor_image( $course_detail['image3'] ); ?>"
+                                                                     class="course-card-trainer"
+                                                                     alt="<?= $instructor_3; ?>"
+                                                                     data-tooltip tabindex="3"
+                                                                     title="<?= $instructor_3; ?>">
+                                                            </a>
+			                                            <?php endif; ?>
+			                                            <?php if ( ! empty( $instructor_4 = $course_detail['instructor4'] ) ) : ?>
+                                                            <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_4 ); ?>/<?= $course_detail['instr4']; ?>">
+                                                                <img src="<?= get_instructor_image( $course_detail['image4'] ); ?>"
+                                                                     class="course-card-trainer"
+                                                                     alt="<?= $instructor_4; ?>"
+                                                                     data-tooltip tabindex="4"
+                                                                     title="<?= $instructor_4; ?>">
+                                                            </a>
+			                                            <?php endif; ?>
                                                     </td>
                                                     <td class="course-table-apply">
                                                         <a href="<?= stage_url( $course_detail['request_path'] ); ?>"><?= __( 'Enroll / More Info', 'ipa' ); ?></a>

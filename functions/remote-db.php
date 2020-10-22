@@ -22,12 +22,20 @@ $remote_db = new wpdb(
 function get_courses( $limit = null, $category = null, $popular = false ) {
 	global $remote_db;
 
-	$sql = "select `e`.*,
+	$sql = "
+select `e`.*,
        `r`.`request_path`                                                    AS `request_path`,
        `at_status`.`value`                                                   AS `status`,
        `at_visibility`.`value`                                               AS `visibility`,
        `at_end_date`.`value`                                                 AS `end_date`,
-       `at_image`.`value`                                                    AS `image`,
+       `at_instr1`.`value`                                                   AS `instr1`,
+       `at_image1`.`value`                                                   AS `image1`,
+       `at_instr2`.`value`                                                   AS `instr2`,
+       `at_image2`.`value`                                                   AS `image2`,
+       `at_instr3`.`value`                                                   AS `instr3`,
+       `at_image3`.`value`                                                   AS `image3`,
+       `at_instr4`.`value`                                                   AS `instr4`,
+       `at_image4`.`value`                                                   AS `image4`,
        `at_popular_course`.`value`                                           AS `popular_course`,
        CONCAT(TRIM(at_instr1_fname.value), ' ', TRIM(at_instr1_lname.value)) AS `instructor1`,
        CONCAT(TRIM(at_instr2_fname.value), ' ', TRIM(at_instr2_lname.value)) AS `instructor2`,
@@ -48,8 +56,8 @@ from `ipa_course_details` as `e`
                    on (`at_instr1`.`value` = `at_instr1_lname`.`entity_id` and `at_instr1_lname`.`attribute_id` = 7)
          left join `customer_entity_varchar` as `at_instr1_fname`
                    on (`at_instr1`.`value` = `at_instr1_fname`.`entity_id` and `at_instr1_fname`.`attribute_id` = 5)
-         LEFT JOIN `customer_entity_varchar` AS `at_image`
-                   ON (`at_instr1`.`value` = `at_image`.`entity_id`) AND (`at_image`.`attribute_id` = '119')
+         LEFT JOIN `customer_entity_varchar` AS `at_image1`
+                   ON (`at_instr1`.`value` = `at_image1`.`entity_id`) AND (`at_image1`.`attribute_id` = '119')
          left join `catalog_product_entity_int` as `at_instr2`
                    on (`at_instr2`.`entity_id` = `e`.`id`) AND (`at_instr2`.`attribute_id` = 138)
          left join `catalog_product_entity_int` as `at_popular_course`
@@ -58,19 +66,24 @@ from `ipa_course_details` as `e`
                    on (`at_instr2`.`value` = `at_instr2_lname`.`entity_id` and `at_instr2_lname`.`attribute_id` = 7)
          left join `customer_entity_varchar` as `at_instr2_fname`
                    on (`at_instr2`.`value` = `at_instr2_fname`.`entity_id` and `at_instr2_fname`.`attribute_id` = 5)
+         LEFT JOIN `customer_entity_varchar` AS `at_image2`
+                   ON (`at_instr2`.`value` = `at_image2`.`entity_id`) AND (`at_image2`.`attribute_id` = '119')
          left join `catalog_product_entity_int` as `at_instr3`
                    on (`at_instr3`.`entity_id` = `e`.`id`) AND (`at_instr3`.`attribute_id` = 139)
          left join `customer_entity_varchar` as `at_instr3_lname`
                    on (`at_instr3`.`value` = `at_instr3_lname`.`entity_id` and `at_instr3_lname`.`attribute_id` = 7)
          left join `customer_entity_varchar` as `at_instr3_fname`
                    on (`at_instr3`.`value` = `at_instr3_fname`.`entity_id` and `at_instr3_fname`.`attribute_id` = 5)
+         LEFT JOIN `customer_entity_varchar` AS `at_image3`
+                   ON (`at_instr3`.`value` = `at_image3`.`entity_id`) AND (`at_image3`.`attribute_id` = '119')
          left join `catalog_product_entity_int` as `at_instr4`
                    on (`at_instr4`.`entity_id` = `e`.`id`) AND (`at_instr4`.`attribute_id` = 140)
          left join `customer_entity_varchar` as `at_instr4_lname`
                    on (`at_instr4`.`value` = `at_instr4_lname`.`entity_id` and `at_instr4_lname`.`attribute_id` = 7)
          left join `customer_entity_varchar` as `at_instr4_fname`
                    on (`at_instr4`.`value` = `at_instr4_fname`.`entity_id` and `at_instr4_fname`.`attribute_id` = 5)
-
+         LEFT JOIN `customer_entity_varchar` AS `at_image4`
+                   ON (`at_instr4`.`value` = `at_image4`.`entity_id`) AND (`at_image4`.`attribute_id` = '119')
 where `at_end_date`.`value` >= DATE(NOW())
   and `at_status`.`value` = 1
   and `at_visibility`.`value` IN (2, 4)
