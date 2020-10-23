@@ -45,7 +45,6 @@ jQuery(document).ready(function ($) {
                     console.log('Geocode was not successful for the following reason: ' + status);
                 }
             });
-
         }, 300)
     });
 
@@ -63,6 +62,10 @@ jQuery(document).ready(function ($) {
         init($('.acf-map'))
         bindMapEvent()
     }
+
+    $('#ipa-clinic-card-wrapper .mix').on('click', function() { 
+        $(this).find('.accordion').foundation('toggle', $(this).find('.accordion-content'))
+    })
 
     // Filter function
     function filterMix( map = false ) {
@@ -136,6 +139,5 @@ jQuery(document).ready(function ($) {
                 }, 500)
             })
         }
-
     }
 });

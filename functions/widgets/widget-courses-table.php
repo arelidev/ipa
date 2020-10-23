@@ -172,14 +172,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                             <div class="cell small-12 medium-auto">
                                 <label>
                                     <span class="hide-for-medium"><?= __( 'Start Date', 'ipa' ); ?></span>
-                                    <select id="course-filter-date">
-                                        <option value="all">Start Date</option>
-                                        <option value="all">Any Date</option>
-                                        <option value="1">This Week</option>
-                                        <option value="2">This Month</option>
-                                        <option value="3">Next 60 Days</option>
-                                        <option value="4">Next 90 Days</option>
-                                    </select>
+                                    <input type="text" placeholder="Start Date" id="course-filter-date">
                                 </label>
                             </div>
                             <div class="cell small-12 hide-for-medium">

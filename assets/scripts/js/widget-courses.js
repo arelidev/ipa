@@ -7,13 +7,17 @@ jQuery(document).ready(function ($) {
     let courseFilterType = $('.course-filter-type')
     let courseFilterInstructor = $('#course-filter-instructor')
     let courseFilterDate = $('#course-filter-date')
+    let startDate, endDate = ' ';
 
     let courseMixerContainer = '.courses-filter-container';
     let courseParentMixerContainer = '.courses-filter-parent'
     if ($(courseMixerContainer).length) {
-        var courseMixer = mixitup(courseMixerContainer);
+        var courseMixer = mixitup(courseMixerContainer, { selectors: {
+                control: '[data-mixitup-control]'
+            }});
         var parentMixer = mixitup(courseParentMixerContainer, {selectors: {
-            target: '.mix-parent'
+            target: '.mix-parent',
+            control: '[data-mixitup-control]'
         }})
 
         courseFilterType.on('change', function() {
@@ -35,6 +39,41 @@ jQuery(document).ready(function ($) {
         courseFilterDate.on('change', function() {
             filterMix()
         })
+
+        let begin = new Date();
+        let end = new Date();
+        let ranges = {
+            'This Week': thisWeek(begin),
+            'This Month': thisMonth(begin),
+            'Next 60 Days': [begin, addDays( end, 60) ],
+            'Next 90 Days': [begin, addDays(end, 90)],
+          };
+
+        // Initialize Date Range Picker
+        if (typeof Litepicker !== 'undefined') {
+            new Litepicker({
+                element: document.getElementById('course-filter-date'),
+                singleMode: false,
+                firstDay: 0,
+                numberOfColumns: 2,
+                numberOfMonths: 2,
+                moveByOneMonth: true,
+                moduleRanges: { position: 'left', ranges },
+                useResetBtn: true,
+                onSelect: function (date1, date2) {
+                    startDate = date1;
+                    endDate = date2;
+                    filterMix()
+                }
+            })
+        }
+
+        // Clear the mix when the user clears the input
+        $(document).on('click', '.reset-button', function () {
+            startDate,endDate = '';
+            filterMix()
+        })
+
 
         $('.scroll-to').on('change', function () {
             ipaAccordionWidget.foundation('down', $(this.value).find('.accordion-content'));
@@ -69,38 +108,14 @@ jQuery(document).ready(function ($) {
                 $matching = $matching.add(this);
                 $subMatching = $subMatching.add(this)
 
-                if (courseFilterDate.val() && courseFilterDate.val() != 'all' ) {
-                    let vals = $(this).attr('data-start-date').split('-')
-                    let courseDate = new Date('20'+vals[2], vals[0] -1, vals[1], 0,0,0);
-                    
-                    let date = new Date();
-                    let startDate = new Date() 
-                    let endDate = new Date();
-        
-                    switch( courseFilterDate.val() ) {
-                        case '1': // This Week
-                            startDate.setDate(date.getDate() - date.getDay());
-                            endDate.setDate(date.getDate() - (date.getDay() - 6));
-                            break;
-                        case '2': // This Month
-                            startDate = new Date(date.getFullYear(), date.getMonth(), 1);
-                            endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-                            break;
-                        case '3': // 60 Days
-                            startDate = new Date()
-                            endDate.setDate(date.getDate() + 60);
-                            break;
-                        case '4': // 90 Days
-                            startDate = new Date()
-                            endDate.setDate(date.getDate() + 90);
-                            break;
-                    }    
-
-                    if (!(startDate < courseDate && courseDate < endDate)) {
+                if (startDate && endDate) {
+                    let courseDate = new Date($(this).attr('data-start-date'))
+                    if (!(startDate <= courseDate && courseDate <= endDate)) {
                         $matching = $matching.not(this);
                         $subMatching = $subMatching.not(this);
                     }
                 }
+            
 
                 if (courseFilterType.val() && courseFilterType.val() != 'all') {
                     let course = courseFilterType.val().toLowerCase();
@@ -141,6 +156,28 @@ jQuery(document).ready(function ($) {
         })
         courseMixer.filter($matching);
         parentMixer.filter($parentMatching);          
+    }
+
+    function addDays (date, num)  {
+        const d = new Date(date);
+        d.setDate(d.getDate() + num);
+      
+        return d;
+    };
+
+    function thisMonth (date) {
+        const d1 = new Date(date);
+        d1.setDate(1);
+        const d2 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        return [d1, d2];
+    };
+
+    function thisWeek (date) {
+        const d1 = new Date(date);
+        d1.setDate(date.getDate() - date.getDay());
+        const d2 = new Date(date)
+        d2.setDate(date.getDate() - (date.getDay() - 6));
+        return [d1, d2];
     }
 
     $('#expand').on('click', function (e) {

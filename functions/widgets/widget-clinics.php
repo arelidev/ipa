@@ -141,8 +141,8 @@ function ipa_clinics_widget( $atts ) {
                              data-title="<?php the_title(); ?>"
                              data-lat="<?= esc_attr( $address['lat'] ); ?>"
                              data-lng="<?= esc_attr( $address['lng'] ); ?>">
-                            <div class="single-clinic-inner">
-                                <div class="grid-x">
+                            <div class="single-clinic-inner accordion" data-accordion data-allow-all-closed="true">
+                                <div class="grid-x accordion-title">
                                     <div class="auto cell">
                                         <h5 class="single-clinic-title"><b><?php the_title(); ?></b></h5>
 										<?php if ( ! empty( $subtitle = get_field( 'clinic_subtitle' ) ) ) : ?>
@@ -150,11 +150,12 @@ function ipa_clinics_widget( $atts ) {
 										<?php endif; ?>
                                     </div>
                                     <div class="shrink cell">
-                                            <!-- <img src="<?= get_instructor_image(); ?>"
-                                                    class="map-icon-circle"> -->
-                                        <i class="fas fa-star fa-lg"></i>
+                                            <img src="<?= get_instructor_image(); ?>"
+                                                    class="map-icon-circle">
+                                        <!-- <i class="fas fa-star fa-lg"></i> -->
                                     </div>
                                 </div>
+                                <div class="accordion-content">
                                 <hr>
 								<?php if ( ! empty( $phone = get_field( 'clinic_phone' ) ) ) : ?>
                                     <div class="grid-x">
@@ -189,15 +190,16 @@ function ipa_clinics_widget( $atts ) {
                                             </p>
                                         </div>
                                     </div>
-								<?php endif; ?>
+                                <?php endif; ?>
+                                </div>
                             </div>
                         </div>
 					<?php endwhile; ?>
 
                     <?php foreach ( $clinics as $clinic ) : ?>
                     <?php $address = build_address( $clinic ); ?>
-                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix"
-                             data-type="<?= $clinic['current_fellow'] == 1 ? 'fellow' : ''?> faculty <?= $clinic['instructor_status']  == 1 ? 'primary' : ''?>"
+                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix <?= $clinic['current_fellow'] == 1 ? 'fellow' : ''?> <?= $clinic['cfmt'] == 1 ? 'cfmt' : '' ?>"
+                             data-type="<?= $clinic['current_fellow'] == 1 ? 'fellow' : ''?> <?= $clinic['cfmt'] == 1 ? 'cfmt' : '' ?> faculty <?= $clinic['instructor_status']  == 1 ? 'primary' : ''?>"
                              data-address="<?= $address['address']; ?>"
                              data-country="<?= $clinic['work_country']; ?>"
                              data-entity-id="<?= $clinic['entity_id']; ?>"
@@ -207,9 +209,10 @@ function ipa_clinics_widget( $atts ) {
                              data-certification="<?= $clinic['credentials'] ?>"
                              data-lat="<?= $clinic['work_latitude']; ?>"
                              data-lng="<?= $clinic['work_longitude']; ?>"
-                             data-fellow="<?= $clinic['current_fellow']; ?>">
-                            <div class="single-clinic-inner">
-                                <div class="grid-x">
+                             data-fellow="<?= $clinic['current_fellow']; ?>"
+                             data-cfmt="<?= $clinic['cfmt'] ?>">
+                            <div class="single-clinic-inner accordion" data-accordion data-allow-all-closed="true">
+                                <div class="grid-x accordion-title">
                                     <div class="shrink cell">
                                         <img src="<?= get_instructor_image( $clinic['image'] ); ?>" class="ipa-faculty-member-image" alt="<?= $clinic['name']; ?>">
                                     </div>
@@ -223,6 +226,7 @@ function ipa_clinics_widget( $atts ) {
 	                                    <?php endif; ?>
                                     </div>
                                 </div>
+                                <div class="accordion-content">
                                 <hr>
 	                            <?php if ( ! empty( $email = $clinic['work_email'] ) ) : ?>
                                     <div class="grid-x">
@@ -271,13 +275,40 @@ function ipa_clinics_widget( $atts ) {
                                             </p>
                                         </div>
                                     </div>
-			                    <?php endif; ?>
+                                <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="small-12 medium-6 large-6 cell small-order-1 large-order-2">
+            <div class="small-12 medium-6 large-6 cell small-order-1 large-order-2 map-container">
+                <div class="grid-x map-overlay-card">
+                    <div class="medium-2 medium-offset-1 text-center">
+                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-clinic.png"><br>
+                        <span>Clinic</span>
+                    </div>
+
+                    <div class="medium-2 text-center">
+                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-cfmt.png"><br>
+                        <span>CFMT</span>
+                    </div>
+
+                    <div class="medium-2 text-center">
+                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-fellowship.png"><br>
+                        <span>Fellow</span>
+                    </div>
+
+                    <div class="medium-2 text-center">
+                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-member.png"><br>
+                        <span>Member</span>
+                    </div>
+
+                    <div class="medium-2 text-center">
+                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-multi.png"><br>
+                        <span>Multi</span>
+                    </div>
+                </div>
                 <div class="acf-map"></div>
             </div>
         </div>
@@ -287,9 +318,9 @@ function ipa_clinics_widget( $atts ) {
     <script type="text/javascript">
         var map;
         var init;
+        var prevInfoWindow;
 
         jQuery(document).ready(function ($) {
-            var prevInfoWindow;
 
             function initMap($el) {
 
@@ -329,16 +360,23 @@ function ipa_clinics_widget( $atts ) {
                 let address = $marker.data('address')
                 let entity = $marker.data('entity-id')
                 let type = $marker.data('type')
+                let cfmt = $marker.data('cfmt')
+                let fellow = $marker.data('fellow')
                 let marker = '';
                 let geocoder;
                 let icon;
 
-                let iconBase = '<?= get_template_directory_uri(); ?>/assets/images/';
-                if ( type == 'clinic') {
-                    icon = iconBase + '/clinic-map-marker.png' 
+                let iconBase = '<?= get_template_directory_uri(); ?>/assets/images/icon-map-';
+                if ( type == 'clinic' ) {
+                    icon = iconBase + 'clinic.png' 
+                } else if ( cfmt == 1 ) {
+                    icon = iconBase + 'cfmt.png' 
+                }  else if ( fellow == 1 ) {
+                    icon = iconBase + 'fellowship.png' 
                 } else {
-                    icon = null
+                    icon = iconBase + 'member.png'
                 }
+                let multiIcon = iconBase + 'multi.png'
 
                 if ( $marker.data('lat') !== undefined && $marker.data('lng') !== undefined ) {
                     let lat = $marker.data('lat');
@@ -358,7 +396,6 @@ function ipa_clinics_widget( $atts ) {
                     });
 
                 } else if ( $marker.data('address').length > 0 && $marker.data('country') === 'United States' ) {
-                    // console.log( $marker.data('address') );
                     geocoder = new google.maps.Geocoder();
 
                     geocoder.geocode({'address': $marker.data('address')}, function(results, status) {
@@ -378,7 +415,6 @@ function ipa_clinics_widget( $atts ) {
 
                 // Append to reference for later use.
                 if ( marker !== '' ) {
-                    map.markers.push(marker);
 
                     // If marker contains HTML, add it to an infoWindow.
                     if ($marker.html()) {
@@ -388,16 +424,27 @@ function ipa_clinics_widget( $atts ) {
                         // Map cards, map markers, infowindows. All separate
                         let windowContent = '';
 
-                        if (existing.length > 1) {
+                        if (existing.length > 0) {
                             let $mark = existing[0]
                             existing = [];
                             $('.single-clinic[data-lat="'+$mark.getPosition().lat()+'"][data-lng="'+$mark.getPosition().lng()+'"]').each( function() {
                                 existing.push($(this))
-                                windowContent += $(this).html()
+                                let html = $(this).clone()
+                                $(html).find('.accordion-title').removeClass('accordion-title');
+                                $(html).find('.accordion-content').removeClass('accordion-content');
+                                $(html).removeClass('accordion')
+                                windowContent += $(html).html()
+                                marker.setIcon(multiIcon)
                             })
                         } else {
-                            windowContent = $marker.html()
+                            let html = $marker.clone();
+                            $(html).find('.accordion-title').removeClass('accordion-title');
+                            $(html).find('.accordion-content').removeClass('accordion-content');
+                            $(html).removeClass('accordion')
+                            windowContent = $(html).html()
                         }
+
+                        map.markers.push(marker);
 
                         // Create info window.
                         let infowindow = new google.maps.InfoWindow({
@@ -437,13 +484,13 @@ function ipa_clinics_widget( $atts ) {
                         if (existing.length > 1) {
                             existing.forEach( function( $mark ) {
                                 $mark.unbind()
-                                bindClickEvent( $mark, map, infowindow, prevInfoWindow)
+                                bindClickEvent( $mark, map, infowindow )
                             })
                         } else {
-                            bindClickEvent( $marker, map, infowindow, prevInfoWindow)
+                            bindClickEvent( $marker, map, infowindow )
                         }
 
-                        function bindClickEvent( $marker, map, infowindow, prevInfoWindow) {
+                        function bindClickEvent( $marker, map, infowindow ) {
                             $marker.on('click', function() {
                                 map.setCenter(marker.getPosition());
                                 map.setZoom(11)
