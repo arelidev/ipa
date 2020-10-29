@@ -8,6 +8,7 @@
       align-items: center;
       display: flex !important;
       padding-bottom: 3rem;
+      color: $white;
 
       &:before {
         content: '';
@@ -22,6 +23,7 @@
       > div {
         position: relative;
         z-index: 2;
+        padding-top: 50px;
       }
     }
   }
@@ -34,11 +36,12 @@
     transform: translateX(-50%);
     width: 100%;
 
-    .cell {
+    .slide-navigation-button {
       background: rgba($white, .25);
       height: 4px;
       cursor: pointer;
       border: none;
+      outline: none;
     }
   }
 

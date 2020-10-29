@@ -128,6 +128,12 @@ jQuery(document).ready(function ($) {
     })
 })
 
+jQuery(".slide-navigation-button").on('click', function (e) {
+    e.preventDefault();
+    const slideno = jQuery(this).data('slick-index');
+    jQuery('.full-slider').slick('slickGoTo', slideno);
+})
+
 jQuery(document).ready(function ($) {
     $('.page-template-template-course .page-title').each(function() {
         $(this).html($(this).text().replace(/:.*$/, '<span class="after">$&</span>'));

@@ -374,6 +374,14 @@ HEADER STYLES
 	}
 }
 
+body.home {
+	.header {
+		background: transparent;
+		box-shadow: none;
+		border-bottom: 2px solid rgba($white, .2);
+	}
+}
+
 body.admin-bar {
 	.header {
 		//top: 32px;

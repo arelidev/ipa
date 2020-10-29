@@ -28,7 +28,7 @@ function full_slider_widget( $atts, $content = null ) {
             <div class="full-slider-inner">
                 <div class="full-slider">
 					<?php if ( have_rows( 'slides' ) ): while ( have_rows( 'slides' ) ) : the_row(); ?>
-                        <div class="single-full-slide" id="<?= acf_slugify( get_sub_field( 'slide_title' ) ); ?>"
+                        <div class="single-full-slide hero" id="<?= acf_slugify( get_sub_field( 'slide_title' ) ); ?>"
                              style="background-image: url(<?php the_sub_field( 'background_image' ); ?>">
                             <div class="grid-container">
                                 <div class="grid-x grid-padding-x align-center">
@@ -48,13 +48,13 @@ function full_slider_widget( $atts, $content = null ) {
                     <i class="far fa-chevron-right fa-lg"></i>
                 </button>
 
-				<?php if ( have_rows( 'slides' ) ): ?>
+				<?php if ( have_rows( 'slides' ) ): $i = 0; ?>
                     <div id="slide-navigation" class="grid-container grid-x grid-margin-x show-for-medium">
 						<?php while ( have_rows( 'slides' ) ) : the_row(); ?>
-                            <div class="cell auto" data-tooltip tabindex="1" title="<?php the_sub_field( 'title' ); ?>">
+                            <div class="cell auto slide-navigation-button" data-tooltip tabindex="1" title="<?php the_sub_field( 'title' ); ?>" data-slick-index="<?= $i; ?>">
                                 <span class="show-for-sr"><?php the_sub_field( 'title' ); ?></span>
                             </div>
-						<?php endwhile; ?>
+						<?php $i++; endwhile; ?>
                     </div>
 				<?php endif; ?>
             </div>
