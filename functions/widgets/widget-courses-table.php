@@ -190,15 +190,15 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                 </div>
             </div>
 
-            <div class="grid-container grid-x grid-padding-x align-center" id="ipa-courses-widget">
-                <div class="small-12 medium-10 cell">
+            <div class="grid-x align-center" id="ipa-courses-widget">
+                <div class="small-12 medium-12 cell">
                     <p class="text-left medium-text-right">
                         <a type="button" id="expand"><?= __( 'Show All', 'ipa' ); ?></a>
                         /
                         <a type="button" id="collapse"><?= __( 'Hide All', 'ipa' ); ?></a>
                     </p>
                 </div>
-                <div class="small-12 medium-10 cell" id="courses-table-widget-cell">
+                <div class="small-12 medium-12 cell" id="courses-table-widget-cell">
                     <div class="courses-table-widget">
                         <ul class="accordion ipa-accordion-widget course-wrapper"
                             data-accordion data-allow-all-closed="true" data-deep-link="true" data-deep-link-smudge="true">

@@ -38,10 +38,16 @@
 
     .slide-navigation-button {
       background: rgba($white, .25);
-      height: 4px;
+      padding: 5px;
+      text-align: center;
       cursor: pointer;
       border: none;
       outline: none;
+      transition: all .25s ease-in-out;
+
+      &:hover {
+        background: rgba($white, .5);
+      }
     }
   }
 

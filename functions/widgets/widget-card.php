@@ -7,9 +7,11 @@ function ipa_card_widget( $atts, $content = null ) {
 
 	ob_start();
 	?>
-    <div class="ipa-card-widget <?= $atts['color_scheme']; ?> <?= $atts['el_class']; ?>" data-equalizer="ipa-card-widget-title" data-equalize-by-row="true">
-        <div class="grid-x grid-margin-x grid-margin-y align-center" data-equalizer="ipa-card-widget-content" data-equalize-by-row="true">
-	        <?= do_shortcode( $content ); ?>
+    <div class="ipa-card-widget <?= $atts['color_scheme']; ?> <?= $atts['el_class']; ?>"
+         data-equalizer="ipa-card-widget-title" data-equalize-by-row="true">
+        <div class="grid-x grid-margin-x grid-margin-y align-center" data-equalizer="ipa-card-widget-content"
+             data-equalize-by-row="true">
+			<?= do_shortcode( $content ); ?>
         </div>
     </div>
 	<?php
@@ -39,26 +41,31 @@ function ipa_single_card_widget( $atts, $content = null ) {
 				<?= wp_get_attachment_image( $atts['icon'], 'full', true, array( 'class' => 'ipa-single-card-widget-icon' ) ); ?>
 			<?php endif; ?>
 
-            <h3 class="ipa-single-card-widget-title" data-equalizer-watch="ipa-card-widget-title"><?= $atts['title']; ?></h3>
+            <h3 class="ipa-single-card-widget-title"
+                data-equalizer-watch="ipa-card-widget-title"><?= $atts['title']; ?></h3>
 
             <div class="ipa-single-card-widget-content">
                 <div class="ipa-single-card-widget-content-text" data-equalizer-watch="ipa-card-widget-content">
-					<p><small><?= $content; ?></small></p>
+                    <p><small><?= $content; ?></small></p>
                 </div>
             </div>
 
-	        <?php if ( ! empty( $href['url'] ) ) : ?>
-                <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>" title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
-                    <span><?= ( ! empty( $href['title'] ) ) ? $href['title'] : __( 'Read More', 'ipa' ); ?></span> <i class="fas fa-arrow-right fa-lg"></i>
+			<?php if ( ! empty( $href['url'] ) ) : ?>
+                <a href="<?= $href['url']; ?>" target="<?= $href['target']; ?>" rel="<?= $href['rel']; ?>"
+                   title="<?= $href['title']; ?>" class="ipa-single-card-widget-content-link">
+                    <span><?= ( ! empty( $href['title'] ) ) ? $href['title'] : __( 'Read More', 'ipa' ); ?></span> <i
+                            class="fas fa-arrow-right fa-lg"></i>
                 </a>
-	        <?php endif; ?>
+			<?php endif; ?>
 
-	        <?php if ( ! empty( $href2['url'] ) ) : ?>
-             /
-                <a href="<?= $href2['url']; ?>" target="<?= $href2['target']; ?>" rel="<?= $href2['rel']; ?>" title="<?= $href2['title']; ?>" class="ipa-single-card-widget-content-link">
-                    <span><?= ( ! empty( $href2['title'] ) ) ? $href2['title'] : __( 'Read More', 'ipa' ); ?></span> <i class="fas fa-arrow-right fa-lg"></i>
+			<?php if ( ! empty( $href2['url'] ) ) : ?>
+                /
+                <a href="<?= $href2['url']; ?>" target="<?= $href2['target']; ?>" rel="<?= $href2['rel']; ?>"
+                   title="<?= $href2['title']; ?>" class="ipa-single-card-widget-content-link">
+                    <span><?= ( ! empty( $href2['title'] ) ) ? $href2['title'] : __( 'Read More', 'ipa' ); ?></span> <i
+                            class="fas fa-arrow-right fa-lg"></i>
                 </a>
-	        <?php endif; ?>
+			<?php endif; ?>
         </div>
     </div>
 	<?php
@@ -85,6 +92,7 @@ function ipa_card_integrateWithVC() {
 					'value'       => array(
 						__( 'Default', "ipa" ) => 'default',
 						__( 'Blue', "ipa" )    => 'blue',
+						__( 'Brand', "ipa" )   => 'brand',
 					),
 					"description" => __( "", "ipa" )
 				),

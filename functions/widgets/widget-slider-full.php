@@ -51,8 +51,8 @@ function full_slider_widget( $atts, $content = null ) {
 				<?php if ( have_rows( 'slides' ) ): $i = 0; ?>
                     <div id="slide-navigation" class="grid-container grid-x grid-margin-x show-for-medium">
 						<?php while ( have_rows( 'slides' ) ) : the_row(); ?>
-                            <div class="cell auto slide-navigation-button" data-tooltip tabindex="1" title="<?php the_sub_field( 'title' ); ?>" data-slick-index="<?= $i; ?>">
-                                <span class="show-for-sr"><?php the_sub_field( 'title' ); ?></span>
+                            <div class="cell auto slide-navigation-button" data-slick-index="<?= $i; ?>">
+                                <span class=""><?php the_sub_field( 'title' ); ?></span>
                             </div>
 						<?php $i++; endwhile; ?>
                     </div>

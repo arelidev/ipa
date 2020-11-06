@@ -14,9 +14,9 @@ function ipa_clinics_widget( $atts ) {
 	$args = array( 'post_type' => 'ipa_clinics', 'posts_per_page' => - 1 );
 	$loop = new WP_Query( $args );
 
-    $clinics = get_clinics();
-    $certifications_filter = get_clinic_certifications ( $clinics );
-    $instructor_filter = get_clinic_names( $clinics );
+	$clinics               = get_clinics();
+	$certifications_filter = get_clinic_certifications( $clinics );
+	$instructor_filter     = get_clinic_names( $clinics );
 
 	?>
     <div class="ipa-clinics-widget">
@@ -107,9 +107,9 @@ function ipa_clinics_widget( $atts ) {
                         <select class="clinics-filter-certification" id="clinics-filter-certification">
                             <option value="all">Certification</option>
                             <option value="all">All</option>
-                            <?php foreach ($certifications_filter as $option): ?>
+							<?php foreach ( $certifications_filter as $option ): ?>
                                 <option value="<?= $option ?>"><?= $option ?></option>
-                            <?php endforeach; ?>
+							<?php endforeach; ?>
                         </select>
                     </label>
                 </div>
@@ -118,9 +118,9 @@ function ipa_clinics_widget( $atts ) {
                         <select class="clinics-filter-certification" id="clinics-filter-instructor">
                             <option value="all">Instructor</option>
                             <option value="all">All</option>
-                            <?php foreach ($instructor_filter as $option): ?>
+							<?php foreach ( $instructor_filter as $option ): ?>
                                 <option value="<?= $option ?>"><?= $option ?></option>
-                            <?php endforeach; ?>
+							<?php endforeach; ?>
                         </select>
                     </label>
                 </div>
@@ -128,13 +128,14 @@ function ipa_clinics_widget( $atts ) {
         </div>
 
         <div class="grid-x">
-            <div class="small-12 medium-6 large-6 cell small-order-2 large-order-1 ipa-clinic-card-wrapper" id="ipa-clinic-card-wrapper">
+            <div class="small-12 medium-6 large-6 cell small-order-2 large-order-1 ipa-clinic-card-wrapper"
+                 id="ipa-clinic-card-wrapper">
                 <div class="grid-x grid-margin-x grid-container">
 					<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
-                        <?php $address = get_field( 'clinic_address' ); ?>
+						<?php $address = get_field( 'clinic_address' ); ?>
                         <div class="small-12 medium-6 large-6 cell single-clinic featured-clinic styled-container mix"
                              data-type="clinic"
-                             data-entity-id="<?= the_ID() ?>"
+                             data-entity-id="<?php the_ID() ?>"
                              data-address="<?= $address['address']; ?>"
                              data-zip="<?= $address['post_code'] ?>"
                              data-state="<?= $address['state_short'] ?>"
@@ -150,56 +151,54 @@ function ipa_clinics_widget( $atts ) {
 										<?php endif; ?>
                                     </div>
                                     <div class="shrink cell">
-                                            <img src="<?= get_instructor_image(); ?>"
-                                                    class="map-icon-circle">
-                                        <!-- <i class="fas fa-star fa-lg"></i> -->
+                                        <img src="<?= get_instructor_image(); ?>" class="map-icon-circle" alt="<?php the_title(); ?>">
                                     </div>
                                 </div>
                                 <div class="accordion-content">
-                                <hr>
-								<?php if ( ! empty( $phone = get_field( 'clinic_phone' ) ) ) : ?>
-                                    <div class="grid-x">
-                                        <div class="cell small-2">
-                                            <i class="far fa-mobile fa-lg"></i>
+                                    <hr>
+									<?php if ( ! empty( $phone = get_field( 'clinic_phone' ) ) ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-mobile fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-phone">
+                                                    <a href="tel:<?= $phone; ?>"><?= $phone; ?></a>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="cell auto">
-                                            <p class="single-clinic-phone">
-                                                <a href="tel:<?= $phone; ?>"><?= $phone; ?></a>
-                                            </p>
+									<?php endif; ?>
+									<?php if ( ! empty( $address ) ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-map-marker-alt fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-address"><?= $address['address']; ?></p>
+                                            </div>
                                         </div>
-                                    </div>
-								<?php endif; ?>
-								<?php if ( ! empty( $address ) ) : ?>
-                                    <div class="grid-x">
-                                        <div class="cell small-2">
-                                            <i class="far fa-map-marker-alt fa-lg"></i>
+									<?php endif; ?>
+									<?php if ( ! empty( $website = get_field( 'clinic_website' ) ) ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-external-link-alt fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-website">
+                                                    <a href="<?= $website; ?>" target="_blank"><?= $website; ?></a>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="cell auto">
-                                            <p class="single-clinic-address"><?= $address['address']; ?></p>
-                                        </div>
-                                    </div>
-								<?php endif; ?>
-								<?php if ( ! empty( $website = get_field( 'clinic_website' ) ) ) : ?>
-                                    <div class="grid-x">
-                                        <div class="cell small-2">
-                                            <i class="far fa-external-link-alt fa-lg"></i>
-                                        </div>
-                                        <div class="cell auto">
-                                            <p class="single-clinic-website">
-                                                <a href="<?= $website; ?>" target="_blank"><?= $website; ?></a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
+									<?php endif; ?>
                                 </div>
                             </div>
                         </div>
 					<?php endwhile; ?>
 
-                    <?php foreach ( $clinics as $clinic ) : ?>
-                    <?php $address = build_address( $clinic ); ?>
-                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix <?= $clinic['current_fellow'] == 1 ? 'fellow' : ''?> <?= $clinic['cfmt'] == 1 ? 'cfmt' : '' ?>"
-                             data-type="<?= $clinic['current_fellow'] == 1 ? 'fellow' : ''?> <?= $clinic['cfmt'] == 1 ? 'cfmt' : '' ?> faculty <?= $clinic['instructor_status']  == 1 ? 'primary' : ''?>"
+					<?php foreach ( $clinics as $clinic ) : ?>
+						<?php $address = build_address( $clinic ); ?>
+                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix <?= $clinic['current_fellow'] == 1 ? 'fellow' : '' ?> <?= $clinic['cfmt'] == 1 ? 'cfmt' : '' ?>"
+                             data-type="<?= $clinic['current_fellow'] == 1 ? 'fellow' : '' ?> <?= $clinic['cfmt'] == 1 ? 'cfmt' : '' ?> faculty <?= $clinic['instructor_status'] == 1 ? 'primary' : '' ?>"
                              data-address="<?= $address['address']; ?>"
                              data-country="<?= $clinic['work_country']; ?>"
                              data-entity-id="<?= $clinic['entity_id']; ?>"
@@ -218,94 +217,133 @@ function ipa_clinics_widget( $atts ) {
                                     </div>
                                     <div class="auto cell">
                                         <h5 class="single-clinic-title"><b><?= $clinic['name']; ?></b></h5>
-					                    <?php if ( ! empty( $credentials =  $clinic['credentials'] ) ) : ?>
+										<?php if ( ! empty( $credentials = $clinic['credentials'] ) ) : ?>
                                             <p class="single-clinic-subtitle text-color-medium-gray"><?= $credentials; ?></p>
-					                    <?php endif; ?>
-	                                    <?php if ( ! empty( $business_name =  $clinic['business_name'] ) ) : ?>
+										<?php endif; ?>
+										<?php if ( ! empty( $business_name = $clinic['business_name'] ) ) : ?>
                                             <p class="single-clinic-business-name"><?= $business_name; ?></p>
-	                                    <?php endif; ?>
+										<?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="accordion-content">
-                                <hr>
-	                            <?php if ( ! empty( $email = $clinic['work_email'] ) ) : ?>
-                                    <div class="grid-x">
-                                        <div class="cell small-2">
-                                            <i class="far fa-envelope fa-lg"></i>
+                                    <hr>
+	                                <?php if ( $clinic['cfmt_honors'] == 1 ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="fal fa-award fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p>
+                                                    CFMT with Honors
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="cell auto">
-                                            <p class="single-clinic-phone">
-                                                <a href="mailto:<?= $email; ?>"><?= $email; ?></a>
-                                            </p>
+	                                <?php endif; ?>
+	                                <?php if ( $clinic['cfmt_distinction'] == 1 ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="fal fa-medal fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p>
+                                                    CFMT with Distinction
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-	                            <?php endif; ?>
-			                    <?php if ( ! empty( $phone = $clinic['work_telephone'] ) ) : ?>
-                                    <div class="grid-x">
-                                        <div class="cell small-2">
-                                            <i class="far fa-mobile fa-lg"></i>
+	                                <?php endif; ?>
+	                                <?php if ( $clinic['current_fellow'] == 1 ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-user-md fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p>
+                                                    FMT Follow
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="cell auto">
-                                            <p class="single-clinic-phone">
-                                                <a href="tel:<?= $phone; ?>"><?= $phone; ?></a>
-                                            </p>
+	                                <?php endif; ?>
+                                    <?php if ( ! empty( $email = $clinic['work_email'] ) ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-envelope fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-phone">
+                                                    <a href="mailto:<?= $email; ?>"><?= $email; ?></a>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-			                    <?php endif; ?>
-			                    <?php if ( ! empty( $address ) ) : ?>
-                                    <div class="grid-x">
-                                        <div class="cell small-2">
-                                            <i class="far fa-map-marker-alt fa-lg"></i>
+									<?php endif; ?>
+									<?php if ( ! empty( $phone = $clinic['work_telephone'] ) ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-mobile fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-phone">
+                                                    <a href="tel:<?= $phone; ?>"><?= $phone; ?></a>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="cell auto">
-                                            <p class="single-clinic-address">
-	                                            <?= $address['formatted']; ?>
-                                            </p>
+									<?php endif; ?>
+									<?php if ( ! empty( $address ) ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-map-marker-alt fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-address">
+													<?= $address['formatted']; ?>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-			                    <?php endif; ?>
-			                    <?php if ( ! empty( $website = $clinic['customer_website'] ) ) : ?>
-                                    <div class="grid-x">
-                                        <div class="cell small-2">
-                                            <i class="far fa-external-link-alt fa-lg"></i>
+									<?php endif; ?>
+									<?php if ( ! empty( $website = $clinic['customer_website'] ) ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-external-link-alt fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-website">
+                                                    <a href="<?= $website; ?>" target="_blank"><?= $website; ?></a>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="cell auto">
-                                            <p class="single-clinic-website">
-                                                <a href="<?= $website; ?>" target="_blank"><?= $website; ?></a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
+									<?php endif; ?>
                                 </div>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+					<?php endforeach; ?>
                 </div>
             </div>
             <div class="small-12 medium-6 large-6 cell small-order-1 large-order-2 map-container">
                 <div class="grid-x map-overlay-card">
                     <div class="medium-2 medium-offset-1 text-center">
-                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-clinic.png"><br>
+                        <img width="35"
+                             src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-clinic.png"><br>
                         <span>Clinic</span>
                     </div>
 
                     <div class="medium-2 text-center">
-                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-cfmt.png"><br>
+                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-cfmt.png"><br>
                         <span>CFMT</span>
                     </div>
 
                     <div class="medium-2 text-center">
-                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-fellowship.png"><br>
+                        <img width="35"
+                             src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-fellowship.png"><br>
                         <span>Fellow</span>
                     </div>
 
                     <div class="medium-2 text-center">
-                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-member.png"><br>
+                        <img width="35"
+                             src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-member.png"><br>
                         <span>Member</span>
                     </div>
 
                     <div class="medium-2 text-center">
-                        <img width="35" src="<?=get_template_directory_uri(); ?>/assets/images/icon-map-multi.png"><br>
+                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-multi.png"><br>
                         <span>Multi</span>
                     </div>
                 </div>
@@ -367,18 +405,18 @@ function ipa_clinics_widget( $atts ) {
                 let icon;
 
                 let iconBase = '<?= get_template_directory_uri(); ?>/assets/images/icon-map-';
-                if ( type == 'clinic' ) {
-                    icon = iconBase + 'clinic.png' 
-                } else if ( cfmt == 1 ) {
-                    icon = iconBase + 'cfmt.png' 
-                }  else if ( fellow == 1 ) {
-                    icon = iconBase + 'fellowship.png' 
+                if (type == 'clinic') {
+                    icon = iconBase + 'clinic.png'
+                } else if (cfmt == 1) {
+                    icon = iconBase + 'cfmt.png'
+                } else if (fellow == 1) {
+                    icon = iconBase + 'fellowship.png'
                 } else {
                     icon = iconBase + 'member.png'
                 }
                 let multiIcon = iconBase + 'multi.png'
 
-                if ( $marker.data('lat') !== undefined && $marker.data('lng') !== undefined ) {
+                if ($marker.data('lat') !== undefined && $marker.data('lng') !== undefined) {
                     let lat = $marker.data('lat');
                     let lng = $marker.data('lng');
 
@@ -395,10 +433,10 @@ function ipa_clinics_widget( $atts ) {
                         icon: icon
                     });
 
-                } else if ( $marker.data('address').length > 0 && $marker.data('country') === 'United States' ) {
+                } else if ($marker.data('address').length > 0 && $marker.data('country') === 'United States') {
                     geocoder = new google.maps.Geocoder();
 
-                    geocoder.geocode({'address': $marker.data('address')}, function(results, status) {
+                    geocoder.geocode({'address': $marker.data('address')}, function (results, status) {
                         if (status === 'OK') {
                             // map.setCenter(results[0].geometry.location);
                             marker = new google.maps.Marker({
@@ -414,20 +452,20 @@ function ipa_clinics_widget( $atts ) {
                 }
 
                 // Append to reference for later use.
-                if ( marker !== '' ) {
+                if (marker !== '') {
 
                     // If marker contains HTML, add it to an infoWindow.
                     if ($marker.html()) {
                         let infowindows = [];
 
-                        let existing = map.markers.filter( mark => mark.getPosition().lat() == marker.getPosition().lat() && mark.getPosition().lng() == marker.getPosition().lng())
+                        let existing = map.markers.filter(mark => mark.getPosition().lat() == marker.getPosition().lat() && mark.getPosition().lng() == marker.getPosition().lng())
                         // Map cards, map markers, infowindows. All separate
                         let windowContent = '';
 
                         if (existing.length > 0) {
                             let $mark = existing[0]
                             existing = [];
-                            $('.single-clinic[data-lat="'+$mark.getPosition().lat()+'"][data-lng="'+$mark.getPosition().lng()+'"]').each( function() {
+                            $('.single-clinic[data-lat="' + $mark.getPosition().lat() + '"][data-lng="' + $mark.getPosition().lng() + '"]').each(function () {
                                 existing.push($(this))
                                 let html = $(this).clone()
                                 $(html).find('.accordion-title').removeClass('accordion-title');
@@ -479,19 +517,19 @@ function ipa_clinics_widget( $atts ) {
                         google.maps.event.addListener(map, 'click', function () {
                             infowindow.close();
                         });
-                        
+
                         // Move map to marker position on click
                         if (existing.length > 1) {
-                            existing.forEach( function( $mark ) {
+                            existing.forEach(function ($mark) {
                                 $mark.unbind()
-                                bindClickEvent( $mark, map, infowindow )
+                                bindClickEvent($mark, map, infowindow)
                             })
                         } else {
-                            bindClickEvent( $marker, map, infowindow )
+                            bindClickEvent($marker, map, infowindow)
                         }
 
-                        function bindClickEvent( $marker, map, infowindow ) {
-                            $marker.on('click', function() {
+                        function bindClickEvent($marker, map, infowindow) {
+                            $marker.on('click', function () {
                                 map.setCenter(marker.getPosition());
                                 map.setZoom(11)
 

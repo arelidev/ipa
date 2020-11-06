@@ -18,7 +18,7 @@
         transition: background .2s ease-in-out;
 
         &:hover {
-          background: rgba($black, .8);
+          background: rgba($black, .85);
         }
 
         .ipa-single-card-widget-title {
@@ -124,6 +124,12 @@
           color: $white !important;
         }
       }
+    }
+  }
+
+  &.brand {
+    .ipa-single-card-widget {
+      background: rgba($primary-color, .1);
     }
   }
 }

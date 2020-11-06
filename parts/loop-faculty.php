@@ -39,6 +39,42 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
 						<?= $faculty_data['credentials']; ?>
                     </p>
                     <div class="ipa-faculty-member-info">
+	                    <?php if ( $faculty_data['cfmt_honors'] == 1 ) : ?>
+                            <div class="grid-x">
+                                <div class="cell small-2">
+                                    <i class="fal fa-award fa-lg"></i>
+                                </div>
+                                <div class="cell auto">
+                                    <p>
+                                        CFMT with Honors
+                                    </p>
+                                </div>
+                            </div>
+	                    <?php endif; ?>
+	                    <?php if ( $faculty_data['cfmt_distinction'] == 1 ) : ?>
+                            <div class="grid-x">
+                                <div class="cell small-2">
+                                    <i class="fal fa-medal fa-lg"></i>
+                                </div>
+                                <div class="cell auto">
+                                    <p>
+                                        CFMT with Distinction
+                                    </p>
+                                </div>
+                            </div>
+	                    <?php endif; ?>
+	                    <?php if ( $faculty_data['current_fellow'] == 1 ) : ?>
+                            <div class="grid-x">
+                                <div class="cell small-2">
+                                    <i class="far fa-user-md fa-lg"></i>
+                                </div>
+                                <div class="cell auto">
+                                    <p>
+                                        FMT Follow
+                                    </p>
+                                </div>
+                            </div>
+	                    <?php endif; ?>
                         <div class="grid-x">
                             <div class="cell small-2">
                                 <i class="far fa-envelope fa-lg"></i>

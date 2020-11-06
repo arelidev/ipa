@@ -16,6 +16,8 @@ $remote_db = new wpdb(
  *
  * @param null $limit
  * @param null $category
+ * @param false $popular
+ * @param null $instructor_id
  *
  * @return array|object|null
  */
@@ -167,7 +169,10 @@ function get_faculty( $id = null ) {
        `at_work_email`.`value`        AS `work_email`,
        `at_work_country`.`value`      AS `work_country`,
        `at_customer_website`.`value`  AS `customer_website`,
-       `at_instructor_status`.`value` AS `instructor_status`
+       `at_instructor_status`.`value` AS `instructor_status`,
+       `at_cfmt_honors`.`value`   		AS `cfmt_honors`,
+       `at_cfmt_distinction`.`value`   	AS `cfmt_distinction`,
+       `at_FAAOMPT`.`value`   			AS `FAAOMPT`
 FROM `customer_entity` AS `e`
          LEFT JOIN `customer_entity_varchar` AS `at_prefix`
                    ON (`at_prefix`.`entity_id` = `e`.`entity_id`) AND (`at_prefix`.`attribute_id` = '4')
@@ -205,6 +210,12 @@ FROM `customer_entity` AS `e`
          LEFT JOIN `customer_entity_int` AS `at_instructor_status`
                    ON (`at_instructor_status`.`entity_id` = `e`.`entity_id`) AND
                       (`at_instructor_status`.`attribute_id` = '243')
+        LEFT JOIN `customer_entity_int` AS `at_cfmt_honors`
+                   ON (`at_cfmt_honors`.`entity_id` = `e`.`entity_id`) AND (`at_cfmt_honors`.`attribute_id` = '189')
+         LEFT JOIN `customer_entity_int` AS `at_cfmt_distinction`
+                   ON (`at_cfmt_distinction`.`entity_id` = `e`.`entity_id`) AND (`at_cfmt_distinction`.`attribute_id` = '190')
+         LEFT JOIN `customer_entity_int` AS `at_FAAOMPT`
+                   ON (`at_FAAOMPT`.`entity_id` = `e`.`entity_id`) AND (`at_FAAOMPT`.`attribute_id` = '191')
 WHERE (`e`.`entity_type_id` = '1')
   AND (`e`.`group_id` = '5')
   AND (`at_instructor_status`.`value` IN (1, 2))";
@@ -240,7 +251,19 @@ function get_instructor_courses( $id ) {
        `at_instructor3`.`value` AS `instructor3`,
        `at_instructor4`.`value` AS `instructor4`,
        `at_status`.`value`      AS `status`,
-       `at_visibility`.`value`  AS `visibility`
+       `at_visibility`.`value`  AS `visibility`,
+        `at_instr1`.`value`                                                   AS `instr1`,
+       `at_image1`.`value`                                                   AS `image1`,
+       `at_instr2`.`value`                                                   AS `instr2`,
+       `at_image2`.`value`                                                   AS `image2`,
+       `at_instr3`.`value`                                                   AS `instr3`,
+       `at_image3`.`value`                                                   AS `image3`,
+       `at_instr4`.`value`                                                   AS `instr4`,
+       `at_image4`.`value`                                                   AS `image4`,
+        CONCAT(TRIM(at_instr1_fname.value), ' ', TRIM(at_instr1_lname.value)) AS `instructor1`,
+       CONCAT(TRIM(at_instr2_fname.value), ' ', TRIM(at_instr2_lname.value)) AS `instructor2`,
+       CONCAT(TRIM(at_instr3_fname.value), ' ', TRIM(at_instr3_lname.value)) AS `instructor3`,
+       CONCAT(TRIM(at_instr4_fname.value), ' ', TRIM(at_instr4_lname.value)) AS `instructor4`
 from `ipa_course_details` as `e`
          left join `core_url_rewrite` as `r`
                    on `e`.`id` = `r`.`product_id`
@@ -260,6 +283,40 @@ from `ipa_course_details` as `e`
                    on (`at_start_date`.`entity_id` = `e`.`id`) AND (`at_start_date`.`attribute_id` = 161)
          left join `catalog_product_entity_datetime` as `at_end_date`
                    on (`at_end_date`.`entity_id` = `e`.`id`) AND (`at_end_date`.`attribute_id` = 156)
+           left join `catalog_product_entity_int` as `at_instr1`
+                   on (`at_instr1`.`entity_id` = `e`.`id`) AND (`at_instr1`.`attribute_id` = 137)
+         left join `customer_entity_varchar` as `at_instr1_lname`
+                   on (`at_instr1`.`value` = `at_instr1_lname`.`entity_id` and `at_instr1_lname`.`attribute_id` = 7)
+         left join `customer_entity_varchar` as `at_instr1_fname`
+                   on (`at_instr1`.`value` = `at_instr1_fname`.`entity_id` and `at_instr1_fname`.`attribute_id` = 5)
+         LEFT JOIN `customer_entity_varchar` AS `at_image1`
+                   ON (`at_instr1`.`value` = `at_image1`.`entity_id`) AND (`at_image1`.`attribute_id` = '119')
+         left join `catalog_product_entity_int` as `at_instr2`
+                   on (`at_instr2`.`entity_id` = `e`.`id`) AND (`at_instr2`.`attribute_id` = 138)
+         left join `catalog_product_entity_int` as `at_popular_course`
+                   on (`at_popular_course`.`entity_id` = `e`.`id`) AND (`at_popular_course`.`attribute_id` = 244)
+         left join `customer_entity_varchar` as `at_instr2_lname`
+                   on (`at_instr2`.`value` = `at_instr2_lname`.`entity_id` and `at_instr2_lname`.`attribute_id` = 7)
+         left join `customer_entity_varchar` as `at_instr2_fname`
+                   on (`at_instr2`.`value` = `at_instr2_fname`.`entity_id` and `at_instr2_fname`.`attribute_id` = 5)
+         LEFT JOIN `customer_entity_varchar` AS `at_image2`
+                   ON (`at_instr2`.`value` = `at_image2`.`entity_id`) AND (`at_image2`.`attribute_id` = '119')
+         left join `catalog_product_entity_int` as `at_instr3`
+                   on (`at_instr3`.`entity_id` = `e`.`id`) AND (`at_instr3`.`attribute_id` = 139)
+         left join `customer_entity_varchar` as `at_instr3_lname`
+                   on (`at_instr3`.`value` = `at_instr3_lname`.`entity_id` and `at_instr3_lname`.`attribute_id` = 7)
+         left join `customer_entity_varchar` as `at_instr3_fname`
+                   on (`at_instr3`.`value` = `at_instr3_fname`.`entity_id` and `at_instr3_fname`.`attribute_id` = 5)
+         LEFT JOIN `customer_entity_varchar` AS `at_image3`
+                   ON (`at_instr3`.`value` = `at_image3`.`entity_id`) AND (`at_image3`.`attribute_id` = '119')
+         left join `catalog_product_entity_int` as `at_instr4`
+                   on (`at_instr4`.`entity_id` = `e`.`id`) AND (`at_instr4`.`attribute_id` = 140)
+         left join `customer_entity_varchar` as `at_instr4_lname`
+                   on (`at_instr4`.`value` = `at_instr4_lname`.`entity_id` and `at_instr4_lname`.`attribute_id` = 7)
+         left join `customer_entity_varchar` as `at_instr4_fname`
+                   on (`at_instr4`.`value` = `at_instr4_fname`.`entity_id` and `at_instr4_fname`.`attribute_id` = 5)
+         LEFT JOIN `customer_entity_varchar` AS `at_image4`
+                   ON (`at_instr4`.`value` = `at_image4`.`entity_id`) AND (`at_image4`.`attribute_id` = '119')
 where `at_end_date`.`value` >= DATE(NOW())
   AND `r`.`store_id` = 1
   AND `r`.`is_system` = 1
@@ -309,26 +366,42 @@ function get_instructor_course_table( $id ) {
                         </td>
                         <td class="course-table-instructor">
                             <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
-							<?php if ( ! empty( $instructor_1 = $course['instructor1'] ) ) : ?>
-                                <img src="<?= get_instructor_image( $instructor_1 ); ?>"
-                                     class="course-card-trainer" alt="<?= $instructor_1; ?>" data-tooltip tabindex="2"
-                                     title="<?= $instructor_1; ?>">
-							<?php endif; ?>
-							<?php if ( ! empty( $instructor_2 = $course['instructor2'] ) ) : ?>
-                                <img src="<?= get_instructor_image( $instructor_2 ); ?>"
-                                     class="course-card-trainer" alt="<?= $instructor_2; ?>" data-tooltip tabindex="2"
-                                     title="<?= $instructor_2; ?>">
-							<?php endif; ?>
-							<?php if ( ! empty( $instructor_3 = $course['instructor3'] ) ) : ?>
-                                <img src="<?= get_instructor_image( $instructor_3 ); ?>"
-                                     class="course-card-trainer" alt="<?= $instructor_3; ?>" data-tooltip tabindex="2"
-                                     title="<?= $instructor_3; ?>">
-							<?php endif; ?>
-							<?php if ( ! empty( $instructor_4 = $course['instructor4'] ) ) : ?>
-                                <img src="<?= get_instructor_image( $instructor_4 ); ?>"
-                                     class="course-card-trainer" alt="<?= $instructor_4; ?>" data-tooltip tabindex="2"
-                                     title="<?= $instructor_4; ?>">
-							<?php endif; ?>
+		                    <?php if ( ! empty( $instructor_1 = $course['instructor1'] ) ) : ?>
+                                <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_1 ); ?>/<?= $course['instr1']; ?>">
+                                    <img src="<?= get_instructor_image( $course['image1'] ); ?>"
+                                         class="course-card-trainer"
+                                         alt="<?= $instructor_1; ?>"
+                                         data-tooltip tabindex="1"
+                                         title="<?= $instructor_1; ?>">
+                                </a>
+		                    <?php endif; ?>
+		                    <?php if ( ! empty( $instructor_2 = $course['instructor2'] ) ) : ?>
+                                <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_2 ); ?>/<?= $course['instr2']; ?>">
+                                    <img src="<?= get_instructor_image( $course['image2'] ); ?>"
+                                         class="course-card-trainer"
+                                         alt="<?= $instructor_2; ?>"
+                                         data-tooltip tabindex="2"
+                                         title="<?= $instructor_2; ?>">
+                                </a>
+		                    <?php endif; ?>
+		                    <?php if ( ! empty( $instructor_3 = $course['instructor3'] ) ) : ?>
+                                <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_3 ); ?>/<?= $course['instr3']; ?>">
+                                    <img src="<?= get_instructor_image( $course['image3'] ); ?>"
+                                         class="course-card-trainer"
+                                         alt="<?= $instructor_3; ?>"
+                                         data-tooltip tabindex="3"
+                                         title="<?= $instructor_3; ?>">
+                                </a>
+		                    <?php endif; ?>
+		                    <?php if ( ! empty( $instructor_4 = $course['instructor4'] ) ) : ?>
+                                <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_4 ); ?>/<?= $course['instr4']; ?>">
+                                    <img src="<?= get_instructor_image( $course['image4'] ); ?>"
+                                         class="course-card-trainer"
+                                         alt="<?= $instructor_4; ?>"
+                                         data-tooltip tabindex="4"
+                                         title="<?= $instructor_4; ?>">
+                                </a>
+		                    <?php endif; ?>
                         </td>
                         <td class="course-table-apply">
                             <a href="<?= stage_url( $course['request_path'] ); ?>"><?= __( 'Enroll / More Info', 'ipa' ); ?></a>
