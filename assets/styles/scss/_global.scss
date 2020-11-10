@@ -388,6 +388,81 @@ body.admin-bar {
 	}
 }
 
+// Off canvas panel
+.off-canvas {
+
+	a, button {
+		outline: none;
+	}
+
+	button {
+		font-size: 80%;
+		cursor: pointer;
+	}
+
+	.copyright, .source-org {
+		font-size: 80%;
+		color: #A6ABAB;
+		a {
+			color: $black;
+		}
+	}
+
+	.social-icons-lists {
+		margin: 0;
+		display: flex;
+		justify-content: center;
+		&-item {
+			.social-icon {
+				.socicon {
+					color: $black;
+				}
+			}
+		}
+	}
+
+	#offcanvas-nav {
+
+		> li {
+			&:first-child {
+				> a {
+					border-top: 1px solid $medium-gray;
+				}
+			}
+
+			> a {
+				color: $black;
+				font-weight: bold;
+				border-bottom: 1px solid $medium-gray;
+				padding: 24px 36px;
+				&:hover {
+					background: #f4f7f6;
+				}
+			}
+
+			.submenu {
+				padding: 1rem;
+				> li {
+					> a {
+						color: $dark-gray;
+						font-size: 80%;
+						&:hover {
+							color: $black;
+						}
+					}
+				}
+			}
+		}
+
+		.active, .is-active {
+			> a {
+				background: transparent;
+				color: $primary-color;
+			}
+		}
+	}
+}
+
 /*********************
 POSTS & CONTENT STYLES
 *********************/
