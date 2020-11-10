@@ -37,7 +37,7 @@
     width: 100%;
 
     .slide-navigation-button {
-      background: rgba($white, .25);
+      background: rgba($white, .5);
       padding: 5px;
       text-align: center;
       cursor: pointer;
@@ -46,7 +46,11 @@
       transition: all .25s ease-in-out;
 
       &:hover {
-        background: rgba($white, .5);
+        background: rgba($white, .75);
+      }
+
+      &.is-active {
+        background: rgba($white, 1);
       }
     }
   }
