@@ -13,12 +13,17 @@
       background-position: center;
 
       .ipa-single-card-widget-inner {
-        background: rgba($black, .65);
+        background: rgba($black, .85);
         color: $white !important;
         transition: background .2s ease-in-out;
+        @include breakpoint(large) {
+          background: rgba($black, .65);
+        }
 
         &:hover {
-          background: rgba($black, .85);
+          @include breakpoint(large) {
+            background: rgba($black, .85);
+          }
         }
 
         .ipa-single-card-widget-title {
