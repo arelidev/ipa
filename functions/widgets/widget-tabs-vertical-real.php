@@ -20,7 +20,7 @@ function ipa_vertical_tabs_real_widget( $atts, $content = null ) {
 	?>
     <div class="grid-x grid-margin-x ipa-vertical-tabs <?= $atts['el_class']; ?>">
         <div class="cell small-12 medium-12 large-5">
-            <ul class="vertical tabs" data-responsive-accordion-tabs="accordion large-tabs" id="vertical-tabs-real">
+            <ul class="vertical tabs" data-responsive-accordion-tabs="accordion large-tabs" data-allow-all-closed="true" id="vertical-tabs-real">
 				<?php foreach ( $tabs as $index => $value ) : ?>
                     <li class="tabs-title <?= ( $index == 0 ) ? "is-active" : ""; ?>">
                         <a href="#panel-<?= $index; ?>" aria-selected="true">
