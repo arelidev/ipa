@@ -54,7 +54,7 @@ $hero_type = get_field( 'hero_type' );
             <div class="grid-container">
                 <div class="grid-x grid-padding-x grid-padding-y">
                     <div class="cell">
-                        <ul class="menu" id="course-magellan">
+                        <ul class="menu show-for-medium" id="course-magellan">
 							<?php if ( have_rows( 'course_magellan_navigation' ) ): ?>
 								<?php while ( have_rows( 'course_magellan_navigation' ) ) : the_row(); ?>
                                     <li>
