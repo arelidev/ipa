@@ -18,7 +18,7 @@ function slider_widget( $atts, $content = null ) {
 	$image_ids = explode( ',', $atts['images'] );
 	?>
     <div class="slider-widget grid-x align-center-middle">
-        <div class="cell auto">
+        <div class="cell small-12 medium-12 large-auto">
             <div class="slider-widget-slider">
 				<?php foreach ( $image_ids as $image_id ) : ?>
                     <div class="slider-widget-image">
@@ -37,7 +37,7 @@ function slider_widget( $atts, $content = null ) {
 				<?php endforeach; ?>
             </div>
         </div>
-        <div class="cell small-12 large-shrink large-offset-2">
+        <div class="cell small-12 large-shrink large-offset-2 text-center">
             <button class="slick-prev-custom-slider-widget slick-custom-button" aria-label="Previous" type="button">
                 <i class="far fa-chevron-left fa-lg"></i>
             </button>

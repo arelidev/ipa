@@ -19,14 +19,14 @@ function ipa_testimonials_widget( $atts, $content = null ) {
 	$loop = new WP_Query( $args );
 	?>
     <div class="testimonials-widget grid-x">
-        <div class="auto cell">
+        <div class="small-12 medium-12 large-12 cell">
             <div class="testimonials-slider" data-equalizer="testimonials-content" data-equalize-on="medium">
 				<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
 					<?php get_template_part( 'parts/content', 'testimonial' ); ?>
 				<?php endwhile; ?>
             </div>
         </div>
-        <div class="cell small-12 hide-for-large">
+        <div class="cell small-12 hide-for-large text-center">
             <button class="slick-prev-custom-testimonials-widget slick-custom-button" aria-label="Previous" type="button">
                 <i class="far fa-chevron-left fa-lg"></i>
             </button>
