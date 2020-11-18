@@ -9,7 +9,9 @@ jQuery(document).ready(function ($) {
             $(tabsNav).append($(this).find($(".ipa-single-card-widget")));
         });
 
-        let tabsTab = new Foundation.ResponsiveAccordionTabs($(tabsNav));
+        let tabsTab = new Foundation.ResponsiveAccordionTabs($(tabsNav), {
+            // todo: initialize this here (accordion large-tabs)
+        });
 
         $(tabsNav).on('change.zf.tabs', function () {
             if (testimonialsSlider.length) {

@@ -14,11 +14,11 @@ function widget_full_content_tabs( $atts, $content ) {
 	?>
     <div class="widget-full-content-tabs-wrapper">
 
-        <ul class="grid-container grid-x grid-margin-x grid-margin-y align-center no-bullet"
+        <ul class="grid-container grid-x grid-margin-x grid-margin-y align-center tabs"
             data-responsive-accordion-tabs="accordion large-tabs" data-deep-link="true"
             id="widget-full-content-tabs"></ul>
 
-        <div data-tabs-content="widget-full-content-tabs">
+        <div class="tabs-content" data-tabs-content="widget-full-content-tabs">
 
 			<?= do_shortcode( $content ); ?>
 
@@ -53,7 +53,7 @@ function widget_full_content_tab( $atts, $content ) {
 
         <li class="tabs-title ipa-single-card-widget small-12 medium-4 cell <?= $is_active; ?>">
             <a href="#<?= $title; ?>" aria-selected="true">
-                <div class="ipa-single-card-widget-inner">
+                <span class="ipa-single-card-widget-inner">
 					<?php if ( ! empty( $atts['icon'] ) ) : ?>
 						<?= wp_get_attachment_image( $atts['icon'], 'full', true, array( 'class' => 'ipa-single-card-widget-icon' ) ); ?>
 					<?php endif; ?>
@@ -63,7 +63,7 @@ function widget_full_content_tab( $atts, $content ) {
 					<?php if ( ! empty( $description = $atts['description'] ) ) : ?>
                         <h5 class="text-color-dark-gray"><?= $description; ?></h5>
 					<?php endif; ?>
-                </div>
+                </span>
             </a>
         </li>
 
