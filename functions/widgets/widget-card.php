@@ -46,7 +46,7 @@ function ipa_single_card_widget( $atts, $content = null ) {
 
             <div class="ipa-single-card-widget-content">
                 <div class="ipa-single-card-widget-content-text" data-equalizer-watch="ipa-card-widget-content">
-                    <p><small><?= $content; ?></small></p>
+                    <p><?= $content; ?></p>
                 </div>
             </div>
 
