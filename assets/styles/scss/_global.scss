@@ -1042,6 +1042,9 @@ FOOTER STYLES
 		.widget_media_image {
 			img {
 				margin-bottom: $global-margin;
+				@include breakpoint(medium down) {
+					max-width: rem-calc(200) !important;
+				}
 			}
 		}
 
@@ -1106,7 +1109,9 @@ body .gform_wrapper ul.gform_fields li.gfield.gform_validation_container {
 // Social Icons
 .social-icons-lists {
 	@extend .menu;
-	@extend .align-center;
+	@include breakpoint(medium down) {
+		margin-bottom: $global-margin !important;
+	}
 
 	.social-icons-list-item {
 		margin: 0;
