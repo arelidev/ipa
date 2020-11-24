@@ -7,7 +7,7 @@
 ?>
 
 <div class="grid-x grid-padding-x align-middle" id="top-bar-menu">
-    <div class="auto large-3 cell">
+    <div class="auto large-shrink cell">
         <?php
         if ( function_exists( 'the_custom_logo' ) ) {
             the_custom_logo();
