@@ -8,17 +8,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
     <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title" data-equalize-by-row="true">
 		<?php foreach ( $courses as $title => $course_details ) : ?>
             <div class="course-card cell small-12 medium-6 large-4">
-                <!--
-                <div class="course-card-image-wrapper">
-                    <img src="<?//= get_template_directory_uri(); ?>/assets/images/course-placeholder.jpg" class="course-card-image">
-                </div>
-                -->
                 <div class="course-card-inner">
-                    <!--
-                    <h3 class="course-card-price">
-                        <span class="og-price">$772</span> <span class="sales-price">$750</span>
-                    </h3>
-                    -->
                     <h4 class="course-card-title" data-equalizer-watch="upcoming-courses-title">
 						<?= $course_details['name']; ?>
                     </h4>
