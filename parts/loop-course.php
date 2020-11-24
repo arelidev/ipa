@@ -3,11 +3,11 @@
  * Template part for displaying page content in page.php
  */
 
-$hero_type = get_field( 'hero_type' );
+$hero_type       = get_field( 'hero_type' );
+$course_category = get_field( 'course_remote_cat' );
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( '' ); ?> role="article" itemscope
-         itemtype="http://schema.org/WebPage">
+<article id="post-<?php the_ID(); ?>" <?php post_class( '' ); ?> role="article" itemscope itemtype="http://schema.org/WebPage">
 
 	<?php if ( empty( $hero_type ) || $hero_type == 'default' ) : ?>
         <header class="article-header hero hero-standard">
@@ -73,7 +73,7 @@ $hero_type = get_field( 'hero_type' );
     </div>
 
     <section class="entry-content grid-container" itemprop="text" id="entry-content">
-        <div class="grid-x grid-margin-x">
+        <div class="grid-x grid-margin-x grid-margin-y">
             <div class="small-12 medium-12 large-8 small-order-2 large-order-1 cell" id="course-content">
 				<?php the_content(); ?>
             </div>
@@ -119,17 +119,19 @@ $hero_type = get_field( 'hero_type' );
 					<?php endif; ?>
                 </div>
             </div>
-        </div>
-        <div id="courses" data-magellan-target="courses">
-			<?php if ( ! empty( $course_category = get_field( 'course_remote_cat' ) ) ) : ?>
-                <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses" data-magellan-target="courses">
-                    <div class="cell">
-						<?= do_shortcode( "[ipa_courses_table_alt course_cat='{$course_category}']" ); ?>
-                    </div>
-                </div>
-			<?php endif; ?>
+            <div class="small-12 medium-12 large-12 small-order-1 large-order-2 cell">
+                <div id="courses" data-magellan-target="courses">
+		            <?php if ( ! empty( $course_category ) ) : ?>
+                        <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses" data-magellan-target="courses">
+                            <div class="cell">
+					            <?= do_shortcode( "[ipa_courses_table_alt course_cat='{$course_category}']" ); ?>
+                            </div>
+                        </div>
+		            <?php endif; ?>
 
-			<?php wp_link_pages(); ?>
+		            <?php wp_link_pages(); ?>
+                </div>
+            </div>
         </div>
     </section> <!-- end article section -->
 
