@@ -4,6 +4,15 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
 	ob_start();
 
 	$courses = get_courses( 3, null, true );
+
+	function date_compare( $element1, $element2 ) {
+		$datetime1 = strtotime( $element1['date'] );
+		$datetime2 = strtotime( $element2['date'] );
+
+		return $datetime1 - $datetime2;
+	}
+
+	usort( $courses, 'date_compare' );
 	?>
     <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title" data-equalize-by-row="true">
 		<?php foreach ( $courses as $title => $course_details ) : ?>
@@ -16,23 +25,47 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                     <div class="grid-x">
                         <div class="small-12 medium-12 large-auto cell">
                             <p class="course-card-category">
-                                <small><?= $course_details['course_type_name']; ?></small>
+                                <?= $course_details['course_type_name']; ?>
                             </p>
                         </div>
                         <div class="small-12 medium-12 large-shrink cell">
                             <div class="course-card-trainer-wrapper">
-		                        <?php if ( ! empty( $instructor_1 = $course_details['instructor1'] ) ) : ?>
-                                    <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_1; ?>" data-tooltip tabindex="2" title="<?= $instructor_1; ?>">
-		                        <?php endif; ?>
-		                        <?php if ( ! empty( $instructor_2 = $course_details['instructor2'] ) ) : ?>
-                                    <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_2; ?>" data-tooltip tabindex="2" title="<?= $instructor_2; ?>">
-		                        <?php endif; ?>
-		                        <?php if ( ! empty( $instructor_3 = $course_details['instructor3'] ) ) : ?>
-                                    <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_3; ?>" data-tooltip tabindex="2" title="<?= $instructor_3; ?>">
-		                        <?php endif; ?>
-		                        <?php if ( ! empty( $instructor_4 = $course_details['instructor4'] ) ) : ?>
-                                    <img src="<?= get_instructor_image(); ?>" class="course-card-trainer" alt="<?= $instructor_4; ?>" data-tooltip tabindex="2" title="<?= $instructor_4; ?>">
-		                        <?php endif; ?>
+								<?php if ( ! empty( $instructor_1 = $course_details['instructor1'] ) ) : ?>
+                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_1 ); ?>/<?= $course_details['instr1']; ?>">
+                                        <img src="<?= get_instructor_image( $course_details['image1'] ); ?>"
+                                             class="course-card-trainer"
+                                             alt="<?= $instructor_1; ?>"
+                                             data-tooltip tabindex="1"
+                                             title="<?= $instructor_1; ?>">
+                                    </a>
+								<?php endif; ?>
+								<?php if ( ! empty( $instructor_2 = $course_details['instructor2'] ) ) : ?>
+                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_2 ); ?>/<?= $course_details['instr2']; ?>">
+                                        <img src="<?= get_instructor_image( $course_details['image2'] ); ?>"
+                                             class="course-card-trainer"
+                                             alt="<?= $instructor_2; ?>"
+                                             data-tooltip tabindex="2"
+                                             title="<?= $instructor_2; ?>">
+                                    </a>
+								<?php endif; ?>
+								<?php if ( ! empty( $instructor_3 = $course_details['instructor3'] ) ) : ?>
+                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_3 ); ?>/<?= $course_details['instr3']; ?>">
+                                        <img src="<?= get_instructor_image( $course_details['image3'] ); ?>"
+                                             class="course-card-trainer"
+                                             alt="<?= $instructor_3; ?>"
+                                             data-tooltip tabindex="3"
+                                             title="<?= $instructor_3; ?>">
+                                    </a>
+								<?php endif; ?>
+								<?php if ( ! empty( $instructor_4 = $course_details['instructor4'] ) ) : ?>
+                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_4 ); ?>/<?= $course_details['instr4']; ?>">
+                                        <img src="<?= get_instructor_image( $course_details['image4'] ); ?>"
+                                             class="course-card-trainer"
+                                             alt="<?= $instructor_4; ?>"
+                                             data-tooltip tabindex="4"
+                                             title="<?= $instructor_4; ?>">
+                                    </a>
+								<?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -40,26 +73,22 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                     <hr>
 
                     <p class="course-card-date">
-                        <small>
                             <i class="fal fa-clock"></i>
-                            <?= date( get_option( 'date_format' ), strtotime( $course_details['date'] ) ); ?>
+							<?= date( get_option( 'date_format' ), strtotime( $course_details['date'] ) ); ?>
                             -
-                            <?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
-                        </small>
+							<?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
                     </p>
 
                     <p class="course-card-location">
-                        <small>
                             <i class="fal fa-map-marker-alt"></i>
-	                        <?= $course_details['facility_name']; ?>, <?= $course_details['city']; ?>, <?= $course_details['state']; ?>
-                        </small>
+							<?= $course_details['facility_name']; ?>, <?= $course_details['city']; ?>, <?= $course_details['state']; ?>
                     </p>
 
                     <hr>
 
                     <p class="text-center course-card-learn-more">
                         <a href="<?= stage_url( $course_details['request_path'] ); ?>" class="button">
-		                    <?= __( 'Enroll / More Info', 'ipa' ); ?>
+							<?= __( 'Enroll / More Info', 'ipa' ); ?>
                         </a>
                     </p>
                 </div>
