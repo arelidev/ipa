@@ -23,11 +23,6 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                     </h4>
 
                     <div class="grid-x">
-                        <div class="small-12 medium-12 large-auto cell">
-                            <p class="course-card-category">
-                                <?= $course_details['course_type_name']; ?>
-                            </p>
-                        </div>
                         <div class="small-12 medium-12 large-shrink cell">
                             <div class="course-card-trainer-wrapper">
 								<?php if ( ! empty( $instructor_1 = $course_details['instructor1'] ) ) : ?>
