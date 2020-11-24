@@ -1,6 +1,11 @@
 <?php
 global $remote_db;
 
+// Set IPA staging URL
+function stage_url( $path = '', $scheme = null ) {
+	return "http://test.instituteofphysicalart.com/$path";
+}
+
 define( 'FACULTY_MEMBER_IMAGE_URL', 'http://test.instituteofphysicalart.com/media/ipa/profile/general/' );
 
 // Connect to remove database

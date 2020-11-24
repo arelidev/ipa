@@ -90,8 +90,3 @@ function hero_image_css() {
 }
 
 add_action( 'wp_head', 'hero_image_css' );
-
-// Set IPA staging URL
-function stage_url( $path = '', $scheme = null ) {
-	return "http://test.instituteofphysicalart.com/$path";
-}
