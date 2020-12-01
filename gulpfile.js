@@ -50,19 +50,19 @@ const SOURCE = {
 		FOUNDATION + '/dist/js/plugins/foundation.toggler.js',
 		FOUNDATION + '/dist/js/plugins/foundation.tooltip.js',
 
-		// Slick Slider
-		'node_modules/slick-carousel/slick/slick.js',
-
 		// Fancy Apps
 		'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js',
+
+		// Map Clusters
+		// https://developers.google.com/maps/documentation/javascript/marker-clustering
+		'node_modules/@google/markerclustererplus/dist/markerclustererplus.min.js',
 
 		// Mixitup
 		// https://www.kunkalabs.com/mixitup/
 		'node_modules/mixitup/dist/mixitup.min.js',
 
-		// Map Clusters
-		// https://developers.google.com/maps/documentation/javascript/marker-clustering
-		'node_modules/@google/markerclustererplus/dist/markerclustererplus.min.js',
+		// Slick Slider
+		'node_modules/slick-carousel/slick/slick.js',
 
 		// Place custom JS here, files will be concantonated, minified if ran with --production
 		'assets/scripts/js/**/*.js',

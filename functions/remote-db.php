@@ -630,18 +630,18 @@ function get_primary_faculty_names( $faculty ) {
 /**
  * Get Instructor Image
  *
- * @param null $image
+ * @param string $image
+ * @param string $alt
+ * @param string $classes
  *
- * @return float|int|string
+ * @return string
  */
-function get_instructor_image( $image = null ) {
+function get_instructor_image( $image = '', $alt = '', $classes = '' ) {
 	$default = get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
 
 	if ( ! empty( $image ) ) :
+        // todo: add validation to check if the image exists
 		$image_url = FACULTY_MEMBER_IMAGE_URL . $image;
-		if ( ! exif_imagetype( $image_url ) ) :
-			$image_url = $default;
-		endif;
 	else :
 		$image_url = $default;
 	endif;

@@ -287,14 +287,14 @@ function ipa_clinics_widget( $atts ) {
                                             </div>
                                         </div>
 									<?php endif; ?>
-									<?php if ( ! empty( $address ) ) : ?>
+									<?php if ( ! empty( $address = $address['formatted'] ) ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
                                                 <i class="far fa-map-marker-alt fa-lg"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p class="single-clinic-address">
-													<?= $address['formatted']; ?>
+													<?= $address; ?>
                                                 </p>
                                             </div>
                                         </div>
