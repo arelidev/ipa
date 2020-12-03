@@ -10,6 +10,10 @@ jQuery(document).ready(function ($) {
         // const elem = new Foundation.ResponsiveAccordionTabs(verticalTabs);
 
         $(verticalTabsTitle).on("mouseover", function () {
+
+            // Mimic behavior of click on hover
+            $(this).trigger('click')
+
             // This removes the hash (#) from the href ID, not sure if
             // that is needed
             const panelId = $(this).find("a").attr("href").substring(1);

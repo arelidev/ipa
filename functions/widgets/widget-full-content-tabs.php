@@ -24,7 +24,13 @@ function widget_full_content_tabs( $atts, $content ) {
 
         </div>
 
-    </div>
+	</div>
+	<script>
+		// Append Tabs before plugin initialization
+		jQuery('.widget-full-content-tab-container').each(function () {
+            jQuery('#widget-full-content-tabs').append(jQuery(this).find(jQuery(".ipa-single-card-widget")));
+        });
+	</script>
 	<?php
 
 	return ob_get_clean();
@@ -69,8 +75,8 @@ function widget_full_content_tab( $atts, $content ) {
 
 		<?= do_shortcode( $content ); ?>
 
-    </div>
-
+	</div>
+	
 	<?php
 }
 
