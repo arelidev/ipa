@@ -12,7 +12,7 @@ define( 'FACULTY_MEMBER_IMAGE_URL', 'http://test.instituteofphysicalart.com/medi
 $remote_db = new wpdb(
 	'ipatest_areli',
 	's;cC@^zp.HF7',
-	'ipatest_191221',
+	'ipatest_201121',
 	'test.instituteofphysicalart.com'
 );
 
