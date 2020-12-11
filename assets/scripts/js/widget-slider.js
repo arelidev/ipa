@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
     $('.slider-widget-slider').slick({
         infinite: true,
-        slidesToShow: 4,
+        slidesToShow: 5,
         nextArrow: '.slick-next-custom-slider-widget',
         prevArrow: '.slick-prev-custom-slider-widget',
         adaptiveHeight: true,
@@ -10,7 +10,7 @@ jQuery(document).ready(function ($) {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 4,
+                    slidesToShow: 5,
                     adaptiveHeight: true,
                 }
             },

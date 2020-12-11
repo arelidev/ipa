@@ -37,7 +37,7 @@ function slider_widget( $atts, $content = null ) {
 				<?php endforeach; ?>
             </div>
         </div>
-        <div class="cell small-12 large-shrink large-offset-2 text-center">
+        <div class="cell small-12 large-shrink text-center">
             <button class="slick-prev-custom-slider-widget slick-custom-button" aria-label="Previous" type="button">
                 <i class="far fa-chevron-left fa-lg"></i>
             </button>
