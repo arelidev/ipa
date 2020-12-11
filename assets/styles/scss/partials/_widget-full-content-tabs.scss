@@ -46,6 +46,12 @@
 
       &-icon {
         margin-bottom: $global-margin;
+
+        @include breakpoint(small only) {
+          display: inline-block;
+          float: left;
+          margin-right: 1rem;
+        }
       }
 
       &-title {

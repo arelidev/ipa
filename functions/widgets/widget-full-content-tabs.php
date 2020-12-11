@@ -15,7 +15,7 @@ function widget_full_content_tabs( $atts, $content ) {
     <div class="widget-full-content-tabs-wrapper">
 
         <ul class="grid-container grid-x grid-margin-x grid-margin-y align-center tabs"
-            data-responsive-accordion-tabs="accordion large-tabs" data-deep-link="true"
+            data-responsive-accordion-tabs="accordion large-tabs" data-deep-link="true" data-allow-all-closed="true"
             id="widget-full-content-tabs"></ul>
 
         <div class="tabs-content" data-tabs-content="widget-full-content-tabs">
@@ -76,7 +76,7 @@ function widget_full_content_tab( $atts, $content ) {
 		<?= do_shortcode( $content ); ?>
 
 	</div>
-	
+
 	<?php
 }
 
