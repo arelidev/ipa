@@ -3,6 +3,7 @@
   .ipa-clinic-card-wrapper {
     max-height: 80vh;
     overflow: auto;
+    padding-top: 2rem;
   }
 
   .featured-clinic {
@@ -90,13 +91,13 @@
     position: relative;
 
     .map-overlay-card {
-      padding: 8px; 
-      position: absolute; 
-      width: 50%; 
-      right: 10px; 
-      top: 10px; 
-      box-shadow: 0 4px 8px rgba(10,31,68,.07); 
-      z-index: 1000; 
+      padding: 8px;
+      position: absolute;
+      width: 50%;
+      right: 10px;
+      top: 10px;
+      box-shadow: 0 4px 8px rgba(10,31,68,.07);
+      z-index: 1000;
       background: white;
     }
   }
@@ -105,5 +106,5 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-  } 
+  }
 }

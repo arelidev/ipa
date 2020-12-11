@@ -155,8 +155,6 @@ Stylesheet: Global Stylesheet
 }
 
 .search-bar {
-	margin-bottom: $global-margin;
-
 	input, select {
 		margin-bottom: 0;
 	}
@@ -501,7 +499,7 @@ POSTS & CONTENT STYLES
 		}
 
 		.page-title {
-			margin-bottom: $global-margin;
+			margin-bottom: 0;
 
 			.registered {
 				font-size: 50%;

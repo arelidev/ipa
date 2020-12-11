@@ -16,11 +16,6 @@ $hero_type = get_field( 'hero_type' );
 				<?php if ( has_excerpt() ) : ?>
                     <p><?php the_excerpt(); ?></p>
 				<?php endif; ?>
-				<?php
-				if ( function_exists( 'yoast_breadcrumb' ) ) {
-					yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
-				}
-				?>
             </div>
         </header> <!-- end article header -->
 	<?php elseif ( $hero_type == 'image' ) : ?>
