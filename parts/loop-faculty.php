@@ -20,12 +20,6 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
             <h5 class="ipa-faculty-member-credentials text-center">
 		        <?= $faculty_data['credentials']; ?>
             </h5>
-			<?php
-			// todo: get link back to faculty page
-//			if ( function_exists( 'yoast_breadcrumb' ) ) {
-//				yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
-//			}
-			?>
         </div>
     </header> <!-- end article header -->
 

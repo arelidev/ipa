@@ -155,7 +155,6 @@ function ipa_clinics_widget( $atts ) {
                                     </div>
                                 </div>
                                 <div class="accordion-content">
-                                    <hr>
 									<?php if ( ! empty( $phone = get_field( 'clinic_phone' ) ) ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
@@ -226,7 +225,6 @@ function ipa_clinics_widget( $atts ) {
                                     </div>
                                 </div>
                                 <div class="accordion-content">
-                                    <hr>
 	                                <?php if ( $clinic['cfmt_honors'] == 1 ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
@@ -311,6 +309,7 @@ function ipa_clinics_widget( $atts ) {
                                             </div>
                                         </div>
 									<?php endif; ?>
+                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $clinic['name'] ); ?>/<?= $clinic['entity_id']; ?>" class="button small">View Profile</a>
                                 </div>
                             </div>
                         </div>
@@ -320,8 +319,7 @@ function ipa_clinics_widget( $atts ) {
             <div class="small-12 medium-6 large-6 cell small-order-1 large-order-2 map-container">
                 <div class="grid-x map-overlay-card">
                     <div class="medium-2 medium-offset-1 text-center">
-                        <img width="35"
-                             src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-clinic.png"><br>
+                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-clinic.png"><br>
                         <span>Clinic</span>
                     </div>
 
@@ -331,14 +329,12 @@ function ipa_clinics_widget( $atts ) {
                     </div>
 
                     <div class="medium-2 text-center">
-                        <img width="35"
-                             src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-fellowship.png"><br>
+                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-fellowship.png"><br>
                         <span>Fellow</span>
                     </div>
 
                     <div class="medium-2 text-center">
-                        <img width="35"
-                             src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-member.png"><br>
+                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-member.png"><br>
                         <span>Member</span>
                     </div>
 

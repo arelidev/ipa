@@ -371,7 +371,7 @@ function get_instructor_course_table( $id ) {
                         </td>
                         <td class="course-table-instructor">
                             <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
-		                    <?php if ( ! empty( $instructor_1 = $course['instructor1'] ) ) : ?>
+							<?php if ( ! empty( $instructor_1 = $course['instructor1'] ) ) : ?>
                                 <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_1 ); ?>/<?= $course['instr1']; ?>">
                                     <img src="<?= get_instructor_image( $course['image1'] ); ?>"
                                          class="course-card-trainer"
@@ -379,8 +379,8 @@ function get_instructor_course_table( $id ) {
                                          data-tooltip tabindex="1"
                                          title="<?= $instructor_1; ?>">
                                 </a>
-		                    <?php endif; ?>
-		                    <?php if ( ! empty( $instructor_2 = $course['instructor2'] ) ) : ?>
+							<?php endif; ?>
+							<?php if ( ! empty( $instructor_2 = $course['instructor2'] ) ) : ?>
                                 <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_2 ); ?>/<?= $course['instr2']; ?>">
                                     <img src="<?= get_instructor_image( $course['image2'] ); ?>"
                                          class="course-card-trainer"
@@ -388,8 +388,8 @@ function get_instructor_course_table( $id ) {
                                          data-tooltip tabindex="2"
                                          title="<?= $instructor_2; ?>">
                                 </a>
-		                    <?php endif; ?>
-		                    <?php if ( ! empty( $instructor_3 = $course['instructor3'] ) ) : ?>
+							<?php endif; ?>
+							<?php if ( ! empty( $instructor_3 = $course['instructor3'] ) ) : ?>
                                 <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_3 ); ?>/<?= $course['instr3']; ?>">
                                     <img src="<?= get_instructor_image( $course['image3'] ); ?>"
                                          class="course-card-trainer"
@@ -397,8 +397,8 @@ function get_instructor_course_table( $id ) {
                                          data-tooltip tabindex="3"
                                          title="<?= $instructor_3; ?>">
                                 </a>
-		                    <?php endif; ?>
-		                    <?php if ( ! empty( $instructor_4 = $course['instructor4'] ) ) : ?>
+							<?php endif; ?>
+							<?php if ( ! empty( $instructor_4 = $course['instructor4'] ) ) : ?>
                                 <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_4 ); ?>/<?= $course['instr4']; ?>">
                                     <img src="<?= get_instructor_image( $course['image4'] ); ?>"
                                          class="course-card-trainer"
@@ -406,7 +406,7 @@ function get_instructor_course_table( $id ) {
                                          data-tooltip tabindex="4"
                                          title="<?= $instructor_4; ?>">
                                 </a>
-		                    <?php endif; ?>
+							<?php endif; ?>
                         </td>
                         <td class="course-table-apply">
                             <a href="<?= stage_url( $course['request_path'] ); ?>"><?= __( 'Enroll / More Info', 'ipa' ); ?></a>
@@ -637,10 +637,11 @@ function get_primary_faculty_names( $faculty ) {
  * @return string
  */
 function get_instructor_image( $image = '', $alt = '', $classes = '' ) {
-	$default = get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
+	$stored  = get_field( 'default_instructor_image', 'options' );
+	$default = ( ! empty( $stored ) ) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
 
 	if ( ! empty( $image ) ) :
-        // todo: add validation to check if the image exists
+		// todo: add validation to check if the image exists
 		$image_url = FACULTY_MEMBER_IMAGE_URL . $image;
 	else :
 		$image_url = $default;
