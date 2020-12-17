@@ -525,7 +525,7 @@ FROM `customer_entity` AS `e`
 				   
 WHERE (`at_in_referral`.`value` = 1)
   AND (`at_referral_approved`.`value` = 1)
-ORDER BY `work_country` ASC, `work_state` ASC, `lastname` ASC;;
+ORDER BY `work_country` DESC, `work_state` ASC, `lastname` ASC;;
 ";
 
 	return $remote_db->get_results( $sql, ARRAY_A );
