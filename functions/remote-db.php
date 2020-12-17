@@ -409,7 +409,7 @@ function get_instructor_course_table( $id ) {
 							<?php endif; ?>
                         </td>
                         <td class="course-table-apply">
-                            <a href="<?= stage_url( $course['request_path'] ); ?>"><?= __( 'Enroll / More Info', 'ipa' ); ?></a>
+	                        <?php get_course_link( $course['request_path'], $course['visibility'] ); ?>
                         </td>
                     </tr>
 				<?php endforeach; ?>
@@ -648,4 +648,21 @@ function get_instructor_image( $image = '', $alt = '', $classes = '' ) {
 	endif;
 
 	return $image_url;
+}
+
+/**
+ * Create the course link to Magento
+ *
+ * @param $url
+ * @param $visibility
+ * @param null $classes
+ */
+function get_course_link( $url, $visibility, $classes = null ) {
+	if ( $visibility !== "1" ) :
+		?>
+        <a href="<?= stage_url( $url ); ?>" class="<?= $classes; ?>">
+			<?= __( 'Enroll / More Info', 'ipa' ); ?>
+        </a>
+	<?php
+	endif;
 }

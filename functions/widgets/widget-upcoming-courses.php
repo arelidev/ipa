@@ -82,9 +82,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                     <hr>
 
                     <p class="text-center course-card-learn-more">
-                        <a href="<?= stage_url( $course_details['request_path'] ); ?>" class="button">
-							<?= __( 'Enroll / More Info', 'ipa' ); ?>
-                        </a>
+                        <?php get_course_link( $course_details['request_path'] , $course_details['visibility'], 'button' ); ?>
                     </p>
                 </div>
             </div>
