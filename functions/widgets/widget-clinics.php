@@ -151,7 +151,11 @@ function ipa_clinics_widget( $atts ) {
 										<?php endif; ?>
                                     </div>
                                     <div class="shrink cell">
-                                        <img src="<?= get_instructor_image(); ?>" class="map-icon-circle" alt="<?php the_title(); ?>">
+	                                    <?php if ( has_post_thumbnail() ) : ?>
+		                                    <?php the_post_thumbnail( 'medium', array( 'class' => 'map-icon-circle' ) ); ?>
+	                                    <?php else : ?>
+                                            <img src="<?= get_instructor_image(); ?>" class="map-icon-circle" alt="<?php the_title(); ?>">
+	                                    <?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="accordion-content">

@@ -35,7 +35,7 @@ function clinics_post_type() {
 		'label'                 => __( 'Clinic', 'ipa' ),
 		'description'           => __( 'IPA Clinics', 'ipa' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor' ),
+		'supports'              => array( 'title', 'editor', 'thumbnail' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
