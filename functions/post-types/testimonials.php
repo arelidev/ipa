@@ -51,7 +51,7 @@ function testimonials_post_type() {
 		'publicly_queryable'  => true,
 		'capability_type'     => 'page',
 	);
-	register_post_type( 'Testimonials', $args );
+	register_post_type( 'testimonials', $args );
 
 }
 
@@ -93,7 +93,7 @@ function testimonials_taxonomy() {
 		'rewrite'           => false,
 		'show_in_rest'      => true,
 	);
-	register_taxonomy( 'testimonials_taxonomy', array( 'Testimonials' ), $args );
+	register_taxonomy( 'testimonials_taxonomy', array( 'testimonials' ), $args );
 
 }
 
