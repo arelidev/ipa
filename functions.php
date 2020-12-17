@@ -49,7 +49,7 @@ require_once( get_template_directory() . '/functions/disable-emoji.php' );
 require_once( get_template_directory() . '/functions/custom-post-type.php' );
 
 // Customize the WordPress login menu
-require_once(get_template_directory().'/functions/login.php');
+require_once( get_template_directory() . '/functions/login.php' );
 
 // Customize the WordPress admin
 require_once( get_template_directory() . '/functions/admin.php' );
@@ -94,4 +94,20 @@ function clean( $string ) {
 	$string = str_replace( ' ', '-', $string ); // Replaces all spaces with hyphens.
 
 	return preg_replace( '/[^A-Za-z0-9\-]/', '', $string ); // Removes special chars.
+}
+
+/**
+ * @param $id
+ * @param $array
+ *
+ * @return int|string|null
+ */
+function searchForId( $id, $array ) {
+	foreach ( $array as $key => $val ) {
+		if ( $val['category'] === $id ) {
+			return $key;
+		}
+	}
+
+	return null;
 }

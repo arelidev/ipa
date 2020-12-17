@@ -13,10 +13,22 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
 	}
 
 	usort( $courses, 'date_compare' );
+
+	$default_course_images = get_field( 'default_course_category_images', 'options' );
 	?>
-    <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title" data-equalize-by-row="true">
+    <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title"
+         data-equalize-by-row="true">
 		<?php foreach ( $courses as $title => $course_details ) : ?>
+			<?php
+			$course_type_name_id = searchForId( $course_details['course_type_name'], $default_course_images );
+			?>
             <div class="course-card cell small-12 medium-6 large-4">
+				<?php // if ( ! empty( $course_type_name_id ) ) :
+					$image_id = $default_course_images[ $course_type_name_id ]['image']; ?>
+                    <div class="course-card-image-wrapper">
+						<?= wp_get_attachment_image( $image_id, 'full', false, array( 'class' => 'course-card-image' ) ); ?>
+                    </div>
+				<?php // endif; ?>
                 <div class="course-card-inner">
                     <h4 class="course-card-title" data-equalizer-watch="upcoming-courses-title">
 						<?= $course_details['name']; ?>
@@ -68,21 +80,22 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                     <hr>
 
                     <p class="course-card-date">
-                            <i class="fal fa-clock"></i>
-							<?= date( get_option( 'date_format' ), strtotime( $course_details['date'] ) ); ?>
-                            -
-							<?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
+                        <i class="fal fa-clock"></i>
+						<?= date( get_option( 'date_format' ), strtotime( $course_details['date'] ) ); ?>
+                        -
+						<?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
                     </p>
 
                     <p class="course-card-location">
-                            <i class="fal fa-map-marker-alt"></i>
-							<?= $course_details['facility_name']; ?>, <?= $course_details['city']; ?>, <?= $course_details['state']; ?>
+                        <i class="fal fa-map-marker-alt"></i>
+						<?= $course_details['facility_name']; ?>, <?= $course_details['city']; ?>
+                        , <?= $course_details['state']; ?>
                     </p>
 
                     <hr>
 
                     <p class="text-center course-card-learn-more">
-                        <?php get_course_link( $course_details['request_path'] , $course_details['visibility'], 'button' ); ?>
+						<?php get_course_link( $course_details['request_path'], $course_details['visibility'], 'button' ); ?>
                     </p>
                 </div>
             </div>
