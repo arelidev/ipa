@@ -52,8 +52,10 @@ jQuery(document).ready(function ($) {
         filterMix()
     });
 
-    instructorFilter.on('change', function () {
-        filterMix()
+    instructorFilter.keyup(function () {
+        delay( function() {
+            filterMix()
+        }, 300)
     });
 
     bindMapEvent()
@@ -107,8 +109,8 @@ jQuery(document).ready(function ($) {
                     }
                 }
 
-                if ( instructorFilter.val() && instructorFilter.val() != 'all' ) {
-                    if (!$(this).attr('data-title') || !$(this).attr('data-title').match( instructorFilter.val() )) {
+                if ( instructorFilter.val() && instructorFilter.val() != '' ) {
+                    if (!$(this).attr('data-title') || $(this).attr('data-title').toLowerCase().indexOf( instructorFilter.val().toLowerCase() ) == -1 ) {
                         $matching = $matching.not(this);
                     }
                 }
@@ -118,7 +120,7 @@ jQuery(document).ready(function ($) {
             if (!map) {
                 delay( function() {
                     reinitMap()
-                }, 800)
+                }, 1000)
             }
   
         }, 200);

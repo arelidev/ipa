@@ -15,8 +15,6 @@ function ipa_clinics_widget( $atts ) {
 	$loop = new WP_Query( $args );
 
 	$clinics               = get_clinics();
-	$certifications_filter = get_clinic_certifications( $clinics );
-	$instructor_filter     = get_clinic_names( $clinics );
 
 	?>
     <div class="ipa-clinics-widget">
@@ -104,24 +102,7 @@ function ipa_clinics_widget( $atts ) {
                 </div>
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
-                        <select class="clinics-filter-certification" id="clinics-filter-certification">
-                            <option value="all">Certification</option>
-                            <option value="all">All</option>
-							<?php foreach ( $certifications_filter as $option ): ?>
-                                <option value="<?= $option ?>"><?= $option ?></option>
-							<?php endforeach; ?>
-                        </select>
-                    </label>
-                </div>
-                <div class="cell auto">
-                    <label><span class="show-for-sr">Input Label</span>
-                        <select class="clinics-filter-certification" id="clinics-filter-instructor">
-                            <option value="all">Instructor</option>
-                            <option value="all">All</option>
-							<?php foreach ( $instructor_filter as $option ): ?>
-                                <option value="<?= $option ?>"><?= $option ?></option>
-							<?php endforeach; ?>
-                        </select>
+                        <input type="text" class="clinics-filter-certification" id="clinics-filter-instructor" placeholder="Name">
                     </label>
                 </div>
             </div>
@@ -200,7 +181,7 @@ function ipa_clinics_widget( $atts ) {
 
 					<?php foreach ( $clinics as $clinic ) : ?>
 						<?php $address = build_address( $clinic ); ?>
-                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix <?= $clinic['current_fellow'] == 1 ? 'fellow' : '' ?> <?= $clinic['cfmt'] == 1 ? 'cfmt' : '' ?>"
+                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix <?= $clinic['cfmt'] == 1 ? 'cfmt' : 'fellow' ?>"
                              data-type="<?= $clinic['current_fellow'] == 1 ? 'fellow' : '' ?> <?= $clinic['cfmt'] == 1 ? 'cfmt' : '' ?> faculty <?= $clinic['instructor_status'] == 1 ? 'primary' : '' ?>"
                              data-address="<?= $address['address']; ?>"
                              data-country="<?= $clinic['work_country']; ?>"
@@ -322,27 +303,22 @@ function ipa_clinics_widget( $atts ) {
             </div>
             <div class="small-12 medium-6 large-6 cell small-order-1 large-order-2 map-container">
                 <div class="grid-x map-overlay-card">
-                    <div class="medium-2 medium-offset-1 text-center">
-                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-clinic.png"><br>
+                    <div class="medium-3 text-center">
+                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-clinic-gold.png"><br>
                         <span>Clinic</span>
                     </div>
 
-                    <div class="medium-2 text-center">
+                    <div class="medium-3 text-center">
                         <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-cfmt.png"><br>
                         <span>CFMT</span>
                     </div>
 
-                    <div class="medium-2 text-center">
+                    <div class="medium-3 text-center">
                         <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-fellowship.png"><br>
                         <span>Fellow</span>
                     </div>
 
-                    <div class="medium-2 text-center">
-                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-member.png"><br>
-                        <span>Member</span>
-                    </div>
-
-                    <div class="medium-2 text-center">
+                    <div class="medium-3 text-center">
                         <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-multi.png"><br>
                         <span>Multi</span>
                     </div>
@@ -406,13 +382,11 @@ function ipa_clinics_widget( $atts ) {
 
                 let iconBase = '<?= get_template_directory_uri(); ?>/assets/images/icon-map-';
                 if (type == 'clinic') {
-                    icon = iconBase + 'clinic.png'
+                    icon = iconBase + 'clinic-gold.png'
                 } else if (cfmt == 1) {
                     icon = iconBase + 'cfmt.png'
-                } else if (fellow == 1) {
-                    icon = iconBase + 'fellowship.png'
                 } else {
-                    icon = iconBase + 'member.png'
+                    icon = iconBase + 'fellowship.png'
                 }
                 let multiIcon = iconBase + 'multi.png'
 
