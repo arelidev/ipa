@@ -466,9 +466,7 @@ function ipa_clinics_widget( $atts ) {
                                 $(html).find('.accordion-content').removeClass('accordion-content');
                                 $(html).removeClass('accordion')
                                 windowContent += $(html).html()
-                                console.log($mark.icon)
                                 if ( $mark.icon.indexOf( iconBase + 'clinic-gold.png' ) != -1 ) {
-                                    console.log('gold')
                                     marker.setZIndex(101)
                                     marker.setIcon( iconBase + 'clinic-gold.png' );
                                 } else {
