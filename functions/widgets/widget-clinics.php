@@ -24,6 +24,11 @@ function ipa_clinics_widget( $atts ) {
                 <div class="cell auto">
                     <b>Filter by:</b>
                 </div>
+                <div class="cell shrink">
+                    <a class="button small clear-button" style="margin-bottom: 0px">
+                        Clear
+                    </a>
+                </div>
                 <div class="cell auto">
                     <label><span class="show-for-sr">Select Menu</span>
                         <select id="clinics-filter-select">
@@ -95,14 +100,20 @@ function ipa_clinics_widget( $atts ) {
                         </select>
                     </label>
                 </div>
-                <div class="cell auto">
-                    <label><span class="show-for-sr">Input Label</span>
-                        <input type="text" placeholder="Zip Code" id="clinics-filter-zip">
-                    </label>
-                </div>
+          
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
                         <input type="text" class="clinics-filter-certification" id="clinics-filter-instructor" placeholder="Name">
+                    </label>
+                </div>
+
+                <div class="cell shrink">
+                    <label>or</label>
+                </div>
+
+                <div class="cell auto">
+                    <label><span class="show-for-sr">Input Label</span>
+                        <input type="text" placeholder="Zip Code" id="clinics-filter-zip">
                     </label>
                 </div>
             </div>
@@ -181,8 +192,8 @@ function ipa_clinics_widget( $atts ) {
 
 					<?php foreach ( $clinics as $clinic ) : ?>
 						<?php $address = build_address( $clinic ); ?>
-                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix <?= $clinic['cfmt'] == 1 ? 'cfmt' : 'fellow' ?>"
-                             data-type="<?= $clinic['current_fellow'] == 1 ? 'fellow' : '' ?> <?= $clinic['cfmt'] == 1 ? 'cfmt' : '' ?> faculty <?= $clinic['instructor_status'] == 1 ? 'primary' : '' ?>"
+                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix <?= $clinic['current_fellow'] == 1 ? 'fellow' : 'cfmt' ?>"
+                             data-type="<?= $clinic['current_fellow'] == 1 ? 'fellow' : 'cfmt' ?> faculty <?= $clinic['instructor_status'] == 1 ? 'primary' : '' ?>"
                              data-address="<?= $address['address']; ?>"
                              data-country="<?= $clinic['work_country']; ?>"
                              data-entity-id="<?= $clinic['entity_id']; ?>"
@@ -241,7 +252,7 @@ function ipa_clinics_widget( $atts ) {
                                             </div>
                                             <div class="cell auto">
                                                 <p>
-                                                    FMT Follow
+                                                    FMT Fellow
                                                 </p>
                                             </div>
                                         </div>
@@ -309,13 +320,13 @@ function ipa_clinics_widget( $atts ) {
                     </div>
 
                     <div class="medium-3 text-center">
-                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-cfmt.png"><br>
-                        <span>CFMT</span>
+                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-fellowship-blue.png"><br>
+                        <span>Fellow</span>
                     </div>
 
                     <div class="medium-3 text-center">
-                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-fellowship.png"><br>
-                        <span>Fellow</span>
+                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-cfmt-gray.png"><br>
+                        <span>CFMT</span>
                     </div>
 
                     <div class="medium-3 text-center">
@@ -344,7 +355,13 @@ function ipa_clinics_widget( $atts ) {
                 // Create gerenic map.
                 let mapArgs = {
                     zoom: $el.data('zoom') || 16,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    streetViewControlOptions: {
+                        position: google.maps.ControlPosition.LEFT_BOTTOM,
+                    },
+                    zoomControlOptions: {
+                        position: google.maps.ControlPosition.LEFT_BOTTOM,
+                    },
                 };
                 map = new google.maps.Map($el[0], mapArgs);
 
@@ -379,14 +396,16 @@ function ipa_clinics_widget( $atts ) {
                 let marker = '';
                 let geocoder;
                 let icon;
+                let zIndex = 1;
 
                 let iconBase = '<?= get_template_directory_uri(); ?>/assets/images/icon-map-';
                 if (type == 'clinic') {
                     icon = iconBase + 'clinic-gold.png'
-                } else if (cfmt == 1) {
-                    icon = iconBase + 'cfmt.png'
+                    zIndex = 100;
+                } else if (fellow == 1) {
+                    icon = iconBase + 'fellowship-blue.png'
                 } else {
-                    icon = iconBase + 'fellowship.png'
+                    icon = iconBase + 'cfmt-gray.png'
                 }
                 let multiIcon = iconBase + 'multi.png'
 
@@ -404,7 +423,8 @@ function ipa_clinics_widget( $atts ) {
                         position: latLng,
                         map: map,
                         entity: entity,
-                        icon: icon
+                        icon: icon,
+                        zIndex: zIndex
                     });
 
                 } else if ($marker.data('address').length > 0 && $marker.data('country') === 'United States') {
@@ -446,7 +466,14 @@ function ipa_clinics_widget( $atts ) {
                                 $(html).find('.accordion-content').removeClass('accordion-content');
                                 $(html).removeClass('accordion')
                                 windowContent += $(html).html()
-                                marker.setIcon(multiIcon)
+                                console.log($mark.icon)
+                                if ( $mark.icon.indexOf( iconBase + 'clinic-gold.png' ) != -1 ) {
+                                    console.log('gold')
+                                    marker.setZIndex(101)
+                                    marker.setIcon( iconBase + 'clinic-gold.png' );
+                                } else {
+                                    marker.setIcon(multiIcon)
+                                }
                             })
                         } else {
                             let html = $marker.clone();

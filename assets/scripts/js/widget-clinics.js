@@ -6,6 +6,7 @@ jQuery(document).ready(function ($) {
     let certFilter = $('#clinics-filter-certification')
     let instructorFilter = $('#clinics-filter-instructor')
     let mixerContainer = '.ipa-clinic-card-wrapper';
+    let clearButton = $('.clear-button')
 
     if ($(mixerContainer).length) {
         let mixer = mixitup(mixerContainer);
@@ -26,14 +27,17 @@ jQuery(document).ready(function ($) {
 
     // Filter Bindings
     filterSelect.on('change', function () {
+        zipFilter.val('')
         filterMix()
     });
 
     stateFilter.on('change', function () {
+        zipFilter.val('')
         filterMix()
     });
 
     zipFilter.keyup(function () {
+        clearFilters()
         delay( function() {
             geocoder = new google.maps.Geocoder();
 
@@ -49,14 +53,28 @@ jQuery(document).ready(function ($) {
     });
 
     certFilter.on('change', function () {
+        zipFilter.val('')
         filterMix()
     });
 
     instructorFilter.keyup(function () {
         delay( function() {
+            zipFilter.val('')
             filterMix()
         }, 300)
     });
+
+    clearButton.on('click', function() {
+        clearFilters()
+        zipFilter.val('')
+        filterMix()
+    })
+
+    function clearFilters() {
+        filterSelect.val('')
+        stateFilter.val('all')
+        instructorFilter.val('')
+    }
 
     bindMapEvent()
 
