@@ -330,7 +330,7 @@ function ipa_clinics_widget( $atts ) {
                     </div>
 
                     <div class="medium-3 text-center">
-                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-multi.png"><br>
+                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-multi-white.png"><br>
                         <span>Multi</span>
                     </div>
                 </div>
@@ -407,7 +407,7 @@ function ipa_clinics_widget( $atts ) {
                 } else {
                     icon = iconBase + 'cfmt-gray.png'
                 }
-                let multiIcon = iconBase + 'multi.png'
+                let multiIcon = iconBase + 'multi-white.png'
 
                 if ($marker.data('lat') !== undefined && $marker.data('lng') !== undefined) {
                     let lat = $marker.data('lat');
@@ -520,7 +520,7 @@ function ipa_clinics_widget( $atts ) {
                         // Move map to marker position on click
                         if (existing.length > 1) {
                             existing.forEach(function ($mark) {
-                                $mark.unbind()
+                                // $mark.unbind()
                                 bindClickEvent($mark, map, infowindow)
                             })
                         } else {
