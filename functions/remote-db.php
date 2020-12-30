@@ -659,7 +659,7 @@ function get_instructor_image( $image = '', $alt = '', $classes = '' ) {
 function get_course_link( $url, $visibility, $classes = null ) {
 	if ( $visibility !== "1" ) :
 		?>
-        <a href="<?= stage_url( $url ); ?>" class="<?= $classes; ?>">
+        <a href="<?= stage_url( $url ); ?>" class="enroll-button <?= $classes; ?>">
 			<?= __( 'Enroll / More Info', 'ipa' ); ?>
         </a>
 	<?php
