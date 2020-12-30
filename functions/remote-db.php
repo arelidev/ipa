@@ -6,7 +6,7 @@ function stage_url( $path = '', $scheme = null ) {
 	return "http://test.instituteofphysicalart.com/$path";
 }
 
-define( 'FACULTY_MEMBER_IMAGE_URL', 'http://test.instituteofphysicalart.com/media/ipa/profile/general/' );
+define( 'FACULTY_MEMBER_IMAGE_URL', 'https://test.instituteofphysicalart.com/media/ipa/profile/general/' );
 
 // Connect to remove database
 $remote_db = new wpdb(
@@ -360,8 +360,7 @@ function get_instructor_course_table( $id ) {
                             <span class="hide-for-medium"><b><?= __( 'Course', 'ipa' ); ?>:</b></span> <?= $course['course_type_name']; ?>
                         </td>
                         <td class="course-table-location no-sort">
-                            <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course['city']; ?>
-                            , <?= $course['state']; ?>
+                            <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course['city']; ?>, <?= $course['state']; ?>
                         </td>
                         <td class="course-table-date" data-order="<?= date( 'u', strtotime( $course['date'] ) ); ?>">
                             <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>

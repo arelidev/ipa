@@ -4,7 +4,7 @@
  *
  */
 
-define( 'GOOGLE_MAPS_API_KEY', 'AIzaSyAD-IK4EX_Dq0gEx_FvIRJBfeCsAKOwW-A' );
+define( 'GOOGLE_MAPS_API_KEY', 'AIzaSyBk2PyekdgVweld0_xj61_mogipGPiHGEc' );
 
 // Connect to the remote database
 require_once( get_template_directory() . '/functions/remote-db.php' );

@@ -10,7 +10,7 @@
 function ipa_testimonials_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(
 		'category'       => '',
-		'posts_per_page' => 3,
+		'posts_per_page' => -1,
 		'slides_to_show' => 3,
 		'el_class'       => ''
 	), $atts );
@@ -33,7 +33,7 @@ function ipa_testimonials_widget( $atts, $content = null ) {
 
 	$loop = new WP_Query( $args );
 	?>
-    <div class="testimonials-widget grid-x <?= $atts['el_class']; ?>">
+    <div class="testimonials-widget grid-x grid-padding-y <?= $atts['el_class']; ?>">
         <div class="small-12 medium-12 large-12 cell">
             <div class="testimonials-slider" data-equalizer="testimonials-content" data-equalize-on="medium">
 				<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
@@ -41,7 +41,7 @@ function ipa_testimonials_widget( $atts, $content = null ) {
 				<?php endwhile; ?>
             </div>
         </div>
-        <div class="cell small-12 hide-for-large text-center">
+        <div class="cell small-12 text-center">
             <button class="slick-prev-custom-testimonials-widget slick-custom-button" aria-label="Previous" type="button">
                 <i class="far fa-chevron-left fa-lg"></i>
             </button>

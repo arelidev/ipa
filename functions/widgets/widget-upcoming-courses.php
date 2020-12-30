@@ -88,8 +88,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
 
                     <p class="course-card-location">
                         <i class="fal fa-map-marker-alt"></i>
-						<?= $course_details['facility_name']; ?>, <?= $course_details['city']; ?>
-                        , <?= $course_details['state']; ?>
+						<?= $course_details['facility_name']; ?>, <?= $course_details['city']; ?>, <?= $course_details['state']; ?>
                     </p>
 
                     <hr>

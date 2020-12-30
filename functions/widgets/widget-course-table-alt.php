@@ -85,7 +85,7 @@ function ipa_courses_table_alt_widget( $atts, $content = null ) {
 									<?php endif; ?>
                                 </td>
                                 <td class="course-table-apply">
-	                                <?php get_course_link( $course_details['request_path'] , $course_details['visibility'], 'button' ); ?>
+	                                <?php get_course_link( $course_detail['request_path'] , $course_detail['visibility'], 'button' ); ?>
                                 </td>
                             </tr>
 						<?php endforeach; ?>

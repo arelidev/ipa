@@ -237,8 +237,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
                                                     data-region="<?= get_region_by_state( $course_detail['state'] ) ?>"
                                                     data-start-date="<?= date( 'm-d-y', strtotime( $course_detail['date'] ) ); ?>">
                                                     <td class="course-table-location">
-                                                        <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course_detail['city']; ?>
-                                                        , <?= $course_detail['state']; ?>
+                                                        <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course_detail['city']; ?>, <?= $course_detail['state']; ?>
                                                     </td>
                                                     <td class="course-table-date"
                                                         data-order="<?= date( 'u', strtotime( $course_detail['date'] ) ); ?>">
@@ -287,7 +286,7 @@ function ipa_courses_table_widget( $atts, $content = null ) {
 			                                            <?php endif; ?>
                                                     </td>
                                                     <td class="course-table-apply">
-	                                                    <?php get_course_link( $course_details['request_path'] , $course_details['visibility'], 'button' ); ?>
+	                                                    <?php get_course_link( $course_detail['request_path'] , $course_detail['visibility'], 'button' ); ?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
