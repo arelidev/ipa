@@ -3,7 +3,7 @@ global $remote_db;
 
 // Set IPA staging URL
 function stage_url( $path = '', $scheme = null ) {
-	return "http://test.instituteofphysicalart.com/$path";
+	return "https://test.instituteofphysicalart.com/$path";
 }
 
 define( 'FACULTY_MEMBER_IMAGE_URL', 'https://test.instituteofphysicalart.com/media/ipa/profile/general/' );
