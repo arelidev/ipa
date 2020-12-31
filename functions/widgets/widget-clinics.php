@@ -192,8 +192,8 @@ function ipa_clinics_widget( $atts ) {
 
 					<?php foreach ( $clinics as $clinic ) : ?>
 						<?php $address = build_address( $clinic ); ?>
-                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix <?= $clinic['current_fellow'] == 1 ? 'fellow' : 'cfmt' ?>"
-                             data-type="<?= $clinic['current_fellow'] == 1 ? 'fellow' : 'cfmt' ?> faculty <?= $clinic['instructor_status'] == 1 ? 'primary' : '' ?>"
+                        <div class="small-12 medium-6 large-6 cell single-clinic dyno-clinic styled-container mix <?= $clinic['FAAOMPT'] ? 'fellow' : 'cfmt' ?>"
+                             data-type="<?= $clinic['FAAOMPT']  ? 'fellow' : 'cfmt' ?> faculty <?= $clinic['instructor_status'] == 1 ? 'primary' : '' ?>"
                              data-address="<?= $address['address']; ?>"
                              data-country="<?= $clinic['work_country']; ?>"
                              data-entity-id="<?= $clinic['entity_id']; ?>"
@@ -203,7 +203,7 @@ function ipa_clinics_widget( $atts ) {
                              data-certification="<?= $clinic['credentials'] ?>"
                              data-lat="<?= $clinic['work_latitude']; ?>"
                              data-lng="<?= $clinic['work_longitude']; ?>"
-                             data-fellow="<?= $clinic['current_fellow']; ?>"
+                             data-fellow="<?= $clinic['FAAOMPT'] ? 1 : 0; ?>"
                              data-cfmt="<?= $clinic['cfmt'] ?>">
                             <div class="single-clinic-inner accordion" data-accordion data-allow-all-closed="true">
                                 <div class="grid-x accordion-title">
@@ -221,10 +221,24 @@ function ipa_clinics_widget( $atts ) {
                                     </div>
                                 </div>
                                 <div class="accordion-content">
+                                    <?php if ( $clinic['FAAOMPT'] == 1 ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg" class="ipa-single-card-widget-icon" alt="" loading="lazy" width="22px">
+                                                <!-- <i class="far fa-user-md fa-lg"></i> -->
+                                            </div>
+                                            <div class="cell auto">
+                                                <p>
+                                                    FMT Fellow
+                                                </p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
 	                                <?php if ( $clinic['cfmt_honors'] == 1 ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
-                                                <i class="fal fa-award fa-lg"></i>
+                                                <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg" class="ipa-single-card-widget-icon" alt="" loading="lazy" width="22px">
+                                                <!-- <i class="fal fa-award fa-lg"></i> -->
                                             </div>
                                             <div class="cell auto">
                                                 <p>
@@ -252,11 +266,12 @@ function ipa_clinics_widget( $atts ) {
                                             </div>
                                             <div class="cell auto">
                                                 <p>
-                                                    FMT Fellow
+                                                    Fellow in Training
                                                 </p>
                                             </div>
                                         </div>
 	                                <?php endif; ?>
+                                     
                                     <?php if ( ! empty( $email = $clinic['work_email'] ) ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
@@ -272,7 +287,7 @@ function ipa_clinics_widget( $atts ) {
 									<?php if ( ! empty( $phone = $clinic['work_telephone'] ) ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
-                                                <i class="far fa-mobile fa-lg"></i>
+                                                <i class="far fa-phone fa-lg"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p class="single-clinic-phone">
