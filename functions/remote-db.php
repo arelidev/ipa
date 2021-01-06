@@ -1,20 +1,32 @@
 <?php
-global $remote_db;
+global $remote_db, $stage_url;
 
-// Set IPA staging URL
-function stage_url( $path = '', $scheme = null ) {
-	return "https://test.instituteofphysicalart.com/$path";
+switch ( wp_get_environment_type() ) {
+	case 'staging':
+		$db_username = "myipa_wordpress";
+		$db_password = "s;cC@^zp.HF7";
+		$db_database = "myipa_191221";
+		$db_host     = "test.instituteofphysicalart.com";
+		$stage_url   = "https://my.instituteofphysicalart.com";
+		break;
+	default:
+		$db_username = "ipatest_areli";
+		$db_password = "s;cC@^zp.HF7";
+		$db_database = "ipatest_201121";
+		$db_host     = "test.instituteofphysicalart.com";
+		$stage_url   = "https://test.instituteofphysicalart.com";
+		break;
 }
 
-define( 'FACULTY_MEMBER_IMAGE_URL', 'https://test.instituteofphysicalart.com/media/ipa/profile/general/' );
-
 // Connect to remove database
-$remote_db = new wpdb(
-	'ipatest_areli',
-	's;cC@^zp.HF7',
-	'ipatest_201121',
-	'test.instituteofphysicalart.com'
-);
+$remote_db = new wpdb( $db_username, $db_password, $db_database, $db_host );
+
+// Set IPA staging URL
+function stage_url( $path = '' ): string {
+	global $stage_url;
+
+	return "{$stage_url}/{$path}";
+}
 
 /**
  * Get Raw Courses
@@ -22,11 +34,10 @@ $remote_db = new wpdb(
  * @param null $limit
  * @param null $category
  * @param false $popular
- * @param null $instructor_id
  *
  * @return array|object|null
  */
-function get_courses( $limit = null, $category = null, $popular = false ) {
+function get_courses( $limit = null, $category = null, $popular = false ): ?array {
 	global $remote_db;
 
 	$sql = "
@@ -126,7 +137,7 @@ where `at_end_date`.`value` >= DATE(NOW())
  *
  * @return array
  */
-function get_sorted_courses( $limit = null, $category = null ) {
+function get_sorted_courses( $limit = null, $category = null ): array {
 	$courses = get_courses( $limit, $category );
 
 	$sorted = array();
@@ -146,7 +157,7 @@ function get_sorted_courses( $limit = null, $category = null ) {
  *
  * @return array|object|null
  */
-function get_faculty( $id = null ) {
+function get_faculty( $id = null ): ?array {
 	global $remote_db;
 
 	// Values are as follows:  0=Inactive/Not an instructor, 1=Primary, 2=Associate
@@ -242,7 +253,7 @@ WHERE (`e`.`entity_type_id` = '1')
  *
  * @return array|object|null
  */
-function get_instructor_courses( $id ) {
+function get_instructor_courses( $id ): ?array {
 	global $remote_db;
 
 	$sql = "select `e`.*,
@@ -360,7 +371,8 @@ function get_instructor_course_table( $id ) {
                             <span class="hide-for-medium"><b><?= __( 'Course', 'ipa' ); ?>:</b></span> <?= $course['course_type_name']; ?>
                         </td>
                         <td class="course-table-location no-sort">
-                            <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course['city']; ?>, <?= $course['state']; ?>
+                            <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course['city']; ?>
+                            , <?= $course['state']; ?>
                         </td>
                         <td class="course-table-date" data-order="<?= date( 'u', strtotime( $course['date'] ) ); ?>">
                             <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>
@@ -408,7 +420,7 @@ function get_instructor_course_table( $id ) {
 							<?php endif; ?>
                         </td>
                         <td class="course-table-apply">
-	                        <?php get_course_link( $course['request_path'], $course['visibility'] ); ?>
+							<?php get_course_link( $course['request_path'], $course['visibility'] ); ?>
                         </td>
                     </tr>
 				<?php endforeach; ?>
@@ -424,7 +436,7 @@ function get_instructor_course_table( $id ) {
  *
  * @return array|object|null
  */
-function get_clinics() {
+function get_clinics(): ?array {
 	global $remote_db;
 
 	$sql = "SELECT `e`.*,
@@ -524,7 +536,7 @@ FROM `customer_entity` AS `e`
 				   
 WHERE (`at_in_referral`.`value` = 1)
   AND (`at_referral_approved`.`value` = 1)
-ORDER BY `work_country` DESC, `work_state` ASC, `lastname` ASC;;
+ORDER BY `work_country` DESC, `work_state`, `lastname` ;
 ";
 
 	return $remote_db->get_results( $sql, ARRAY_A );
@@ -537,7 +549,7 @@ ORDER BY `work_country` DESC, `work_state` ASC, `lastname` ASC;;
  *
  * @return string[]
  */
-function build_address( $data ) {
+function build_address( $data ): array {
 	$street = $data['work_street'];
 	$suite  = $data['work_street2'];
 	$city   = $data['work_city'];
@@ -569,7 +581,7 @@ function build_address( $data ) {
  *
  * @return array
  */
-function get_clinic_certifications( $clinics ) {
+function get_clinic_certifications( $clinics ): array {
 	$credentials_array = [];
 
 	foreach ( $clinics as $clinic ) {
@@ -591,7 +603,7 @@ function get_clinic_certifications( $clinics ) {
  *
  * @return array
  */
-function get_clinic_names( $clinics ) {
+function get_clinic_names( $clinics ): array {
 	$names_array = [];
 
 	foreach ( $clinics as $clinic ) {
@@ -606,11 +618,11 @@ function get_clinic_names( $clinics ) {
 /**
  * Get Faculty Names
  *
- * @param $clinics
+ * @param $faculty
  *
  * @return array
  */
-function get_primary_faculty_names( $faculty ) {
+function get_primary_faculty_names( $faculty ): array {
 	$names_array = [];
 
 	foreach ( $faculty as $fac ) {
@@ -630,18 +642,18 @@ function get_primary_faculty_names( $faculty ) {
  * Get Instructor Image
  *
  * @param string $image
- * @param string $alt
- * @param string $classes
  *
  * @return string
  */
-function get_instructor_image( $image = '', $alt = '', $classes = '' ) {
+function get_instructor_image( $image = '' ): string {
+    global $stage_url;
+
 	$stored  = get_field( 'default_instructor_image', 'options' );
 	$default = ( ! empty( $stored ) ) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
 
 	if ( ! empty( $image ) ) :
 		// todo: add validation to check if the image exists
-		$image_url = FACULTY_MEMBER_IMAGE_URL . $image;
+		$image_url = "{$stage_url}/media/ipa/profile/general/{$image}";
 	else :
 		$image_url = $default;
 	endif;
