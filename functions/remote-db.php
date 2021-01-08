@@ -247,7 +247,7 @@ WHERE (`e`.`entity_type_id` = '1')
 	endif;
 
 	if ( ! empty( $id ) ) :
-		$sql .= " AND (`e`.`entity_id` = '{$id}')";
+		$sql .= " AND (`e`.`entity_id` IN ({$id}) )";
 	endif;
 
 	$sql .= "ORDER BY `lastname`;";
