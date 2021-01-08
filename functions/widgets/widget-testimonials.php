@@ -55,6 +55,21 @@ function ipa_testimonials_widget( $atts, $content = null ) {
         jQuery(document).ready(function ($) {
             let testimonialsSlider = $('.testimonials-slider');
 
+            resizeTestimonial();
+
+            // todo: replace this with update plugin or function
+            // @url https://github.com/viralpatel/jquery.shorten
+            $(".testimonial-card-text-inner").shorten({
+                moreText: "read more",
+                lessText: "read less",
+                onMore: function() {
+                    resizeTestimonial();
+                },
+                onLess: function() {
+                    resizeTestimonial();
+                },
+            });
+
             testimonialsSlider.slick({
                 infinite: true,
                 slidesToShow: <?= $atts['slides_to_show']; ?>,
@@ -88,7 +103,11 @@ function ipa_testimonials_widget( $atts, $content = null ) {
                 ],
             });
 
-            let testimonialEqualizer = new Foundation.Equalizer(testimonialsSlider);
+            function resizeTestimonial() {
+                // todo: is there a better way to resize without reinitializing?
+                let testimonialEqualizer = new Foundation.Equalizer(testimonialsSlider);
+            }
+
         });
 
     </script>

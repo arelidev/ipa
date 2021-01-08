@@ -9,7 +9,9 @@
         </ul>
 
         <div class="testimonial-card-text" data-equalizer-watch="testimonials-content">
-            <?php the_content(); ?>
+            <div class="testimonial-card-text-inner">
+	            <?php the_content(); ?>
+            </div>
         </div>
 
         <div class="grid-x align-middle">
