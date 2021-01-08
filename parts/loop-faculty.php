@@ -33,6 +33,19 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
 						<?= $faculty_data['credentials']; ?>
                     </p>
                     <div class="ipa-faculty-member-info">
+	                    <?php if ( $faculty_data['FAAOMPT'] == 1 ) : ?>
+                            <div class="grid-x">
+                                <div class="cell small-2">
+                                    <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg" class="ipa-single-card-widget-icon" alt="" loading="lazy" width="22px">
+                                    <!-- <i class="far fa-user-md fa-lg"></i> -->
+                                </div>
+                                <div class="cell auto">
+                                    <p>
+                                        FMT Fellow
+                                    </p>
+                                </div>
+                            </div>
+	                    <?php endif; ?>
 	                    <?php if ( $faculty_data['cfmt_honors'] == 1 ) : ?>
                             <div class="grid-x">
                                 <div class="cell small-2">
@@ -143,19 +156,20 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
                         });
                     }
                 </script>
-                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAD-IK4EX_Dq0gEx_FvIRJBfeCsAKOwW-A&callback=initMap">
-                </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= GOOGLE_MAPS_API_KEY; ?>&callback=initMap"></script>
             </div>
         </div>
     </section> <!-- end article section -->
 
-    <footer class="article-footer grid-container">
-        <div class="grid-x grid-padding-x">
-            <div class="cell">
-                <h3><b><?= $faculty_data['firstname']; ?>'s Upcoming Courses</b></h3>
-			    <?php get_instructor_course_table( $faculty_id ); ?>
+	<?php if ( $faculty_data['instructor_status'] == "1" || $faculty_data['instructor_status'] == "2" ) : ?>
+        <footer class="article-footer grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="cell">
+                    <h3><b><?= $faculty_data['firstname']; ?>'s Upcoming Courses</b></h3>
+					<?php get_instructor_course_table( $faculty_id ); ?>
+                </div>
             </div>
-        </div>
-    </footer> <!-- end article footer -->
+        </footer> <!-- end article footer -->
+	<?php endif; ?>
 
 </article> <!-- end article -->

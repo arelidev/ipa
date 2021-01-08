@@ -18,8 +18,7 @@ function ipa_accordion_widget( $atts, $content = null ) {
         data-accordion
         data-allow-all-closed="true"
         data-deep-link="true"
-        data-deep-link-smudge="true"
-        data-multi-expand="true">
+        data-deep-link-smudge="true">
 		<?= do_shortcode( $content ); ?>
     </ul>
 	<?php
@@ -46,7 +45,8 @@ function ipa_accordion_widget_item( $atts, $content ) {
     <li class="accordion-item ipa-accordion-item <?= $atts['el_class']; ?>" data-accordion-item>
         <a href="#<?= $slug; ?>" class="accordion-title ipa-accordion-title text-color-black"><b><?= $atts['title']; ?></b></a>
         <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= $slug; ?>">
-			<?= do_shortcode( $content ); ?>
+            <!-- todo: had removed do_shortcode() for some reason -->
+			<?= apply_filters( 'the_content', $content ); ?>
         </div>
     </li>
 	<?php

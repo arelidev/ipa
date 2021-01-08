@@ -6,7 +6,7 @@ switch ( wp_get_environment_type() ) {
 		$db_username = "myipa_wordpress";
 		$db_password = "s;cC@^zp.HF7";
 		$db_database = "myipa_191221";
-		$db_host     = "test.instituteofphysicalart.com";
+		$db_host     = "my.instituteofphysicalart.com";
 		$stage_url   = "https://my.instituteofphysicalart.com";
 		break;
 	default:
@@ -34,10 +34,11 @@ function stage_url( $path = '' ): string {
  * @param null $limit
  * @param null $category
  * @param false $popular
+ * @param int $delivery_method
  *
  * @return array|object|null
  */
-function get_courses( $limit = null, $category = null, $popular = false ): ?array {
+function get_courses( $limit = null, $category = null, $popular = false, $delivery_method = 1 ): ?array {
 	global $remote_db;
 
 	$sql = "
@@ -55,6 +56,7 @@ select `e`.*,
        `at_instr4`.`value`                                                   AS `instr4`,
        `at_image4`.`value`                                                   AS `image4`,
        `at_popular_course`.`value`                                           AS `popular_course`,
+       `ipa_course_type`.`delivery_method`                                   as `delivery_method`,
        CONCAT(TRIM(at_instr1_fname.value), ' ', TRIM(at_instr1_lname.value)) AS `instructor1`,
        CONCAT(TRIM(at_instr2_fname.value), ' ', TRIM(at_instr2_lname.value)) AS `instructor2`,
        CONCAT(TRIM(at_instr3_fname.value), ' ', TRIM(at_instr3_lname.value)) AS `instructor3`,
@@ -102,6 +104,8 @@ from `ipa_course_details` as `e`
                    on (`at_instr4`.`value` = `at_instr4_fname`.`entity_id` and `at_instr4_fname`.`attribute_id` = 5)
          LEFT JOIN `customer_entity_varchar` AS `at_image4`
                    ON (`at_instr4`.`value` = `at_image4`.`entity_id`) AND (`at_image4`.`attribute_id` = '119')
+         left join `ipa_course_type`
+                   on (`ipa_course_type`.`id` = `course_type`)
 where `at_end_date`.`value` >= DATE(NOW())
   and `at_status`.`value` = 1
   and `at_visibility`.`value` IN (2, 4)
@@ -117,6 +121,8 @@ where `at_end_date`.`value` >= DATE(NOW())
 	if ( $popular ) :
 		$sql .= " AND `at_popular_course`.`value` = 1";
 	endif;
+
+	$sql .= " AND delivery_method IN ({$delivery_method})";
 
 	$sql .= " ORDER BY `course_type_name`, `end_date`";
 
@@ -134,11 +140,12 @@ where `at_end_date`.`value` >= DATE(NOW())
  *
  * @param null $limit
  * @param null $category
+ * @param int $delivery_method
  *
  * @return array
  */
-function get_sorted_courses( $limit = null, $category = null ): array {
-	$courses = get_courses( $limit, $category );
+function get_sorted_courses( $limit = null, $category = null, $delivery_method = 1 ): array {
+	$courses = get_courses( $limit, $category, false, $delivery_method );
 
 	$sorted = array();
 	foreach ( $courses as $element ) {
@@ -233,8 +240,11 @@ FROM `customer_entity` AS `e`
          LEFT JOIN `customer_entity_int` AS `at_FAAOMPT`
                    ON (`at_FAAOMPT`.`entity_id` = `e`.`entity_id`) AND (`at_FAAOMPT`.`attribute_id` = '191')
 WHERE (`e`.`entity_type_id` = '1')
-  AND (`e`.`group_id` = '5')
-  AND (`at_instructor_status`.`value` IN (1, 2))";
+  AND (`e`.`group_id` = '5')";
+
+	if ( empty( $id ) ) :
+		$sql .= " AND (`at_instructor_status`.`value` IN (1, 2))";
+	endif;
 
 	if ( ! empty( $id ) ) :
 		$sql .= " AND (`e`.`entity_id` = '{$id}')";
@@ -352,82 +362,87 @@ ORDER BY `end_date`;";
 function get_instructor_course_table( $id ) {
 	$courses = get_instructor_courses( $id );
 	?>
-    <div class="courses-table-widget">
-        <div class="course-wrapper">
-            <table class="course-table hover stack">
-                <thead>
-                <tr>
-                    <th><?= __( 'Course', 'ipa' ); ?></th>
-                    <th><?= __( 'Location', 'ipa' ); ?></th>
-                    <th><?= __( 'Date', 'ipa' ); ?></th>
-                    <th><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-				<?php foreach ( $courses as $course ) : ?>
+	<?php if ( ! empty( $courses ) ) : ?>
+        <div class="courses-table-widget">
+            <div class="course-wrapper">
+                <table class="course-table hover stack">
+                    <thead>
                     <tr>
-                        <td class="course-table-location no-sort">
-                            <span class="hide-for-medium"><b><?= __( 'Course', 'ipa' ); ?>:</b></span> <?= $course['course_type_name']; ?>
-                        </td>
-                        <td class="course-table-location no-sort">
-                            <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course['city']; ?>
-                            , <?= $course['state']; ?>
-                        </td>
-                        <td class="course-table-date" data-order="<?= date( 'u', strtotime( $course['date'] ) ); ?>">
-                            <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>
-							<?= date( get_option( 'date_format' ), strtotime( $course['date'] ) ); ?>
-                            -
-							<?= date( get_option( 'date_format' ), strtotime( $course['end_date'] ) ); ?>
-                        </td>
-                        <td class="course-table-instructor">
-                            <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
-							<?php if ( ! empty( $instructor_1 = $course['instructor1'] ) ) : ?>
-                                <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_1 ); ?>/<?= $course['instr1']; ?>">
-                                    <img src="<?= get_instructor_image( $course['image1'] ); ?>"
-                                         class="course-card-trainer"
-                                         alt="<?= $instructor_1; ?>"
-                                         data-tooltip tabindex="1"
-                                         title="<?= $instructor_1; ?>">
-                                </a>
-							<?php endif; ?>
-							<?php if ( ! empty( $instructor_2 = $course['instructor2'] ) ) : ?>
-                                <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_2 ); ?>/<?= $course['instr2']; ?>">
-                                    <img src="<?= get_instructor_image( $course['image2'] ); ?>"
-                                         class="course-card-trainer"
-                                         alt="<?= $instructor_2; ?>"
-                                         data-tooltip tabindex="2"
-                                         title="<?= $instructor_2; ?>">
-                                </a>
-							<?php endif; ?>
-							<?php if ( ! empty( $instructor_3 = $course['instructor3'] ) ) : ?>
-                                <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_3 ); ?>/<?= $course['instr3']; ?>">
-                                    <img src="<?= get_instructor_image( $course['image3'] ); ?>"
-                                         class="course-card-trainer"
-                                         alt="<?= $instructor_3; ?>"
-                                         data-tooltip tabindex="3"
-                                         title="<?= $instructor_3; ?>">
-                                </a>
-							<?php endif; ?>
-							<?php if ( ! empty( $instructor_4 = $course['instructor4'] ) ) : ?>
-                                <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_4 ); ?>/<?= $course['instr4']; ?>">
-                                    <img src="<?= get_instructor_image( $course['image4'] ); ?>"
-                                         class="course-card-trainer"
-                                         alt="<?= $instructor_4; ?>"
-                                         data-tooltip tabindex="4"
-                                         title="<?= $instructor_4; ?>">
-                                </a>
-							<?php endif; ?>
-                        </td>
-                        <td class="course-table-apply">
-							<?php get_course_link( $course['request_path'], $course['visibility'] ); ?>
-                        </td>
+                        <th><?= __( 'Course', 'ipa' ); ?></th>
+                        <th><?= __( 'Location', 'ipa' ); ?></th>
+                        <th><?= __( 'Date', 'ipa' ); ?></th>
+                        <th><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?></th>
+                        <th></th>
                     </tr>
-				<?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+					<?php foreach ( $courses as $course ) : ?>
+                        <tr>
+                            <td class="course-table-location no-sort">
+                                <span class="hide-for-medium"><b><?= __( 'Course', 'ipa' ); ?>:</b></span> <?= $course['course_type_name']; ?>
+                            </td>
+                            <td class="course-table-location no-sort">
+                                <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course['city']; ?>, <?= $course['state']; ?>
+                            </td>
+                            <td class="course-table-date" data-order="<?= date( 'u', strtotime( $course['date'] ) ); ?>">
+                                <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>
+								<?= date( get_option( 'date_format' ), strtotime( $course['date'] ) ); ?>
+                                -
+								<?= date( get_option( 'date_format' ), strtotime( $course['end_date'] ) ); ?>
+                            </td>
+                            <td class="course-table-instructor">
+                                <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
+								<?php if ( ! empty( $instructor_1 = $course['instructor1'] ) ) : ?>
+                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_1 ); ?>/<?= $course['instr1']; ?>">
+                                        <img src="<?= get_instructor_image( $course['image1'] ); ?>"
+                                             class="course-card-trainer"
+                                             alt="<?= $instructor_1; ?>"
+                                             data-tooltip tabindex="1"
+                                             title="<?= $instructor_1; ?>">
+                                    </a>
+								<?php endif; ?>
+								<?php if ( ! empty( $instructor_2 = $course['instructor2'] ) ) : ?>
+                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_2 ); ?>/<?= $course['instr2']; ?>">
+                                        <img src="<?= get_instructor_image( $course['image2'] ); ?>"
+                                             class="course-card-trainer"
+                                             alt="<?= $instructor_2; ?>"
+                                             data-tooltip tabindex="2"
+                                             title="<?= $instructor_2; ?>">
+                                    </a>
+								<?php endif; ?>
+								<?php if ( ! empty( $instructor_3 = $course['instructor3'] ) ) : ?>
+                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_3 ); ?>/<?= $course['instr3']; ?>">
+                                        <img src="<?= get_instructor_image( $course['image3'] ); ?>"
+                                             class="course-card-trainer"
+                                             alt="<?= $instructor_3; ?>"
+                                             data-tooltip tabindex="3"
+                                             title="<?= $instructor_3; ?>">
+                                    </a>
+								<?php endif; ?>
+								<?php if ( ! empty( $instructor_4 = $course['instructor4'] ) ) : ?>
+                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_4 ); ?>/<?= $course['instr4']; ?>">
+                                        <img src="<?= get_instructor_image( $course['image4'] ); ?>"
+                                             class="course-card-trainer"
+                                             alt="<?= $instructor_4; ?>"
+                                             data-tooltip tabindex="4"
+                                             title="<?= $instructor_4; ?>">
+                                    </a>
+								<?php endif; ?>
+                            </td>
+                            <td class="course-table-apply">
+								<?php get_course_link( $course['request_path'], $course['visibility'] ); ?>
+                            </td>
+                        </tr>
+					<?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+	<?php else : ?>
+        <div class="callout primary">
+			<?= __( 'Currently no courses scheduled - Check back later', 'ipa' ); ?>
+        </div>
+	<?php endif; ?>
 	<?php
 }
 
