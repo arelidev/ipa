@@ -14,7 +14,12 @@ function ipa_accordion_widget( $atts, $content = null ) {
 
 	ob_start();
 	?>
-    <ul class="accordion ipa-accordion-widget <?= $atts['el_class']; ?>" data-accordion data-allow-all-closed="true" data-deep-link="true" data-deep-link-smudge="true">
+    <ul class="accordion ipa-accordion-widget <?= $atts['el_class']; ?>" id="<?= wp_unique_id( "accordion-" ); ?>"
+        data-accordion
+        data-allow-all-closed="true"
+        data-deep-link="true"
+        data-deep-link-smudge="true"
+        data-multi-expand="true">
 		<?= do_shortcode( $content ); ?>
     </ul>
 	<?php
