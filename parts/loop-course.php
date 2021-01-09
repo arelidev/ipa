@@ -1,10 +1,11 @@
- <?php
+<?php
 /**
  * Template part for displaying page content in page.php
  */
 
 $hero_type       = get_field( 'hero_type' );
 $course_category = get_field( 'course_remote_cat' );
+$delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_field( 'course_delivery_method' ) : 1;
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( '' ); ?> role="article" itemscope itemtype="http://schema.org/WebPage">
@@ -121,15 +122,13 @@ $course_category = get_field( 'course_remote_cat' );
             </div>
             <div class="small-12 medium-12 large-12 small-order-1 large-order-2 cell">
                 <div id="courses" data-magellan-target="courses">
-		            <?php if ( ! empty( $course_category ) ) : ?>
-                        <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses" data-magellan-target="courses">
-                            <div class="cell">
-					            <?= do_shortcode( "[ipa_courses_table_alt course_cat='{$course_category}']" ); ?>
-                            </div>
+                    <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses" data-magellan-target="courses">
+                        <div class="cell">
+                            <?= do_shortcode( "[ipa_courses_table_alt course_cat='{$course_category}' delivery_method='{$delivery_method}']" ); ?>
                         </div>
-		            <?php endif; ?>
+                    </div>
 
-		            <?php wp_link_pages(); ?>
+					<?php wp_link_pages(); ?>
                 </div>
             </div>
         </div>

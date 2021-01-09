@@ -11,35 +11,45 @@ function ipa_courses_table_alt_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(
 		'limit'           => null,
 		'course_cat'      => '',
-		'disable_sidebar' => false
+		'delivery_method' => 1 // 1: In-person, 2: Virtual
 	), $atts );
+
 	ob_start();
 
-	$category = $atts['course_cat'];
-
-	$courses = get_sorted_courses( $atts['limit'], $category );
+	$category        = $atts['course_cat'];
+	$delivery_method = $atts['delivery_method'];
+	$courses         = get_sorted_courses( $atts['limit'], $category, $delivery_method );
 	?>
-    <h4 class="course-table-title"><b><?= __( 'Locations & Dates', 'ipa' ); ?></b></h4>
 	<?php if ( ! empty( $courses ) ) : ?>
+        <h4 class="course-table-title"><b><?= __( 'Locations & Dates', 'ipa' ); ?></b></h4>
         <div class="courses-table-widget">
             <div class="course-wrapper">
-				<?php foreach ( $courses as $title => $course_details ) : $slug = acf_slugify( $title ); ?>
-                    <table class="course-table hover stack"> <!-- .datatable -->
-                        <thead>
-                        <tr>
+                <table class="course-table hover stack">
+                    <thead>
+                    <tr>
+						<?php if ( $delivery_method == 1 ) : ?>
                             <th><?= __( 'Location', 'ipa' ); ?></th>
-                            <th><?= __( 'Date', 'ipa' ); ?></th>
-                            <th><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
+						<?php elseif ( $delivery_method == 2 ) : ?>
+                            <th><?= __( 'Course', 'ipa' ); ?></th>
+						<?php endif; ?>
+                        <th><?= __( 'Date', 'ipa' ); ?></th>
+                        <th><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+					<?php foreach ( $courses as $title => $course_details ) : ?>
 						<?php foreach ( $course_details as $course_detail ) : ?>
                             <tr>
-                                <td class="course-table-location no-sort">
-                                    <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course_detail['city']; ?>, <?= $course_detail['state']; ?>
-                                </td>
-                                <td class="course-table-date" data-order="<?= date( 'u', strtotime( $course_detail['date'] ) ); ?>">
+								<?php if ( $delivery_method == 1 ) : ?>
+                                    <td class="course-table-location">
+                                        <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course_detail['city']; ?>, <?= $course_detail['state']; ?>
+                                    </td>
+								<?php elseif ( $delivery_method == 2 ) : ?>
+                                    <th><?= $course_detail['course_type_name']; ?></th>
+								<?php endif; ?>
+                                <td class="course-table-date"
+                                    data-order="<?= date( 'u', strtotime( $course_detail['date'] ) ); ?>">
                                     <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>
 									<?= date( get_option( 'date_format' ), strtotime( $course_detail['date'] ) ); ?>
                                     -
@@ -85,18 +95,18 @@ function ipa_courses_table_alt_widget( $atts, $content = null ) {
 									<?php endif; ?>
                                 </td>
                                 <td class="course-table-apply">
-	                                <?php get_course_link( $course_detail['request_path'] , $course_detail['visibility'], 'button' ); ?>
+									<?php get_course_link( $course_detail['request_path'], $course_detail['visibility'], 'button' ); ?>
                                 </td>
                             </tr>
 						<?php endforeach; ?>
-                        </tbody>
-                    </table>
-				<?php endforeach; ?>
+					<?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
 	<?php else : ?>
         <div class="callout primary">
-            <?= __( 'Currently no courses scheduled - Check back later', 'ipa' ); ?>
+			<?= __( 'Currently no courses scheduled - Check back later', 'ipa' ); ?>
         </div>
 	<?php endif; ?>
 	<?php

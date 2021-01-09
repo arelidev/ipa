@@ -2,19 +2,21 @@
 global $remote_db, $stage_url;
 
 switch ( wp_get_environment_type() ) {
+	case 'local':
+	case 'development':
 	case 'staging':
-		$db_username = "myipa_wordpress";
-		$db_password = "s;cC@^zp.HF7";
-		$db_database = "myipa_191221";
-		$db_host     = "my.instituteofphysicalart.com";
-		$stage_url   = "https://my.instituteofphysicalart.com";
-		break;
-	default:
 		$db_username = "ipatest_areli";
 		$db_password = "s;cC@^zp.HF7";
 		$db_database = "ipatest_201121";
 		$db_host     = "test.instituteofphysicalart.com";
 		$stage_url   = "https://test.instituteofphysicalart.com";
+		break;
+	default:
+		$db_username = "myipa_wordpress";
+		$db_password = "s;cC@^zp.HF7";
+		$db_database = "myipa_191221";
+		$db_host     = "my.instituteofphysicalart.com";
+		$stage_url   = "https://my.instituteofphysicalart.com";
 		break;
 }
 
