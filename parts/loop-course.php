@@ -51,7 +51,7 @@ $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_fi
 	<?php endif; ?>
 
     <div data-sticky-container>
-        <div class="sticky magellan-bar styled-container" data-sticky data-margin-top="0" data-anchor="entry-content" data-sticky-on="small" data-offset="70">
+        <div class="sticky magellan-bar styled-container" data-sticky data-margin-top="0" data-anchor="entry-content" data-offset="70">
             <div class="grid-container">
                 <div class="grid-x grid-padding-x grid-padding-y">
                     <div class="cell">

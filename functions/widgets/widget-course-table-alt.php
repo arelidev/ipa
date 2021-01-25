@@ -3,14 +3,13 @@
  * Course Table Alt Widget
  *
  * @param $atts
- * @param null $content
  *
  * @return false|string
  */
-function ipa_courses_table_alt_widget( $atts, $content = null ) {
+function ipa_courses_table_alt_widget( $atts ) {
 	$atts = shortcode_atts( array(
 		'limit'           => null,
-		'course_cat'      => '',
+		'course_cat'      => null,
 		'delivery_method' => 1 // 1: In-person, 2: Virtual
 	), $atts );
 

@@ -149,9 +149,10 @@ where `at_end_date`.`value` >= DATE(NOW())
 function get_sorted_courses( $limit = null, $category = null, $delivery_method = 1 ): array {
 	$courses = get_courses( $limit, $category, false, $delivery_method );
 
-	$sorted = array();
+	$sorted  = array();
+	$sort_by = ( $delivery_method == 1 ) ? 'course_type_name' : 'end_date';
 	foreach ( $courses as $element ) {
-		$sorted[ $element['course_type_name'] ][] = $element;
+		$sorted[ $element[ $sort_by ] ][] = $element;
 	}
 
 	ksort( $sorted );
@@ -384,9 +385,11 @@ function get_instructor_course_table( $id ) {
                                 <span class="hide-for-medium"><b><?= __( 'Course', 'ipa' ); ?>:</b></span> <?= $course['course_type_name']; ?>
                             </td>
                             <td class="course-table-location no-sort">
-                                <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course['city']; ?>, <?= $course['state']; ?>
+                                <span class="hide-for-medium"><b><?= __( 'Location', 'ipa' ); ?>:</b></span> <?= $course['city']; ?>
+                                , <?= $course['state']; ?>
                             </td>
-                            <td class="course-table-date" data-order="<?= date( 'u', strtotime( $course['date'] ) ); ?>">
+                            <td class="course-table-date"
+                                data-order="<?= date( 'u', strtotime( $course['date'] ) ); ?>">
                                 <span class="hide-for-medium"><b><?= __( 'Date', 'ipa' ); ?>:</b></span>
 								<?= date( get_option( 'date_format' ), strtotime( $course['date'] ) ); ?>
                                 -
@@ -663,7 +666,7 @@ function get_primary_faculty_names( $faculty ): array {
  * @return string
  */
 function get_instructor_image( $image = '' ): string {
-    global $stage_url;
+	global $stage_url;
 
 	$stored  = get_field( 'default_instructor_image', 'options' );
 	$default = ( ! empty( $stored ) ) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
