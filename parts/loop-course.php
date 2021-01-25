@@ -65,7 +65,17 @@ $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_fi
                                     </li>
 								<?php endwhile; ?>
 							<?php endif; ?>
-                            <li><a href="#courses"><?php _e( 'Locations & Dates', 'ipa' ); ?></a></li>
+                            <li>
+                                <a href="#courses">
+	                                <?php
+	                                if ( $delivery_method == 2 ) :
+		                                _e( 'Virtual Course Dates', 'ipa' );
+	                                else :
+		                                _e( 'Locations & Dates', 'ipa' );
+	                                endif;
+	                                ?>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
