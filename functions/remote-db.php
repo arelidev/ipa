@@ -242,10 +242,10 @@ FROM `customer_entity` AS `e`
                    ON (`at_cfmt_distinction`.`entity_id` = `e`.`entity_id`) AND (`at_cfmt_distinction`.`attribute_id` = '190')
          LEFT JOIN `customer_entity_int` AS `at_FAAOMPT`
                    ON (`at_FAAOMPT`.`entity_id` = `e`.`entity_id`) AND (`at_FAAOMPT`.`attribute_id` = '191')
-WHERE (`e`.`entity_type_id` = '1')
-  AND (`e`.`group_id` = '5')";
+WHERE (`e`.`entity_type_id` = '1')";
 
 	if ( empty( $id ) ) :
+        $sql .= " AND (`e`.`group_id` = '5')";
 		$sql .= " AND (`at_instructor_status`.`value` IN (1, 2))";
 	endif;
 
