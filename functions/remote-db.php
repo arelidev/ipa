@@ -398,7 +398,7 @@ function get_instructor_course_table( $id ) {
                             <td class="course-table-instructor">
                                 <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
 								<?php if ( ! empty( $instructor_1 = $course['instructor1'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_1 ); ?>/<?= $course['instr1']; ?>">
+                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_1 ); ?>/<?= $course['instr1']; ?>">
                                         <img src="<?= get_instructor_image( $course['image1'] ); ?>"
                                              class="course-card-trainer"
                                              alt="<?= $instructor_1; ?>"
@@ -407,7 +407,7 @@ function get_instructor_course_table( $id ) {
                                     </a>
 								<?php endif; ?>
 								<?php if ( ! empty( $instructor_2 = $course['instructor2'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_2 ); ?>/<?= $course['instr2']; ?>">
+                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_2 ); ?>/<?= $course['instr2']; ?>">
                                         <img src="<?= get_instructor_image( $course['image2'] ); ?>"
                                              class="course-card-trainer"
                                              alt="<?= $instructor_2; ?>"
@@ -416,7 +416,7 @@ function get_instructor_course_table( $id ) {
                                     </a>
 								<?php endif; ?>
 								<?php if ( ! empty( $instructor_3 = $course['instructor3'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_3 ); ?>/<?= $course['instr3']; ?>">
+                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_3 ); ?>/<?= $course['instr3']; ?>">
                                         <img src="<?= get_instructor_image( $course['image3'] ); ?>"
                                              class="course-card-trainer"
                                              alt="<?= $instructor_3; ?>"
@@ -425,7 +425,7 @@ function get_instructor_course_table( $id ) {
                                     </a>
 								<?php endif; ?>
 								<?php if ( ! empty( $instructor_4 = $course['instructor4'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_4 ); ?>/<?= $course['instr4']; ?>">
+                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_4 ); ?>/<?= $course['instr4']; ?>">
                                         <img src="<?= get_instructor_image( $course['image4'] ); ?>"
                                              class="course-card-trainer"
                                              alt="<?= $instructor_4; ?>"

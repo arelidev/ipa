@@ -100,7 +100,7 @@ function ipa_clinics_widget( $atts ) {
                         </select>
                     </label>
                 </div>
-          
+
                 <div class="cell auto">
                     <label><span class="show-for-sr">Input Label</span>
                         <input type="text" class="clinics-filter-certification" id="clinics-filter-instructor" placeholder="Name">
@@ -271,7 +271,7 @@ function ipa_clinics_widget( $atts ) {
                                             </div>
                                         </div>
 	                                <?php endif; ?>
-                                     
+
                                     <?php if ( ! empty( $email = $clinic['work_email'] ) ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
@@ -320,7 +320,7 @@ function ipa_clinics_widget( $atts ) {
                                             </div>
                                         </div>
 									<?php endif; ?>
-                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $clinic['name'] ); ?>/<?= $clinic['entity_id']; ?>" class="button small">View Profile</a>
+                                    <a href="<?= home_url(); ?>/profile/<?= clean( $clinic['name'] ); ?>/<?= $clinic['entity_id']; ?>" class="button small">View Profile</a>
                                 </div>
                             </div>
                         </div>

@@ -9,9 +9,9 @@ function faculty_rewrite_add_var( $vars ) {
 
 add_action( 'init', 'add_faculty_rewrite_rule' );
 function add_faculty_rewrite_rule() {
-	add_rewrite_tag( '%faculty%', '([^&]+)' );
+	add_rewrite_tag( '%profile%', '([^&]+)' );
 	add_rewrite_rule(
-		'^faculty/([^/]*)/([^/]*)/?',
+		'^profile/([^/]*)/([^/]*)/?',
 		'index.php?faculty_name=$matches[1]&faculty_id=$matches[2]',
 		'top'
 	);

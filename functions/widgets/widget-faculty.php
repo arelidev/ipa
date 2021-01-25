@@ -153,7 +153,7 @@ function ipa_faculty_widget( $atts, $content = null ) {
                             <p class="ipa-faculty-member-bio-copy text-color-white">
                                 <small><?= wp_trim_words( $value['bio'], 20 ); ?></small>
                             </p>
-                            <a href="<?= home_url(); ?>/faculty/<?= clean( $value['name'] ); ?>/<?= $value['entity_id']; ?>" class="button hollow white">View Profile</a>
+                            <a href="<?= home_url(); ?>/profile/<?= clean( $value['name'] ); ?>/<?= $value['entity_id']; ?>" class="button hollow white">View Profile</a>
                         </div>
                     </div>
 				<?php endforeach; ?>

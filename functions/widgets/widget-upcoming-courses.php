@@ -38,7 +38,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                         <div class="small-12 medium-12 large-shrink cell">
                             <div class="course-card-trainer-wrapper">
 								<?php if ( ! empty( $instructor_1 = $course_details['instructor1'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_1 ); ?>/<?= $course_details['instr1']; ?>">
+                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_1 ); ?>/<?= $course_details['instr1']; ?>">
                                         <img src="<?= get_instructor_image( $course_details['image1'] ); ?>"
                                              class="course-card-trainer"
                                              alt="<?= $instructor_1; ?>"
@@ -47,7 +47,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                                     </a>
 								<?php endif; ?>
 								<?php if ( ! empty( $instructor_2 = $course_details['instructor2'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_2 ); ?>/<?= $course_details['instr2']; ?>">
+                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_2 ); ?>/<?= $course_details['instr2']; ?>">
                                         <img src="<?= get_instructor_image( $course_details['image2'] ); ?>"
                                              class="course-card-trainer"
                                              alt="<?= $instructor_2; ?>"
@@ -56,7 +56,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                                     </a>
 								<?php endif; ?>
 								<?php if ( ! empty( $instructor_3 = $course_details['instructor3'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_3 ); ?>/<?= $course_details['instr3']; ?>">
+                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_3 ); ?>/<?= $course_details['instr3']; ?>">
                                         <img src="<?= get_instructor_image( $course_details['image3'] ); ?>"
                                              class="course-card-trainer"
                                              alt="<?= $instructor_3; ?>"
@@ -65,7 +65,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
                                     </a>
 								<?php endif; ?>
 								<?php if ( ! empty( $instructor_4 = $course_details['instructor4'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_4 ); ?>/<?= $course_details['instr4']; ?>">
+                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_4 ); ?>/<?= $course_details['instr4']; ?>">
                                         <img src="<?= get_instructor_image( $course_details['image4'] ); ?>"
                                              class="course-card-trainer"
                                              alt="<?= $instructor_4; ?>"

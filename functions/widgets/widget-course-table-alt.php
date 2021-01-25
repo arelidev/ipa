@@ -57,7 +57,7 @@ function ipa_courses_table_alt_widget( $atts ) {
                                 <td class="course-table-instructor">
                                     <span class="hide-for-medium"><b><?= __( 'Scheduled Instructor(s)', 'ipa' ); ?>:</b></span>
 									<?php if ( ! empty( $instructor_1 = $course_detail['instructor1'] ) ) : ?>
-                                        <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_1 ); ?>/<?= $course_detail['instr1']; ?>">
+                                        <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_1 ); ?>/<?= $course_detail['instr1']; ?>">
                                             <img src="<?= get_instructor_image( $course_detail['image1'] ); ?>"
                                                  class="course-card-trainer"
                                                  alt="<?= $instructor_1; ?>"
@@ -66,7 +66,7 @@ function ipa_courses_table_alt_widget( $atts ) {
                                         </a>
 									<?php endif; ?>
 									<?php if ( ! empty( $instructor_2 = $course_detail['instructor2'] ) ) : ?>
-                                        <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_2 ); ?>/<?= $course_detail['instr2']; ?>">
+                                        <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_2 ); ?>/<?= $course_detail['instr2']; ?>">
                                             <img src="<?= get_instructor_image( $course_detail['image2'] ); ?>"
                                                  class="course-card-trainer"
                                                  alt="<?= $instructor_2; ?>"
@@ -75,7 +75,7 @@ function ipa_courses_table_alt_widget( $atts ) {
                                         </a>
 									<?php endif; ?>
 									<?php if ( ! empty( $instructor_3 = $course_detail['instructor3'] ) ) : ?>
-                                        <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_3 ); ?>/<?= $course_detail['instr3']; ?>">
+                                        <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_3 ); ?>/<?= $course_detail['instr3']; ?>">
                                             <img src="<?= get_instructor_image( $course_detail['image3'] ); ?>"
                                                  class="course-card-trainer"
                                                  alt="<?= $instructor_3; ?>"
@@ -84,7 +84,7 @@ function ipa_courses_table_alt_widget( $atts ) {
                                         </a>
 									<?php endif; ?>
 									<?php if ( ! empty( $instructor_4 = $course_detail['instructor4'] ) ) : ?>
-                                        <a href="<?= home_url(); ?>/faculty/<?= clean( $instructor_4 ); ?>/<?= $course_detail['instr4']; ?>">
+                                        <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_4 ); ?>/<?= $course_detail['instr4']; ?>">
                                             <img src="<?= get_instructor_image( $course_detail['image4'] ); ?>"
                                                  class="course-card-trainer"
                                                  alt="<?= $instructor_4; ?>"
