@@ -3,7 +3,7 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
 	$atts = shortcode_atts( array(), $atts );
 	ob_start();
 
-	$courses = get_courses( 3, null, true );
+	$courses = get_courses( 3, null, true, "1, 2" );
 
 	function date_compare( $element1, $element2 ) {
 		$datetime1 = strtotime( $element1['date'] );
