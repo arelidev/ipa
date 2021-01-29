@@ -20,7 +20,17 @@ function ipa_courses_table_alt_widget( $atts ) {
 	$courses         = get_sorted_courses( $atts['limit'], $category, $delivery_method );
 	?>
 	<?php if ( ! empty( $courses ) ) : ?>
-        <h4 class="course-table-title"><b><?= __( 'Locations & Dates', 'ipa' ); ?></b></h4>
+        <h4 class="course-table-title">
+            <b>
+		        <?php
+		        if ( $delivery_method == 2 ) :
+			        _e( 'Virtual Course Dates', 'ipa' );
+		        else :
+			        _e( 'Locations & Dates', 'ipa' );
+		        endif;
+		        ?>
+            </b>
+        </h4>
         <div class="courses-table-widget">
             <div class="course-wrapper">
                 <table class="course-table hover stack">
