@@ -7,8 +7,8 @@ IPA requires [Node.js](https://nodejs.org) v6.9.x or newer. This doesn't mean yo
 ### Download IPA and install dependencies with npm 
 ```bash
 $ cd my-wordpress-folder/wp-content/themes/
-$ git clone https://github.com/JeremyEnglert/ipa.git
-$ cd IPA
+$ git clone https://github.com/arelidev/ipa.git
+$ cd ipa
 $ npm install
 ```
 At this point, IPA should be installed and fully running on your local machine. If you prefer to install the theme manually, that will work as well - just be sure to run `npm install` after manually moving the files into the `/themes/` directory.
@@ -52,12 +52,3 @@ Compiles and minifies all scripts and styles.
 
 ### Images
 * `assets/images/` - place your theme images here. Each image will be optimized when the build process is ran.
-
-## Remote Database Connection
-* Host: `test.instituteofphysicalart.com`
-* Username: `ipatest_areli`
-* Password: `s;cC@^zp.HF7,`
-* Database: `ipatest_191221`
-
-## WP Migrate DB Pro
-* License `d651e73a-3cd5-41f8-a29a-1e217fef0251`
