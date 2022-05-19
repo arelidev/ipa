@@ -3,6 +3,7 @@
   #respond input#submit.alt,
   a.button.alt,
   button.button.alt,
+  button.button.alt.disabled,
   input.button.alt {
     background-color: $primary-color;
 
@@ -18,6 +19,10 @@
     border-left: none;
     border-right: none;
     border-bottom: none
+  }
+
+  .label {
+    background: none;
   }
 
   &.woocommerce-shop,
