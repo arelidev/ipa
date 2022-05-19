@@ -4,10 +4,11 @@
  *
  */
 
-define( 'GOOGLE_MAPS_API_KEY', 'AIzaSyBk2PyekdgVweld0_xj61_mogipGPiHGEc' );
+const GOOGLE_MAPS_API_KEY = 'AIzaSyBk2PyekdgVweld0_xj61_mogipGPiHGEc';
 
+// TODO: temporarily disabled remote database connection
 // Connect to the remote database
-require_once( get_template_directory() . '/functions/remote-db.php' );
+// require_once( get_template_directory() . '/functions/remote-db.php' );
 
 // TGM plugin activation
 require_once( get_template_directory() . '/functions/tgm/tgm-init.php' );

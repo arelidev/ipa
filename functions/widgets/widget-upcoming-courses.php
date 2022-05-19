@@ -104,7 +104,8 @@ function ipa_upcoming_courses_widget( $atts, $content = null ) {
 	return ob_get_clean();
 }
 
-add_shortcode( 'ipa_upcoming_courses', 'ipa_upcoming_courses_widget' );
+// TODO: temporarily removed shortcode callback
+// add_shortcode( 'ipa_upcoming_courses', 'ipa_upcoming_courses_widget' );
 
 // Integrate with Visual Composer
 function ipa_upcoming_courses_integrateWithVC() {
