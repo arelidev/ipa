@@ -21,8 +21,13 @@
         <ul class="menu">
             <li class="hide"><a href="#"><i class="fas fa-search"></i></a></li>
             <li>
-                <a href="<?= get_field( 'magento_cart_url', 'options' ); ?>">
+                <a href="<?= wc_get_cart_url(); ?>">
                     <i class="far fa-shopping-cart"></i>
+                </a>
+            </li>
+            <li>
+                <a href="<?= wc_get_page_permalink( 'myaccount' ); ?>">
+                    <i class="far fa-user"></i>
                 </a>
             </li>
         </ul>
