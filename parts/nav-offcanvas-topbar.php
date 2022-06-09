@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li>
-                <a href="<?= wc_get_page_permalink( 'myaccount' ); ?>">
+                <a href="<?php the_field( 'login_link', 'option' ); ?>">
                     <i class="far fa-user"></i>
                 </a>
             </li>
