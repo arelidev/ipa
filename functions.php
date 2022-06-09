@@ -10,9 +10,6 @@ const GOOGLE_MAPS_API_KEY = 'AIzaSyBk2PyekdgVweld0_xj61_mogipGPiHGEc';
 // Connect to the remote database
 // require_once( get_template_directory() . '/functions/remote-db.php' );
 
-// TGM plugin activation
-require_once( get_template_directory() . '/functions/tgm/tgm-init.php' );
-
 // Theme support options
 require_once( get_template_directory() . '/functions/theme-support.php' );
 
