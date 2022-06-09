@@ -1269,7 +1269,7 @@ span.wpcf7-not-valid-tip {
 .forminator-custom-form {
 
   .forminator-row {
-    margin-bottom: $global-margin;
+    margin-bottom: $global-margin !important;
   }
 
   .forminator-description {
