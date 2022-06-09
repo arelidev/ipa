@@ -1264,3 +1264,22 @@ span.wpcf7-not-valid-tip {
 		}
 	}
 }
+
+// Forminator
+.forminator-custom-form {
+
+  .forminator-row {
+    margin-bottom: $global-margin;
+  }
+
+  .forminator-description {
+    &.forminator-description-password {
+      font-size: $small-font-size;
+      margin-top: .5rem;
+    }
+  }
+
+  .forminator-button {
+    &.forminator-button-submit {}
+  }
+}
