@@ -7,13 +7,13 @@
 
 get_header(); ?>
 			
-	<div class="content">
+	<div class="content grid-container">
 
-		<div class="inner-content grid-x grid-margin-x grid-padding-x">
+		<div class="inner-content grid-x grid-margin-x grid-padding-x align-center-middle">
 	
 			<main class="main small-12 medium-8 large-8 cell" role="main">
 
-				<article class="content-not-found">
+				<article class="content-not-found" style="margin: 50px 0;">
 				
 					<header class="article-header">
 						<h1><?php _e( 'Epic 404 - Article Not Found', 'jointswp' ); ?></h1>
