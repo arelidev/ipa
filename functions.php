@@ -45,6 +45,9 @@ require_once( get_template_directory() . '/functions/disable-emoji.php' );
 // Use this as a template for custom post types
 require_once( get_template_directory() . '/functions/custom-post-type.php' );
 
+// Customer user lookups
+require_once( get_template_directory() . '/functions/custom-user.php' );
+
 // Customize the WordPress login menu
 require_once( get_template_directory() . '/functions/login.php' );
 
