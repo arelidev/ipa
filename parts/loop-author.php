@@ -236,7 +236,7 @@ $faculty_status = get_field('faculty_status', $acf_user);
                                                 <table class="stacked">
                                                     <thead>
                                                     <tr>
-                                                        <th></th>
+                                                        <th><?= __('', 'ipa'); ?></th>
                                                         <th><?= __('Opens', 'ipa'); ?></th>
                                                         <th><?= __('Closes', 'ipa'); ?></th>
                                                     </tr>
@@ -245,27 +245,27 @@ $faculty_status = get_field('faculty_status', $acf_user);
                                                     <tr>
                                                         <td><?= __('Monday', 'ipa'); ?></td>
                                                         <td><?= $monday['opens']; ?></td>
-                                                        <td><?= $monday['Closes']; ?></td>
+                                                        <td><?= $monday['closes']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td><?= __('Tuesday', 'ipa'); ?></td>
                                                         <td><?= $tuesday['opens']; ?></td>
-                                                        <td><?= $tuesday['Closes']; ?></td>
+                                                        <td><?= $tuesday['closes']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td><?= __('Wednesday', 'ipa'); ?></td>
                                                         <td><?= $wednesday['opens']; ?></td>
-                                                        <td><?= $wednesday['Closes']; ?></td>
+                                                        <td><?= $wednesday['closes']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td><?= __('Thursday', 'ipa'); ?></td>
                                                         <td><?= $thursday['opens']; ?></td>
-                                                        <td><?= $thursday['Closes']; ?></td>
+                                                        <td><?= $thursday['closes']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td><?= __('Friday', 'ipa'); ?></td>
                                                         <td><?= $friday['opens']; ?></td>
-                                                        <td><?= $friday['Closes']; ?></td>
+                                                        <td><?= $friday['closes']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td><?= __('Saturday', 'ipa'); ?></td>
