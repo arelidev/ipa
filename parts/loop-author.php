@@ -208,14 +208,16 @@ $faculty_status = get_field('faculty_status', $acf_user);
                                     <address><h6><b><?= $location['address']; ?></b></h6></address>
 
                                     <ul class="accordion ipa-accordion-widget" data-accordion data-allow-all-closed="true">
-                                        <li class="accordion-item ipa-accordion-item" data-accordion-item>
-                                            <a href="#" class="accordion-title ipa-accordion-title text-color-black">
-                                                <?= __('Details', 'ipa'); ?>
-                                            </a>
-                                            <div class="accordion-content ipa-accordion-content" data-tab-content>
-                                                <p><?= apply_filters('the_content', $description); ?></p>
-                                            </div>
-                                        </li>
+	                                    <?php if (!empty($description)): ?>
+                                            <li class="accordion-item ipa-accordion-item" data-accordion-item>
+                                                <a href="#" class="accordion-title ipa-accordion-title text-color-black">
+				                                    <?= __('Details', 'ipa'); ?>
+                                                </a>
+                                                <div class="accordion-content ipa-accordion-content" data-tab-content>
+                                                    <p><?= apply_filters('the_content', $description); ?></p>
+                                                </div>
+                                            </li>
+	                                    <?php endif; ?>
                                         <li class="accordion-item ipa-accordion-item" data-accordion-item>
                                             <a href="#" class="accordion-title ipa-accordion-title text-color-black">
                                                 <?= __('Office Hours', 'ipa'); ?>
