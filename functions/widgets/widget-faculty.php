@@ -2,18 +2,16 @@
 /**
  * IPA Faculty Shortcode Widget
  *
- * @param $atts
- * @param null $content
- *
  * @return false|string
  */
-function ipa_faculty_widget( $atts, $content = null ) {
-	$atts = shortcode_atts( array(), $atts );
-
+function ipa_faculty_widget() {
 	ob_start();
 
-    $faculty = get_faculty();
-    $faculty_filter = get_primary_faculty_names( $faculty );
+	$args = array(
+		'role'    => 'profile_member',
+	);
+
+	$users = get_users( $args );
 	?>
 
     <div class="faculty-filter-container">
@@ -27,9 +25,9 @@ function ipa_faculty_widget( $atts, $content = null ) {
                         </div>
                         <div class="cell small-12 medium-auto">
                             <label>
-                                <span class="hide-for-medium"><?= __( 'Select Faculty', 'ipa' ); ?></span>
+                                <span class="hide-for-medium"><?= __( 'Search by State', 'ipa' ); ?></span>
                                 <select class="filter-select">
-                                    <option value="all">State</option>
+                                    <option value="all">Search by State</option>
                                     <option value="all">All</option>
                                     <option value=".AL">Alabama</option>
                                     <option value=".AK">Alaska</option>
@@ -88,13 +86,7 @@ function ipa_faculty_widget( $atts, $content = null ) {
                         <div class="cell small-12 medium-auto">
                             <label>
                                 <span class="hide-for-medium"><?= __( 'Search by instructor', 'ipa' ); ?></span>
-                                <select class="clinics-filter-certification" id="FilterInput">
-                                    <option value="all">Primary Instructor</option>
-                                    <option value="all">All</option>
-                                    <?php foreach ($faculty_filter as $key => $option): ?>
-                                        <option value="<?= acf_slugify( '.'.$key ) ?>"><?= $option ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="text" placeholder="Search by Instructor" id="FilterInput">
                             </label>
                         </div>
                         <div class="cell small-12 hide-for-medium">
@@ -102,8 +94,8 @@ function ipa_faculty_widget( $atts, $content = null ) {
                                 <span class="hide-for-medium"><?= __( 'Instructor Status', 'ipa' ); ?></span>
                                 <select class="filter-select">
                                     <option value="all">All</option>
-                                    <option value=".instructor-status-1"><?= __( 'Primary Instructor', 'ipa' ); ?></option>
-                                    <option value=".instructor-status-2"><?= __( 'Associate Instructor', 'ipa' ); ?></option>
+                                    <option value=".primary-faculty"><?= __( 'Primary Instructor', 'ipa' ); ?></option>
+                                    <option value=".associate-faculty"><?= __( 'Associate Instructor', 'ipa' ); ?></option>
                                 </select>
                             </label>
                         </div>
@@ -115,16 +107,41 @@ function ipa_faculty_widget( $atts, $content = null ) {
         <div class="ipa-faculty-statuses ipa-filter-bar grid-container show-for-medium">
             <div class="grid-x grid-padding-x grid-padding-y grid-margin-x grid-margin-y">
                 <button type="button" data-filter="all" class="mixitup-control">All</button>
-                <button type="button" data-filter=".instructor-status-1" class="mixitup-control"><?= __( 'Primary Instructor', 'ipa' ); ?></button>
-                <button type="button" data-filter=".instructor-status-2" class="mixitup-control"><?= __( 'Associate Instructor', 'ipa' ); ?></button>
+                <button type="button" data-filter=".primary-faculty" class="mixitup-control"><?= __( 'Primary Instructor', 'ipa' ); ?></button>
+                <button type="button" data-filter=".associate-faculty" class="mixitup-control"><?= __( 'Associate Instructor', 'ipa' ); ?></button>
             </div>
         </div>
 
         <div class="ipa-faculty-widget grid-container" id="ipa-faculty-widget">
             <div class="grid-x grid-padding-x grid-padding-y grid-margin-x grid-margin-y">
-				<?php foreach ( $faculty as $item => $value ) : ?>
+				<?php foreach ( $users as $user ) : ?>
                     <?php
-					$full_name = $value['firstname'] . " " . $value['lastname'];
+					$usermeta = array_map(function ($a) {
+						return $a[0];
+					}, get_user_meta($user->ID));
+
+					$full_name = $usermeta['first_name'] . " " . $usermeta['last_name'];
+
+					// ACF Fields
+					$acf_user = 'user_' . $user->ID;
+
+					$bio = get_field('bio', $acf_user);
+					$profile_image = get_field('profile_image', $acf_user);
+
+					$credentials = get_field('credentials', $acf_user);
+                    $faculty_status = get_field('faculty_status', $acf_user);
+
+                    $city = "";
+					$state = "";
+                    $state_short = "";
+					if (have_rows('offices', $acf_user)) :
+						while (have_rows('offices', $acf_user)) : the_row();
+							$location = get_sub_field('address');
+							$city = $location['city'];
+							$state = $location['state'];
+							$state_short = $location['state_short'];
+						endwhile;
+					endif;
 
 					$faculty_classes = array(
 						'ipa-faculty-member',
@@ -135,25 +152,40 @@ function ipa_faculty_widget( $atts, $content = null ) {
 						'text-center',
 						'styled-container',
 						'mix',
-						'instructor-status-' . $value['instructor_status'],
-                        $value['work_state'],
+						$state_short,
+						acf_slugify($faculty_status),
                         acf_slugify( $full_name )
 					);
-
 					?>
-                    <div class="<?= implode( " ", $faculty_classes ) ?>" data-title="<?= acf_slugify( $full_name ); ?>" <?= $value['instructor_status'] != 1 ? 'style="display: none"' : '' ?>>
+                    <div class="<?= implode( " ", $faculty_classes ) ?>"
+                         data-title="<?= acf_slugify( $full_name ); ?>"
+                        <?= $faculty_status === "Not Faculty" || $faculty_status === "inactive" ? 'style="display: none"' : '' ?>
+                    >
                         <div class="ipa-faulty-member-info">
-                            <img src="<?= get_instructor_image( $value['image'] ); ?>" class="ipa-faculty-member-image" alt="Image for <?= $value['name']; ?>">
-                            <h5 class="ipa-faulty-member-name"><b><?= $value['name']; ?></b></h5>
-                            <p class="ipa-faulty-member-credentials text-color-medium-gray"><?= $value['credentials']; ?></p>
-                            <p class="ipa-faulty-member-city"><?= $value['work_city'] . ", " . $value['work_state']; ?></p>
+                            <?php
+	                        if (!empty($profile_image)) :
+		                        echo wp_get_attachment_image($profile_image, 'large', false, array('class' => 'ipa-faculty-member-image'));
+	                        endif;
+	                        ?>
+
+                            <h5 class="ipa-faulty-member-name"><b><?= $full_name; ?></b></h5>
+
+	                        <?php if (!empty($credentials)) : ?>
+                                <p class="ipa-faulty-member-credentials text-color-medium-gray"><?= $credentials; ?></p>
+	                        <?php endif; ?>
+
+	                        <?php if (!empty($city)) : ?>
+                                <p class="ipa-faulty-member-city"><?= $city . ", " . $state; ?></p>
+	                        <?php endif; ?>
                         </div>
                         <div class="ipa-faculty-member-bio text-center flex-container flex-dir-column align-center-middle">
-                            <h5 class="ipa-faulty-member-name text-color-white"><b><?= $value['name']; ?></b></h5>
+                            <h5 class="ipa-faulty-member-name text-color-white"><b><?= $full_name; ?></b></h5>
                             <p class="ipa-faculty-member-bio-copy text-color-white">
-                                <small><?= wp_trim_words( $value['bio'], 20 ); ?></small>
+                                <small><?= wp_trim_words( $bio, 20 ); ?></small>
                             </p>
-                            <a href="<?= home_url(); ?>/profile/<?= clean( $value['name'] ); ?>/<?= $value['entity_id']; ?>" class="button hollow white">View Profile</a>
+                            <a href="<?= home_url(); ?>/profile-member/<?= acf_slugify( $full_name ); ?>" class="button hollow white">
+                                <?= __('View Profile', 'ipa'); ?>
+                            </a>
                         </div>
                     </div>
 				<?php endforeach; ?>
@@ -168,7 +200,11 @@ function ipa_faculty_widget( $atts, $content = null ) {
 
 add_shortcode( 'ipa_faculty', 'ipa_faculty_widget' );
 
-// Integrate with Visual Composer
+/**
+ * Integrate with Visual Composer
+ *
+ * @return void
+ */
 function ipa_faculty_integrateWithVC() {
 	try {
 		vc_map( array(

@@ -4,7 +4,6 @@
  */
 
 $queried = get_queried_object();
-$user = get_userdata($queried->ID);
 $usermeta = array_map(function ($a) {
 	return $a[0];
 }, get_user_meta($queried->ID));

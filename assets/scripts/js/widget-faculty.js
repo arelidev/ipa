@@ -21,14 +21,14 @@ jQuery(document).ready(function ($) {
 
         function filterMix() {
             let condition = ''
-            if ( filterSelect.val() != 'all' ) {
+            if ( filterSelect.val() !== 'all' ) {
                 condition += filterSelect.val()
             }
-            if ( filterInput.val() != 'all' ) {
+            if ( filterInput.val() !== 'all' ) {
                 condition += filterInput.val()
             }
 
-            if (condition != '') {
+            if (condition !== '') {
                 mixer.filter(condition);
             } else {
                 mixer.filter('all')
@@ -36,11 +36,11 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    $('.mixitup-control[data-filter=".instructor-status-1"]').trigger('click')
+    $('.mixitup-control[data-filter=".primary-faculty"]').trigger('click')
 
     mixButton.on('click', function() {
         filterSelect.val('all');
-        filterInput.val('all')
+        filterInput.val('')
     })
 
     let inputText;
