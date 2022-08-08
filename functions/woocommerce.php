@@ -56,11 +56,8 @@ if (is_user_logged_in()) :
 
             <hr/>
 			<?php
-
-			$user = 'user_' . $user_id;
-
 			$settings = [
-				"post_id" => $user,
+				"post_id" => 'user_' . $user_id,
 				'submit_value' => __("Update profile", 'acf'),
 				'updated_message' => __("Profile updated", 'acf'),
 				'html_updated_message' => '<div id="message" class="updated callout success"><p>%s</p></div>',

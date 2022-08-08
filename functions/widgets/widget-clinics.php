@@ -354,7 +354,6 @@ function ipa_clinics_widget( $atts ) {
         </div>
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=<?= GOOGLE_MAPS_API_KEY; ?>"></script>
     <script type="text/javascript">
         var map;
         var init;

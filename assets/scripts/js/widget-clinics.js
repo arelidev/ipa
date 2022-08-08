@@ -14,7 +14,9 @@ jQuery(document).ready(function ($) {
 
     let inputText;
     let $matching = $();
-    var entities = [];
+    let entities = [];
+
+    const acfMap = $('.acf-map');
 
     // Delay function
     let delay = (function () {
@@ -76,10 +78,12 @@ jQuery(document).ready(function ($) {
         instructorFilter.val('')
     }
 
-    bindMapEvent()
+    if (acfMap.length) {
+        bindMapEvent()
+    }
 
     function reinitMap() {
-        init($('.acf-map'))
+        init(acfMap)
         bindMapEvent()
     }
 
@@ -97,23 +101,23 @@ jQuery(document).ready(function ($) {
             $('.mix').each(function () {
                 $matching = $matching.add(this);
 
-                if (map == true && !entities.includes( parseInt($(this).attr('data-entity-id')) ) ) {
+                if (map === true && !entities.includes( parseInt($(this).attr('data-entity-id')) ) ) {
                     $matching = $matching.not(this);
                 }
 
-                if ( filterSelect.val() && filterSelect.val() != 'all' ) {
+                if ( filterSelect.val() && filterSelect.val() !== 'all' ) {
                     if (!$(this).attr('data-type') || !$(this).attr('data-type').match( filterSelect.val().toLowerCase() )) {
                         $matching = $matching.not(this);
                     }
                 }
 
-                if ( stateFilter.val() && stateFilter.val() != 'all' ) {
+                if ( stateFilter.val() && stateFilter.val() !== 'all' ) {
                     if (!$(this).attr('data-state') || !$(this).attr('data-state').match( stateFilter.val() )) {
                         $matching = $matching.not(this);
                     }
                 }
 
-                if ( zipFilter.val() && zipFilter.val() != '' ) {
+                if ( zipFilter.val() && zipFilter.val() !== '' ) {
                     // Don't filter mix, instead rely on map zoom to filter
 
                     // if (!$(this).attr('data-zip') || !$(this).attr('data-zip').match( zipFilter.val().replace(/\s+/g, '-').toLowerCase() )) {
@@ -121,14 +125,14 @@ jQuery(document).ready(function ($) {
                     // }
                 }
 
-                if ( certFilter.val() && certFilter.val() != 'all' ) {
+                if ( certFilter.val() && certFilter.val() !== 'all' ) {
                     if (!$(this).attr('data-certification') || !$(this).attr('data-certification').match( certFilter.val() )) {
                         $matching = $matching.not(this);
                     }
                 }
 
-                if ( instructorFilter.val() && instructorFilter.val() != '' ) {
-                    if (!$(this).attr('data-title') || $(this).attr('data-title').toLowerCase().indexOf( instructorFilter.val().toLowerCase() ) == -1 ) {
+                if ( instructorFilter.val() && instructorFilter.val() !== '' ) {
+                    if (!$(this).attr('data-title') || $(this).attr('data-title').toLowerCase().indexOf( instructorFilter.val().toLowerCase() ) === -1 ) {
                         $matching = $matching.not(this);
                     }
                 }
