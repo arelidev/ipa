@@ -47,8 +47,7 @@ if (is_user_logged_in()) :
                     <h4>Edit your profile</h4>
                 </div>
                 <div class="small-12 medium-shrink">
-                    <a href='<?= home_url('/profile-member/' . $name); ?>'
-                       class='button small-only-expanded'>
+                    <a href='<?= home_url('/profile-member/' . $name); ?>' class='button small-only-expanded' target="_blank">
                         View Profile
                     </a>
                 </div>
