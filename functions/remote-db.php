@@ -665,7 +665,7 @@ function get_primary_faculty_names( $faculty ): array {
  *
  * @return string
  */
-function get_instructor_image( $image = '' ): string {
+function get_instructor_image(string $image = '' ): string {
 	global $stage_url;
 
 	$stored  = get_field( 'default_instructor_image', 'options' );

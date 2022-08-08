@@ -164,7 +164,7 @@ function ipa_faculty_widget() {
                         <div class="ipa-faulty-member-info">
                             <?php
 	                        if (!empty($profile_image)) :
-		                        echo wp_get_attachment_image($profile_image, 'large', false, array('class' => 'ipa-faculty-member-image'));
+		                        echo get_profile_image($profile_image, 'ipa-faculty-member-image');;
 	                        endif;
 	                        ?>
 

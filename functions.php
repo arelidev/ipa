@@ -87,7 +87,8 @@ add_action( 'acf/init', 'my_acf_init' );
 
 /**
  * Slugify string
- * todo: remove this function, it's redundant with acf_slugify()
+ *
+ * TODO: remove this function, it's redundant with acf_slugify()
  *
  * @param $string
  *
@@ -113,4 +114,24 @@ function searchForId( $id, $array ) {
 	}
 
 	return null;
+}
+
+/**
+ * Get Instructor Image
+ *
+ * @param int $image
+ * @param string $classes
+ * @return string
+ */
+function get_profile_image(int $image, string $classes = '' ): string {
+	$stored = get_field('default_instructor_image', 'options');
+	$default = (!empty($stored)) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
+
+	if (!empty($image)) :
+		$image_url = wp_get_attachment_image($image, 'large', false, array('class' => $classes));
+	else :
+		$image_url = "<img src='$default' class='$classes' alt='' aria-hidden='true'>";
+	endif;
+
+	return $image_url;
 }
