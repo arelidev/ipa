@@ -109,7 +109,7 @@ $faculty_status = get_field('faculty_status', $acf_user);
 								<?php if ($work_details['work_telephone']) : $phone = $work_details['work_telephone']; ?>
                                     <div class="grid-x">
                                         <div class="cell small-2 text-center">
-                                            <i class="far fa-mobile fa-lg"></i>
+                                            <i class="far fa-phone fa-lg"></i>
                                         </div>
                                         <div class="cell auto">
                                             <p class="ipa-faculty-member-phone"><?= $phone; ?></p>
@@ -174,7 +174,7 @@ $faculty_status = get_field('faculty_status', $acf_user);
 								                        $social_class = "fa-square-user";
 						                        }
 						                        ?>
-                                                <i class="fa-brands <?= $social_class; ?> fa-lg" aria-hidden="true"></i>
+                                                <i class="fa-brands <?= $social_class; ?> fa-2x" aria-hidden="true"></i>
                                             </a>
                                         </li>
 			                        <?php endwhile; ?>
@@ -194,7 +194,7 @@ $faculty_status = get_field('faculty_status', $acf_user);
 							$description = get_sub_field('additional_location_information');
 							$hours = get_sub_field('hours');
 							?>
-                            <div class="office styled-container">
+                            <div class="office styled-container" style="margin-bottom: 1rem;">
                                 <div class="profile-member-map">
                                     <div class="profile-member-marker"
                                          data-lat="<?= esc_attr($location['lat']); ?>"
