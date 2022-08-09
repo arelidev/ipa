@@ -661,11 +661,11 @@ function get_primary_faculty_names( $faculty ): array {
 /**
  * Get Instructor Image
  *
- * @param string $image
+ * @param $image
  *
  * @return string
  */
-function get_instructor_image(string $image = '' ): string {
+function get_instructor_image($image): string {
 	global $stage_url;
 
 	$stored  = get_field( 'default_instructor_image', 'options' );

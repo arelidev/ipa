@@ -1,12 +1,19 @@
 <?php
-function ipa_upcoming_courses_widget( $atts, $content = null ) {
-	$atts = shortcode_atts( array(), $atts );
-
+/**
+ * @return false|string
+ */
+function ipa_upcoming_courses_widget() {
 	ob_start();
 
 	$courses = get_courses( 3, null, true, "1, 2" );
 
-	function date_compare( $element1, $element2 ) {
+	/**
+	 * @param $element1
+	 * @param $element2
+	 * @return int
+	 */
+	function date_compare( $element1, $element2 ): int
+	{
 		$datetime1 = strtotime( $element1['date'] );
 		$datetime2 = strtotime( $element2['date'] );
 
