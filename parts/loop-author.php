@@ -220,7 +220,7 @@ $faculty_status = get_field('faculty_status', $acf_user);
 	                                    <?php endif; ?>
                                         <li class="accordion-item ipa-accordion-item" data-accordion-item>
                                             <a href="#" class="accordion-title ipa-accordion-title text-color-black">
-                                                <?= __('Office Hours', 'ipa'); ?>
+                                                <?= __('My Work Hours', 'ipa'); ?>
                                             </a>
 
                                             <div class="accordion-content ipa-accordion-content" data-tab-content>
