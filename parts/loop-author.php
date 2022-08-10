@@ -184,9 +184,11 @@ $faculty_status = get_field('faculty_status', $acf_user);
                     </div>
                 </div>
                 <div class="small-12 medium-8 large-7 large-offset-1 cell">
-                    <h5><b>About <?= $full_name; ?></b></h5>
+                    <h5><b><?= __('About', 'ipa'); ?> <?= $full_name; ?></b></h5>
 
 					<?= apply_filters('the_content', $bio); ?>
+
+                    <h5><b><?= __('Work Location & Information', 'ipa'); ?></b></h5>
 
 					<?php if (have_rows('offices', $acf_user)) : ?>
 						<?php while (have_rows('offices', $acf_user)) : the_row();
