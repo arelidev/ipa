@@ -165,3 +165,241 @@ jQuery(document).ready(function ($) {
         }
     }
 });
+
+jQuery(document).ready(function ($) {
+    let map;
+    let init;
+    let prevInfoWindow;
+
+    function initMap($el) {
+
+        // Find marker elements within map.
+        let $markers = $('.single-clinic:visible');
+
+        // Create gerenic map.
+        let mapArgs = {
+            zoom: $el.data('zoom') || 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            streetViewControlOptions: {
+                position: google.maps.ControlPosition.LEFT_BOTTOM,
+            },
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.LEFT_BOTTOM,
+            },
+        };
+        map = new google.maps.Map($el[0], mapArgs);
+
+        // Add markers.
+        map.markers = [];
+        $markers.each(function () {
+            initMarker($(this), map);
+        });
+
+        // Add a marker clusterer to manage the markers.
+        let markerClusterer = new MarkerClusterer(map, map.markers, {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+            maxZoom: 10,
+            gridSize: 10,
+            clusterClass: 'custom-clustericon'
+        });
+
+        // Center map based on markers.
+        centerMap(map);
+
+        // Return map instance.
+        return map;
+    }
+
+    function initMarker($marker, map) {
+        // Get position from marker.
+        let address = $marker.data('address')
+        let entity = $marker.data('entity-id')
+        let type = $marker.data('type')
+        let cfmt = $marker.data('cfmt')
+        let fellow = $marker.data('fellow')
+        let marker = '';
+        let geocoder;
+        let icon;
+        let zIndex = 1;
+
+        let iconBase = '<?= get_template_directory_uri(); ?>/assets/images/icon-map-';
+        if (type === 'clinic') {
+            icon = iconBase + 'clinic-gold.png'
+            zIndex = 100;
+        } else if (fellow === 1) {
+            icon = iconBase + 'fellowship-blue.png'
+        } else {
+            icon = iconBase + 'cfmt-gray.png'
+        }
+        let multiIcon = iconBase + 'multi-white.png'
+
+        if ($marker.data('lat') !== undefined && $marker.data('lng') !== undefined) {
+            let lat = $marker.data('lat');
+            let lng = $marker.data('lng');
+
+            let latLng = {
+                lat: parseFloat(lat),
+                lng: parseFloat(lng)
+            };
+
+            // Create marker instance.
+            marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                entity: entity,
+                icon: icon,
+                zIndex: zIndex
+            });
+
+        } else if ($marker.data('address').length > 0 && $marker.data('country') === 'United States') {
+            geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({'address': $marker.data('address')}, function (results, status) {
+                if (status === 'OK') {
+                    // map.setCenter(results[0].geometry.location);
+                    marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map
+                    });
+                } else {
+                    console.log('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        } else {
+            console.log('No address set for: ' + entity)
+        }
+
+        // Append to reference for later use.
+        if (marker !== '') {
+
+            // If marker contains HTML, add it to an infoWindow.
+            if ($marker.html()) {
+                let infowindows = [];
+
+                let existing = map.markers.filter(mark => mark.getPosition().lat() === marker.getPosition().lat() && mark.getPosition().lng() === marker.getPosition().lng())
+                // Map cards, map markers, infowindows. All separate
+                let windowContent = '';
+
+                if (existing.length > 0) {
+                    let $mark = existing[0]
+                    existing = [];
+                    $('.single-clinic[data-lat="' + $mark.getPosition().lat() + '"][data-lng="' + $mark.getPosition().lng() + '"]').each(function () {
+                        existing.push($(this))
+                        let html = $(this).clone()
+                        $(html).find('.accordion-title').removeClass('accordion-title');
+                        $(html).find('.accordion-content').removeClass('accordion-content');
+                        $(html).removeClass('accordion')
+                        windowContent += $(html).html()
+                        if ( $mark.icon.indexOf( iconBase + 'clinic-gold.png' ) !== -1 ) {
+                            marker.setZIndex(101)
+                            marker.setIcon( iconBase + 'clinic-gold.png' );
+                        } else {
+                            marker.setIcon(multiIcon)
+                        }
+                    })
+                } else {
+                    let html = $marker.clone();
+                    $(html).find('.accordion-title').removeClass('accordion-title');
+                    $(html).find('.accordion-content').removeClass('accordion-content');
+                    $(html).removeClass('accordion')
+                    windowContent = $(html).html()
+                }
+
+                map.markers.push(marker);
+
+                // Create info window.
+                let infowindow = new google.maps.InfoWindow({
+                    content: windowContent
+                });
+
+                infowindows.push(infowindow);
+
+                // Show info window when marker is clicked.
+                google.maps.event.addListener(marker, 'click', function () {
+                    // close all
+                    for (let i = 0; i < infowindows.length; i++) {
+                        infowindows[i].close(map);
+                        infowindow.close()
+                    }
+
+                    // Close previously opened info window
+                    if (prevInfoWindow) {
+                        prevInfoWindow.close()
+                    }
+
+                    infowindow.open(map, marker);
+
+                    // Set new prev window
+                    prevInfoWindow = infowindow;
+                });
+
+                google.maps.event.addListener(map, 'click', function () {
+                    infowindow.close();
+                });
+
+                google.maps.event.addListener(map, 'click', function () {
+                    infowindow.close();
+                });
+
+                // Move map to marker position on click
+                if (existing.length > 1) {
+                    existing.forEach(function ($mark) {
+                        // $mark.unbind()
+                        bindClickEvent($mark, map, infowindow)
+                    })
+                } else {
+                    bindClickEvent($marker, map, infowindow)
+                }
+
+                function bindClickEvent($marker, map, infowindow) {
+                    $marker.on('click', function () {
+                        map.setCenter(marker.getPosition());
+                        map.setZoom(11)
+
+                        if (prevInfoWindow) {
+                            prevInfoWindow.close()
+                        }
+
+                        infowindow.open(map, marker);
+                        prevInfoWindow = infowindow;
+                    })
+                }
+            }
+        }
+    }
+
+    function centerMap(map) {
+        // Create map boundaries from all map markers.
+        let bounds = new google.maps.LatLngBounds();
+        map.markers.forEach(function (marker) {
+            bounds.extend({
+                lat: marker.position.lat(),
+                lng: marker.position.lng()
+            });
+        });
+
+        // Case: Single marker.
+        if (map.markers.length === 1) {
+            map.setCenter(bounds.getCenter());
+
+            // Case: Multiple markers.
+        } else {
+            map.fitBounds(bounds);
+        }
+    }
+
+    $('.acf-map').each(function () {
+        let map = initMap($(this));
+    });
+
+    init = initMap
+
+    // Delay function
+    let delay = (function () {
+        let timer = 0;
+        return function (callback, ms) {
+            clearTimeout(timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+})

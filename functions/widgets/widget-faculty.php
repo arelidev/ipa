@@ -8,7 +8,14 @@ function ipa_faculty_widget() {
 	ob_start();
 
 	$args = array(
-		'role'    => 'profile_member',
+		'role' => 'profile_member',
+		'meta_query' => array(
+			array(
+				'key' => 'display_on_faculty',
+				'value' => '1',
+				'compare' => '=='
+			)
+		)
 	);
 
 	$users = get_users( $args );
