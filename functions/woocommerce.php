@@ -9,30 +9,42 @@ function ipa_add_woocommerce_support()
 
 add_action('after_setup_theme', 'ipa_add_woocommerce_support');
 
+// Remove page title
 add_filter('woocommerce_show_page_title', '__return_null');
 
 // Add custom ACF profile form
-if (is_user_logged_in()) :
+// if (is_user_logged_in()) :
 	$user = wp_get_current_user();
 	$roles = $user->roles;
 
-	if (in_array('profile_member', $roles)) :
+	// if (in_array('profile_member', $roles)) :
 
-		add_filter('woocommerce_account_menu_items', 'log_history_link', 40);
-		function log_history_link($menu_links)
+		/**
+		 * @param $menu_links
+		 * @return string[]
+		 */
+		function log_history_link($menu_links): array
 		{
 			return array_slice($menu_links, 0, 5, true)
 				+ array('edit-profile' => 'Profile Member')
 				+ array_slice($menu_links, 6, NULL, true);
 		}
 
-		add_action('init', 'add_endpoint');
+		add_filter('woocommerce_account_menu_items', 'log_history_link', 40);
+
+		/**
+		 * @return void
+		 */
 		function add_endpoint()
 		{
 			add_rewrite_endpoint('edit-profile', EP_PAGES);
 		}
 
-		add_action('woocommerce_account_edit-profile_endpoint', 'my_account_endpoint_content');
+		add_action('init', 'add_endpoint');
+
+		/**
+		 * @return void]
+		 */
 		function my_account_endpoint_content()
 		{
 			acf_form_head();
@@ -47,7 +59,8 @@ if (is_user_logged_in()) :
                     <h4>Edit your profile</h4>
                 </div>
                 <div class="small-12 medium-shrink">
-                    <a href='<?= home_url('/profile-member/' . $name); ?>' class='button small-only-expanded' target="_blank">
+                    <a href='<?= home_url('/profile-member/' . $name); ?>' class='button small-only-expanded'
+                       target="_blank">
                         View Profile
                     </a>
                 </div>
@@ -72,5 +85,7 @@ if (is_user_logged_in()) :
 
 			acf_form($settings);
 		}
-	endif;
-endif;
+
+		add_action('woocommerce_account_edit-profile_endpoint', 'my_account_endpoint_content');
+	// endif;
+// endif;
