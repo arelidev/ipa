@@ -16,7 +16,7 @@ if (is_user_logged_in()) :
 	$user = wp_get_current_user();
 	$roles = $user->roles;
 
-	if (in_array('profile_member', $roles)) :
+	if ($roles = 'profile_member' ||  in_array('profile_member', $roles)) :
 
 		add_filter('woocommerce_account_menu_items', 'log_history_link', 40);
 		function log_history_link($menu_links)
