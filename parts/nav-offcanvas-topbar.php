@@ -21,19 +21,9 @@
         <ul class="menu">
             <li class="hide"><a href="#"><i class="fas fa-search"></i></a></li>
             <li>
-                <a href="<?= wc_get_cart_url(); ?>"
-                   data-tooltip tabindex="1" title="Shopping cart"
-                   data-position="bottom" data-alignment="center">
+                <a href="<?= wc_get_cart_url(); ?>">
                     <span class="show-for-sr"><?= __('Shopping cart', 'ipa'); ?></span>
                     <i class="far fa-shopping-cart" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li>
-                <a href="<?= !(is_user_logged_in()) ? get_field('login_link', 'option') : wc_get_page_permalink('myaccount'); ?>"
-                   data-tooltip tabindex="1" title="Use this login form to purchase products from IPA or edit your public profile if you are a CFMT or an IPA Instructor."
-                   data-position="bottom" data-alignment="center">
-                    <span class="show-for-sr"><?= __('My account', 'ipa'); ?></span>
-                    <i class="far fa-user" aria-hidden="true"></i>
                 </a>
             </li>
         </ul>
@@ -41,10 +31,8 @@
     <div class="shrink cell show-for-medium" style="padding-left: 0;">
         <ul class="menu">
             <li>
-                <a href="<?= get_field('magento_login_url', 'options'); ?>" class="button hollow white small"
-                   data-tooltip tabindex="1" title="Log into your continuing education account with IPA for purchasing courses and all things course related."
-                   data-position="bottom" data-alignment="center">
-					<?= __('My Account', 'ipa'); ?>
+                <a href="<?= get_field('login_link', 'options'); ?>" class="button hollow white small">
+					<?= __('My Accounts', 'ipa'); ?>
                 </a>
             </li>
         </ul>
