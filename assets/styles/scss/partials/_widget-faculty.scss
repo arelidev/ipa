@@ -85,4 +85,12 @@
       }
     }
   }
+
+  .profile-member-map {
+    height: 350px;
+
+    img {
+      max-width: inherit !important;
+    }
+  }
 }

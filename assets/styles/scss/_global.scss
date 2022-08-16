@@ -69,6 +69,10 @@ Stylesheet: Global Stylesheet
 	border-radius: $global-radius;
 	overflow: hidden;
 	background: $white;
+
+    .inner-container {
+      padding: $global-padding $global-padding 0;
+    }
 }
 
 .container-border-top {
