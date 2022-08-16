@@ -12,12 +12,25 @@ add_action('after_setup_theme', 'ipa_add_woocommerce_support');
 // Remove page title
 add_filter('woocommerce_show_page_title', '__return_null');
 
+/**
+ * Change number of products that are displayed per page (shop page)
+ *
+ * @param $cols
+ * @return int
+ */
+function new_loop_shop_per_page($cols): int
+{
+	return 50;
+}
+
+add_filter('loop_shop_per_page', 'new_loop_shop_per_page', 20);
+
 // Add custom ACF profile form
-// if (is_user_logged_in()) :
+if (is_user_logged_in()) :
 	$user = wp_get_current_user();
 	$roles = $user->roles;
 
-	// if (in_array('profile_member', $roles)) :
+	if (in_array('profile_member', $roles)) :
 
 		/**
 		 * @param $menu_links
@@ -87,5 +100,5 @@ add_filter('woocommerce_show_page_title', '__return_null');
 		}
 
 		add_action('woocommerce_account_edit-profile_endpoint', 'my_account_endpoint_content');
-	// endif;
-// endif;
+	endif;
+endif;
