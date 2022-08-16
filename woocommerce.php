@@ -19,9 +19,9 @@ get_header();
                 <div class="hero-inner grid-container">
                     <?php
                     if ( is_singular( 'product' ) ) :
-                        global $product;
+	                    $product = wc_get_product( $post );
                         ?>
-                        <h1 class="page-title hide"><b><?//= $product->get_title(); ?></b></h1>
+                        <h1 class="page-title"><b><?= $product->get_name(); ?></b></h1>
                     <?php else : ?>
                         <h1 class="page-title"><b><?php woocommerce_page_title(); ?></b></h1>
                     <?php endif; ?>
