@@ -169,11 +169,7 @@ function ipa_faculty_widget() {
                         <?= $faculty_status === "Not Faculty" || $faculty_status === "inactive" ? 'style="display: none"' : '' ?>
                     >
                         <div class="ipa-faulty-member-info">
-                            <?php
-	                        if (!empty($profile_image)) :
-		                        echo get_profile_image($profile_image, 'ipa-faculty-member-image');;
-	                        endif;
-	                        ?>
+                            <?= get_profile_image($profile_image, 'ipa-faculty-member-image'); ?>
 
                             <h5 class="ipa-faulty-member-name"><b><?= $full_name; ?></b></h5>
 
