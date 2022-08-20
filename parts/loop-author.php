@@ -47,11 +47,7 @@ $faculty_status = get_field('faculty_status', $acf_user);
             <div class="grid-x grid-padding-x">
                 <div class="small-12 medium-4 large-4 cell">
                     <div class="ipa-faculty-member styled-container">
-						<?php
-						if (!empty($profile_image)) :
-							echo get_profile_image($profile_image, 'ipa-faculty-member-image');
-						endif;
-						?>
+						<?= get_profile_image($profile_image, 'ipa-faculty-member-image'); ?>
 
                         <h3 class="ipa-faculty-member-name text-center"><b><?= $full_name; ?></b></h3>
 
