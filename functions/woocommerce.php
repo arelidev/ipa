@@ -25,80 +25,71 @@ function new_loop_shop_per_page($cols): int
 
 add_filter('loop_shop_per_page', 'new_loop_shop_per_page', 20);
 
-// Add custom ACF profile form
-if (is_user_logged_in()) :
-	$user = wp_get_current_user();
-	$roles = $user->roles;
+/**
+ * @param $menu_links
+ * @return string[]
+ */
+function log_history_link($menu_links): array
+{
+	return array_slice($menu_links, 0, 5, true)
+		+ array('edit-profile' => 'Profile Member')
+		+ array_slice($menu_links, 6, NULL, true);
+}
 
-	if (in_array('profile_member', $roles)) :
+add_filter('woocommerce_account_menu_items', 'log_history_link', 40);
 
-		/**
-		 * @param $menu_links
-		 * @return string[]
-		 */
-		function log_history_link($menu_links): array
-		{
-			return array_slice($menu_links, 0, 5, true)
-				+ array('edit-profile' => 'Profile Member')
-				+ array_slice($menu_links, 6, NULL, true);
-		}
+/**
+ * @return void
+ */
+function add_endpoint()
+{
+	add_rewrite_endpoint('edit-profile', EP_PAGES);
+}
 
-		add_filter('woocommerce_account_menu_items', 'log_history_link', 40);
+add_action('init', 'add_endpoint');
 
-		/**
-		 * @return void
-		 */
-		function add_endpoint()
-		{
-			add_rewrite_endpoint('edit-profile', EP_PAGES);
-		}
+/**
+ * @return void]
+ */
+function my_account_endpoint_content()
+{
+	acf_form_head();
 
-		add_action('init', 'add_endpoint');
+	$user_id = get_current_user_id();
+	$user_meta = get_user_meta($user_id);
 
-		/**
-		 * @return void]
-		 */
-		function my_account_endpoint_content()
-		{
-			acf_form_head();
+	$name = acf_slugify($user_meta['first_name'][0] . " " . $user_meta['last_name'][0]);
+	?>
+    <div class="grid-x grid-padding-x align-center-middle">
+        <div class="small-12 medium-auto">
+            <h4>Edit your profile</h4>
+        </div>
+        <div class="small-12 medium-shrink">
+            <a href='<?= home_url('/profile-member/' . $name); ?>' class='button small-only-expanded'
+               target="_blank">
+                View Profile
+            </a>
+        </div>
+    </div>
 
-			$user_id = get_current_user_id();
-			$user_meta = get_user_meta($user_id);
+    <hr/>
+	<?php
+	$settings = [
+		"post_id" => 'user_' . $user_id,
+		'submit_value' => __("Update profile", 'acf'),
+		'updated_message' => __("Profile updated", 'acf'),
+		'html_updated_message' => '<div id="message" class="updated callout success"><p>%s</p></div>',
+		'fields' => [
+			'profile_image',
+			'bio',
+			'credentials',
+			'work_information',
+			'social_profiles',
+			'offices'
+		],
+	];
 
-			$name = acf_slugify($user_meta['first_name'][0] . " " . $user_meta['last_name'][0]);
-			?>
-            <div class="grid-x grid-padding-x align-center-middle">
-                <div class="small-12 medium-auto">
-                    <h4>Edit your profile</h4>
-                </div>
-                <div class="small-12 medium-shrink">
-                    <a href='<?= home_url('/profile-member/' . $name); ?>' class='button small-only-expanded'
-                       target="_blank">
-                        View Profile
-                    </a>
-                </div>
-            </div>
+	acf_form($settings);
+}
 
-            <hr/>
-			<?php
-			$settings = [
-				"post_id" => 'user_' . $user_id,
-				'submit_value' => __("Update profile", 'acf'),
-				'updated_message' => __("Profile updated", 'acf'),
-				'html_updated_message' => '<div id="message" class="updated callout success"><p>%s</p></div>',
-				'fields' => [
-					'profile_image',
-					'bio',
-					'credentials',
-					'work_information',
-					'social_profiles',
-					'offices'
-				],
-			];
-
-			acf_form($settings);
-		}
-
-		add_action('woocommerce_account_edit-profile_endpoint', 'my_account_endpoint_content');
-	endif;
-endif;
+add_action('woocommerce_account_edit-profile_endpoint', 'my_account_endpoint_content');
