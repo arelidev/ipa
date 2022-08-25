@@ -110,4 +110,4 @@ function rename_returning_customer(): string
 	return 'Returning Customer (Has placed product order since August 16th, 2022)';
 }
 
-// add_filter('woocommerce_checkout_login_message', rename_returning_customer());
+add_filter('woocommerce_checkout_login_message', 'rename_returning_customer');
