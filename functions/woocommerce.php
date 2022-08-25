@@ -93,3 +93,21 @@ function my_account_endpoint_content()
 }
 
 add_action('woocommerce_account_edit-profile_endpoint', 'my_account_endpoint_content');
+
+add_action('woocommerce_check_cart_items', function () {
+	echo '<div class="callout primary">This is our new checkout ecommerce platform. Please read descriptions below to know whether you are a “Returning Customer” or “New Customer”.</div>';
+});
+
+add_action('woocommerce_before_checkout_billing_form', function () {
+	echo '<div class="callout primary">New Customer <b>(First product order since August 16th, 2022)</b>. Please create an account by filling out details below.</div>';
+});
+
+/**
+ * @return string
+ */
+function rename_returning_customer(): string
+{
+	return 'Returning Customer (Has placed product order since August 16th, 2022)';
+}
+
+// add_filter('woocommerce_checkout_login_message', rename_returning_customer());
