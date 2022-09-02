@@ -6,6 +6,9 @@
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyBML3WPXpFj6VT-fE8QNWoO80WH-WhO-hU';
 
+// Arlo helper functions
+require_once( get_template_directory() . '/functions/arlo.php' );
+
 // Connect to the remote database
 require_once( get_template_directory() . '/functions/remote-db.php' );
 
@@ -121,9 +124,10 @@ function searchForId( $id, $array ) {
  *
  * @param int $image
  * @param string $classes
+ * @param bool $thumbnail
  * @return string
  */
-function get_profile_image(int $image, string $classes = '' ): string {
+function get_profile_image(int $image, string $classes = '', bool $thumbnail = false ): string {
 	$stored = get_field('default_instructor_image', 'options');
 	$default = (!empty($stored)) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
 
@@ -134,4 +138,13 @@ function get_profile_image(int $image, string $classes = '' ): string {
 	endif;
 
 	return $image_url;
+}
+
+/**
+ * @return mixed|string
+ */
+function get_placeholder_image()
+{
+	$stored = get_field('default_instructor_image', 'options');
+	return (!empty($stored)) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
 }

@@ -1,0 +1,67 @@
+<?php
+$delivery_method = 1;
+?>
+<table class="course-table hover stack"> <!-- .datatable -->
+	<thead>
+	<tr>
+		<?php if ($delivery_method == 1) : ?>
+			<th><?= __('Location', 'ipa'); ?></th>
+		<?php elseif ($delivery_method == 2) : ?>
+			<th><?= __('Course', 'ipa'); ?></th>
+		<?php endif; ?>
+		<th><?= __('Date', 'ipa'); ?></th>
+		<th><?= __('Scheduled Instructor(s)', 'ipa'); ?></th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	<?php
+	while (have_rows('sessions')) : the_row();
+		$location = get_sub_field('location');
+		$startTime = get_sub_field('startdatetime');
+
+		$course_classes = array(
+			'ipa-single-course',
+			'mix',
+			// $course_detail['course_type_name'],
+			$location['state'],
+		);
+
+		$instructor_1 = "REPLACE ME";
+		?>
+		<tr class="<?= implode(" ", $course_classes) ?>"
+		    data-state=".<?= $location['state'] ?>"
+		    data-primary-instructor="<?= $instructor_1; ?>"
+		    data-course-type="<?= $eventId; ?>"
+		    data-region="<?= get_region_by_state($location['state']) ?>"
+		    data-start-date="<?= date('m-d-y', strtotime($startTime)); ?>">
+
+			<?php if ($delivery_method == 1) : ?>
+				<td class="course-table-location">
+					<span class="hide-for-medium"><b><?= __('Location', 'ipa'); ?>:</b></span>
+					<?php get_template_part('parts/arlo/events/loop-session', 'location'); ?>
+				</td>
+			<?php elseif ($delivery_method == 2) : ?>
+				<th><?//= $course_detail['course_type_name']; ?></th>
+			<?php endif; ?>
+
+			<td class="course-table-date"
+			    data-order="<?= date('u', strtotime($startTime)); ?>">
+				<span class="hide-for-medium"><b><?= __('Date', 'ipa'); ?>:</b></span>
+				<?php get_template_part('parts/arlo/events/loop-session', 'datetime'); ?>
+			</td>
+
+			<td class="course-table-instructor">
+				<span class="hide-for-medium"><b><?= __('Scheduled Instructor(s)', 'ipa'); ?>:</b></span>
+				<?php if (have_rows('presenters')) : ?>
+					<?php get_template_part('parts/arlo/events/loop', 'presenters'); ?>
+				<?php endif; ?>
+			</td>
+
+			<td class="course-table-apply">
+				<?php get_template_part('parts/arlo/events/event', 'register'); ?>
+			</td>
+		</tr>
+	<?php endwhile; ?>
+	</tbody>
+</table>

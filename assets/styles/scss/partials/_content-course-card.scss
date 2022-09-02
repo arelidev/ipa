@@ -31,6 +31,7 @@
       box-shadow: $global-box-shadow;
       margin-left: 5px;
       margin-right: 5px;
+      margin-bottom: $global-margin;
     }
   }
 
@@ -62,6 +63,15 @@
     opacity: .2;
     margin: .75rem auto;
   }
+
+  &-sessions {}
+
+  &-session {
+    padding: 10px;
+    background: $light-gray;
+    border-radius: 5px;
+    margin-bottom: $global-margin;
+  };
 
   &-date {
     color: $medium-gray;

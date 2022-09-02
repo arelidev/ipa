@@ -2,132 +2,114 @@
 /**
  * @return false|string
  */
-function ipa_upcoming_courses_widget() {
+function ipa_upcoming_courses_widget()
+{
 	ob_start();
 
-	$courses = get_courses( 3, null, true, "1, 2" );
+	$args = array(
+		'post_type' => 'ipa_arlo_events',
+		'post_status' => 'publish',
+		'meta_query' => array(
+			'relation' => 'AND',
+			array(
+				'key' => 'is_featured',
+				'value' => '1',
+			),
+//			array(
+//				'relation' => 'OR',
+//				array(
+//					'key' => 'isprivate',
+//					'value' => '0',
+//				),
+//				array(
+//					'key' => 'isprivate',
+//					'compare' => 'EXISTS',
+//				),
+//			)
+		)
+	);
 
-	/**
-	 * @param $element1
-	 * @param $element2
-	 * @return int
-	 */
-	function date_compare( $element1, $element2 ): int
-	{
-		$datetime1 = strtotime( $element1['date'] );
-		$datetime2 = strtotime( $element2['date'] );
-
-		return $datetime1 - $datetime2;
-	}
-
-	usort( $courses, 'date_compare' );
-
-	$default_course_images = get_field( 'default_course_category_images', 'options' );
+	$loop = new WP_Query($args);
 	?>
-    <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title"
-         data-equalize-by-row="true">
-		<?php foreach ( $courses as $title => $course_details ) : ?>
-			<?php
-			$course_type_name_id = searchForId( $course_details['course_type_name'], $default_course_images );
+    <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y"
+         data-equalizer="upcoming-courses-title" data-equalize-by-row="true">
+		<?php
+		while ($loop->have_posts()) : $loop->the_post();
+			$eventId = get_field('eventid');
+			$eventCode = get_field('code');
 			?>
-            <div class="course-card cell small-12 medium-6 large-4">
-				<?php // if ( ! empty( $course_type_name_id ) ) :
-					$image_id = $default_course_images[ $course_type_name_id ]['image']; ?>
-                    <div class="course-card-image-wrapper">
-						<?= wp_get_attachment_image( $image_id, 'full', false, array( 'class' => 'course-card-image' ) ); ?>
-                    </div>
-				<?php // endif; ?>
+            <div class="course-card cell small-12 medium-6 large-4" id="<?= $eventId ?>">
+
+                <div class="course-card-image-wrapper">
+					<?php the_post_thumbnail('full', array('class' => 'course-card-image')); ?>
+                </div><!-- end .course-card-image-wrapper -->
+
                 <div class="course-card-inner">
                     <h4 class="course-card-title" data-equalizer-watch="upcoming-courses-title">
-						<?= $course_details['name']; ?>
+						<?php the_title(); ?>
                     </h4>
 
-                    <div class="grid-x">
-                        <div class="small-12 medium-12 large-shrink cell">
-                            <div class="course-card-trainer-wrapper">
-								<?php if ( ! empty( $instructor_1 = $course_details['instructor1'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_1 ); ?>/<?= $course_details['instr1']; ?>">
-                                        <img src="<?= get_instructor_image( $course_details['image1'] ); ?>"
-                                             class="course-card-trainer"
-                                             alt="<?= $instructor_1; ?>"
-                                             data-tooltip tabindex="1"
-                                             title="<?= $instructor_1; ?>">
-                                    </a>
-								<?php endif; ?>
-								<?php if ( ! empty( $instructor_2 = $course_details['instructor2'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_2 ); ?>/<?= $course_details['instr2']; ?>">
-                                        <img src="<?= get_instructor_image( $course_details['image2'] ); ?>"
-                                             class="course-card-trainer"
-                                             alt="<?= $instructor_2; ?>"
-                                             data-tooltip tabindex="2"
-                                             title="<?= $instructor_2; ?>">
-                                    </a>
-								<?php endif; ?>
-								<?php if ( ! empty( $instructor_3 = $course_details['instructor3'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_3 ); ?>/<?= $course_details['instr3']; ?>">
-                                        <img src="<?= get_instructor_image( $course_details['image3'] ); ?>"
-                                             class="course-card-trainer"
-                                             alt="<?= $instructor_3; ?>"
-                                             data-tooltip tabindex="3"
-                                             title="<?= $instructor_3; ?>">
-                                    </a>
-								<?php endif; ?>
-								<?php if ( ! empty( $instructor_4 = $course_details['instructor4'] ) ) : ?>
-                                    <a href="<?= home_url(); ?>/profile/<?= clean( $instructor_4 ); ?>/<?= $course_details['instr4']; ?>">
-                                        <img src="<?= get_instructor_image( $course_details['image4'] ); ?>"
-                                             class="course-card-trainer"
-                                             alt="<?= $instructor_4; ?>"
-                                             data-tooltip tabindex="4"
-                                             title="<?= $instructor_4; ?>">
-                                    </a>
-								<?php endif; ?>
+					<?= apply_filters('the_content', get_field('summary')); ?>
+
+                    <!-- Presenters -->
+					<?php if (have_rows('presenters')) : ?>
+                        <div class="grid-x">
+                            <div class="small-12 medium-12 large-shrink cell">
+                                <div class="course-card-trainer-wrapper">
+									<?php get_template_part('parts/arlo/events/loop', 'presenters'); ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
+					<?php endif; ?>
 
-                    <hr>
+                    <!-- Sessions -->
+					<?php if (have_rows('sessions')) : ?>
+                        <ul class="accordion ipa-accordion-widget"
+                            id="<?= wp_unique_id("accordion-" . $eventId . "-"); ?>"
+                            data-accordion
+                            data-allow-all-closed="true">
+                            <li class="accordion-item ipa-accordion-item" data-accordion-item>
+                                <a href="#<?= $eventCode; ?>"
+                                   class="accordion-title ipa-accordion-title text-color-black">
+                                    <b><?= __('View sessions', 'ipa'); ?></b>
+                                </a>
+                                <div class="accordion-content ipa-accordion-content" data-tab-content
+                                     id="<?= $eventCode ?>">
+									<?php get_template_part('parts/arlo/events/loop', 'sessions'); ?>
+                                </div>
+                            </li>
+                        </ul>
+					<?php endif; ?>
 
-                    <p class="course-card-date">
-                        <i class="fal fa-clock"></i>
-						<?= date( get_option( 'date_format' ), strtotime( $course_details['date'] ) ); ?>
-                        -
-						<?= date( get_option( 'date_format' ), strtotime( $course_details['end_date'] ) ); ?>
-                    </p>
+                    <!-- Registration -->
+					<?php get_template_part('parts/arlo/events/event', 'register'); ?>
 
-                    <p class="course-card-location">
-                        <i class="fal fa-map-marker-alt"></i>
-						<?= $course_details['facility_name']; ?>, <?= $course_details['city']; ?>, <?= $course_details['state']; ?>
-                    </p>
-
-                    <hr>
-
-                    <p class="text-center course-card-learn-more">
-						<?php get_course_link( $course_details['request_path'], $course_details['visibility'], 'button' ); ?>
-                    </p>
-                </div>
-            </div>
-		<?php endforeach; ?>
-    </div>
+                </div> <!-- end .course-card-inner -->
+            </div> <!-- end .course-card -->
+		<?php endwhile; ?>
+    </div> <!-- end .upcoming-courses-widget -->
 	<?php
+	wp_reset_postdata();
 	return ob_get_clean();
 }
 
-add_shortcode( 'ipa_upcoming_courses', 'ipa_upcoming_courses_widget' );
+add_shortcode('ipa_upcoming_courses', 'ipa_upcoming_courses_widget');
 
 // Integrate with Visual Composer
-function ipa_upcoming_courses_integrateWithVC() {
+function ipa_upcoming_courses_integrateWithVC()
+{
 	try {
-		vc_map( array(
-			"name"                    => __( "Upcoming Courses", "ipa" ),
-			"base"                    => "ipa_upcoming_courses",
-			"class"                   => "",
-			"category"                => __( "Custom", "ipa" ),
-			"params"                  => array(),
+		vc_map(array(
+			"name" => __("Upcoming Courses", "ipa"),
+			"base" => "ipa_upcoming_courses",
+			"class" => "",
+			"category" => __("Custom", "ipa"),
+			"params" => array(),
 			"show_settings_on_create" => false
-		) );
-	} catch ( Exception $e ) {
+		));
+	} catch (Exception $e) {
 		echo 'Caught exception: ', $e->getMessage(), "\n";
 	}
 }
 
-add_action( 'vc_before_init', 'ipa_upcoming_courses_integrateWithVC' );
+add_action('vc_before_init', 'ipa_upcoming_courses_integrateWithVC');

@@ -25,7 +25,7 @@ $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_fi
             </div>
         </header> <!-- end article header -->
 	<?php elseif ( $hero_type == 'image' ) : ?>
-        <style type="text/css">
+        <style>
             /* todo: I don't like this here */
             .header {
                 background: #3C5895;
@@ -132,11 +132,18 @@ $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_fi
             </div>
             <div class="small-12 medium-12 large-12 small-order-1 large-order-2 cell">
                 <div id="courses" data-magellan-target="courses">
-                    <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses" data-magellan-target="courses">
-                        <div class="cell">
-                            <?= do_shortcode( "[ipa_courses_table_alt course_cat='{$course_category}' delivery_method='{$delivery_method}']" ); ?>
+	                <?php if (!empty(get_field('arlo_event'))) : ?>
+                        <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses"
+                             data-magellan-target="courses">
+                            <div class="cell">
+				                <?php get_template_part('parts/arlo/events/single', 'sessions'); ?>
+                            </div>
                         </div>
-                    </div>
+	                <?php else: ?>
+                        <div class="callout primary">
+			                <?= __('Currently no courses scheduled - Check back later', 'ipa'); ?>
+                        </div>
+	                <?php endif; ?>
 
 					<?php wp_link_pages(); ?>
                 </div>
