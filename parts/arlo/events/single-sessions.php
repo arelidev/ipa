@@ -4,6 +4,7 @@ $args = array(
 	'p' => $event,
 	'post_type' => 'ipa_arlo_events',
 	'post_status' => 'publish',
+	'posts_per_page' => -1,
 //		'meta_query' => array(
 //			'relation' => 'OR',
 //			array(
