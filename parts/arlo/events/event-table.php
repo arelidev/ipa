@@ -1,14 +1,11 @@
 <?php
+$eventId = get_field('eventid');
 $delivery_method = 1;
 ?>
 <table class="course-table hover stack"> <!-- .datatable -->
 	<thead>
 	<tr>
-		<?php if ($delivery_method == 1) : ?>
-			<th><?= __('Location', 'ipa'); ?></th>
-		<?php elseif ($delivery_method == 2) : ?>
-			<th><?= __('Course', 'ipa'); ?></th>
-		<?php endif; ?>
+        <th><?= __('Course', 'ipa'); ?></th>
 		<th><?= __('Date', 'ipa'); ?></th>
 		<th><?= __('Scheduled Instructor(s)', 'ipa'); ?></th>
 		<th></th>
@@ -38,11 +35,12 @@ $delivery_method = 1;
 
 			<?php if ($delivery_method == 1) : ?>
 				<td class="course-table-location">
-					<span class="hide-for-medium"><b><?= __('Location', 'ipa'); ?>:</b></span>
+                    <span class="hide-for-medium"><b><?= __('Course', 'ipa'); ?>:</b></span>
+                    <b><?php get_template_part('parts/arlo/events/loop-session', 'name'); ?></b><br>
 					<?php get_template_part('parts/arlo/events/loop-session', 'location'); ?>
 				</td>
 			<?php elseif ($delivery_method == 2) : ?>
-				<th><?//= $course_detail['course_type_name']; ?></th>
+				<td><?//= $course_detail['course_type_name']; ?></td>
 			<?php endif; ?>
 
 			<td class="course-table-date"

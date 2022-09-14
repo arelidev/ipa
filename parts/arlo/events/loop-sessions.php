@@ -12,6 +12,10 @@
 				<?php endif; ?>
             </p>
 
+            <p class="course-card-name">
+                <b><?php get_template_part('parts/arlo/events/loop-session', 'name'); ?></b>
+            </p>
+
             <p class="course-card-date">
                 <i class="fal fa-clock"></i>
 				<?php get_template_part('parts/arlo/events/loop-session', 'datetime'); ?>

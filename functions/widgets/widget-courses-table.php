@@ -205,7 +205,15 @@ function ipa_courses_table_widget($atts)
                                 <li class="accordion-item ipa-accordion-item mix-parent" data-accordion-item
                                     id="<?= $eventId; ?>">
                                     <a href="#" class="accordion-title ipa-accordion-title text-color-black">
-										<?= (empty($category)) ? get_the_title() : $category; ?>
+										<span class="course-table-name" style="display: block; margin-bottom: 8px;">
+                                            <?= (empty($category)) ? get_the_title() : $category; ?>
+                                        </span>
+                                        <span class="course-table-date text-color-dark-gray">
+                                            <small>
+                                                <i class="fal fa-clock"></i>
+		                                        <?php get_template_part('parts/arlo/events/loop-event', 'datetime'); ?>
+                                            </small>
+                                        </span>
                                     </a>
 
                                     <div class="accordion-content ipa-accordion-content" data-tab-content

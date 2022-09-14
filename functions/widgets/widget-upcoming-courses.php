@@ -46,6 +46,11 @@ function ipa_upcoming_courses_widget()
                 </div><!-- end .course-card-image-wrapper -->
 
                 <div class="course-card-inner">
+                    <p class="course-card-date text-color-dark-gray">
+                        <i class="fal fa-clock"></i>
+                        <?php get_template_part('parts/arlo/events/loop-event', 'datetime'); ?>
+                    </p>
+
                     <h4 class="course-card-title" data-equalizer-watch="upcoming-courses-title">
 						<?php the_title(); ?>
                     </h4>

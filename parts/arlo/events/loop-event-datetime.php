@@ -2,10 +2,10 @@
 // Usage:
 // while (have_rows('sessions')) : the_row();
 
-$startTime = get_sub_field('startdatetime');
-$startTimezone = get_sub_field('starttimezoneabbr');
-$endTime = get_sub_field('enddatetime');
-$endTimezone = get_sub_field('endtimezoneabbr');
+$startTime = get_field('startdatetime');
+$startTimezone = get_field('starttimezoneabbr');
+$endTime = get_field('enddatetime');
+$endTimezone = get_field('endtimezoneabbr');
 ?>
 <span data-tooltip data-allow-html="true" tabindex="1"
       title="
