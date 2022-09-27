@@ -8,7 +8,6 @@ $delivery_method = 1;
         <th><?= __('Course', 'ipa'); ?></th>
 		<th><?= __('Date', 'ipa'); ?></th>
 		<th><?= __('Scheduled Instructor(s)', 'ipa'); ?></th>
-		<th></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -33,15 +32,11 @@ $delivery_method = 1;
 		    data-region="<?= get_region_by_state($location['state']) ?>"
 		    data-start-date="<?= date('m-d-y', strtotime($startTime)); ?>">
 
-			<?php if ($delivery_method == 1) : ?>
-				<td class="course-table-location">
-                    <span class="hide-for-medium"><b><?= __('Course', 'ipa'); ?>:</b></span>
-                    <b><?php get_template_part('parts/arlo/events/loop-session', 'name'); ?></b><br>
-					<?php get_template_part('parts/arlo/events/loop-session', 'location'); ?>
-				</td>
-			<?php elseif ($delivery_method == 2) : ?>
-				<td><?//= $course_detail['course_type_name']; ?></td>
-			<?php endif; ?>
+            <td class="course-table-location">
+                <span class="hide-for-medium"><b><?= __('Course', 'ipa'); ?>:</b></span>
+                <b><?php get_template_part('parts/arlo/events/loop-session', 'name'); ?></b><br>
+				<?php get_template_part('parts/arlo/events/loop-session', 'location'); ?>
+            </td>
 
 			<td class="course-table-date"
 			    data-order="<?= date('u', strtotime($startTime)); ?>">
@@ -54,10 +49,6 @@ $delivery_method = 1;
 				<?php if (have_rows('presenters')) : ?>
 					<?php get_template_part('parts/arlo/events/loop', 'presenters'); ?>
 				<?php endif; ?>
-			</td>
-
-			<td class="course-table-apply">
-				<?php get_template_part('parts/arlo/events/event', 'register'); ?>
 			</td>
 		</tr>
 	<?php endwhile; ?>

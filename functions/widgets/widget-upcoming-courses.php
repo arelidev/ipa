@@ -51,9 +51,9 @@ function ipa_upcoming_courses_widget()
                         <?php get_template_part('parts/arlo/events/loop-event', 'datetime'); ?>
                     </p>
 
-                    <h4 class="course-card-title" data-equalizer-watch="upcoming-courses-title">
-						<?php the_title(); ?>
-                    </h4>
+                    <p class="course-card-title" data-equalizer-watch="upcoming-courses-title">
+						<b><?php the_title(); ?></b>
+                    </p>
 
 					<?= apply_filters('the_content', get_field('summary')); ?>
 
