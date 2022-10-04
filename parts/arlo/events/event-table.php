@@ -7,7 +7,7 @@ $delivery_method = 1;
 	<tr>
         <th><?= __('Course', 'ipa'); ?></th>
 		<th><?= __('Date', 'ipa'); ?></th>
-		<th><?= __('Scheduled Instructor(s)', 'ipa'); ?></th>
+		<th class="hide"><?= __('Scheduled Instructor(s)', 'ipa'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -44,7 +44,7 @@ $delivery_method = 1;
 				<?php get_template_part('parts/arlo/events/loop-session', 'datetime'); ?>
 			</td>
 
-			<td class="course-table-instructor">
+			<td class="course-table-instructor hide">
 				<span class="hide-for-medium"><b><?= __('Scheduled Instructor(s)', 'ipa'); ?>:</b></span>
 				<?php if (have_rows('presenters')) : ?>
 					<?php get_template_part('parts/arlo/events/loop', 'presenters'); ?>

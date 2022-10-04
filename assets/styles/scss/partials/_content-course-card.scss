@@ -23,12 +23,6 @@
 
   &-trainer-wrapper {
     .course-card-trainer {
-      height: 40px;
-      width: 40px;
-      object-position: center;
-      object-fit: cover;
-      border-radius: 50%;
-      box-shadow: $global-box-shadow;
       margin-left: 5px;
       margin-right: 5px;
       margin-bottom: $global-margin;
@@ -69,7 +63,14 @@
     padding: 10px;
     background: $light-gray;
     border-radius: 5px;
-    margin-bottom: $global-margin;
+
+    &:not(:last-child) {
+      margin-bottom: $global-margin;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   };
 
   &-date {
@@ -78,7 +79,6 @@
 
   &-location {
     color: $medium-gray;
-    margin-bottom: 0;
   }
 
   i {
@@ -106,4 +106,13 @@
       }
     }
   }
+}
+
+.course-card-trainer {
+  height: 40px;
+  width: 40px;
+  object-position: center;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: $global-box-shadow;
 }

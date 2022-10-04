@@ -1,20 +1,5 @@
 <?php
 /**
- * @param $a
- * @param $b
- * @return int
- */
-function lastNameSort($a, $b): int
-{
-	$array = explode(' ', $a);
-	$aLast = end($array);
-	$array1 = explode(' ', $b);
-	$bLast = end($array1);
-
-	return strcasecmp($aLast, $bLast);
-}
-
-/**
  * @param $state
  * @return false|string
  */

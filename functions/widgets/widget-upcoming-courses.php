@@ -46,16 +46,28 @@ function ipa_upcoming_courses_widget()
                 </div><!-- end .course-card-image-wrapper -->
 
                 <div class="course-card-inner">
-                    <p class="course-card-date text-color-dark-gray">
-                        <i class="fal fa-clock"></i>
-                        <?php get_template_part('parts/arlo/events/loop-event', 'datetime'); ?>
-                    </p>
-
                     <p class="course-card-title" data-equalizer-watch="upcoming-courses-title">
 						<b><?php the_title(); ?></b>
                     </p>
 
-					<?= apply_filters('the_content', get_field('summary')); ?>
+                    <p class="course-card-date text-color-dark-gray">
+                        <i class="fal fa-clock hide"></i>
+                        <?php get_template_part('parts/arlo/events/loop-event', 'datetime'); ?>
+                    </p>
+
+
+	                <?php
+	                if (have_rows('sessions')) : ?>
+                        <p class="course-card-location text-color-dark-gray">
+                            <i class="fal fa-map-marker-alt hide"></i>
+			                <?php
+			                while (have_rows('sessions')) : the_row();
+				                get_template_part('parts/arlo/events/loop-session', 'location');
+                                break;
+			                endwhile;
+			                ?>
+                        </p>
+	                <?php endif; ?>
 
                     <!-- Presenters -->
 					<?php if (have_rows('presenters')) : ?>

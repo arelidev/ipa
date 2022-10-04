@@ -17,14 +17,16 @@
             </p>
 
             <p class="course-card-date">
-                <i class="fal fa-clock"></i>
+                <i class="fal fa-clock hide"></i>
 				<?php get_template_part('parts/arlo/events/loop-session', 'datetime'); ?>
             </p>
 
+            <!--
             <p class="course-card-location">
-                <i class="fal fa-map-marker-alt"></i>
-				<?php get_template_part('parts/arlo/events/loop-session', 'location'); ?>
+                <i class="fal fa-map-marker-alt hide"></i>
+				<?php // get_template_part('parts/arlo/events/loop-session', 'location'); ?>
             </p>
+            -->
         </div>
 	<?php endwhile; ?>
 </div>

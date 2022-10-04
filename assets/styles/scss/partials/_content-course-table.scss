@@ -1,3 +1,10 @@
+.ipa-courses-table-widget {
+
+  &-cell {
+    margin-bottom: 50px;
+  }
+}
+
 .courses-table-widget-filters{
   margin-bottom: 50px;
 }
@@ -5,7 +12,6 @@
 .courses-table-widget {
 
   .course-wrapper {
-    margin-bottom: 50px;
 
     .course-table {
       box-shadow: $global-box-shadow;
