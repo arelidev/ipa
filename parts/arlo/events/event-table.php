@@ -6,7 +6,8 @@ $delivery_method = 1;
 	<thead>
 	<tr>
         <th><?= __('Course', 'ipa'); ?></th>
-		<th><?= __('Date', 'ipa'); ?></th>
+        <th><?= __('Location', 'ipa'); ?></th>
+        <th><?= __('Date', 'ipa'); ?></th>
 		<th class="hide"><?= __('Scheduled Instructor(s)', 'ipa'); ?></th>
 	</tr>
 	</thead>
@@ -34,7 +35,11 @@ $delivery_method = 1;
 
             <td class="course-table-location">
                 <span class="hide-for-medium"><b><?= __('Course', 'ipa'); ?>:</b></span>
-                <b><?php get_template_part('parts/arlo/events/loop-session', 'name'); ?></b><br>
+                <b><?php get_template_part('parts/arlo/events/loop-session', 'name'); ?></b>
+            </td>
+
+            <td class="course-table-location">
+                <span class="hide-for-medium"><b><?= __('Location', 'ipa'); ?>:</b></span>
 				<?php get_template_part('parts/arlo/events/loop-session', 'location'); ?>
             </td>
 
