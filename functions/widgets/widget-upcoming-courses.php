@@ -41,9 +41,11 @@ function ipa_upcoming_courses_widget()
 			?>
             <div class="course-card cell small-12 medium-6 large-4" id="<?= $eventId ?>">
 
-                <div class="course-card-image-wrapper">
-					<?php the_post_thumbnail('full', array('class' => 'course-card-image')); ?>
-                </div><!-- end .course-card-image-wrapper -->
+	            <?php if (has_post_thumbnail()) : ?>
+                    <div class="course-card-image-wrapper">
+			            <?php the_post_thumbnail('full', array('class' => 'course-card-image')); ?>
+                    </div><!-- end .course-card-image-wrapper -->
+	            <?php endif; ?>
 
                 <div class="course-card-inner">
                     <p class="course-card-title" data-equalizer-watch="upcoming-courses-title">
@@ -54,7 +56,6 @@ function ipa_upcoming_courses_widget()
                         <i class="fal fa-clock hide"></i>
                         <?php get_template_part('parts/arlo/events/loop-event', 'datetime'); ?>
                     </p>
-
 
 	                <?php
 	                if (have_rows('sessions')) : ?>

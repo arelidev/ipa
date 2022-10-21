@@ -1,8 +1,7 @@
 <?php
-// Usage:
-// while (have_rows('sessions')) : the_row();
+$post = isset($args['post']) ? (int)$args['post'] : get_the_ID();
 
-$locations = get_sub_field('location');
+$locations = get_sub_field('location', $post);
 ?>
 <?php if ($locations) : ?>
 	<?php foreach ($locations as $location) : ?>

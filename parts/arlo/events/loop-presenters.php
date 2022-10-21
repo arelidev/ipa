@@ -1,7 +1,8 @@
 <?php
+$post = isset($args['post']) ? (int)$args['post'] : get_the_ID();
 $disable_link = $args['disable_link'] ?? false;
 
-while (have_rows('presenters')) : the_row();
+while (have_rows('presenters', $post)) : the_row();
 	$name = get_sub_field('name');
 	$presenter = get_sub_field('linked_presenter');
     $users = false;

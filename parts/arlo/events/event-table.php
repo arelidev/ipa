@@ -1,5 +1,6 @@
 <?php
-$eventId = get_field('eventid');
+$post = isset($args['post']) ? (int)$args['post'] : get_the_ID();
+$eventId = get_field('eventid', $post);
 $delivery_method = 1;
 ?>
 <table class="course-table hover stack"> <!-- .datatable -->
@@ -13,7 +14,7 @@ $delivery_method = 1;
     </thead>
     <tbody>
 	<?php
-	while (have_rows('sessions')) : the_row();
+	while (have_rows('sessions', $post)) : the_row();
 		$location = get_sub_field('location');
 		$presenters = get_sub_field('presenters');
 		$startTime = get_sub_field('startdatetime');

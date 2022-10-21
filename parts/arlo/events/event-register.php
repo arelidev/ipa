@@ -1,5 +1,7 @@
 <?php
-$registrationInfo = get_field('registrationinfo');
+$post = isset($args['post']) ? (int)$args['post'] : get_the_ID();
+
+$registrationInfo = get_field('registrationinfo', $post);
 $registerUri = $registrationInfo['registeruri'];
 $registermessage = $registrationInfo['registermessage'];
 ?>
