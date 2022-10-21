@@ -112,14 +112,22 @@ function rename_returning_customer(): string
 
 add_filter('woocommerce_checkout_login_message', 'rename_returning_customer');
 
+/**
+ * @return void
+ */
 function xa_custom_surcharge()
 {
 	global $woocommerce;
-	if (is_admin() && !defined('DOING_AJAX'))
+
+	if (is_admin() && !defined('DOING_AJAX')) {
 		return;
+	}
+
 	$state = array('CO');
+
 	$surcharge = .27;
-	if (in_array(WC()->customer->shipping_state, $state)) {
+
+	if (in_array(WC()->customer->get_shipping_state(), $state)) {
 		$woocommerce->cart->add_fee('Colorado Retail Delivery Fee (RDF)', $surcharge, true, '');
 	}
 }
