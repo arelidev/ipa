@@ -8,7 +8,7 @@ $delivery_method = 1;
     <tr>
         <th><?= __('Course', 'ipa'); ?></th>
         <th><?= __('Location', 'ipa'); ?></th>
-        <th><?= __('Date', 'ipa'); ?></th>
+        <th><?= __('Date & Time', 'ipa'); ?></th>
         <th class="hide"><?= __('Scheduled Instructor(s)', 'ipa'); ?></th>
     </tr>
     </thead>
