@@ -1,4 +1,6 @@
 <?php
+$courses = $args['courses'] ?? [];
+
 $presenters = new WP_Query(array(
 	'post_type' => 'ipa_arlo_presenters',
 	'post_status' => 'publish',
@@ -20,8 +22,8 @@ $presenters = new WP_Query(array(
                             <span class="hide-for-medium"><?= __('Course Type', 'ipa'); ?></span>
                             <select class="course-filter-type">
                                 <option value="all">Course Type</option>
-								<?php foreach ($courses as $title => $course_details) : ?>
-                                    <option value="<?= $title; ?>"><?= $title; ?></option>
+								<?php foreach ($courses as $title => $id) : ?>
+                                    <option value="course-<?= strtolower($title); ?>"><?= $title; ?></option>
 								<?php endforeach; ?>
                             </select>
                         </label>
@@ -113,23 +115,12 @@ $presenters = new WP_Query(array(
 		                            <?php endwhile; ?>
 								<?php endif; ?>
                             </select>
-                            <!-- <input type="text" placeholder="Search by instructor" id="course-filter-instructor"> -->
                         </label>
                     </div>
                     <div class="cell small-12 medium-auto">
                         <label>
                             <span class="hide-for-medium"><?= __('Start Date', 'ipa'); ?></span>
                             <input type="text" placeholder="Start Date" id="course-filter-date">
-                        </label>
-                    </div>
-                    <div class="cell small-12 hide-for-medium">
-                        <label>
-                            <span class="hide-for-medium"><?= __('Instructor Status', 'ipa'); ?></span>
-                            <select class="filter-select">
-                                <option value="all">All</option>
-                                <option value=".instructor-status-1"><?= __('Primary Instructor', 'ipa'); ?></option>
-                                <option value=".instructor-status-2"><?= __('Associate Instructor', 'ipa'); ?></option>
-                            </select>
                         </label>
                     </div>
                 </div>

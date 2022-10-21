@@ -42,36 +42,33 @@ function ipa_courses_table_widget($atts)
     <div class="courses-filter-parent">
         <div class="courses-filter-container">
 
-			<?php if (!$atts['disable_filters']) : ?>
-				<?php get_template_part('parts/course-table', 'filters'); ?>
-			<?php endif; ?>
+	        <?php
+	        if (!$atts['disable_filters']) :
+		        get_template_part(
+			        'parts/course-table', 'filters',
+			        array("courses" => $courses)
+		        );
+	        endif; ?>
 
             <div class="grid-x ipa-courses-table-widget">
 
 				<?php get_template_part('parts/course-table', 'sort'); ?>
 
                 <div class="small-12 medium-12 cell ipa-courses-table-widget-cell">
-                    <ul class="accordion ipa-accordion-widget"
-                        data-accordion
-                        data-allow-all-closed="true"
-                        data-deep-link="true"
-                        data-deep-link-smudge="true"
-                    >
+                    <ul class="accordion ipa-accordion-widget" data-accordion data-allow-all-closed="true">
 						<?php foreach ($courses as $title => $ids) : ?>
-                            <li class="accordion-item ipa-accordion-item" data-accordion-item>
+                            <li class="accordion-item ipa-accordion-item" data-accordion-item id="course-<?= strtolower($title); ?>">
                                 <a href="#<?= strtolower($title); ?>" class="accordion-title ipa-accordion-title text-color-black">
                                     <b><?= $title; ?></b>
                                 </a>
                                 <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= strtolower($title); ?>">
-
                                     <ul class="accordion ipa-accordion-widget course-wrapper"
                                         data-accordion data-allow-all-closed="true">
 										<?php
 										foreach ($ids as $id) :
 											$post = get_post($id);
 											setup_postdata($post);
-											?>
-											<?php
+
 											$eventId = get_field('eventid');
 											$eventCode = get_field('code');
 											$templateCode = get_field('code');

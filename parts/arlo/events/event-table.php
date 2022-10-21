@@ -15,6 +15,7 @@ $delivery_method = 1;
 	<?php
 	while (have_rows('sessions')) : the_row();
 		$location = get_sub_field('location');
+		$presenters = get_sub_field('presenters');
 		$startTime = get_sub_field('startdatetime');
 
 		$state = $location[0]['state'] ?? "unknown";
@@ -24,12 +25,10 @@ $delivery_method = 1;
 			'mix',
 			$state,
 		);
-
-		$instructor_1 = "REPLACE ME";
 		?>
         <tr class="<?= implode(" ", $course_classes) ?>"
             data-state=".<?= $state ?>"
-            data-primary-instructor="<?= $instructor_1; ?>"
+            data-primary-instructor="<?= acf_slugify($presenters[0]['name']); ?>"
             data-course-type="<?= $eventId; ?>"
             data-region="<?= get_region_by_state($state) ?>"
             data-start-date="<?= date('m-d-y', strtotime($startTime)); ?>">

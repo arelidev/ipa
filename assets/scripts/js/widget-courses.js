@@ -24,10 +24,6 @@ jQuery(document).ready(function ($) {
             }
         })
 
-        courseFilterType.on('change', function () {
-            filterMix()
-        })
-
         courseFilterSelect.on('change', function () {
             filterMix()
         });
@@ -100,6 +96,11 @@ jQuery(document).ready(function ($) {
         };
     })();
 
+    courseFilterType.on('change', function (event) {
+        const loc = "#" + event.target.value;
+        Foundation.SmoothScroll.scrollToLoc(loc);
+    })
+
     function filterMix() {
         // Open Accordion if not already open
         ipaAccordionWidget.foundation('down', ipaAccordionContent);
@@ -115,16 +116,6 @@ jQuery(document).ready(function ($) {
                 if (startDate && endDate) {
                     let courseDate = new Date($(this).attr('data-start-date'))
                     if (!(startDate <= courseDate && courseDate <= endDate)) {
-                        $matching = $matching.not(this);
-                        $subMatching = $subMatching.not(this);
-                    }
-                }
-
-
-                if (courseFilterType.val() && courseFilterType.val() != 'all') {
-                    let course = courseFilterType.val().toLowerCase();
-
-                    if (!$(this).attr('data-course-type').toLowerCase().match(course)) {
                         $matching = $matching.not(this);
                         $subMatching = $subMatching.not(this);
                     }
@@ -190,7 +181,6 @@ jQuery(document).ready(function ($) {
         courseFilterRegion.val('all')
         courseFilterInstructor.val('all')
         courseFilterDate.val('all')
-        courseFilterType.val('all')
 
         courseMixer.filter('all')
         parentMixer.filter('all')
