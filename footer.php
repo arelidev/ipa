@@ -60,6 +60,10 @@
 
 </footer> <!-- end .footer -->
 
+<a href="#top" data-smooth-scroll id="scrollToTop"  title="Go to top">
+    <span class="show-for-sr">Scroll to top</span> <i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i>
+</a>
+
 </div>  <!-- end .off-canvas-content -->
 
 </div> <!-- end .off-canvas-wrapper -->

@@ -4,8 +4,8 @@ $registerUri = $registrationInfo['registeruri'];
 $registermessage = $registrationInfo['registermessage'];
 ?>
 
-<p class="text-center course-card-learn-more">
+<p class="text-right course-card-learn-more">
     <a href="<?= $registerUri; ?>" class="enroll-button button expanded"<?= (empty($registerUri)) ? "disabled" : ""; ?>>
-		<?= $registermessage; ?>
+		<b><?= strtoupper($registermessage); ?></b>
     </a>
 </p>

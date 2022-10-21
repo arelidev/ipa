@@ -1,17 +1,21 @@
 <?php
-$disable_link = $args['disable_link'];
+$disable_link = $args['disable_link'] ?? false;
 
 while (have_rows('presenters')) : the_row();
 	$name = get_sub_field('name');
 	$presenter = get_sub_field('linked_presenter');
-	$users = get_users(array(
-		'meta_query' => array(
-			array(
-				'key' => 'arlo_presenter_profile',
-				'value' => $presenter->ID,
-			)
-		)
-	));
+    $users = false;
+
+    if ($presenter) {
+	    $users = get_users(array(
+		    'meta_query' => array(
+			    array(
+				    'key' => 'arlo_presenter_profile',
+				    'value' => $presenter,
+			    )
+		    )
+	    ));
+    }
 
 	if ($users) :
 		foreach ($users as $user) :
