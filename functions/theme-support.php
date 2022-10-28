@@ -70,9 +70,9 @@ add_filter( 'upload_mimes', 'cc_mime_types' );
 function hero_image_css() {
 	global $post;
 
-	$post = $post->ID;
+	$post = $post->ID ?? false;
 
-	if ( get_field( 'hero_type', $post ) == 'image' ) :
+	if ( $post && get_field( 'hero_type', $post ) == 'image' ) :
 		echo "<style type='text/css'>";
 		echo ".hero-image .hero-inner .hero-image-wrapper img {";
 
