@@ -23,7 +23,7 @@ $presenters = new WP_Query(array(
                             <select class="course-filter-type">
                                 <option value="all">Course Type</option>
 								<?php foreach ($courses as $title => $id) : ?>
-                                    <option value="course-<?= strtolower($title); ?>"><?= $title; ?></option>
+                                    <option value="course-<?= acf_slugify($title); ?>"><?= $title; ?></option>
 								<?php endforeach; ?>
                             </select>
                         </label>
