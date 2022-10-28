@@ -20,6 +20,9 @@ function ipa_courses_table_widget($atts)
 		'post_type' => 'ipa_arlo_events',
 		'post_status' => 'publish',
 		'posts_per_page' => -1,
+		'meta_key' => 'startdatetime',
+		'orderby' => 'meta_value',
+		'order' => 'ASC'
 	);
 
 	$loop = new WP_Query($args);
