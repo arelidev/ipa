@@ -1,0 +1,1277 @@
+{
+    "key": "group_6219024d6ef45",
+    "title": "Public Profile Information",
+    "fields": [
+        {
+            "key": "field_621902e8f2690",
+            "label": "Is Active",
+            "name": "is_active",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_62a269ed19824",
+            "label": "Display on Faculty",
+            "name": "display_on_faculty",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "When active, this information will be displayed on the IPA Faculty page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_62f5a599b28d7",
+            "label": "Display on Clinics",
+            "name": "display_on_clincs",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "When active, this information will be displayed on the Find a Therapist page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_62a2681d8eb38",
+            "label": "Profile Information",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_62190338f2695",
+            "label": "Profile Image",
+            "name": "profile_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Headshots are best with a clean background, in a square format, and your face close to centered in the frame so the top of your head is not cut off in the circular display for the website. Images will automatically be cropped and centered.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "uploadedTo",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": 2,
+            "mime_types": "png, jpg, jpeg"
+        },
+        {
+            "key": "field_62190346f2697",
+            "label": "Bio",
+            "name": "bio",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "This is your personal bio that will be displayed on your profile on IPA's website. Please include any information that would help someone choose you when searching for a referral.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_6219033ff2696",
+            "label": "Credentials",
+            "name": "credentials",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Please list credentials you would like displayed on your profile.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_62a267948eb35",
+            "label": "Work Information",
+            "name": "work_information",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "This is quick reference information to help people contact you that will be included on your quick view contact card.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_62f54fa58668f",
+                    "label": "Business Name",
+                    "name": "business_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_62190378f269c",
+                    "label": "Work Telephone",
+                    "name": "work_telephone",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_62190660c1626",
+                    "label": "Work Email",
+                    "name": "work_email",
+                    "aria-label": "",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_62190390f269e",
+                    "label": "Work Website",
+                    "name": "work_website",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_630e629b9913f",
+            "label": "Arlo Settings",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_630e62ad99140",
+            "label": "Arlo Presenter Profile",
+            "name": "arlo_presenter_profile",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "ipa_arlo_presenters"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1
+        },
+        {
+            "key": "field_62a26afe19827",
+            "label": "Locations",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_62a26b2919828",
+            "label": "Number of Locations",
+            "name": "number_of_locations",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "This controls the number of office locations displayed by the users",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "min": "",
+            "max": "",
+            "step": ""
+        },
+        {
+            "key": "field_62a26b4319829",
+            "label": "Offices",
+            "name": "offices",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "This information will be used to display on the map for people to find you. Please use the search to find the address of your clinic. For hours it is recommended to put your personal work hours. \r\n\r\nMultiple locations are available to be displayed if you treat in more than one location. FMT Certified Therapists are provided one (1) free location listing. FMT Fellows are provided two (2) free location listings. If you would like additional locations to be displayed please contact IPA and this can be provided at a cost of $50\/year listing subscription.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "row",
+            "button_label": "Add Row",
+            "sub_fields": [
+                {
+                    "key": "field_62a26bdc1982a",
+                    "label": "Address",
+                    "name": "address",
+                    "aria-label": "",
+                    "type": "google_map",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "center_lat": "",
+                    "center_lng": "",
+                    "zoom": "",
+                    "height": "",
+                    "parent_repeater": "field_62a26b4319829"
+                },
+                {
+                    "key": "field_62a26e11cfdf5",
+                    "label": "Additional Location Information",
+                    "name": "additional_location_information",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
+                    "parent_repeater": "field_62a26b4319829"
+                },
+                {
+                    "key": "field_62a26bfc1982b",
+                    "label": "My Work Hours",
+                    "name": "hours",
+                    "aria-label": "",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_62a26cdccbb7b",
+                            "label": "Monday",
+                            "name": "monday",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_62a26c171982c",
+                                    "label": "Opens",
+                                    "name": "opens",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                },
+                                {
+                                    "key": "field_62a26c6b1982e",
+                                    "label": "Closes",
+                                    "name": "closes",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_62a26d0bcbb7c",
+                            "label": "Tuesday",
+                            "name": "tuesday",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_62a26d0bcbb7d",
+                                    "label": "Opens",
+                                    "name": "opens",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                },
+                                {
+                                    "key": "field_62a26d0bcbb7e",
+                                    "label": "Closes",
+                                    "name": "closes",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_62a26d11cbb7f",
+                            "label": "Wednesday",
+                            "name": "wednesday",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_62a26d11cbb80",
+                                    "label": "Opens",
+                                    "name": "opens",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                },
+                                {
+                                    "key": "field_62a26d11cbb81",
+                                    "label": "Closes",
+                                    "name": "closes",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_62a26d17cbb82",
+                            "label": "Thursday",
+                            "name": "thursday",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_62a26d17cbb83",
+                                    "label": "Opens",
+                                    "name": "opens",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                },
+                                {
+                                    "key": "field_62a26d17cbb84",
+                                    "label": "Closes",
+                                    "name": "closes",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_62a26d1dcbb85",
+                            "label": "Friday",
+                            "name": "friday",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_62a26d1dcbb86",
+                                    "label": "Opens",
+                                    "name": "opens",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                },
+                                {
+                                    "key": "field_62a26d1dcbb87",
+                                    "label": "Closes",
+                                    "name": "closes",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_62a26d22cbb88",
+                            "label": "Saturday",
+                            "name": "saturday",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_62a26d22cbb89",
+                                    "label": "Opens",
+                                    "name": "opens",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                },
+                                {
+                                    "key": "field_62a26d22cbb8a",
+                                    "label": "Closes",
+                                    "name": "closes",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_62a26d2dcbb8b",
+                            "label": "Sunday",
+                            "name": "sunday",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_62a26d2dcbb8c",
+                                    "label": "Opens",
+                                    "name": "opens",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                },
+                                {
+                                    "key": "field_62a26d2dcbb8d",
+                                    "label": "Closes",
+                                    "name": "closes",
+                                    "aria-label": "",
+                                    "type": "time_picker",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "display_format": "g:i a",
+                                    "return_format": "g:i a"
+                                }
+                            ]
+                        }
+                    ],
+                    "parent_repeater": "field_62a26b4319829"
+                }
+            ],
+            "rows_per_page": 20
+        },
+        {
+            "key": "field_62a2686a8eb39",
+            "label": "Cert & Faculty",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_62a2698219823",
+            "label": "CFMT Rankings",
+            "name": "cfmt_rankings",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "None",
+                "cfmt": "CFMT",
+                "cfmt-with-honors": "CFMT with Honors",
+                "cfmt-with-distinction": "CFMT with Distinction"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "label",
+            "placeholder": ""
+        },
+        {
+            "key": "field_62a26a3119825",
+            "label": "Fellowship Status",
+            "name": "fellowship_status",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "None",
+                "in-training": "Current Fellow in Training",
+                "fmt-fellow": "FMT Fellow"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "label",
+            "placeholder": ""
+        },
+        {
+            "key": "field_62a26a6319826",
+            "label": "Faculty Status",
+            "name": "faculty_status",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "not-faculty": "Not Faculty",
+                "primary-faculty": "Primary Faculty",
+                "associate-faculty": "Associate Faculty",
+                "inactive": "Inactive"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "label",
+            "placeholder": ""
+        },
+        {
+            "key": "field_62a26dd4cfdf2",
+            "label": "Social",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_62a26de2cfdf3",
+            "label": "Social Profiles",
+            "name": "social_profiles",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Please copy the URL to your desired social media platforms to be displayed and clickable through your profile. Can be personal or work social media accounts.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Add Row",
+            "sub_fields": [
+                {
+                    "key": "field_62dfe4907a4f7",
+                    "label": "Profile Type",
+                    "name": "profile_type",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "facebook": "Facebook",
+                        "instagram": "Instagram",
+                        "linkedin": "LinkedIn",
+                        "twitter": "Twitter",
+                        "youtube": "YouTube"
+                    },
+                    "default_value": false,
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "return_format": "value",
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_62a26de2cfdf3"
+                },
+                {
+                    "key": "field_62a26deccfdf4",
+                    "label": "Profile Link",
+                    "name": "profile_link",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_62dfe4907a4f7",
+                                "operator": "!=empty"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_62a26de2cfdf3"
+                }
+            ],
+            "rows_per_page": 20
+        },
+        {
+            "key": "field_62a267fb8eb37",
+            "label": "Legacy Information",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_62190329f2694",
+            "label": "Suffix",
+            "name": "suffix",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_6219031ff2693",
+            "label": "Middle Name",
+            "name": "middlename",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_62190315f2692",
+            "label": "Prefix",
+            "name": "prefix",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_62a267d38eb36",
+            "label": "Legacy ID's",
+            "name": "legacy_ids",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_6219027ef2687",
+                    "label": "Entity ID",
+                    "name": "entity_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_62190286f2688",
+                    "label": "Entity Type ID",
+                    "name": "entity_type_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_62190295f2689",
+                    "label": "Attribute Set ID",
+                    "name": "attribute_set_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_621902a6f268a",
+                    "label": "Website ID",
+                    "name": "website_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_621902aff268b",
+                    "label": "Group ID",
+                    "name": "group_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_621902b6f268c",
+                    "label": "Increment ID",
+                    "name": "increment_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_621902bff268d",
+                    "label": "Store ID",
+                    "name": "store_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                }
+            ]
+        },
+        {
+            "key": "field_621902c7f268e",
+            "label": "Created At",
+            "name": "created_at",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_621902e1f268f",
+            "label": "Updated At",
+            "name": "updated_at",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_621902fbf2691",
+            "label": "Disable Auto Group Change",
+            "name": "disable_auto_group_change",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "user_form",
+                "operator": "==",
+                "value": "edit"
+            }
+        ]
+    ],
+    "menu_order": 3,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1666985903
+}

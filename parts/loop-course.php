@@ -6,8 +6,8 @@
 $hero_type       = get_field( 'hero_type' );
 $course_category = get_field( 'course_remote_cat' );
 $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_field( 'course_delivery_method' ) : 1;
+$linked_courses = get_field('course_remote_cat');
 ?>
-
 <article id="post-<?php the_ID(); ?>" <?php post_class( '' ); ?> role="article" itemscope itemtype="http://schema.org/WebPage">
 
 	<?php if ( empty( $hero_type ) || $hero_type == 'default' ) : ?>
@@ -132,18 +132,14 @@ $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_fi
             </div>
             <div class="small-12 medium-12 large-12 small-order-1 large-order-2 cell">
                 <div id="courses" data-magellan-target="courses">
-	                <?php if (!empty(get_field('arlo_event'))) : ?>
-                        <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses"
-                             data-magellan-target="courses">
-                            <div class="cell">
-				                <?php get_template_part('parts/arlo/events/single', 'sessions'); ?>
-                            </div>
+                    <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses" data-magellan-target="courses">
+                        <div class="cell">
+                            <h3><b><?= __("Dates & Locations", "ipa"); ?></b></h3>
                         </div>
-	                <?php else: ?>
-                        <div class="callout primary">
-			                <?= __('Currently no courses scheduled - Check back later', 'ipa'); ?>
+                        <div class="cell">
+			                <?= do_shortcode("[ipa_courses_table template='$linked_courses' filters='0']"); ?>
                         </div>
-	                <?php endif; ?>
+                    </div>
 
 					<?php wp_link_pages(); ?>
                 </div>

@@ -37,3 +37,14 @@ function get_date_time($timestamp, $timezone, string $format = 'd.m.Y, H:i:s'): 
 	$dt->setTimestamp(strtotime($timestamp));
 	return $dt->format($format);
 }
+
+/**
+ * @param $where
+ * @return array|string|string[]
+ */
+function presenter_events_where($where)
+{
+	return str_replace("meta_key = 'presenters_$", "meta_key LIKE 'presenters_%", $where);
+}
+
+add_filter('posts_where', 'presenter_events_where');
