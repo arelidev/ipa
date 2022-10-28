@@ -12,5 +12,5 @@ $endTimezone = get_field('endtimezoneabbr', $post);
         <br/>
         End on <?= date(get_option('date_format'), strtotime($endTime)); ?> at <?= date(get_option('time_format'), strtotime($endTime)); ?> <?= $endTimezone; ?>
 ">
-<?= date(get_option('date_format'), strtotime($startTime)); ?> <?= $startTimezone; ?> - <?= date(get_option('date_format'), strtotime($endTime)); ?> <?= $endTimezone; ?>
+<?= date(get_option('date_format'), strtotime($startTime)); ?> - <?= date(get_option('date_format'), strtotime($endTime)); ?>
 </span>

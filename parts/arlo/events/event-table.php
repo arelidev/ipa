@@ -6,7 +6,7 @@ $delivery_method = 1;
 <table class="course-table hover stack"> <!-- .datatable -->
     <thead>
     <tr>
-        <th><?= __('Course', 'ipa'); ?></th>
+        <th><?= __('Schedule', 'ipa'); ?></th>
         <th><?= __('Location', 'ipa'); ?></th>
         <th><?= __('Date & Time', 'ipa'); ?></th>
         <th class="hide"><?= __('Scheduled Instructor(s)', 'ipa'); ?></th>

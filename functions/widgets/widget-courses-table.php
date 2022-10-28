@@ -30,8 +30,8 @@ function ipa_courses_table_widget($atts)
 	$courses = [];
 	if ($loop->have_posts()) :
 		while ($loop->have_posts()) : $loop->the_post();
-			$templateCode = get_field('templatecode');
-			$courses[$templateCode][] = get_the_ID();
+			$course = get_field('name');
+			$courses[$course][] = get_the_ID();
 		endwhile;
 	endif;
 
@@ -56,11 +56,11 @@ function ipa_courses_table_widget($atts)
                 <div class="small-12 medium-12 cell ipa-courses-table-widget-cell">
                     <ul class="accordion ipa-accordion-widget" data-accordion data-allow-all-closed="true">
 						<?php foreach ($courses as $title => $ids) : ?>
-                            <li class="accordion-item ipa-accordion-item" data-accordion-item id="course-<?= strtolower($title); ?>">
-                                <a href="#<?= strtolower($title); ?>" class="accordion-title ipa-accordion-title text-color-black">
+                            <li class="accordion-item ipa-accordion-item" data-accordion-item id="course-<?= acf_slugify($title); ?>">
+                                <a href="#<?= acf_slugify($title); ?>" class="accordion-title ipa-accordion-title text-color-black">
                                     <b><?= $title; ?></b>
                                 </a>
-                                <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= strtolower($title); ?>">
+                                <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= acf_slugify($title); ?>">
                                     <ul class="accordion ipa-accordion-widget course-wrapper"
                                         data-accordion data-allow-all-closed="true">
 		                                <?php
@@ -83,16 +83,28 @@ function ipa_courses_table_widget($atts)
 					                                $parentClasses[] = acf_slugify(get_sub_field('name'));
 				                                endwhile;
 			                                endif;
-			                                ?>
+
+                                            $eventTitle = get_the_title($id);
+                                            $sessions = get_field("sessions", $id);
+
+			                                if ($sessions) :
+				                                $first = $sessions[0]["location"];
+                                                $location = $first[0];
+
+				                                $eventTitle = (!empty($location['venuename'])) ? $location['venuename'] . "</br>" : "";
+				                                $eventTitle .= (!empty($location['city'])) ? $location['city'] : "";
+				                                $eventTitle .= (!empty($location['state'])) ? ", " . $location['state'] : "";
+			                                endif;
+                                            ?>
                                             <li class="<?= implode(" ", $parentClasses); ?>" data-accordion-item
                                                 id="<?= $eventId; ?>">
                                                 <a href="#"
                                                    class="accordion-title ipa-accordion-title text-color-black">
                                                     <div class="grid-x align-middle" style="padding-right: 50px;">
                                                         <div class="auto cell">
-                                                            <span class="course-table-name" style="display: block; margin-bottom: 8px;">
-                                                                <b><?= (empty($category)) ? get_the_title($id) : $category; ?></b>
-                                                            </span>
+                                                            <p class="course-table-name" style="display: block; margin-bottom: 8px;">
+                                                                <b><?= (empty($category)) ? $eventTitle : $category; ?></b>
+                                                            </p>
                                                             <span class="course-table-date text-color-dark-gray">
                                                                 <i class="fal fa-clock"></i>
                                                                 <?php
