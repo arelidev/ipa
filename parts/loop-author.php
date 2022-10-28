@@ -27,7 +27,7 @@ $fellowship = get_field('fellowship_status', $acf_user);
 $cfmt = get_field('cfmt_rankings', $acf_user);
 $faculty_status = get_field('faculty_status', $acf_user);
 
-$presenter_id = get_field('arlo_presenter_profile', $acf_user);
+$presenter_id = get_field('arlo_presenter_profile', $acf_user) ?? "NO-RESULTS";
 ?>
 
 <?php if (get_class($queried) === 'WP_User') : ?>
@@ -293,18 +293,16 @@ $presenter_id = get_field('arlo_presenter_profile', $acf_user);
             </div>
         </section> <!-- end article section -->
 
-	    <?php if ($faculty_status !== 'inactive' && !empty($legacy_ids['entity_id'])) : ?>
-            <footer class="article-footer grid-container">
-                <div class="grid-x grid-padding-x grid-padding-y">
-                    <div class="cell">
-                        <h3><b><?= $full_name; ?>'s <?= __("Upcoming Courses", "ipa"); ?></b></h3>
-                    </div>
-                    <div class="cell">
-                        <?= do_shortcode("[ipa_courses_table presenter='$presenter_id' filters='0']"); ?>
-                    </div>
+        <footer class="article-footer grid-container">
+            <div class="grid-x grid-padding-x grid-padding-y">
+                <div class="cell">
+                    <h3><b><?= $full_name; ?>'s <?= __("Upcoming Courses", "ipa"); ?></b></h3>
                 </div>
-            </footer> <!-- end article footer -->
-		<?php endif; ?>
+                <div class="cell">
+				    <?= do_shortcode("[ipa_courses_table presenter='$presenter_id' filters='0']"); ?>
+                </div>
+            </div>
+        </footer> <!-- end article footer -->
 
     </article> <!-- end article -->
 <?php endif; ?>
