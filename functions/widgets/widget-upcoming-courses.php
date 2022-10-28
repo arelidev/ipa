@@ -90,7 +90,7 @@ function ipa_upcoming_courses_widget()
                             <li class="accordion-item ipa-accordion-item" data-accordion-item>
                                 <a href="#<?= $eventCode; ?>"
                                    class="accordion-title ipa-accordion-title text-color-black">
-                                    <b><?= __('View sessions', 'ipa'); ?></b>
+                                    <b><?= __('View Details', 'ipa'); ?></b>
                                 </a>
                                 <div class="accordion-content ipa-accordion-content" data-tab-content
                                      id="<?= $eventCode ?>">
