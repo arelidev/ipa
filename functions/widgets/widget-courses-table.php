@@ -17,6 +17,8 @@ function ipa_courses_table_widget($atts)
 
 	ob_start();
 
+    $active = false;
+
 	$args = array(
 		'post_type' => 'ipa_arlo_events',
 		'post_status' => 'publish',
@@ -35,6 +37,8 @@ function ipa_courses_table_widget($atts)
 				'compare' => 'LIKE'
 			)
 		);
+
+        $active = true;
 	endif;
 
 	if ($atts['template']) :
@@ -45,6 +49,8 @@ function ipa_courses_table_widget($atts)
 				'compare' => 'LIKE'
 			)
 		);
+
+        $active = true;
 	endif;
 
 	$loop = new WP_Query($args);
@@ -58,6 +64,7 @@ function ipa_courses_table_widget($atts)
 	endif;
 
 	ksort($courses);
+
 	?>
     <div class="courses-table-widget">
 		<?php if ($loop->have_posts()) : ?>
@@ -79,7 +86,7 @@ function ipa_courses_table_widget($atts)
                         <div class="ipa-courses-table-widget-cell">
                             <ul class="accordion ipa-accordion-widget" data-accordion data-allow-all-closed="true">
 								<?php foreach ($courses as $title => $ids) : ?>
-                                    <li class="accordion-item ipa-accordion-item" data-accordion-item id="course-<?= acf_slugify($title); ?>">
+                                    <li class="accordion-item ipa-accordion-item <?= $active ? 'is-active' : ""; ?>" data-accordion-item id="course-<?= acf_slugify($title); ?>">
                                         <a href="#<?= acf_slugify($title); ?>" class="accordion-title ipa-accordion-title text-color-black">
                                             <b><?= $title; ?></b>
                                         </a>
