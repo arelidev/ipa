@@ -10,14 +10,14 @@ function ipa_courses_table_widget($atts)
 {
 	$atts = shortcode_atts(array(
 		'presenter' => false,
-        'template' => false,
-        'filters' => true,
+		'template' => false,
+		'filters' => true,
 		'el_class' => ''
 	), $atts);
 
 	ob_start();
 
-    $active = false;
+	$active = false;
 
 	$args = array(
 		'post_type' => 'ipa_arlo_events',
@@ -38,7 +38,7 @@ function ipa_courses_table_widget($atts)
 			)
 		);
 
-        $active = true;
+		$active = true;
 	endif;
 
 	if ($atts['template']) :
@@ -50,7 +50,7 @@ function ipa_courses_table_widget($atts)
 			)
 		);
 
-        $active = true;
+		$active = true;
 	endif;
 
 	$loop = new WP_Query($args);
@@ -66,151 +66,156 @@ function ipa_courses_table_widget($atts)
 	ksort($courses);
 
 	?>
-    <div class="courses-table-widget">
+    <div class="ipa-courses-table-widget <?= $atts['el_class']; ?>">
 		<?php if ($loop->have_posts()) : ?>
-            <div class="courses-filter-parent <?= $atts['el_class']; ?>">
-                <div class="courses-filter-container">
+			<?php
+			if ($atts['filters'] !== "0") :
+				get_template_part(
+					'parts/course-table', 'filters',
+					array(
+						"courses" => $courses
+					)
+				);
+			endif;
+			?>
+            <div class="ipa-courses-table-widget-cell">
+                <ul class="accordion ipa-accordion-widget courses-parent" data-accordion data-allow-all-closed="true">
+					<?php foreach ($courses as $title => $ids) : ?>
+                        <li class="accordion-item ipa-accordion-item courses-parent-item <?= $active ? 'is-active' : ""; ?>" data-accordion-item id="course-<?= acf_slugify($title); ?>">
+                            <a href="#<?= acf_slugify($title); ?>" class="accordion-title ipa-accordion-title text-color-black">
+                                <b><?= $title; ?></b>
+                            </a>
+                            <div class="accordion-content ipa-accordion-content courses-parent-content" data-tab-content id="<?= acf_slugify($title); ?>">
+                                <ul class="accordion ipa-accordion-widget courses-child" data-accordion data-allow-all-closed="true">
+									<?php
+									foreach ($ids as $id) :
+										$eventId = get_field('eventid', $id);
+										$eventCode = get_field('code', $id);
+										$templateCode = get_field('templatecode', $id);
 
-	                <?php
-	                if ($atts['filters'] !== "0") :
-		                get_template_part(
-			                'parts/course-table', 'filters',
-			                array(
-				                "courses" => $courses
-			                )
-		                );
-	                endif;
-	                ?>
+										$parentClasses = [
+											$eventId,
+											$eventCode,
+											$templateCode,
+											"accordion-item",
+											"ipa-accordion-item",
+											"courses-child-item",
+											"mix",
+										];
 
-                    <div class="ipa-courses-table-widget">
-                        <div class="ipa-courses-table-widget-cell">
-                            <ul class="accordion ipa-accordion-widget" data-accordion data-allow-all-closed="true">
-								<?php foreach ($courses as $title => $ids) : ?>
-                                    <li class="accordion-item ipa-accordion-item <?= $active ? 'is-active' : ""; ?>" data-accordion-item id="course-<?= acf_slugify($title); ?>">
-                                        <a href="#<?= acf_slugify($title); ?>" class="accordion-title ipa-accordion-title text-color-black">
-                                            <b><?= $title; ?></b>
-                                        </a>
-                                        <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= acf_slugify($title); ?>">
-                                            <ul class="accordion ipa-accordion-widget course-wrapper"
-                                                data-accordion data-allow-all-closed="true">
+										if (have_rows("presenters", $id)) :
+											while (have_rows("presenters", $id)) : the_row();
+												$parentClasses[] = acf_slugify(get_sub_field('name'));
+											endwhile;
+										endif;
+
+										$eventTitle = get_the_title($id);
+										$sessions = get_field("sessions", $id);
+										$startDate = get_field('startdatetime', $id);
+
+										if ($sessions) :
+											$first = $sessions[0]["location"];
+											$location = $first[0];
+
+											$venue = $location['venuename'] ?? false;
+											$city = $location['city'] ?? false;
+											$state = $location['state'] ?? false;
+
+											$eventTitle = ($venue) ? $venue . "</br>" : "";
+											$eventTitle .= ($city) ?: "";
+											$eventTitle .= ($state) ? ", " . $state : "";
+
+											if ($state) :
+												$parentClasses[] = $state;
+												$parentClasses[] = get_region_by_state($state);
+											endif;
+										endif;
+										?>
+                                        <li class="<?= implode(" ", $parentClasses); ?>"
+                                            id="<?= $eventId; ?>"
+                                            data-accordion-item
+                                            data-start-date="<?= date('m-d-y', strtotime($startDate)); ?>"
+                                        >
+                                            <a href="#" class="accordion-title ipa-accordion-title text-color-black">
+                                                <div class="grid-x align-middle" style="padding-right: 50px;">
+                                                    <div class="auto cell">
+                                                        <p class="course-table-name" style="display: block; margin-bottom: 8px;">
+                                                            <b><?= $eventTitle; ?></b>
+                                                        </p>
+                                                        <span class="course-table-date text-color-dark-gray">
+                                                            <i class="fal fa-clock"></i>
+                                                            <?php
+                                                            get_template_part(
+	                                                            'parts/arlo/events/loop-event',
+	                                                            'datetime',
+	                                                            array(
+		                                                            'post' => $id
+	                                                            )
+                                                            );
+                                                            ?>
+                                                        </span>
+                                                    </div>
+                                                    <div class="shrink cell show-for-medium">
+														<?php
+														if (have_rows('presenters', $id)) :
+															get_template_part(
+																'parts/arlo/events/loop',
+																'presenters',
+																array(
+																	'post' => $id,
+																	"disable_link" => true
+																)
+															);
+														endif; ?>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="accordion-content ipa-accordion-content courses-child-content" data-tab-content id="<?= $eventId; ?>">
 												<?php
-												foreach ($ids as $id) :
-													$eventId = get_field('eventid', $id);
-													$eventCode = get_field('code', $id);
-													$templateCode = get_field('code', $id);
+												if (have_rows('sessions', $id)) :
+													get_template_part(
+														'parts/arlo/events/event',
+														'table',
+														array(
+															'post' => $id
+														)
+													);
+												endif;
+												?>
 
-													$parentClasses = [
-														$eventId,
-														$eventCode,
-														$templateCode,
-														"accordion-item",
-														"ipa-accordion-item",
-														"mix-parent"
-													];
-
-													if (have_rows("presenters", $id)) :
-														while (have_rows("presenters", $id)) : the_row();
-															$parentClasses[] = acf_slugify(get_sub_field('name'));
-														endwhile;
-													endif;
-
-													$eventTitle = get_the_title($id);
-													$sessions = get_field("sessions", $id);
-
-													if ($sessions) :
-														$first = $sessions[0]["location"];
-														$location = $first[0];
-
-														$eventTitle = (!empty($location['venuename'])) ? $location['venuename'] . "</br>" : "";
-														$eventTitle .= (!empty($location['city'])) ? $location['city'] : "";
-														$eventTitle .= (!empty($location['state'])) ? ", " . $location['state'] : "";
-													endif;
-													?>
-                                                    <li class="<?= implode(" ", $parentClasses); ?>" data-accordion-item id="<?= $eventId; ?>">
-                                                        <a href="#"
-                                                           class="accordion-title ipa-accordion-title text-color-black">
-                                                            <div class="grid-x align-middle" style="padding-right: 50px;">
-                                                                <div class="auto cell">
-                                                                    <p class="course-table-name" style="display: block; margin-bottom: 8px;">
-                                                                        <b><?= $eventTitle; ?></b>
-                                                                    </p>
-                                                                    <span class="course-table-date text-color-dark-gray">
-                                                                        <i class="fal fa-clock"></i>
-                                                                        <?php
-                                                                        get_template_part(
-                                                                            'parts/arlo/events/loop-event',
-                                                                            'datetime',
-                                                                            array(
-                                                                                'post' => $id
-                                                                            )
-                                                                        );
-                                                                        ?>
-                                                                    </span>
-                                                                </div>
-                                                                <div class="shrink cell show-for-medium">
-																	<?php
-																	if (have_rows('presenters', $id)) :
-																		get_template_part(
-																			'parts/arlo/events/loop',
-																			'presenters',
-																			array(
-																				'post' => $id,
-																				"disable_link" => true
-																			)
-																		);
-																	endif; ?>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <div class="accordion-content ipa-accordion-content" data-tab-content id="<?= $eventId; ?>">
-															<?php
-															if (have_rows('sessions', $id)) :
-																get_template_part(
-																	'parts/arlo/events/event',
-																	'table',
-																	array(
-																		'post' => $id
-																	)
-																);
-															endif;
-															?>
-
-                                                            <div class="grid-x grid-padding-x align-middle">
-                                                                <div class="auto cell">
-																	<?php
-																	if (have_rows('presenters', $id)) :
-																		get_template_part(
-																			'parts/arlo/events/loop',
-																			'presenters',
-																			array(
-																				'post' => $id
-																			)
-																		);
-																	endif; ?>
-                                                                </div>
-                                                                <div class="auto cell">
-																	<?php
-																	get_template_part(
-																		'parts/arlo/events/event',
-																		'register',
-																		array(
-																			'post' => $id
-																		)
-																	);
-																	?>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-												<?php endforeach; ?>
-                                            </ul>
-                                        </div>
-                                    </li>
-								<?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                                                <div class="grid-x grid-padding-x align-middle">
+                                                    <div class="auto cell">
+														<?php
+														if (have_rows('presenters', $id)) :
+															get_template_part(
+																'parts/arlo/events/loop',
+																'presenters',
+																array(
+																	'post' => $id
+																)
+															);
+														endif; ?>
+                                                    </div>
+                                                    <div class="auto cell">
+														<?php
+														get_template_part(
+															'parts/arlo/events/event',
+															'register',
+															array(
+																'post' => $id
+															)
+														);
+														?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+									<?php endforeach; ?>
+                                </ul>
+                            </div>
+                        </li>
+					<?php endforeach; ?>
+                </ul>
             </div>
 		<?php else : ?>
             <div class="callout primary">
