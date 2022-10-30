@@ -39,6 +39,10 @@ jQuery(document).ready(function ($) {
         courseFilterSelect.on("change", function () {
             coursesParent.foundation('down', coursesParentContent);
 
+            if (this.value === 'all' || this.value === '') {
+                closeAll();
+            }
+
             mixer.filter(this.value);
 
             coursesParentContent.each(function () {
@@ -49,11 +53,11 @@ jQuery(document).ready(function ($) {
         });
 
         $('.expand').on('click', function () {
-            coursesParent.foundation('down', coursesParentContent);
+            openAll();
         })
 
         $('.collapse').on('click', function () {
-            coursesParent.foundation('up', coursesParentContent);
+            closeAll();
         })
 
         courseFilterType.on('change', function (event) {
@@ -61,21 +65,48 @@ jQuery(document).ready(function ($) {
             Foundation.SmoothScroll.scrollToLoc(loc);
         })
 
-        if (typeof Litepicker !== 'undefined') {
-            new Litepicker({
-                element: courseFilterDate,
-                singleMode: false,
-                firstDay: 0,
-                numberOfColumns: 2,
-                numberOfMonths: 2,
-                moveByOneMonth: true,
-                moduleRanges: {position: 'left', ranges},
-                useResetBtn: true,
-                onSelect: function (date1, date2) {
-                    startDate = date1;
-                    endDate = date2;
-                }
-            })
+        const picker = new easepick.create({
+            element: document.getElementById('course-filter-date'),
+            css: [
+                'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.0/dist/index.css',
+                '/wp-content/themes/ipa/assets/styles/easepick.css'
+            ],
+            format: "MM/DD/YYYY",
+            readonly: false,
+            calendars: 2,
+            grid: 2,
+            zIndex: 100,
+            plugins: [
+                "RangePlugin",
+            ]
+        });
+
+        picker.on('select', (e) => {
+            const DateTime = easepick.DateTime;
+
+            let startDate =  picker.getStartDate();
+            let endDate =  picker.getEndDate();
+
+            const $targets = courseMixerContainer.find('.mix');
+
+            const $show = $targets.filter(function () {
+                let course = new Date($(this).attr('data-start-date'));
+                const date = new DateTime(course);
+
+                return (date >= startDate) && (date <= endDate);
+            });
+
+            mixer.filter($show);
+
+            openAll();
+        });
+
+        function openAll() {
+            coursesParent.foundation('down', coursesParentContent);
+        }
+
+        function closeAll() {
+            coursesParent.foundation('up', coursesParentContent);
         }
 
         function reset() {
@@ -84,7 +115,9 @@ jQuery(document).ready(function ($) {
             // courseFilterInstructor.val('all')
             // courseFilterDate.val('all')
 
-            mixer.filter('all')
+            mixer.filter('all');
+
+            closeAll();
         }
     }
 });

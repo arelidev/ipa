@@ -134,7 +134,7 @@ function ipa_courses_table_widget($atts)
                                         <li class="<?= implode(" ", $parentClasses); ?>"
                                             id="<?= $eventId; ?>"
                                             data-accordion-item
-                                            data-start-date="<?= date('m-d-y', strtotime($startDate)); ?>"
+                                            data-start-date="<?= date('m/d/Y', strtotime($startDate)); ?>"
                                         >
                                             <a href="#" class="accordion-title ipa-accordion-title text-color-black">
                                                 <div class="grid-x align-middle" style="padding-right: 50px;">
