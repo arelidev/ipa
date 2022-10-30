@@ -137,7 +137,7 @@ $linked_courses = get_field('course_remote_cat');
                             <h3><b><?= __("Dates & Locations", "ipa"); ?></b></h3>
                         </div>
                         <div class="cell">
-			                <?= do_shortcode("[ipa_courses_table template='$linked_courses' filters='0']"); ?>
+			                <?= do_shortcode("[ipa_courses_table template='$linked_courses' filters='0' el_class='no-mix']"); ?>
                         </div>
                     </div>
 

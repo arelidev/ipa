@@ -99,9 +99,12 @@ function ipa_courses_table_widget($atts)
 											$templateCode,
 											"accordion-item",
 											"ipa-accordion-item",
-											"courses-child-item",
-											"mix",
+											"courses-child-item"
 										];
+
+										if ($atts['filters'] !== "0") :
+											$parentClasses[] = "mix";
+										endif;
 
 										if (have_rows("presenters", $id)) :
 											while (have_rows("presenters", $id)) : the_row();

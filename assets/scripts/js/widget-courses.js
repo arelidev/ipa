@@ -25,7 +25,7 @@ jQuery(document).ready(function ($) {
         'Next 90 Days': [begin, addDays(end, 90)],
     };
 
-    if (courseMixerContainer.length) {
+    if (courseMixerContainer.length && !courseMixerContainer.hasClass("no-mix")) {
         const mixer = mixitup(courseMixerContainer, {
             multifilter: {
                 enable: true // enable the multifilter extension for the mixer
