@@ -26,16 +26,19 @@ function get_region_by_state($state)
 
 /**
  * @param $timestamp
- * @param $timezone
+ * @param string $timezone
  * @param string $format
  * @return string
- * @throws Exception
  */
-function get_date_time($timestamp, $timezone, string $format = 'd.m.Y, H:i:s'): string
+function get_date_time($timestamp, string $timezone, string $format = 'd.m.Y, H:i:s'): string
 {
-	$dt = new DateTime("now", new DateTimeZone($timezone));
-	$dt->setTimestamp(strtotime($timestamp));
-	return $dt->format($format);
+	try {
+		$dt = new DateTimeImmutable($timestamp);
+		$dt->setTimezone(new DateTimeZone($timezone));
+		return $dt->format($format) . $timezone;
+	} catch (Exception $e) {
+		return $e->getMessage();
+	}
 }
 
 /**
