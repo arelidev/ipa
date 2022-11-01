@@ -163,9 +163,11 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
 
 	<?php if ( $faculty_data['instructor_status'] == "1" || $faculty_data['instructor_status'] == "2" ) : ?>
         <footer class="article-footer grid-container">
-            <div class="grid-x grid-padding-x">
+            <div class="grid-x grid-padding-x grid-padding-y">
                 <div class="cell">
-                    <h3><b><?= $faculty_data['firstname']; ?>'s Upcoming Courses</b></h3>
+                    <h3><b><?= $faculty_data['firstname']; ?>'s <?= __("Upcoming Courses", "ipa"); ?></b></h3>
+                </div>
+                <div class="cell">
 					<?php get_instructor_course_table( $faculty_id ); ?>
                 </div>
             </div>

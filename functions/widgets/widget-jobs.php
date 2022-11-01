@@ -20,7 +20,7 @@ function ipa_jobs_widget( $atts, $content = null ) {
 	$loop = new WP_Query( $args );
 	?>
     <div class="job-posts-widget">
-        <table class="styled-container hover"> <!-- .datatable -->
+        <table class="styled-container hover">
             <thead>
             <tr>
                 <th><?= __( 'Location', 'ipa' ); ?></th>

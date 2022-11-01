@@ -26,10 +26,12 @@ $credentials = get_field('credentials', $acf_user);
 $fellowship = get_field('fellowship_status', $acf_user);
 $cfmt = get_field('cfmt_rankings', $acf_user);
 $faculty_status = get_field('faculty_status', $acf_user);
+
+$presenter_id = get_field('arlo_presenter_profile', $acf_user) ?? "NO-RESULTS";
 ?>
 
 <?php if (get_class($queried) === 'WP_User') : ?>
-    <article id="profile-member-<?= get_the_ID(); ?>" role="article" itemscope itemtype="http://schema.org/Person">
+    <article id="profile-member-<?= $queried->ID; ?>" role="article" itemscope itemtype="http://schema.org/Person">
 
         <header class="article-header hero hero-standard">
             <div class="hero-inner grid-container">
@@ -126,9 +128,9 @@ $faculty_status = get_field('faculty_status', $acf_user);
 
 							<?php endif; ?>
 
-	                        <?php if (have_rows('offices', $acf_user)) : ?>
-		                        <?php while (have_rows('offices', $acf_user)) : the_row();
-			                        $location = get_sub_field('address'); ?>
+							<?php if (have_rows('offices', $acf_user)) : ?>
+								<?php while (have_rows('offices', $acf_user)) : the_row();
+									$location = get_sub_field('address'); ?>
                                     <div class="grid-x">
                                         <div class="cell small-2 text-center">
                                             <i class="far fa-map-marker-alt fa-lg"></i>
@@ -137,45 +139,45 @@ $faculty_status = get_field('faculty_status', $acf_user);
                                             <p class="ipa-faculty-member-address"><?= $location['address']; ?></p>
                                         </div>
                                     </div>
-		                        <?php endwhile; ?>
-	                        <?php endif; ?>
+								<?php endwhile; ?>
+							<?php endif; ?>
 
-	                        <?php if (have_rows('social_profiles', $acf_user)) : ?>
+							<?php if (have_rows('social_profiles', $acf_user)) : ?>
                                 <hr style="margin-top: 0;">
                                 <ul class="menu align-center-middle" style="margin-bottom: 0;">
-			                        <?php while (have_rows('social_profiles', $acf_user)) : the_row(); ?>
+									<?php while (have_rows('social_profiles', $acf_user)) : the_row(); ?>
                                         <li>
                                             <a href="<?php the_sub_field('profile_link'); ?>" target="_blank">
                                                 <span class="show-for-sr">
                                                     <?php the_sub_field('profile_type'); ?>
                                                 </span>
-						                        <?php
-						                        switch (get_sub_field('profile_type')) {
-							                        case('facebook') :
-								                        $social_class = "fa-square-facebook";
-								                        break;
-							                        case('instagram') :
-								                        $social_class = "fa-square-instagram";
-								                        break;
-							                        case('linkedin') :
-								                        $social_class = "fa-linkedin";
-								                        break;
-							                        case('twitter') :
-								                        $social_class = "fa-square-twitter";
-								                        break;
-							                        case('youtube') :
-								                        $social_class = "fa-youtube";
-								                        break;
-							                        default:
-								                        $social_class = "fa-square-user";
-						                        }
-						                        ?>
+												<?php
+												switch (get_sub_field('profile_type')) {
+													case('facebook') :
+														$social_class = "fa-square-facebook";
+														break;
+													case('instagram') :
+														$social_class = "fa-square-instagram";
+														break;
+													case('linkedin') :
+														$social_class = "fa-linkedin";
+														break;
+													case('twitter') :
+														$social_class = "fa-square-twitter";
+														break;
+													case('youtube') :
+														$social_class = "fa-youtube";
+														break;
+													default:
+														$social_class = "fa-square-user";
+												}
+												?>
                                                 <i class="fa-brands <?= $social_class; ?> fa-2x" aria-hidden="true"></i>
                                             </a>
                                         </li>
-			                        <?php endwhile; ?>
+									<?php endwhile; ?>
                                 </ul>
-	                        <?php endif; ?>
+							<?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -205,32 +207,34 @@ $faculty_status = get_field('faculty_status', $acf_user);
                                 <div class="inner-container">
                                     <address><h6><b><?= $location['address']; ?></b></h6></address>
 
-                                    <ul class="accordion ipa-accordion-widget" data-accordion data-allow-all-closed="true">
-	                                    <?php if (!empty($description)): ?>
+                                    <ul class="accordion ipa-accordion-widget" data-accordion
+                                        data-allow-all-closed="true">
+										<?php if (!empty($description)): ?>
                                             <li class="accordion-item ipa-accordion-item" data-accordion-item>
-                                                <a href="#" class="accordion-title ipa-accordion-title text-color-black">
-				                                    <?= __('Details', 'ipa'); ?>
+                                                <a href="#"
+                                                   class="accordion-title ipa-accordion-title text-color-black">
+													<?= __('Details', 'ipa'); ?>
                                                 </a>
                                                 <div class="accordion-content ipa-accordion-content" data-tab-content>
                                                     <p><?= apply_filters('the_content', $description); ?></p>
                                                 </div>
                                             </li>
-	                                    <?php endif; ?>
+										<?php endif; ?>
                                         <li class="accordion-item ipa-accordion-item" data-accordion-item>
                                             <a href="#" class="accordion-title ipa-accordion-title text-color-black">
-                                                <?= __('My Work Hours', 'ipa'); ?>
+												<?= __('My Work Hours', 'ipa'); ?>
                                             </a>
 
                                             <div class="accordion-content ipa-accordion-content" data-tab-content>
-	                                            <?php
-	                                            $monday = $hours['monday'];
-	                                            $tuesday = $hours['tuesday'];
-	                                            $wednesday = $hours['wednesday'];
-	                                            $thursday = $hours['thursday'];
-	                                            $friday = $hours['friday'];
-	                                            $saturday = $hours['saturday'];
-	                                            $sunday = $hours['sunday'];
-	                                            ?>
+												<?php
+												$monday = $hours['monday'];
+												$tuesday = $hours['tuesday'];
+												$wednesday = $hours['wednesday'];
+												$thursday = $hours['thursday'];
+												$friday = $hours['friday'];
+												$saturday = $hours['saturday'];
+												$sunday = $hours['sunday'];
+												?>
 
                                                 <table class="stacked">
                                                     <thead>
@@ -242,39 +246,39 @@ $faculty_status = get_field('faculty_status', $acf_user);
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><?= __('Monday', 'ipa'); ?></td>
-                                                        <td><?= $monday['opens']; ?></td>
-                                                        <td><?= $monday['closes']; ?></td>
+                                                        <td><b><?= __('Monday', 'ipa'); ?></b></td>
+                                                        <td><?= $monday['opens'] ?? ""; ?></td>
+                                                        <td><?= $monday['closes'] ?? ""; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><?= __('Tuesday', 'ipa'); ?></td>
-                                                        <td><?= $tuesday['opens']; ?></td>
-                                                        <td><?= $tuesday['closes']; ?></td>
+                                                        <td><b><?= __('Tuesday', 'ipa'); ?></b></td>
+                                                        <td><?= $tuesday['opens'] ?? ""; ?></td>
+                                                        <td><?= $tuesday['closes'] ?? ""; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><?= __('Wednesday', 'ipa'); ?></td>
-                                                        <td><?= $wednesday['opens']; ?></td>
-                                                        <td><?= $wednesday['closes']; ?></td>
+                                                        <td><b><?= __('Wednesday', 'ipa'); ?></b></td>
+                                                        <td><?= $wednesday['opens'] ?? ""; ?></td>
+                                                        <td><?= $wednesday['closes'] ?? ""; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><?= __('Thursday', 'ipa'); ?></td>
-                                                        <td><?= $thursday['opens']; ?></td>
-                                                        <td><?= $thursday['closes']; ?></td>
+                                                        <td><b><?= __('Thursday', 'ipa'); ?></b></td>
+                                                        <td><?= $thursday['opens'] ?? ""; ?></td>
+                                                        <td><?= $thursday['closes'] ?? ""; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><?= __('Friday', 'ipa'); ?></td>
-                                                        <td><?= $friday['opens']; ?></td>
-                                                        <td><?= $friday['closes']; ?></td>
+                                                        <td><b><?= __('Friday', 'ipa'); ?></b></td>
+                                                        <td><?= $friday['opens'] ?? ""; ?></td>
+                                                        <td><?= $friday['closes'] ?? ""; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><?= __('Saturday', 'ipa'); ?></td>
-                                                        <td><?= $saturday['opens']; ?></td>
-                                                        <td><?= $saturday['Closes']; ?></td>
+                                                        <td><b><?= __('Saturday', 'ipa'); ?></b></td>
+                                                        <td><?= $saturday['opens'] ?? ""; ?></td>
+                                                        <td><?= $saturday['Closes'] ?? ""; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><?= __('Sunday', 'ipa'); ?></td>
-                                                        <td><?= $sunday['opens']; ?></td>
-                                                        <td><?= $sunday['Closes']; ?></td>
+                                                        <td><b><?= __('Sunday', 'ipa'); ?></b></td>
+                                                        <td><?= $sunday['opens'] ?? ""; ?></td>
+                                                        <td><?= $sunday['Closes'] ?? ""; ?></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -289,16 +293,16 @@ $faculty_status = get_field('faculty_status', $acf_user);
             </div>
         </section> <!-- end article section -->
 
-	    <?php if ($faculty_status !== 'inactive' && !empty($legacy_ids['entity_id'])) : ?>
-            <footer class="article-footer grid-container">
-                <div class="grid-x grid-padding-x">
-                    <div class="cell">
-                        <h3><b><?= $full_name; ?>'s Upcoming Courses</b></h3>
-					    <?php get_instructor_course_table($legacy_ids['entity_id']); ?>
-                    </div>
+        <footer class="article-footer grid-container">
+            <div class="grid-x grid-padding-x grid-padding-y">
+                <div class="cell">
+                    <h3><b><?= $full_name; ?>'s <?= __("Upcoming Courses", "ipa"); ?></b></h3>
                 </div>
-            </footer> <!-- end article footer -->
-	    <?php endif; ?>
+                <div class="cell">
+				    <?= do_shortcode("[ipa_courses_table presenter='$presenter_id' filters='0' el_class='no-mix']"); ?>
+                </div>
+            </div>
+        </footer> <!-- end article footer -->
 
     </article> <!-- end article -->
 <?php endif; ?>

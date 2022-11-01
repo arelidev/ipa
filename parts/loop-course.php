@@ -6,8 +6,8 @@
 $hero_type       = get_field( 'hero_type' );
 $course_category = get_field( 'course_remote_cat' );
 $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_field( 'course_delivery_method' ) : 1;
+$linked_courses = get_field('course_remote_cat');
 ?>
-
 <article id="post-<?php the_ID(); ?>" <?php post_class( '' ); ?> role="article" itemscope itemtype="http://schema.org/WebPage">
 
 	<?php if ( empty( $hero_type ) || $hero_type == 'default' ) : ?>
@@ -25,7 +25,7 @@ $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_fi
             </div>
         </header> <!-- end article header -->
 	<?php elseif ( $hero_type == 'image' ) : ?>
-        <style type="text/css">
+        <style>
             /* todo: I don't like this here */
             .header {
                 background: #3C5895;
@@ -134,7 +134,10 @@ $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_fi
                 <div id="courses" data-magellan-target="courses">
                     <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses" data-magellan-target="courses">
                         <div class="cell">
-                            <?= do_shortcode( "[ipa_courses_table_alt course_cat='{$course_category}' delivery_method='{$delivery_method}']" ); ?>
+                            <h3><b><?= __("Dates & Locations", "ipa"); ?></b></h3>
+                        </div>
+                        <div class="cell">
+			                <?= do_shortcode("[ipa_courses_table template='$linked_courses' filters='0' el_class='no-mix']"); ?>
                         </div>
                     </div>
 

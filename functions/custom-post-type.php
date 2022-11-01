@@ -12,6 +12,11 @@ in their own file.
 
 */
 
+// Arlo
+require_once(get_template_directory().'/functions/post-types/arlo-events.php');
+require_once(get_template_directory().'/functions/post-types/arlo-presenters.php');
+require_once(get_template_directory().'/functions/post-types/arlo-venues.php');
+
 // Clinics
 require_once(get_template_directory().'/functions/post-types/clinics.php');
 

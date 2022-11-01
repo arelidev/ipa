@@ -222,7 +222,7 @@ jQuery(document).ready(function ($) {
         let icon;
         let zIndex = 1;
 
-        let iconBase = '<?= get_template_directory_uri(); ?>/assets/images/icon-map-';
+        let iconBase = '/wp-content/themes/ipa/assets/images/icon-map-';
         if (type === 'clinic') {
             icon = iconBase + 'clinic-gold.png'
             zIndex = 100;
