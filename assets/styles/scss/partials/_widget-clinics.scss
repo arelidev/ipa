@@ -15,13 +15,14 @@
     transition: all .15s ease-in-out;
     transform: translateY(0);
     cursor: pointer;
+
     &:hover {
       box-shadow: $global-box-shadow-hover;
       transform: translateY(-10px);
     }
 
     &-inner {
-      padding: $global-padding $global-padding 0;
+      padding: $global-padding;
       min-height: 70px;
 
       .fa-star {
@@ -33,7 +34,7 @@
         width: 60px;
         object-fit: cover;
         object-position: center;
-        margin: 0 10px $global-margin auto;
+        margin: auto;
         border-radius: 50%;
         display: block;
       }
@@ -44,18 +45,21 @@
         opacity: .3;
       }
 
-      .accordion-title {}
+      .accordion-title {
+      }
 
-      .accordion-content {}
+      .accordion-content {
+      }
     }
 
-    &-title {}
+    &-title {
+    }
 
     &-subtitle {
       margin-bottom: 0;
     }
 
-    &.fellow {
+    &.fmt-fellow {
       border: 2px solid #0a1f44;
     }
 
@@ -76,6 +80,7 @@
         content: '';
       }
     }
+
     .accordion-content {
       border: none;
     }
@@ -100,7 +105,7 @@
       width: 40%;
       right: 10px;
       top: 10px;
-      box-shadow: 0 4px 8px rgba(10,31,68,.07);
+      box-shadow: 0 4px 8px rgba(10, 31, 68, .07);
       z-index: 1000;
       background: white;
     }

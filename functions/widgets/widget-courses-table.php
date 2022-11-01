@@ -71,7 +71,7 @@ function ipa_courses_table_widget($atts)
 			<?php
 			if ($atts['filters'] !== "0") :
 				get_template_part(
-					'parts/course-table', 'filters',
+					'parts/content-filters', 'courses',
 					array(
 						"courses" => $courses
 					)
