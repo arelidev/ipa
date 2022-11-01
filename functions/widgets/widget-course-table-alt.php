@@ -17,7 +17,7 @@ function ipa_courses_table_alt_widget( $atts ) {
 
 	$category        = $atts['course_cat'];
 	$delivery_method = $atts['delivery_method'];
-	$courses         = get_sorted_courses( $atts['limit'], $category, $delivery_method );
+	$courses         = false;
 	?>
 	<?php if ( ! empty( $courses ) ) : ?>
         <h4 class="course-table-title">
