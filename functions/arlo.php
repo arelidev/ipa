@@ -35,7 +35,7 @@ function get_date_time($timestamp, string $timezone, string $format = 'd.m.Y, H:
 	try {
 		$dt = new DateTimeImmutable($timestamp);
 		$dt->setTimezone(new DateTimeZone($timezone));
-		return $dt->format($format) . $timezone;
+		return $dt->format($format) . " $timezone";
 	} catch (Exception $e) {
 		return $e->getMessage();
 	}
