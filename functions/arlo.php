@@ -47,7 +47,10 @@ function get_date_time($timestamp, string $timezone, string $format = 'd.m.Y, H:
  */
 function presenter_events_where($where)
 {
-	return str_replace("meta_key = 'presenters_$", "meta_key LIKE 'presenters_%", $where);
+	// $replace = str_replace("meta_key = 'presenters_$", "meta_key LIKE 'presenters_%", $where);
+	$replace = str_replace("meta_key = 'categories_$", "meta_key LIKE 'categories_%", $where);
+
+	return $replace;
 }
 
 add_filter('posts_where', 'presenter_events_where');
