@@ -42,13 +42,23 @@ function ipa_courses_table_widget($atts)
 	endif;
 
 	if ($atts['template']) :
-		$args['meta_query'] = array(
-			array(
-				'key' => 'templatecode',
-				'value' => $atts['template'],
-				'compare' => 'LIKE'
-			)
-		);
+		if ($atts['template'] === "Virtual") :
+			$args['meta_query'] = array(
+				array(
+					'key' => 'categories_$_name',
+					'value' => $atts['template'],
+					'compare' => 'LIKE'
+				)
+			);
+		else :
+			$args['meta_query'] = array(
+				array(
+					'key' => 'templatecode',
+					'value' => $atts['template'],
+					'compare' => '='
+				)
+			);
+		endif;
 
 		$active = true;
 	endif;
@@ -64,7 +74,6 @@ function ipa_courses_table_widget($atts)
 	endif;
 
 	ksort($courses);
-
 	?>
     <div class="ipa-courses-table-widget <?= $atts['el_class']; ?>">
 		<?php if ($loop->have_posts()) : ?>
