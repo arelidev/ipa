@@ -43,14 +43,22 @@ function get_date_time($timestamp, string $timezone, string $format = 'd.m.Y, H:
 
 /**
  * @param $where
- * @return array|string|string[]
+ * @return string
  */
-function presenter_events_where($where)
+function presenter_events_where($where): string
 {
-	// $replace = str_replace("meta_key = 'presenters_$", "meta_key LIKE 'presenters_%", $where);
-	$replace = str_replace("meta_key = 'categories_$", "meta_key LIKE 'categories_%", $where);
-
-	return $replace;
+	return str_replace("meta_key = 'presenters_$", "meta_key LIKE 'presenters_%", $where);
 }
 
 add_filter('posts_where', 'presenter_events_where');
+
+/**
+ * @param $where
+ * @return string
+ */
+function categories_events_where($where): string
+{
+	return str_replace("meta_key = 'categories_$", "meta_key LIKE 'categories_%", $where);
+}
+
+add_filter('posts_where', 'categories_events_where');
