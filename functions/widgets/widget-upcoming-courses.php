@@ -10,24 +10,15 @@ function ipa_upcoming_courses_widget()
 		'post_type' => 'ipa_arlo_events',
 		'post_status' => 'publish',
 		'posts_per_page' => -1,
+		'orderby' => 'meta_value',
+		'order' => 'ASC',
+		'meta_key' => 'startdatetime',
 		'meta_query' => array(
-			'relation' => 'AND',
 			array(
 				'key' => 'is_featured',
 				'value' => '1',
-			),
-//			array(
-//				'relation' => 'OR',
-//				array(
-//					'key' => 'isprivate',
-//					'value' => '0',
-//				),
-//				array(
-//					'key' => 'isprivate',
-//					'compare' => 'EXISTS',
-//				),
-//			)
-		)
+			)
+		),
 	);
 
 	$loop = new WP_Query($args);
