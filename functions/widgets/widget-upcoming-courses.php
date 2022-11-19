@@ -7,21 +7,21 @@ function ipa_upcoming_courses_widget()
 	ob_start();
 
 	$args = array(
-		'post_type' => 'ipa_arlo_events',
-		'post_status' => 'publish',
-		'posts_per_page' => -1,
-		'orderby' => 'meta_value',
-		'order' => 'ASC',
-		'meta_key' => 'startdatetime',
-		'meta_query' => array(
+		'post_type'      => 'ipa_arlo_events',
+		'post_status'    => 'publish',
+		'posts_per_page' => - 1,
+		'orderby'        => 'meta_value',
+		'order'          => 'ASC',
+		'meta_key'       => 'startdatetime',
+		'meta_query'     => array(
 			array(
-				'key' => 'is_featured',
+				'key'   => 'is_featured',
 				'value' => '1',
 			)
 		),
 	);
 
-	$loop = new WP_Query($args);
+	$loop = new WP_Query( $args );
 	?>
     <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y"
          data-equalizer="upcoming-courses-title" data-equalize-by-row="true">
