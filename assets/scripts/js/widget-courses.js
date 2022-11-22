@@ -1,38 +1,16 @@
 jQuery(document).ready(function ($) {
     const courseMixerContainer = $(".ipa-courses-table-widget");
-
     const coursesParent = $('.courses-parent');
-    const coursesParentItem = $('.courses-parent .courses-parent-item');
     const coursesParentContent = $('.courses-parent .courses-parent-content');
-
     const coursesChild = $('.courses-child');
-    const coursesChildItem = $('.courses-child .courses-child-item');
-    const coursesChildContent = $('.courses-child .courses-child-content');
-
     const courseFilterSelect = $('.course-select-filter');
-    const courseFilterRegion = $('.course-filter-region');
+    const courseFilterLocation = $('.course-filter-location');
     const courseFilterType = $('.course-filter-type')
-    const courseFilterInstructor = $('#course-filter-instructor')
-    const courseFilterDate = $('#course-filter-date')
-    let startDate, endDate = ' ';
-
-    const begin = new Date();
-    const end = new Date();
-    const ranges = {
-        'This Week': thisWeek(begin),
-        'This Month': thisMonth(begin),
-        'Next 60 Days': [begin, addDays(end, 60)],
-        'Next 90 Days': [begin, addDays(end, 90)],
-    };
 
     if (courseMixerContainer.length && !courseMixerContainer.hasClass("no-mix")) {
         const mixer = mixitup(courseMixerContainer, {
             multifilter: {
-                enable: true // enable the multifilter extension for the mixer
-            },
-            callbacks: {
-                onMixStart: function (state, futureState) {
-                }
+                enable: true,
             }
         });
 
@@ -47,18 +25,31 @@ jQuery(document).ready(function ($) {
 
             coursesParentContent.each(function () {
                 if ($(this).children(coursesChild).height() !== 0) {
-                    console.log("Nothing")
+                    // TODO: hide empty parents
                 }
             })
         });
 
-        $('.expand').on('click', function () {
-            openAll();
-        })
+        courseFilterLocation.on("click", function () {
+            coursesParent.foundation('down', coursesParentContent);
 
-        $('.collapse').on('click', function () {
-            closeAll();
-        })
+            courseFilterLocation.removeClass('active');
+            $(this).addClass('active');
+
+            const value = this.value;
+
+            if (value === 'all' || value === '') {
+                closeAll();
+            }
+
+            mixer.filter(value);
+
+            coursesParentContent.each(function () {
+                if ($(this).children(coursesChild).height() !== 0) {
+                    // TODO: hide empty parents
+                }
+            })
+        });
 
         courseFilterType.on('change', function (event) {
             const loc = "#" + event.target.value;
@@ -80,12 +71,11 @@ jQuery(document).ready(function ($) {
                 "RangePlugin",
             ]
         });
-
-        picker.on('select', (e) => {
+        picker.on('select', () => {
             const DateTime = easepick.DateTime;
 
-            let startDate =  picker.getStartDate();
-            let endDate =  picker.getEndDate();
+            let startDate = picker.getStartDate();
+            let endDate = picker.getEndDate();
 
             const $targets = courseMixerContainer.find('.mix');
 
@@ -100,6 +90,13 @@ jQuery(document).ready(function ($) {
 
             openAll();
         });
+
+        $('.expand').on('click', function () {
+            openAll();
+        })
+        $('.collapse').on('click', function () {
+            closeAll();
+        })
 
         function openAll() {
             coursesParent.foundation('down', coursesParentContent);
@@ -132,7 +129,7 @@ function addDays(date, num) {
     const d = new Date(date);
     d.setDate(d.getDate() + num);
     return d;
-};
+}
 
 /**
  *
@@ -144,7 +141,7 @@ function thisMonth(date) {
     d1.setDate(1);
     const d2 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     return [d1, d2];
-};
+}
 
 /**
  *
