@@ -115,7 +115,7 @@ add_filter('woocommerce_checkout_login_message', 'rename_returning_customer');
 /**
  * @return void
  */
-function xa_custom_surcharge() {
+function rdf_custom_surcharge() {
 	global $woocommerce;
 
 	if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
@@ -131,4 +131,4 @@ function xa_custom_surcharge() {
 	}
 }
 
-add_action('woocommerce_cart_calculate_fees', 'xa_custom_surcharge');
+add_action('woocommerce_cart_calculate_fees', 'rdf_custom_surcharge');
