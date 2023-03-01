@@ -3,7 +3,7 @@ jQuery(document).ready(function ($) {
     const coursesParent = $('.courses-parent');
     const coursesParentContent = $('.courses-parent .courses-parent-content');
     const coursesChild = $('.courses-child');
-    const courseFilterSelect = $('.course-select-filter');
+    const courseFilterSelect = $('.course-filter-state, .course-filter-region, .course-filter-instructor');
     const courseFilterLocation = $('.course-filter-location');
     const courseFilterType = $('.course-filter-type')
 
@@ -17,7 +17,7 @@ jQuery(document).ready(function ($) {
         courseFilterSelect.on("change", function () {
             coursesParent.foundation('down', coursesParentContent);
 
-            if (this.value === 'all' || this.value === '') {
+            if (this.value === 'all') {
                 closeAll();
             }
 
@@ -38,7 +38,7 @@ jQuery(document).ready(function ($) {
 
             const value = this.value;
 
-            if (value === 'all' || value === '') {
+            if (value === 'all') {
                 closeAll();
             }
 

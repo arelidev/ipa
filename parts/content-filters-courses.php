@@ -100,7 +100,7 @@ $presenters = new WP_Query( array(
                 <fieldset class="cell small-12 medium-auto" data-filter-group>
                     <label>
 						<?= __( 'Instructor', 'ipa' ); ?>
-                        <select class="clinics-filter-instructor course-select-filter">
+                        <select class="course-filter-instructor course-select-filter">
                             <option value="">All</option>
 							<?php if ( $presenters->have_posts() ): ?>
 								<?php while ( $presenters->have_posts() ): $presenters->the_post(); ?>
