@@ -94,6 +94,7 @@ $presenters = new WP_Query( array(
                             <option value=".southwest">Southwest</option>
                             <option value=".southeast">Southeast</option>
                             <option value=".west">West</option>
+	                        <option value=".rmt-texas">Rocky Mt./Texas</option>
                         </select>
                     </label>
                 </fieldset>

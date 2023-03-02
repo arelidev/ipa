@@ -9,10 +9,11 @@ function get_region_by_state( $state ) {
 		'midatlantic' => 'PA MD DC VA WV',
 		'midwest'     => 'ND SD NE IA MN WI MI IL IN OH KS MO AR',
 		'northeast'   => 'CT ME MA NH NJ NY PA RI VT DE',
-		'northwest'   => 'MT WY ID OR WA AK',
-		'southwest'   => 'TX AR LA OK NM',
+		'northwest'   => 'MT WY OR WA AK',
+		'southwest'   => 'AR LA OK NM',
 		'southeast'   => 'KY TN NC SC MS GA AL FL',
-		'west'        => 'AZ CA NV HI CO UT',
+		'west'        => 'CA NV HI UT',
+		'rmt-texas'   => 'CO AZ ID TX',
 	);
 
 	foreach ( $regions as $key => $value ) {
