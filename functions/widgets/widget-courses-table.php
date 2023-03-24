@@ -144,8 +144,9 @@ function ipa_courses_table_widget( $atts ) {
 											$eventTitle .= ( $state ) ? ", " . $state : "";
 
 											if ( $state ) :
-												$parentClasses[] = acf_slugify( $state );
-												$parentClasses[] = get_region_by_state( $state );
+												$slugify_state   = acf_slugify( $state );
+												$parentClasses[] = $slugify_state;
+												$parentClasses[] = get_region_by_state( $slugify_state );
 											endif;
 										endif;
 										?>
