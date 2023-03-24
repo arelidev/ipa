@@ -6,25 +6,27 @@
  */
 function get_region_by_state( $state ) {
 	$regions = array(
-		'midatlantic' => 'PA, MD, DC, VA, WV, DISTRICT-OF-COLUMBIA',
-		'midwest'     => 'ND, SD, NE, IA, MN, WI, MI, IL, IN, OH, KS, MO, AR',
-		'northeast'   => 'CT, ME, MA, NH, NJ, NY, PA, RI, VT, DE',
-		'northwest'   => 'MT, WY, OR, WA, AK',
-		'southwest'   => 'AR, LA, OK, NM',
-		'southeast'   => 'KY, TN, NC, SC, MS, GA, AL, FL',
-		'west'        => 'CA, NV, HI, UT',
-		'rmt-texas'   => 'CO, AZ, ID, TX',
+		'midatlantic' => 'PA MD DC VA WV DISTRICT-OF-COLUMBIA',
+		'midwest'     => 'ND SD NE IA MN WI MI IL IN OH KS MO AR',
+		'northeast'   => 'CT ME MA NH NJ NY PA RI VT DE',
+		'northwest'   => 'MT WY OR WA AK',
+		'southwest'   => 'AR LA OK NM',
+		'southeast'   => 'KY TN NC SC MS GA AL FL',
+		'west'        => 'CA NV HI UT',
+		'rmt-texas'   => 'CO AZ ID TX',
 	);
 
-	foreach ( $regions as $key => $value ) {
-		$states = explode( ",", $value );
+	$key = "unknown-region";
 
-		if ( in_array( $state, $states ) ) :
-			return $key;
+	foreach ( $regions as $region => $states ) {
+		$explode = explode( " ", $states );
+
+		if ( in_array( strtoupper( $state ), $explode ) ) :
+			$key = $region;
 		endif;
 	}
 
-	return false;
+	return $key;
 }
 
 /**
