@@ -146,7 +146,11 @@ function ipa_courses_table_widget( $atts ) {
 											if ( $state ) :
 												$slugify_state   = acf_slugify( $state );
 												$parentClasses[] = $slugify_state;
-												$parentClasses[] = get_region_by_state( $slugify_state );
+
+												$states = get_region_by_state( $slugify_state );
+												foreach ( $states as $state ) :
+													$parentClasses[] = $state;
+												endforeach;
 											endif;
 										endif;
 										?>
