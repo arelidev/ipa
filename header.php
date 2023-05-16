@@ -30,6 +30,8 @@
 
 		<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 
+        <script src="https://js.sentry-cdn.com/cc29a7cbf0304ad39c6a70a4217c0a5c.min.js" crossorigin="anonymous"></script>
+
 		<?php wp_head(); ?>
 
 	</head>
