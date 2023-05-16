@@ -170,7 +170,7 @@ function ipa_clinics_widget( $atts ) {
                              data-fellow="<?= ( $fellowship_status === 'fmt-fellow' ) ? 1 : 0; ?>"
                              data-cfmt="<?= ( $cfmt_rankings === 'fmt-fellow' ) ?>"
                         >
-                            <div class="accordion single-clinic-inner" data-accordion data-allow-all-closed="true">
+                            <div class="accordion single-clinic-inner"> <!--data-accordion data-allow-all-closed="true"-->
                                 <div class="accordion-title grid-x grid-padding-x align-middle">
                                     <div class="shrink cell">
 										<?= get_profile_image( $profile_image, 'ipa-faculty-member-image' ); ?>
@@ -195,9 +195,7 @@ function ipa_clinics_widget( $atts ) {
                                                 <!-- <i class="far fa-user-md fa-lg"></i> -->
                                             </div>
                                             <div class="cell auto">
-                                                <p>
-                                                    FMT Fellow
-                                                </p>
+                                                <p>FMT Fellow</p>
                                             </div>
                                         </div>
 									<?php endif; ?>
@@ -210,9 +208,7 @@ function ipa_clinics_widget( $atts ) {
                                                 <!-- <i class="fal fa-award fa-lg"></i> -->
                                             </div>
                                             <div class="cell auto">
-                                                <p>
-                                                    CFMT with Honors
-                                                </p>
+                                                <p>CFMT with Honors</p>
                                             </div>
                                         </div>
 									<?php endif; ?>
@@ -222,9 +218,7 @@ function ipa_clinics_widget( $atts ) {
                                                 <i class="fal fa-medal fa-lg"></i>
                                             </div>
                                             <div class="cell auto">
-                                                <p>
-                                                    CFMT with Distinction
-                                                </p>
+                                                <p>CFMT with Distinction</p>
                                             </div>
                                         </div>
 									<?php endif; ?>
@@ -234,9 +228,7 @@ function ipa_clinics_widget( $atts ) {
                                                 <i class="far fa-user-md fa-lg"></i>
                                             </div>
                                             <div class="cell auto">
-                                                <p>
-                                                    Fellow in Training
-                                                </p>
+                                                <p>Fellow in Training</p>
                                             </div>
                                         </div>
 									<?php endif; ?>
@@ -273,9 +265,7 @@ function ipa_clinics_widget( $atts ) {
                                                 <i class="far fa-map-marker-alt fa-lg"></i>
                                             </div>
                                             <div class="cell auto">
-                                                <p class="single-clinic-address">
-													<?= $address; ?>
-                                                </p>
+                                                <p class="single-clinic-address"><?= $address; ?></p>
                                             </div>
                                         </div>
 									<?php endif; ?>
@@ -292,8 +282,7 @@ function ipa_clinics_widget( $atts ) {
                                         </div>
 									<?php endif; ?>
 
-                                    <a href="<?= home_url(); ?>/profile-member/<?= acf_slugify( $full_name ); ?>"
-                                       class="button small">
+                                    <a href="<?= home_url(); ?>/profile-member/<?= acf_slugify( $full_name ); ?>" class="button small">
 										<?= __( 'View Profile', 'ipa' ); ?>
                                     </a>
                                 </div>
@@ -303,43 +292,47 @@ function ipa_clinics_widget( $atts ) {
                 </div>
             </div>
             <div class="small-12 medium-6 large-6 cell small-order-1 large-order-2 map-container">
-                <div class="grid-x map-overlay-card">
-                    <div class="medium-3 text-center">
-                        <img width="35"
-                             src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-clinic-gold.png"
-                             aria-hidden="false" alt="">
-                        <br>
-                        <span><?= __( 'Clinic', 'ipa' ); ?></span>
-                    </div>
-
-                    <div class="medium-3 text-center">
-                        <img width="35"
-                             src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-fellowship-blue.png"
-                             aria-hidden="false" alt="">
-                        <br>
-                        <span><?= __( 'Fellow', 'ipa' ); ?></span>
-                    </div>
-
-                    <div class="medium-3 text-center">
-                        <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-cfmt-gray.png"
-                             aria-hidden="false" alt="">
-                        <br>
-                        <span><?= __( 'CFMT', 'ipa' ); ?></span>
-                    </div>
-
-                    <div class="medium-3 text-center">
-                        <img width="35"
-                             src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-multi-white.png"
-                             aria-hidden="false" alt="">
-                        <br>
-                        <span><?= __( 'Multi', 'ipa' ); ?></span>
+                <div class="map-overlay-card">
+                    <div class="grid-x grid-padding-x grid-padding-y">
+                        <div class="shrink cell text-center">
+                            <img width="35"
+                                 src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-clinic-gold.png"
+                                 aria-hidden="false" alt="">
+                            <br>
+                            <span><?= __( 'Clinic', 'ipa' ); ?></span>
+                        </div>
+                        <div class="shrink cell text-center">
+                            <img width="35"
+                                 src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-fellowship-blue.png"
+                                 aria-hidden="false" alt="">
+                            <br>
+                            <span><?= __( 'Fellow', 'ipa' ); ?></span>
+                        </div>
+                        <div class="shrink cell text-center">
+                            <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-cfmt-gray.png"
+                                 aria-hidden="false" alt="">
+                            <br>
+                            <span><?= __( 'CFMT', 'ipa' ); ?></span>
+                        </div>
+                        <div class="shrink cell text-center hidden">
+                            <img width="35"
+                                 src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-member.png"
+                                 aria-hidden="false" alt="">
+                            <br>
+                            <span><?= __( 'Recertified', 'ipa' ); ?></span>
+                        </div>
+                        <div class="shrink cell text-center">
+                            <img width="35"
+                                 src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-multi-white.png"
+                                 aria-hidden="false" alt="">
+                            <br>
+                            <span><?= __( 'Multi', 'ipa' ); ?></span>
+                        </div>
                     </div>
                 </div>
-
                 <div class="acf-map"></div>
             </div>
         </div>
-
     </div>
 	<?php
 	return ob_get_clean();
