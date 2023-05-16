@@ -8,11 +8,11 @@ function ipa_faculty_widget() {
 	ob_start();
 
 	$args = array(
-		'role' => 'profile_member',
+		'role'       => 'profile_member',
 		'meta_query' => array(
 			array(
-				'key' => 'display_on_faculty',
-				'value' => '1',
+				'key'     => 'display_on_faculty',
+				'value'   => '1',
 				'compare' => '=='
 			)
 		)
@@ -116,70 +116,76 @@ function ipa_faculty_widget() {
                 <button type="button" data-filter="all" class="mixitup-control">All</button>
                 <button type="button" data-filter=".primary-faculty" class="mixitup-control"><?= __( 'Primary Instructor', 'ipa' ); ?></button>
                 <button type="button" data-filter=".associate-faculty" class="mixitup-control"><?= __( 'Associate Instructor', 'ipa' ); ?></button>
+                <button type="button" data-filter=".founders" class="mixitup-control"><?= __( 'Founding Directors', 'ipa' ); ?></button>
             </div>
         </div>
 
         <div class="ipa-faculty-widget grid-container" id="ipa-faculty-widget">
             <div class="grid-x grid-padding-x grid-padding-y grid-margin-x grid-margin-y">
-				<?php foreach ( $users as $user ) : ?>
-                    <?php
-					$usermeta = array_map(function ($a) {
-						return $a[0];
-					}, get_user_meta($user->ID));
+	            <?php foreach ( $users as $user ) : ?>
+		            <?php
+		            $usermeta = array_map( function ( $a ) {
+			            return $a[0];
+		            }, get_user_meta( $user->ID ) );
 
-					$full_name = $usermeta['first_name'] . " " . $usermeta['last_name'];
+		            $full_name = $usermeta['first_name'] . " " . $usermeta['last_name'];
 
-					// ACF Fields
-					$acf_user = 'user_' . $user->ID;
+		            // ACF Fields
+		            $acf_user = 'user_' . $user->ID;
 
-					$bio = get_field('bio', $acf_user);
-					$profile_image = get_field('profile_image', $acf_user);
+		            $bio           = get_field( 'bio', $acf_user );
+		            $profile_image = get_field( 'profile_image', $acf_user );
 
-					$credentials = get_field('credentials', $acf_user);
-                    $faculty_status = get_field('faculty_status', $acf_user);
+		            $credentials    = get_field( 'credentials', $acf_user );
+		            $faculty_status = get_field( 'faculty_status', $acf_user );
 
-                    $city = "";
-					$state = "";
-                    $state_short = "";
-					if (have_rows('offices', $acf_user)) :
-						while (have_rows('offices', $acf_user)) : the_row();
-							$location = get_sub_field('address');
-							$city = $location['city'];
-							$state = $location['state'];
-							$state_short = $location['state_short'];
-						endwhile;
-					endif;
+		            $city        = "";
+		            $state       = "";
+		            $state_short = "";
+		            if ( have_rows( 'offices', $acf_user ) ) :
+			            while ( have_rows( 'offices', $acf_user ) ) : the_row();
+				            $location    = get_sub_field( 'address' );
+				            $city        = $location['city'];
+				            $state       = $location['state'];
+				            $state_short = $location['state_short'];
+			            endwhile;
+		            endif;
 
-					$faculty_classes = array(
-						'ipa-faculty-member',
-						'small-12',
-						'medium-4',
-						'large-3',
-						'cell',
-						'text-center',
-						'styled-container',
-						'mix',
-						$state_short,
-						acf_slugify($faculty_status),
-                        acf_slugify( $full_name )
-					);
-					?>
-                    <div class="<?= implode( " ", $faculty_classes ) ?>"
-                         data-title="<?= acf_slugify( $full_name ); ?>"
-                        <?= $faculty_status === "Not Faculty" || $faculty_status === "inactive" ? 'style="display: none"' : '' ?>
+		            $faculty_classes = array(
+			            'ipa-faculty-member',
+			            'small-12',
+			            'medium-4',
+			            'large-3',
+			            'cell',
+			            'text-center',
+			            'styled-container',
+			            'mix',
+			            $state_short,
+			            acf_slugify( $faculty_status ),
+			            acf_slugify( $full_name )
+		            );
+
+		            // Greg & Vicky Johnson's user ID
+		            // TODO: make this more dynamic
+		            if ( $user->id === 8 || $user->id === 108 ) :
+			            $faculty_classes[] = 'founders';
+		            endif;
+		            ?>
+                    <div class="<?= implode( " ", $faculty_classes ) ?>" data-title="<?= acf_slugify( $full_name ); ?>"
+			            <?= $faculty_status === "Not Faculty" || $faculty_status === "inactive" ? 'style="display: none"' : '' ?>
                     >
                         <div class="ipa-faulty-member-info">
-                            <?= get_profile_image($profile_image, 'ipa-faculty-member-image'); ?>
+				            <?= get_profile_image( $profile_image, 'ipa-faculty-member-image' ); ?>
 
                             <h5 class="ipa-faulty-member-name"><b><?= $full_name; ?></b></h5>
 
-	                        <?php if (!empty($credentials)) : ?>
+				            <?php if ( ! empty( $credentials ) ) : ?>
                                 <p class="ipa-faulty-member-credentials text-color-medium-gray"><?= $credentials; ?></p>
-	                        <?php endif; ?>
+				            <?php endif; ?>
 
-	                        <?php if (!empty($city)) : ?>
+				            <?php if ( ! empty( $city ) ) : ?>
                                 <p class="ipa-faulty-member-city"><?= $city . ", " . $state; ?></p>
-	                        <?php endif; ?>
+				            <?php endif; ?>
                         </div>
                         <div class="ipa-faculty-member-bio text-center flex-container flex-dir-column align-center-middle">
                             <h5 class="ipa-faulty-member-name text-color-white"><b><?= $full_name; ?></b></h5>
@@ -187,11 +193,11 @@ function ipa_faculty_widget() {
                                 <small><?= wp_trim_words( $bio, 20 ); ?></small>
                             </p>
                             <a href="<?= home_url(); ?>/profile-member/<?= acf_slugify( $full_name ); ?>" class="button hollow white">
-                                <?= __('View Profile', 'ipa'); ?>
+					            <?= __( 'View Profile', 'ipa' ); ?>
                             </a>
                         </div>
                     </div>
-				<?php endforeach; ?>
+	            <?php endforeach; ?>
             </div>
         </div>
 
