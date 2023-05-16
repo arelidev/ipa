@@ -3,12 +3,19 @@ jQuery(document).ready(function ($) {
     let init;
     let prevInfoWindow;
 
+    const acfMap = $('.acf-map');
+
+    /**
+     * Initiate the map
+     * @param $el
+     * @return {*}
+     */
     function initMap($el) {
 
         // Find marker elements within map.
         let $markers = $('.single-clinic:visible');
 
-        // Create gerenic map.
+        // Create generic map.
         let mapArgs = {
             zoom: $el.data('zoom') || 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -42,6 +49,11 @@ jQuery(document).ready(function ($) {
         return map;
     }
 
+    /**
+     * Add map markers
+     * @param $marker
+     * @param map
+     */
     function initMarker($marker, map) {
         // Get position from marker.
         let address = $marker.data('address')
@@ -200,6 +212,10 @@ jQuery(document).ready(function ($) {
         }
     }
 
+    /**
+     * Center the map
+     * @param map
+     */
     function centerMap(map) {
         // Create map boundaries from all map markers.
         let bounds = new google.maps.LatLngBounds();
@@ -220,9 +236,13 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    $('.acf-map').each(function () {
+    acfMap.each(function () {
         let map = initMap($(this));
     });
+
+    // if (acfMap.length) {
+    //     bindMapEvent()
+    // }
 
     init = initMap
 
@@ -252,19 +272,15 @@ jQuery(document).ready(function ($) {
     let $matching = $();
     let entities = [];
 
-    const acfMap = $('.acf-map');
-
     // Filter Bindings
     filterSelect.on('change', function () {
         zipFilter.val('')
         filterMix()
     });
-
     stateFilter.on('change', function () {
         zipFilter.val('')
         filterMix()
     });
-
     zipFilter.keyup(function () {
         clearFilters()
         delay( function() {
@@ -280,36 +296,31 @@ jQuery(document).ready(function ($) {
             });
         }, 300)
     });
-
     certFilter.on('change', function () {
         zipFilter.val('')
         filterMix()
     });
-
     instructorFilter.keyup(function () {
         delay( function() {
             zipFilter.val('')
             filterMix()
         }, 300)
     });
-
     clearButton.on('click', function() {
         clearFilters()
         zipFilter.val('')
         filterMix()
     })
 
+    // Clear all filters
     function clearFilters() {
         filterSelect.val('')
         stateFilter.val('all')
         instructorFilter.val('')
     }
 
-    if (acfMap.length) {
-        bindMapEvent()
-    }
-
-    function reinitMap() {
+    // Re-initialize the map
+    function reInitMap() {
         init(acfMap)
         bindMapEvent()
     }
@@ -318,7 +329,10 @@ jQuery(document).ready(function ($) {
         $(this).find('.accordion').foundation('toggle', $(this).find('.accordion-content'))
     })
 
-    // Filter function
+    /**
+     * Filter function
+     * @param map
+     */
     function filterMix( map = false ) {
 
         // Delay function invoked to make sure user stopped typing
@@ -368,13 +382,14 @@ jQuery(document).ready(function ($) {
 
             if (!map) {
                 delay( function() {
-                    reinitMap()
+                    reInitMap()
                 }, 1000)
             }
 
         }, 200);
     }
 
+    // Bind map events to mix cards
     function bindMapEvent() {
         if ( typeof google !== 'undefined') {
             google.maps.event.addListener(map, 'bounds_changed', function() {
