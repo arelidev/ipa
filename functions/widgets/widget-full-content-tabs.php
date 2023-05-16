@@ -24,13 +24,13 @@ function widget_full_content_tabs( $atts, $content ) {
 
         </div>
 
-	</div>
-	<script>
-		// Append Tabs before plugin initialization
-		jQuery('.widget-full-content-tab-container').each(function () {
+    </div>
+    <script>
+        // Append Tabs before plugin initialization
+        jQuery('.widget-full-content-tab-container').each(function () {
             jQuery('#widget-full-content-tabs').append(jQuery(this).find(jQuery(".ipa-single-card-widget")));
         });
-	</script>
+    </script>
 	<?php
 
 	return ob_get_clean();
@@ -49,22 +49,33 @@ function widget_full_content_tab( $atts, $content ) {
 		'title'       => '',
 		'icon'        => '',
 		'description' => '',
-		'is_active'   => false
+		'is_active'   => false,
+		'columns'     => 'three'
 	), $atts );
 
 	$title     = vc_slugify( $atts['title'] );
 	$is_active = ( $atts['is_active'] ) ? "is-active" : "";
+
+	$classes = [];
+
+	switch ( $atts['columns'] ) {
+		case 'four':
+			$classes[] = "small-12 medium-3 large-3";
+			break;
+		default:
+			$classes[] = "small-12 medium-4 large-4";
+	}
 	?>
     <div class="widget-full-content-tab-container tabs-panel grid-container <?= $is_active; ?>" id="<?= $title; ?>">
 
-        <li class="tabs-title ipa-single-card-widget small-12 medium-4 cell <?= $is_active; ?>">
+        <li class="tabs-title ipa-single-card-widget cell <?= implode( " ", $classes ); ?> <?= $is_active; ?>">
             <a href="#<?= $title; ?>" aria-selected="true">
                 <span class="ipa-single-card-widget-inner">
 					<?php if ( ! empty( $atts['icon'] ) ) : ?>
 						<?= wp_get_attachment_image( $atts['icon'], 'full', true, array( 'class' => 'ipa-single-card-widget-icon' ) ); ?>
 					<?php endif; ?>
 
-                    <h3 class="ipa-single-card-widget-title"><?= $atts['title']; ?></h3>
+                    <h4 class="ipa-single-card-widget-title"><?= $atts['title']; ?></h4>
 
 					<?php if ( ! empty( $description = $atts['description'] ) ) : ?>
                         <h5 class="text-color-dark-gray"><?= $description; ?></h5>
@@ -75,7 +86,7 @@ function widget_full_content_tab( $atts, $content ) {
 
 		<?= do_shortcode( $content ); ?>
 
-	</div>
+    </div>
 
 	<?php
 }
@@ -120,18 +131,18 @@ function full_content_tabs_integrateWithVC() {
 					"value"      => __( "", "ipa" ),
 				),
 				array(
-					"type"        => "textarea",
-					"class"       => "",
-					"heading"     => __( "Description", "ipa" ),
-					"param_name"  => "description",
-					"value"       => __( "", "ipa" ),
+					"type"       => "textarea",
+					"class"      => "",
+					"heading"    => __( "Description", "ipa" ),
+					"param_name" => "description",
+					"value"      => __( "", "ipa" ),
 				),
 				array(
-					"type"        => "attach_image",
-					"class"       => "",
-					"heading"     => __( "Icon", "ipa" ),
-					"param_name"  => "icon",
-					"value"       => '',
+					"type"       => "attach_image",
+					"class"      => "",
+					"heading"    => __( "Icon", "ipa" ),
+					"param_name" => "icon",
+					"value"      => '',
 				),
 				array(
 					"type"        => "checkbox",
@@ -142,9 +153,19 @@ function full_content_tabs_integrateWithVC() {
 					"description" => __( "Check for only the first tab.", "ipa" )
 				),
 				array(
-					"type"        => "textfield",
-					"heading"     => __( "Extra class name", "ipa" ),
-					"param_name"  => "el_class",
+					'type'        => 'dropdown',
+					'heading'     => __( 'Column Size', "ipa" ),
+					'param_name'  => 'columns',
+					'value'       => array(
+						__( 'Three', "ipa" ) => 'three',
+						__( 'Four', "ipa" )    => 'four',
+					),
+					"description" => __( "", "ipa" )
+				),
+				array(
+					"type"       => "textfield",
+					"heading"    => __( "Extra class name", "ipa" ),
+					"param_name" => "el_class",
 				)
 			),
 			"js_view"                 => 'VcColumnView'
