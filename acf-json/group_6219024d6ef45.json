@@ -85,7 +85,7 @@
             "name": "profile_image",
             "aria-label": "",
             "type": "image",
-            "instructions": "Headshots are best with a clean background, in a square format, and your face close to centered in the frame so the top of your head is not cut off in the circular display for the website. Images will automatically be cropped and centered.",
+            "instructions": "Headshots are best with a clean background, in a square format, and your face close to centered in the frame, so the top of your head is not cut off in the circular display for the website. Images will automatically be cropped and centered. If your image is more than 8 MB, please use https:\/\/imagecompressor.com\/.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -94,7 +94,6 @@
                 "id": ""
             },
             "return_format": "id",
-            "preview_size": "medium",
             "library": "uploadedTo",
             "min_width": "",
             "min_height": "",
@@ -102,7 +101,8 @@
             "max_width": "",
             "max_height": "",
             "max_size": 2,
-            "mime_types": "png, jpg, jpeg"
+            "mime_types": "png, jpg, jpeg",
+            "preview_size": "medium"
         },
         {
             "key": "field_62190346f2697",
@@ -336,6 +336,7 @@
             "max": 0,
             "layout": "row",
             "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_62a26bdc1982a",
@@ -393,6 +394,7 @@
                         "id": ""
                     },
                     "layout": "block",
+                    "parent_repeater": "field_62a26b4319829",
                     "sub_fields": [
                         {
                             "key": "field_62a26cdccbb7b",
@@ -758,11 +760,9 @@
                                 }
                             ]
                         }
-                    ],
-                    "parent_repeater": "field_62a26b4319829"
+                    ]
                 }
-            ],
-            "rows_per_page": 20
+            ]
         },
         {
             "key": "field_62a2686a8eb39",
@@ -807,6 +807,34 @@
             "ui": 1,
             "ajax": 0,
             "return_format": "label",
+            "placeholder": ""
+        },
+        {
+            "key": "field_6463e215451e7",
+            "label": "CAFMT Rankings",
+            "name": "cafmt_rankings",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "None",
+                "cafmt": "CAFMT",
+                "cafmt-with-honors": "CAFMT with Honors",
+                "cafmt-with-distinction": "CAFMT with Distinction"
+            },
+            "default_value": false,
+            "return_format": "label",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
             "placeholder": ""
         },
         {
@@ -900,6 +928,7 @@
             "max": 0,
             "layout": "table",
             "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_62dfe4907a4f7",
@@ -956,8 +985,7 @@
                     "placeholder": "",
                     "parent_repeater": "field_62a26de2cfdf3"
                 }
-            ],
-            "rows_per_page": 20
+            ]
         },
         {
             "key": "field_62a267fb8eb37",
@@ -1273,5 +1301,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1666985903
+    "modified": 1684267579
 }
