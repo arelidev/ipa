@@ -240,9 +240,9 @@ jQuery(document).ready(function ($) {
         let map = initMap($(this));
     });
 
-    // if (acfMap.length) {
-    //     bindMapEvent()
-    // }
+    if (acfMap.length) {
+        bindMapEvent()
+    }
 
     init = initMap
 
