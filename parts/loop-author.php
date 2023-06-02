@@ -23,6 +23,7 @@ $social              = get_field( 'social_profiles', $acf_user );
 $credentials         = get_field( 'credentials', $acf_user );
 $fellowship          = get_field( 'fellowship_status', $acf_user );
 $cfmt                = get_field( 'cfmt_rankings', $acf_user );
+$cafmt                = get_field( 'cafmt_rankings', $acf_user );
 $faculty_status      = get_field( 'faculty_status', $acf_user );
 $presenter_id        = get_field( 'arlo_presenter_profile', $acf_user ) ?? "NO-RESULTS";
 ?>
