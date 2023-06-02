@@ -120,10 +120,11 @@ function ipa_clinics_widget( $atts ) {
 						// ACF Fields
 						$acf_user = 'user_' . $user->ID;
 
-						$profile_image    = get_field( 'profile_image', $acf_user );
-						$work_information = get_field( 'work_information', $acf_user );
+						$profile_image     = get_field( 'profile_image', $acf_user );
+						$work_information  = get_field( 'work_information', $acf_user );
 						$credentials       = get_field( 'credentials', $acf_user );
 						$cfmt_rankings     = get_field( 'cfmt_rankings', $acf_user );
+						$cafmt_rankings     = get_field( 'cafmt_rankings', $acf_user );
 						$fellowship_status = get_field( 'fellowship_status', $acf_user );
 						$faculty_status    = get_field( 'faculty_status', $acf_user );
 
@@ -150,6 +151,7 @@ function ipa_clinics_widget( $atts ) {
 							'styled-container',
 							'mix',
 							acf_slugify( $cfmt_rankings ),
+							acf_slugify( $cafmt_rankings ),
 							acf_slugify( $fellowship_status ),
 							acf_slugify( $faculty_status ),
 							acf_slugify( $full_name )
@@ -168,6 +170,7 @@ function ipa_clinics_widget( $atts ) {
                              data-certification="<?= $credentials; ?>"
                              data-fellow="<?= ( $fellowship_status === 'fmt-fellow' ) ? 1 : 0; ?>"
                              data-cfmt="<?= ( $cfmt_rankings === 'fmt-fellow' ) ?>"
+                             data-cafmt="<?= ( $cafmt_rankings === 'fmt-fellow' ) ?>"
                         >
                             <div class="accordion single-clinic-inner"> <!--data-accordion data-allow-all-closed="true"-->
                                 <div class="accordion-title grid-x grid-padding-x align-middle">
@@ -222,7 +225,7 @@ function ipa_clinics_widget( $atts ) {
                                  src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-member.png"
                                  aria-hidden="false" alt="">
                             <br>
-                            <span><?= __( 'Recertified', 'ipa' ); ?></span>
+                            <span><?= __( 'CAFMT', 'ipa' ); ?></span>
                         </div>
                         <div class="shrink cell text-center">
                             <img width="35"
