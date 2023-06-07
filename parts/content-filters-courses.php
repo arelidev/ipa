@@ -125,6 +125,7 @@ $presenters = new WP_Query( array(
                     <fieldset data-filter-group>
                         <button type="button" class="course-filter-location active" value="all">All</button>
                         <button type="button" class="course-filter-location" value=".in-person">In-Person</button>
+                        <button type="button" class="course-filter-location" value=".on-demand">On-Demand</button>
                         <button type="button" class="course-filter-location" value=".virtual">Virtual</button>
                     </fieldset>
                 </div>
