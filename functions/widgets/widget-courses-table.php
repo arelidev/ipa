@@ -42,7 +42,7 @@ function ipa_courses_table_widget( $atts ) {
 	endif;
 
 	if ( $atts['template'] ) :
-		if ( $atts['template'] === "Virtual" ) :
+		if ( $atts['template'] === "Virtual" || $atts["template"] === "On-demand" ) :
 			$args['meta_query'] = array(
 				array(
 					'key'     => 'categories_$_name',
@@ -50,6 +50,8 @@ function ipa_courses_table_widget( $atts ) {
 					'compare' => 'LIKE'
 				)
 			);
+
+			$atts["single"] = false;
 		else :
 			$args['meta_query'] = array(
 				array(
@@ -128,7 +130,13 @@ function ipa_courses_table_widget( $atts ) {
 								$startDate  = get_field( 'startdatetime', $id );
 								$categories = get_field( 'categories', $id );
 
-								$parentClasses[] = is_virtual( $categories ) ? "virtual" : "in-person";
+								if ( is_virtual( $categories ) ) :
+									$parentClasses[] = "virtual";
+                                elseif ( is_on_demand( $categories ) ) :
+									$parentClasses[] = "on-demand";
+								else :
+									$parentClasses[] = "in-person";
+								endif;
 
 								if ( $sessions ) :
 									$first    = $sessions[0]["location"];
@@ -153,7 +161,8 @@ function ipa_courses_table_widget( $atts ) {
 									endif;
 								endif;
 								?>
-                                <li class="<?= implode( " ", $parentClasses ); ?>" id="<?= $eventId; ?>" data-accordion-item data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>">
+                                <li class="<?= implode( " ", $parentClasses ); ?>" id="<?= $eventId; ?>"
+                                    data-accordion-item data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>">
                                     <a href="#" class="accordion-title ipa-accordion-title text-color-black">
                                         <div class="grid-x align-middle" style="padding-right: 50px;">
                                             <div class="auto cell">

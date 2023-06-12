@@ -75,14 +75,33 @@ add_filter( 'posts_where', 'categories_events_where' );
  * @return bool
  */
 function is_virtual( $categories ): bool {
-	$is_virtual = false;
+	return check_category( "Virtual", $categories );
+}
+
+/**
+ * @param $categories
+ *
+ * @return bool
+ */
+function is_on_demand( $categories ): bool {
+	return check_category( "On-demand", $categories );
+}
+
+/**
+ * @param $name
+ * @param $categories
+ *
+ * @return bool
+ */
+function check_category( $name, $categories ): bool {
+	$check = false;
 
 	foreach ( $categories as $category ) :
-		if ( $category['name'] == "Virtual" ) :
-			$is_virtual = true;
+		if ( $category['name'] == $name ) :
+			$check = true;
 			break;
 		endif;
 	endforeach;
 
-	return $is_virtual;
+	return $check;
 }

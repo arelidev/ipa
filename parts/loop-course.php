@@ -6,7 +6,7 @@
 $hero_type       = get_field( 'hero_type' );
 $course_category = get_field( 'course_remote_cat' );
 $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_field( 'course_delivery_method' ) : 1;
-$linked_courses = get_field('course_remote_cat');
+$linked_courses  = get_field( 'course_remote_cat' );
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( '' ); ?> role="article" itemscope itemtype="http://schema.org/WebPage">
 
@@ -67,13 +67,13 @@ $linked_courses = get_field('course_remote_cat');
 							<?php endif; ?>
                             <li>
                                 <a href="#courses">
-	                                <?php
-	                                if ( $delivery_method == 2 ) :
-		                                _e( 'Virtual Course Dates', 'ipa' );
-	                                else :
-		                                _e( 'Locations & Dates', 'ipa' );
-	                                endif;
-	                                ?>
+									<?php
+									if ( $delivery_method == 2 ) :
+										_e( 'Virtual Course Dates', 'ipa' );
+									else :
+										_e( 'Locations & Dates', 'ipa' );
+									endif;
+									?>
                                 </a>
                             </li>
                         </ul>
@@ -137,7 +137,7 @@ $linked_courses = get_field('course_remote_cat');
                             <h3><b><?= __("Dates & Locations", "ipa"); ?></b></h3>
                         </div>
                         <div class="cell">
-			                <?= do_shortcode("[ipa_courses_table template='$linked_courses' single='1' filters='0' el_class='no-mix']"); ?>
+							<?= do_shortcode("[ipa_courses_table template='$linked_courses' single='1' filters='0' el_class='no-mix']"); ?>
                         </div>
                     </div>
 
