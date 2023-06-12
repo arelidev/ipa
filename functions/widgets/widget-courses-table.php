@@ -50,6 +50,8 @@ function ipa_courses_table_widget( $atts ) {
 					'compare' => 'LIKE'
 				)
 			);
+
+			$atts["single"] = false;
 		else :
 			$args['meta_query'] = array(
 				array(
