@@ -124,7 +124,7 @@ function rdf_custom_surcharge() {
 
 	$state = array( 'CO' );
 
-	$surcharge = .27;
+	$surcharge = .28;
 
 	if ( in_array( WC()->customer->get_shipping_state(), $state ) ) {
 		$woocommerce->cart->add_fee( 'Colorado Retail Delivery Fee (RDF)', $surcharge );
