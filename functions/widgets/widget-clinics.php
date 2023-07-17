@@ -124,7 +124,7 @@ function ipa_clinics_widget( $atts ) {
 						$work_information  = get_field( 'work_information', $acf_user );
 						$credentials       = get_field( 'credentials', $acf_user );
 						$cfmt_rankings     = get_field( 'cfmt_rankings', $acf_user );
-						$cafmt_rankings     = get_field( 'cafmt_rankings', $acf_user );
+						$cafmt_rankings    = get_field( 'cafmt_rankings', $acf_user );
 						$fellowship_status = get_field( 'fellowship_status', $acf_user );
 						$faculty_status    = get_field( 'faculty_status', $acf_user );
 
@@ -172,7 +172,7 @@ function ipa_clinics_widget( $atts ) {
                              data-cfmt="<?= ( $cfmt_rankings === 'fmt-fellow' ) ?>"
                              data-cafmt="<?= ( $cafmt_rankings === 'fmt-fellow' ) ?>"
                         >
-                            <div class="accordion single-clinic-inner"> <!--data-accordion data-allow-all-closed="true"-->
+                            <div class="accordion single-clinic-inner" data-accordion data-allow-all-closed="true">
                                 <div class="accordion-title grid-x grid-padding-x align-middle">
                                     <div class="shrink cell">
 										<?= get_profile_image( $profile_image, 'ipa-faculty-member-image' ); ?>
@@ -188,6 +188,101 @@ function ipa_clinics_widget( $atts ) {
                                     </div>
                                 </div>
                                 <div class="accordion-content">
+	                                <?php if ( $clinic['FAAOMPT'] ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg"
+                                                     class="ipa-single-card-widget-icon" alt="" loading="lazy"
+                                                     width="22px">
+                                                <!-- <i class="far fa-user-md fa-lg"></i> -->
+                                            </div>
+                                            <div class="cell auto">
+                                                <p>FMT Fellow</p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
+	                                <?php if ( $clinic['cfmt_honors'] ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg"
+                                                     class="ipa-single-card-widget-icon" alt="" loading="lazy"
+                                                     width="22px">
+                                                <!-- <i class="fal fa-award fa-lg"></i> -->
+                                            </div>
+                                            <div class="cell auto">
+                                                <p>CFMT with Honors</p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
+	                                <?php if ( $clinic['cfmt_distinction'] ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="fal fa-medal fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p>CFMT with Distinction</p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
+	                                <?php if ( $clinic['current_fellow'] ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-user-md fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p>Fellow in Training</p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
+
+                                    <p><b><?= $work_information['business_name']; ?></b></p>
+
+	                                <?php if ( ! empty( $work_information['work_email'] ) ) : $email = $work_information['work_email']; ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-envelope fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-phone">
+                                                    <a href="mailto:<?= $email; ?>"><?= $email; ?></a>
+                                                </p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
+	                                <?php if ( ! empty( $work_information['work_telephone'] ) ) : $phone = $work_information['work_telephone']; ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-phone fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-phone">
+                                                    <a href="tel:<?= $phone; ?>"><?= $phone; ?></a>
+                                                </p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
+	                                <?php if ( ! empty( $address['address'] ) ) : $address = $address['address']; ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-map-marker-alt fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-address"><?= $address; ?></p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
+	                                <?php if ( ! empty( $work_information['work_website'] ) ) : $website = $work_information['work_website']; ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="far fa-external-link-alt fa-lg"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p class="single-clinic-website">
+                                                    <a href="<?= $website; ?>" target="_blank"><?= $website; ?></a>
+                                                </p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
                                     <a href="<?= home_url(); ?>/profile-member/<?= acf_slugify( $full_name ); ?>" class="button small">
 										<?= __( 'View Profile', 'ipa' ); ?>
                                     </a>
@@ -215,7 +310,8 @@ function ipa_clinics_widget( $atts ) {
                             <span><?= __( 'Fellow', 'ipa' ); ?></span>
                         </div>
                         <div class="shrink cell text-center">
-                            <img width="35" src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-cfmt-gray.png"
+                            <img width="35"
+                                 src="<?= get_template_directory_uri(); ?>/assets/images/icon-map-cfmt-gray.png"
                                  aria-hidden="false" alt="">
                             <br>
                             <span><?= __( 'CFMT', 'ipa' ); ?></span>
