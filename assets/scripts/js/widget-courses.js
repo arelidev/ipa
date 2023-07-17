@@ -116,6 +116,12 @@ jQuery(document).ready(function ($) {
 
             closeAll();
         }
+
+				$('.ipa-accordion-title').on('click', function (e) {
+					e.preventDefault();
+					$(this).parent().toggleClass('is-active');
+					$(this).next().toggle().toggleClass('is-open');
+				}); 
     }
 });
 
