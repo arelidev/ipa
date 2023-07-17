@@ -90,16 +90,16 @@ function ipa_courses_table_widget( $atts ) {
 			endif;
 			?>
             <div class="ipa-courses-table-widget-cell">
-				<?php if ( ! $atts["single"] ) : ?><ul class="accordion ipa-accordion-widget courses-parent"><?php endif; ?>
+				<?php if ( ! $atts["single"] ) : ?><ul class="accordion ipa-accordion-widget courses-parent" data-accordion data-allow-all-closed="true"><?php endif; ?>
 					<?php foreach ( $courses as $title => $ids ) : ?>
 						<?php if ( ! $atts["single"] ) : ?>
-                        <li class="accordion-item ipa-accordion-item courses-parent-item <?= $active ? 'is-active' : ""; ?>" id="course-<?= acf_slugify( $title ); ?>">
+                        <li class="accordion-item ipa-accordion-item courses-parent-item <?= $active ? 'is-active' : ""; ?>" data-accordion-item id="course-<?= acf_slugify( $title ); ?>">
                         <a href="#<?= acf_slugify( $title ); ?>" class="accordion-title ipa-accordion-title text-color-black">
                             <b><?= $title; ?></b>
                         </a>
-                        <div class="accordion-content ipa-accordion-content courses-parent-content" id="<?= acf_slugify( $title ); ?>">
+                        <div class="accordion-content ipa-accordion-content courses-parent-content" data-tab-content id="<?= acf_slugify( $title ); ?>">
 						<?php endif; ?>
-                        <ul class="accordion ipa-accordion-widget courses-child">
+                        <ul class="accordion ipa-accordion-widget courses-child" data-accordion data-allow-all-closed="true">
 							<?php
 							foreach ( $ids as $id ) :
 								$eventId = get_field( 'eventid', $id );
@@ -162,7 +162,7 @@ function ipa_courses_table_widget( $atts ) {
 								endif;
 								?>
                                 <li class="<?= implode( " ", $parentClasses ); ?>" id="<?= $eventId; ?>"
-                                     data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>">
+                                    data-accordion-item data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>">
                                     <a href="#" class="accordion-title ipa-accordion-title text-color-black">
                                         <div class="grid-x align-middle" style="padding-right: 50px;">
                                             <div class="auto cell">
@@ -198,7 +198,8 @@ function ipa_courses_table_widget( $atts ) {
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="accordion-content ipa-accordion-content courses-child-content" id="<?= $eventId; ?>">
+                                    <div class="accordion-content ipa-accordion-content courses-child-content"
+                                         data-tab-content id="<?= $eventId; ?>">
 										<?php
 										if ( have_rows( 'sessions', $id ) ) :
 											get_template_part(
