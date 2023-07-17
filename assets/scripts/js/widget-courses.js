@@ -31,7 +31,6 @@ jQuery(document).ready(function ($) {
         });
 
         courseFilterLocation.on("click", function () {
-            coursesParent.foundation('down', coursesParentContent);
 
             courseFilterLocation.removeClass('active');
             $(this).addClass('active');
@@ -39,14 +38,31 @@ jQuery(document).ready(function ($) {
             const value = this.value;
 
             if (value === 'all') {
-                closeAll();
-            }
+								$('.courses-parent-content').css('display','none');
+								$('.courses-parent-item').css('display','block');
+								$('.courses-child-item').css('display','block');
+								$('.ipa-accordion-item').removeClass('is-active');
+            } else {
+							$('.ipa-accordion-item').css('display','block');
+							$('.courses-parent-content').css('display','none');
+							$('.courses-child-item').css('display','none');
+							$(value).parent().parent().css('display','block');
+							console.log(value);
+							$(value).css('display','block');
+							$('.ipa-accordion-item').addClass('is-active');
 
-            mixer.filter(value);
+							// Find parent elements with no child divs and hide them.
+							$('.courses-parent-item:not(:has(' + value +'))').css('display','none');
+						}
+						
+
+            // mixer.filter(value);
+
 
             coursesParentContent.each(function () {
                 if ($(this).children(coursesChild).height() !== 0) {
                     // TODO: hide empty parents
+										console.log('closed');
                 }
             })
         });
@@ -122,6 +138,18 @@ jQuery(document).ready(function ($) {
 					$(this).parent().toggleClass('is-active');
 					$(this).next().toggle().toggleClass('is-open');
 				}); 
+
+				$('.expand-courses').on('click', function (e) {
+					e.preventDefault();
+					$('.ipa-accordion-item').addClass('is-active');
+					$('.courses-parent-content').css('display','block');
+				});
+
+				$('.collapse-courses').on('click', function (e) {
+					e.preventDefault();
+					$('.ipa-accordion-item').removeClass('is-active');
+					$('.courses-parent-content').css('display','none');
+				});
     }
 });
 
