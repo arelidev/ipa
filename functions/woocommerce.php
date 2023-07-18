@@ -131,4 +131,4 @@ function rdf_custom_surcharge() {
 	}
 }
 
-add_action('woocommerce_cart_calculate_fees', 'rdf_custom_surcharge');
+// add_action('woocommerce_cart_calculate_fees', 'rdf_custom_surcharge');
