@@ -22,13 +22,16 @@ function ipa_upcoming_courses_widget()
 	);
 
 	$loop = new WP_Query( $args );
+
+    $default_course_images = get_field( 'default_course_category_images', 'options' );
 	?>
-    <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y"
-         data-equalizer="upcoming-courses-title" data-equalize-by-row="true">
+    <div class="upcoming-courses-widget grid-x grid-margin-x grid-margin-y" data-equalizer="upcoming-courses-title" data-equalize-by-row="true">
 		<?php
 		while ($loop->have_posts()) : $loop->the_post();
-			$eventId = get_field('eventid');
-			$eventCode = get_field('code');
+			$eventId             = get_field( 'eventid' );
+			$eventCode           = get_field( 'code' );
+			$eventTemplateCode   = get_field( 'templatecode' );
+			$course_type_name_id = searchForId( $eventTemplateCode, $default_course_images );
 			?>
             <div class="course-card cell small-12 medium-6 large-4" id="<?= $eventId ?>">
 
@@ -36,6 +39,11 @@ function ipa_upcoming_courses_widget()
                     <div class="course-card-image-wrapper">
 			            <?php the_post_thumbnail('full', array('class' => 'course-card-image')); ?>
                     </div><!-- end .course-card-image-wrapper -->
+                <?php else : ?>
+		            <?php $image_id = $default_course_images[ $course_type_name_id ]['image']; ?>
+                    <div class="course-card-image-wrapper">
+			            <?= wp_get_attachment_image( $image_id, 'full', false, array( 'class' => 'course-card-image' ) ); ?>
+                    </div>
 	            <?php endif; ?>
 
                 <div class="course-card-inner">
