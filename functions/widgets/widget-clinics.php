@@ -166,7 +166,7 @@ function ipa_clinics_widget( $atts ) {
                              data-country="<?= $address['country']; ?>"
                              data-zip="<?= $address['post_code'] ?>"
                              data-state="<?= $address['state_short'] ?>"
-                             data-type="<?= ( $fellowship_status === 'fmt-fellow' ) ? 'fellow' : 'cfmt' ?> <?= ( $cfmt_rankings === 'cafmt' ) ? 'cafmt' : '' ?>  faculty <?= $faculty_status === "Primary Faculty" ? 'primary' : '' ?>"
+                             data-type="<?= ( $fellowship_status === 'fmt-fellow' ) ? 'fellow' : 'cfmt' ?> <?= ( $cafmt_rankings === 'cafmt' ) ? 'cafmt' : '' ?>  faculty <?= $faculty_status === "Primary Faculty" ? 'primary' : '' ?>"
                              data-certification="<?= $credentials; ?>"
                              data-fellow="<?= ( $fellowship_status === 'fmt-fellow' ) ? 1 : 0; ?>"
                              data-cfmt="<?= ( $cfmt_rankings ) ? 1 : 0; ?>"
