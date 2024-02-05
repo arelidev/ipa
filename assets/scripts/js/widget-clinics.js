@@ -60,6 +60,7 @@ jQuery(document).ready(function ($) {
         let entity = $marker.data('entity-id')
         let type = $marker.data('type')
         let cfmt = $marker.data('cfmt')
+        let cafmt = $marker.data('cafmt')
         let fellow = $marker.data('fellow')
         let marker = '';
         let geocoder;
@@ -72,6 +73,8 @@ jQuery(document).ready(function ($) {
             zIndex = 100;
         } else if (fellow === 1) {
             icon = iconBase + 'fellowship-blue.png'
+        } else if (cafmt === 1) {
+            icon = iconBase + 'member.png'
         } else {
             icon = iconBase + 'cfmt-gray.png'
         }
