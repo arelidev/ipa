@@ -161,8 +161,7 @@ function ipa_courses_table_widget( $atts ) {
 									endif;
 								endif;
 								?>
-                                <li class="<?= implode( " ", $parentClasses ); ?>" id="<?= $eventId; ?>"
-                                    data-accordion-item data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>">
+                                <li class="<?= implode( " ", $parentClasses ); ?>" id="<?= $eventId; ?>" data-accordion-item data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>">
                                     <a href="#" class="accordion-title ipa-accordion-title text-color-black">
                                         <div class="grid-x align-middle" style="padding-right: 50px;">
                                             <div class="auto cell">
@@ -171,17 +170,17 @@ function ipa_courses_table_widget( $atts ) {
                                                     <b><?= $eventTitle; ?></b>
                                                 </p>
                                                 <span class="course-table-date text-color-dark-gray">
-                                                            <i class="fal fa-clock"></i>
-                                                            <?php
-                                                            get_template_part(
-	                                                            'parts/arlo/events/loop-event',
-	                                                            'datetime',
-	                                                            array(
-		                                                            'post' => $id
-	                                                            )
-                                                            );
-                                                            ?>
-                                                        </span>
+                                                    <i class="fal fa-clock"></i>
+                                                    <?php
+                                                    get_template_part(
+                                                        'parts/arlo/events/loop-event',
+                                                        'datetime',
+                                                        array(
+                                                            'post' => $id
+                                                        )
+                                                    );
+                                                    ?>
+                                                </span>
                                             </div>
                                             <div class="shrink cell show-for-medium">
 												<?php
@@ -198,8 +197,7 @@ function ipa_courses_table_widget( $atts ) {
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="accordion-content ipa-accordion-content courses-child-content"
-                                         data-tab-content id="<?= $eventId; ?>">
+                                    <div class="accordion-content ipa-accordion-content courses-child-content" data-tab-content id="<?= $eventId; ?>">
 										<?php
 										if ( have_rows( 'sessions', $id ) ) :
 											get_template_part(
@@ -211,7 +209,6 @@ function ipa_courses_table_widget( $atts ) {
 											);
 										endif;
 										?>
-
                                         <div class="grid-x grid-padding-x align-middle">
                                             <div class="auto cell">
 												<?php
