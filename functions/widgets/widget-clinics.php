@@ -169,8 +169,8 @@ function ipa_clinics_widget( $atts ) {
                              data-type="<?= ( $fellowship_status === 'fmt-fellow' ) ? 'fellow' : 'cfmt' ?> faculty <?= $faculty_status === "Primary Faculty" ? 'primary' : '' ?>"
                              data-certification="<?= $credentials; ?>"
                              data-fellow="<?= ( $fellowship_status === 'fmt-fellow' ) ? 1 : 0; ?>"
-                             data-cfmt="<?= ( $cfmt_rankings === 'fmt-fellow' ) ?>"
-                             data-cafmt="<?= ( $cafmt_rankings === 'fmt-fellow' ) ?>"
+                             data-cfmt="<?= ( $cfmt_rankings ) ? 1 : 0; ?>"
+                             data-cafmt="<?= ( $cafmt_rankings ) ? 1 : 0; ?>"
                         >
                             <div class="accordion single-clinic-inner" data-accordion data-allow-all-closed="true">
                                 <div class="accordion-title grid-x grid-padding-x align-middle">
@@ -188,7 +188,7 @@ function ipa_clinics_widget( $atts ) {
                                     </div>
                                 </div>
                                 <div class="accordion-content">
-	                                <?php if ( $clinic['FAAOMPT'] ) : ?>
+									<?php if ( $clinic['FAAOMPT'] ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
                                                 <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg"
@@ -200,8 +200,8 @@ function ipa_clinics_widget( $atts ) {
                                                 <p>FMT Fellow</p>
                                             </div>
                                         </div>
-	                                <?php endif; ?>
-	                                <?php if ( $clinic['cfmt_honors'] ) : ?>
+									<?php endif; ?>
+									<?php if ( $clinic['cfmt_honors'] ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
                                                 <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg"
@@ -213,8 +213,8 @@ function ipa_clinics_widget( $atts ) {
                                                 <p>CFMT with Honors</p>
                                             </div>
                                         </div>
-	                                <?php endif; ?>
-	                                <?php if ( $clinic['cfmt_distinction'] ) : ?>
+									<?php endif; ?>
+									<?php if ( $clinic['cfmt_distinction'] ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
                                                 <i class="fal fa-medal fa-lg"></i>
@@ -223,8 +223,8 @@ function ipa_clinics_widget( $atts ) {
                                                 <p>CFMT with Distinction</p>
                                             </div>
                                         </div>
-	                                <?php endif; ?>
-	                                <?php if ( $clinic['current_fellow'] ) : ?>
+									<?php endif; ?>
+									<?php if ( $clinic['current_fellow'] ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
                                                 <i class="far fa-user-md fa-lg"></i>
@@ -233,11 +233,11 @@ function ipa_clinics_widget( $atts ) {
                                                 <p>Fellow in Training</p>
                                             </div>
                                         </div>
-	                                <?php endif; ?>
+									<?php endif; ?>
 
                                     <p><b><?= $work_information['business_name']; ?></b></p>
 
-	                                <?php if ( ! empty( $work_information['work_email'] ) ) : $email = $work_information['work_email']; ?>
+									<?php if ( ! empty( $work_information['work_email'] ) ) : $email = $work_information['work_email']; ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
                                                 <i class="far fa-envelope fa-lg"></i>
@@ -248,8 +248,8 @@ function ipa_clinics_widget( $atts ) {
                                                 </p>
                                             </div>
                                         </div>
-	                                <?php endif; ?>
-	                                <?php if ( ! empty( $work_information['work_telephone'] ) ) : $phone = $work_information['work_telephone']; ?>
+									<?php endif; ?>
+									<?php if ( ! empty( $work_information['work_telephone'] ) ) : $phone = $work_information['work_telephone']; ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
                                                 <i class="far fa-phone fa-lg"></i>
@@ -260,8 +260,8 @@ function ipa_clinics_widget( $atts ) {
                                                 </p>
                                             </div>
                                         </div>
-	                                <?php endif; ?>
-	                                <?php if ( ! empty( $address['address'] ) ) : $address = $address['address']; ?>
+									<?php endif; ?>
+									<?php if ( ! empty( $address['address'] ) ) : $address = $address['address']; ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
                                                 <i class="far fa-map-marker-alt fa-lg"></i>
@@ -270,8 +270,8 @@ function ipa_clinics_widget( $atts ) {
                                                 <p class="single-clinic-address"><?= $address; ?></p>
                                             </div>
                                         </div>
-	                                <?php endif; ?>
-	                                <?php if ( ! empty( $work_information['work_website'] ) ) : $website = $work_information['work_website']; ?>
+									<?php endif; ?>
+									<?php if ( ! empty( $work_information['work_website'] ) ) : $website = $work_information['work_website']; ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
                                                 <i class="far fa-external-link-alt fa-lg"></i>
@@ -282,8 +282,9 @@ function ipa_clinics_widget( $atts ) {
                                                 </p>
                                             </div>
                                         </div>
-	                                <?php endif; ?>
-                                    <a href="<?= home_url(); ?>/profile-member/<?= acf_slugify( $full_name ); ?>" class="button small">
+									<?php endif; ?>
+                                    <a href="<?= home_url(); ?>/profile-member/<?= acf_slugify( $full_name ); ?>"
+                                       class="button small">
 										<?= __( 'View Profile', 'ipa' ); ?>
                                     </a>
                                 </div>
