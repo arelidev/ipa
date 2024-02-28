@@ -126,14 +126,15 @@ function searchForId( $id, $array ) {
  * @param int $image
  * @param string $classes
  * @param bool $thumbnail
+ *
  * @return string
  */
-function get_profile_image(int $image, string $classes = '', bool $thumbnail = false ): string {
-	$stored = get_field('default_instructor_image', 'options');
-	$default = (!empty($stored)) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
+function get_profile_image( int $image, string $classes = '', bool $thumbnail = false ): string {
+	$stored  = get_field( 'default_instructor_image', 'options' );
+	$default = ( ! empty( $stored ) ) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
 
-	if (!empty($image)) :
-		$image_url = wp_get_attachment_image($image, 'large', false, array('class' => $classes));
+	if ( ! empty( $image ) ) :
+		$image_url = wp_get_attachment_image( $image, 'large', false, array( 'class' => $classes ) );
 	else :
 		$image_url = "<img src='$default' class='$classes' alt='' aria-hidden='true'>";
 	endif;
@@ -144,8 +145,16 @@ function get_profile_image(int $image, string $classes = '', bool $thumbnail = f
 /**
  * @return mixed|string
  */
-function get_placeholder_image()
-{
-	$stored = get_field('default_instructor_image', 'options');
-	return (!empty($stored)) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
+function get_placeholder_image() {
+	$stored = get_field( 'default_instructor_image', 'options' );
+
+	return ( ! empty( $stored ) ) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
 }
+
+function add_query_vars_filter( $vars ) {
+	$vars[] = "display";
+
+	return $vars;
+}
+
+add_filter( 'query_vars', 'add_query_vars_filter' );

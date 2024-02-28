@@ -1,5 +1,7 @@
 <?php
-$courses = $args['courses'] ?? [];
+$courses    = $args['courses'] ?? [];
+$expandable = $args['expandable'] ?? true;
+$display    = $args['display'] ?? false;
 
 $presenters = new WP_Query( array(
 	'post_type'      => 'ipa_arlo_presenters',
@@ -123,18 +125,39 @@ $presenters = new WP_Query( array(
             <div class="grid-x grid-padding-y align-middle">
                 <div class="small-12 medium-auto cell">
                     <fieldset data-filter-group>
-                        <button type="button" class="course-filter-location active" value="all">All</button>
-                        <button type="button" class="course-filter-location" value=".in-person">In-Person</button>
-                        <button type="button" class="course-filter-location" value=".on-demand">On-Demand</button>
-                        <button type="button" class="course-filter-location" value=".virtual">Virtual</button>
+                        <button type="button" class="course-filter-location mixitup-control-active" data-filter="all">All</button>
+                        <button type="button" class="course-filter-location" data-filter=".in-person">In-Person</button>
+                        <button type="button" class="course-filter-location" data-filter=".on-demand">On-Demand</button>
+                        <button type="button" class="course-filter-location" data-filter=".virtual">Virtual</button>
                     </fieldset>
                 </div>
-                <div class="small-12 medium-auto cell">
-                    <p class="text-left medium-text-right">
-                        <a type="button" class="expand"><?= __( 'Show All', 'ipa' ); ?></a>
-                        /
-                        <a type="button" class="collapse"><?= __( 'Hide All', 'ipa' ); ?></a>
-                    </p>
+	            <?php if ( $expandable ) : ?>
+                    <div class="small-12 medium-auto cell">
+                        <p class="text-left medium-text-right">
+                            <a type="button" class="expand"><?= __( 'Show All', 'ipa' ); ?></a>
+                            /
+                            <a type="button" class="collapse"><?= __( 'Hide All', 'ipa' ); ?></a>
+                        </p>
+                    </div>
+	            <?php endif; ?>
+                <div class="small-12 medium-shrink cell">
+                    <a href="/scheduled-courses"
+                       style="margin-right: 1rem;"
+                       class="<?= $display === 'calendar' ? '' : 'text-color-medium-gray'; ?>"
+                    >
+                        <span class="show-for-sr">
+                            <?= __( "List view", "ipa" ); ?>
+                        </span>
+                        <i class="fa-solid fa-list fa-xl"></i>
+                    </a>
+                    <a href="/scheduled-courses?display=calendar"
+                       class="<?= $display === 'calendar' ? 'text-color-medium-gray' : ''; ?>"
+                    >
+                        <span class="show-for-sr">
+                            <?= __( "Calendar view", "ipa" ); ?>
+                        </span>
+                        <i class="fa-solid fa-calendar-days fa-xl"></i>
+                    </a>
                 </div>
             </div>
         </div>
