@@ -10,7 +10,7 @@ function get_region_by_state( $state ): array {
 		'midwest'     => 'ND SD NE IA MN WI MI IL IN OH KS MO AR',
 		'northeast'   => 'PA CT ME MA NH NJ NY PA RI VT DE',
 		'northwest'   => 'ID MT WY OR WA AK',
-		'southwest'   => 'AR LA OK NM',
+		// 'southwest'   => 'AR LA OK NM',
 		'southeast'   => 'KY TN NC SC MS GA AL FL',
 		'west'        => 'CA NV HI UT',
 		'rmt-texas'   => 'CO AZ ID TX',

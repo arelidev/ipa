@@ -12,13 +12,38 @@ $presenters = new WP_Query( array(
 ) );
 ?>
     <form class="search-bar">
+        <div class="text-right" style="margin-bottom: 1rem;">
+            <a href="/scheduled-courses" style="margin-right: 1rem;" class="<?= $display === 'calendar' ? '' : 'text-color-medium-gray'; ?>">
+                <i class="fa-solid fa-list"></i>
+                <?= __( "List view", "ipa" ); ?>
+            </a>
+            <a href="/scheduled-courses?display=calendar" class="<?= $display === 'calendar' ? 'text-color-medium-gray' : ''; ?>">
+                <i class="fa-solid fa-calendar-days"></i>
+                <?= __( "Calendar view", "ipa" ); ?>
+            </a>
+        </div>
+
         <div class="styled-container courses-table-widget-filters">
             <div class="grid-x grid-padding-x grid-padding-y align-middle">
                 <div class="cell small-12 medium-auto">
                     <label>
-						<?= __( 'Course Type', 'ipa' ); ?>
+	                    <?php
+	                    if ( $display === 'calendar' ) :
+		                    echo __( 'Month / Year', 'ipa' );
+	                    else :
+		                    echo __( 'Course Type', 'ipa' );
+	                    endif;
+	                    ?>
                         <select class="course-filter-type">
-                            <option value="all"><?= __( 'Select course', 'ipa' ); ?></option>
+                            <option value="all">
+			                    <?php
+			                    if ( $display === 'calendar' ) :
+				                    echo __( 'Select month', 'ipa' );
+			                    else :
+				                    echo __( 'Select course', 'ipa' );
+			                    endif;
+			                    ?>
+                            </option>
 							<?php foreach ( $courses as $title => $id ) : ?>
                                 <option value="course-<?= acf_slugify( $title ); ?>"><?= $title; ?></option>
 							<?php endforeach; ?>
@@ -123,14 +148,24 @@ $presenters = new WP_Query( array(
         </div>
         <div class="courses-table-widget-sort">
             <div class="grid-x grid-padding-y align-middle">
-                <div class="small-12 medium-auto cell">
-                    <fieldset data-filter-group>
-                        <button type="button" class="course-filter-location mixitup-control-active" data-filter="all">All</button>
-                        <button type="button" class="course-filter-location" data-filter=".in-person">In-Person</button>
-                        <button type="button" class="course-filter-location" data-filter=".on-demand">On-Demand</button>
-                        <button type="button" class="course-filter-location" data-filter=".virtual">Virtual</button>
-                    </fieldset>
-                </div>
+	            <?php if ( $display !== "calendar" ) : ?>
+                    <div class="small-12 medium-auto cell">
+                        <fieldset data-filter-group>
+                            <button type="button" class="course-filter-location mixitup-control-active" data-filter="all">
+                                <?= __( "All", "ipa" ); ?>
+                            </button>
+                            <button type="button" class="course-filter-location" data-filter=".in-person">
+                                <?= __( "In-Person", "ipa" ); ?>
+                            </button>
+                            <button type="button" class="course-filter-location" data-filter=".on-demand">
+                                <?= __( "On-Demand", "ipa" ); ?>
+                            </button>
+                            <button type="button" class="course-filter-location" data-filter=".virtual">
+                                <?= __( "Virtual", "ipa" ); ?>
+                            </button>
+                        </fieldset>
+                    </div>
+	            <?php endif; ?>
 	            <?php if ( $expandable ) : ?>
                     <div class="small-12 medium-auto cell">
                         <p class="text-left medium-text-right">
@@ -140,24 +175,10 @@ $presenters = new WP_Query( array(
                         </p>
                     </div>
 	            <?php endif; ?>
-                <div class="small-12 medium-shrink cell">
-                    <a href="/scheduled-courses"
-                       style="margin-right: 1rem;"
-                       class="<?= $display === 'calendar' ? '' : 'text-color-medium-gray'; ?>"
-                    >
-                        <span class="show-for-sr">
-                            <?= __( "List view", "ipa" ); ?>
-                        </span>
-                        <i class="fa-solid fa-list fa-xl"></i>
-                    </a>
-                    <a href="/scheduled-courses?display=calendar"
-                       class="<?= $display === 'calendar' ? 'text-color-medium-gray' : ''; ?>"
-                    >
-                        <span class="show-for-sr">
-                            <?= __( "Calendar view", "ipa" ); ?>
-                        </span>
-                        <i class="fa-solid fa-calendar-days fa-xl"></i>
-                    </a>
+                <div class="small-12 medium-auto cell text-right">
+                    <button type="reset" class="button tiny alert" style="margin-bottom: 0;">
+                        <?= __( "Clear filters", "ipa" ); ?>
+                    </button>
                 </div>
             </div>
         </div>

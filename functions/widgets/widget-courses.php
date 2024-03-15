@@ -120,8 +120,16 @@ function ipa_courses_widget( $atts ) {
 
 									if ( is_virtual( $categories ) ) :
 										$parentClasses[] = "virtual";
+
+										if ( $display === "calendar" ) :
+											continue;
+										endif;
                                     elseif ( is_on_demand( $categories ) ) :
 										$parentClasses[] = "on-demand";
+
+										if ( $display === "calendar" ) :
+											continue;
+										endif;
 									else :
 										$parentClasses[] = "in-person";
 									endif;
@@ -140,9 +148,9 @@ function ipa_courses_widget( $atts ) {
 											$slugify_state   = acf_slugify( $state );
 											$parentClasses[] = $slugify_state;
 
-											$states = get_region_by_state( $slugify_state );
-											foreach ( $states as $state ) :
-												$parentClasses[] = $state;
+											$regions = get_region_by_state( $slugify_state );
+											foreach ( $regions as $region ) :
+												$parentClasses[] = $region;
 											endforeach;
 										endif;
 									endif;
@@ -150,10 +158,12 @@ function ipa_courses_widget( $atts ) {
 									$registrationInfo = get_field( 'registrationinfo', $id );
 									$registerUri      = $registrationInfo['registeruri'];
 									$registermessage  = $registrationInfo['registermessage'];
+
+                                    $permalink = getCoursePermalink( $templateCode ) ?? $registerUri;
 									?>
                                     <tr class="<?= implode( " ", $parentClasses ); ?>" id="<?= $eventId; ?>" data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>">
                                         <td class="course-table--title">
-											<a href="<?= $registerUri; ?>" <?= ( empty( $registerUri ) ) ? "disabled" : ""; ?>>
+											<a href="<?= $permalink; ?>">
                                                 <b><?= $eventTitle; ?></b>
                                             </a>
                                         </td>
@@ -191,6 +201,9 @@ function ipa_courses_widget( $atts ) {
                                         <td class="course-table--register text-center">
                                             <a href="<?= $registerUri; ?>" <?= ( empty( $registerUri ) ) ? "disabled" : ""; ?>>
                                                 <b><?= $registermessage; ?></b>
+                                            </a>
+                                            <a href="<?= $permalink; ?>" style="margin-left: 1rem;">
+                                                <b>More info</b>
                                             </a>
                                         </td>
                                     </tr>

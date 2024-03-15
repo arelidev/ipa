@@ -66,5 +66,7 @@ jQuery(document).ready(function ($) {
                 }
             });
         }
+
+        checkTablesVisibility()
     }
 })
