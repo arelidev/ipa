@@ -1,60 +1,22 @@
 jQuery(document).ready(function ($) {
-    const courseMixerContainer = $(".ipa-courses-table-widget");
-    const coursesParent = $('.courses-parent');
-    const coursesParentContent = $('.courses-parent .courses-parent-content');
-    const coursesChild = $('.courses-child');
-    const courseFilterSelect = $('.course-filter-state, .course-filter-region, .course-filter-instructor');
-    const courseFilterLocation = $('.course-filter-location');
-    const courseFilterType = $('.course-filter-type')
+    const ipaCoursesWidgetMixerContainer = $(".ipa-courses-widget");
 
-    if (courseMixerContainer.length && !courseMixerContainer.hasClass("no-mix")) {
-        const mixer = mixitup(courseMixerContainer, {
+    if (ipaCoursesWidgetMixerContainer.length && !ipaCoursesWidgetMixerContainer.hasClass("no-mix")) {
+        const mixer = mixitup(ipaCoursesWidgetMixerContainer, {
             multifilter: {
                 enable: true,
-            }
-        });
-
-        courseFilterSelect.on("change", function () {
-            coursesParent.foundation('down', coursesParentContent);
-
-            if (this.value === 'all') {
-                closeAll();
-            }
-
-            mixer.filter(this.value);
-
-            coursesParentContent.each(function () {
-                if ($(this).children(coursesChild).height() !== 0) {
-                    // TODO: hide empty parents
+            },
+            callbacks: {
+                onMixStart: function (state) {
+                    $('.ipa-courses-widget-cell').each(function () {
+                        $(this).show();
+                    });
+                },
+                onMixEnd: function (state) {
+                    checkTablesVisibility();
                 }
-            })
-        });
-
-        courseFilterLocation.on("click", function () {
-            coursesParent.foundation('down', coursesParentContent);
-
-            courseFilterLocation.removeClass('active');
-            $(this).addClass('active');
-
-            const value = this.value;
-
-            if (value === 'all') {
-                closeAll();
             }
-
-            mixer.filter(value);
-
-            coursesParentContent.each(function () {
-                if ($(this).children(coursesChild).height() !== 0) {
-                    // TODO: hide empty parents
-                }
-            })
         });
-
-        courseFilterType.on('change', function (event) {
-            const loc = "#" + event.target.value;
-            Foundation.SmoothScroll.scrollToLoc(loc);
-        })
 
         const picker = new easepick.create({
             element: document.getElementById('course-filter-date'),
@@ -71,13 +33,14 @@ jQuery(document).ready(function ($) {
                 "RangePlugin",
             ]
         });
+
         picker.on('select', () => {
             const DateTime = easepick.DateTime;
 
             let startDate = picker.getStartDate();
             let endDate = picker.getEndDate();
 
-            const $targets = courseMixerContainer.find('.mix');
+            const $targets = ipaCoursesWidgetMixerContainer.find('.mix');
 
             const $show = $targets.filter(function () {
                 let course = new Date($(this).attr('data-start-date'));
@@ -91,67 +54,19 @@ jQuery(document).ready(function ($) {
             openAll();
         });
 
-        $('.expand').on('click', function () {
-            openAll();
-        })
-        $('.collapse').on('click', function () {
-            closeAll();
-        })
+        // Function to check if there are any visible rows in each table
+        function checkTablesVisibility() {
+            $('.ipa-courses-widget-cell').each(function () {
+                const table = $(this).find('table');
 
-        function openAll() {
-            coursesParent.foundation('down', coursesParentContent);
+                if (table.find('tr:visible').length === 1) {
+                    $(this).hide(); // Hide the parent container if no visible rows
+                } else {
+                    $(this).show(); // Show the parent container if there are visible rows
+                }
+            });
         }
 
-        function closeAll() {
-            coursesParent.foundation('up', coursesParentContent);
-        }
-
-        function reset() {
-            // courseFilterSelect.val('all')
-            // courseFilterRegion.val('all')
-            // courseFilterInstructor.val('all')
-            // courseFilterDate.val('all')
-
-            mixer.filter('all');
-
-            closeAll();
-        }
+        checkTablesVisibility()
     }
-});
-
-/**
- *
- * @param date
- * @param num
- * @returns {Date}
- */
-function addDays(date, num) {
-    const d = new Date(date);
-    d.setDate(d.getDate() + num);
-    return d;
-}
-
-/**
- *
- * @param date
- * @returns {Date[]}
- */
-function thisMonth(date) {
-    const d1 = new Date(date);
-    d1.setDate(1);
-    const d2 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    return [d1, d2];
-}
-
-/**
- *
- * @param date
- * @returns {Date[]}
- */
-function thisWeek(date) {
-    const d1 = new Date(date);
-    d1.setDate(date.getDate() - date.getDay());
-    const d2 = new Date(date)
-    d2.setDate(date.getDate() - (date.getDay() - 6));
-    return [d1, d2];
-}
+})

@@ -8,7 +8,7 @@
     cursor: pointer;
     transition: all .25s ease-in-out;
 
-    &:hover, &.active {
+    &:hover, &.active, &.mixitup-control-active {
       background-color: $medium-gray;
       color: $white;
     }
@@ -79,5 +79,71 @@
         white-space: nowrap;
       }
     }
+  }
+}
+
+.ipa-courses-widget {
+  position: relative;
+
+  &-wrapper {
+    margin-top: $global-margin;
+  }
+
+  &-course-title {
+    margin-bottom: $global-margin;
+    display: block;
+  }
+
+  &-cell {
+    margin-bottom: $global-margin * 4;
+  }
+
+  .search-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .course-table {
+    margin-bottom: 0;
+
+    &--title {
+      @include breakpoint(medium) {
+        width: 30%;
+      }
+    }
+
+    &--location {
+      @include breakpoint(medium) {
+        width: 25%;
+      }
+    }
+
+    &--date {
+      @include breakpoint(medium) {
+        width: 25%;
+      }
+    }
+
+    &--instructor {
+      @include breakpoint(medium) {
+
+      }
+    }
+
+    &--register {
+      @include breakpoint(medium) {
+        width: 20%;
+      }
+    }
+
+    thead {}
+    tbody {
+      tr {}
+      td {
+        font-size: $small-font-size;
+      }
+    }
+    tfoot {}
   }
 }
