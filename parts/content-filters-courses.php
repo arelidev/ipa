@@ -12,7 +12,7 @@ $presenters = new WP_Query( array(
 ) );
 ?>
     <form class="search-bar">
-        <div class="text-right" style="margin-bottom: 1rem;">
+        <div style="margin-bottom: 1rem;">
             <a href="/scheduled-courses" style="margin-right: 1rem;" class="<?= $display === 'calendar' ? '' : 'text-color-medium-gray'; ?>">
                 <i class="fa-solid fa-list"></i>
                 <?= __( "List view", "ipa" ); ?>
