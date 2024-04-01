@@ -172,7 +172,7 @@ function getCoursePermalink( $code ) {
 	$linkMaps = [
 		"CFS"  => "/scheduled-courses/cfs-corefirst-strategies/",
 		"PNF"  => "/scheduled-courses/pnf-functional-neuromuscular-and-motor-control-training/",
-		"FM 1" => "/scheduled-courses/fm-i-functional-mobilization-i/",
+		"FM I" => "/scheduled-courses/fm-i-functional-mobilization-i/",
 		"FMLE" => "/scheduled-courses/fmle-functional-mobilization-lower-extremities/",
 		"FMLT" => "/scheduled-courses/fmlt-functional-mobilization-lower-trunk/",
 		"FMUE" => "/scheduled-courses/fmue-functional-mobilization-upper-extremities/",
