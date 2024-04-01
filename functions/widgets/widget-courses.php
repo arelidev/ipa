@@ -185,18 +185,17 @@ function ipa_courses_widget( $atts ) {
                                             </div>
                                         </td>
                                         <td class="course-table--instructor">
-											<?php
-											if ( have_rows( 'presenters', $id ) ) :
-												get_template_part(
-													'parts/arlo/events/loop',
-													'presenters',
-													array(
-														'post'         => $id,
-														"disable_link" => true
-													)
-												);
-											endif;
-											?>
+		                                    <?php
+		                                    if ( have_rows( 'presenters', $id ) ) :
+			                                    get_template_part(
+				                                    'parts/arlo/events/loop',
+				                                    'presenters',
+				                                    array(
+					                                    'post' => $id
+				                                    )
+			                                    );
+		                                    endif;
+		                                    ?>
                                         </td>
                                         <td class="course-table--register text-center">
                                             <a href="<?= $registerUri; ?>" <?= ( empty( $registerUri ) ) ? "disabled" : ""; ?>>
