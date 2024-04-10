@@ -36,12 +36,16 @@ function get_region_by_state( $state ): array {
  *
  * @return string
  */
-function get_date_time( $timestamp, string $timezone, string $format = 'd.m.Y, H:i:s' ): string {
+function get_date_time( $timestamp, string $timezone, string $format = 'd.m.Y, H:i:s', bool $include_timezone = true ): string {
 	try {
 		$dt = new DateTimeImmutable( $timestamp );
 		$dt->setTimezone( new DateTimeZone( $timezone ) );
 
-		return $dt->format( $format ) . " $timezone";
+		if ( $include_timezone ) :
+			return $dt->format( $format ) . " $timezone";
+		else:
+			return $dt->format( $format );
+		endif;
 	} catch ( Exception $e ) {
 		return $e->getMessage();
 	}
