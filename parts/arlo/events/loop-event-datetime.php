@@ -6,9 +6,9 @@ $stateDateTimezone = get_field( 'starttimezoneabbr', $post );
 $endDateTime       = get_field( 'enddatetime', $post );
 $endDateTimezone   = get_field( 'endtimezoneabbr', $post );
 
-$start_date = date( "M j, Y", strtotime( $stateDateTime ) );
+$start_date = get_date_time( $stateDateTime, $stateDateTimezone, get_option( 'date_format' ), false );
 $state_time = get_date_time( $stateDateTime, $stateDateTimezone, get_option( 'time_format' ) );
-$end_date   = date( "M j, Y", strtotime( $endDateTime ) );
+$end_date   = get_date_time( $endDateTime, $endDateTimezone, get_option( 'date_format' ), false );
 $end_time   = get_date_time( $endDateTime, $endDateTimezone, get_option( 'time_format' ) );
 ?>
 <span data-tooltip data-allow-html="true" tabindex="1"
