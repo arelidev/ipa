@@ -141,6 +141,11 @@ function ipa_clinics_widget( $atts ) {
 							$address = $offices[0]['address'];
 						endif;
 
+                        // Skip if there is no address set
+						if ( empty( $address ) ) :
+							continue;
+						endif;
+
 						$faculty_classes = array(
 							'small-12',
 							'medium-6',
@@ -166,9 +171,9 @@ function ipa_clinics_widget( $atts ) {
                              data-country="<?= $address['country']; ?>"
                              data-zip="<?= $address['post_code'] ?>"
                              data-state="<?= $address['state_short'] ?>"
-                             data-type="<?= ( $fellowship_status === 'fmt-fellow' ) ? 'fellow' : 'cfmt' ?> <?= acf_slugify( $cafmt_rankings ) ?>  faculty <?= $faculty_status === "Primary Faculty" ? 'primary' : '' ?>"
+                             data-type="<?= ( acf_slugify( $fellowship_status ) === 'fmt-fellow' ) ? 'fmt-fellow' : 'cfmt' ?> <?= acf_slugify( $cafmt_rankings ) ?> <?= $faculty_status === "Primary Faculty" ? 'faculty primary' : '' ?>"
                              data-certification="<?= $credentials; ?>"
-                             data-fellow="<?= ( $fellowship_status === 'fmt-fellow' ) ? 1 : 0; ?>"
+                             data-fellow="<?= ( acf_slugify( $fellowship_status ) === 'fmt-fellow' ) ? 1 : 0; ?>"
                              data-cfmt="<?= ( $cfmt_rankings ) ? 1 : 0; ?>"
                              data-cafmt="<?= ( $cafmt_rankings ) ? 1 : 0; ?>"
                         >
