@@ -39,8 +39,7 @@ function ipa_clinics_widget( $atts ) {
 		?>
 
         <div class="grid-x">
-            <div class="small-12 medium-6 large-6 cell small-order-2 large-order-1 ipa-clinic-card-wrapper"
-                 id="ipa-clinic-card-wrapper">
+            <div class="small-12 medium-6 large-6 cell small-order-2 large-order-1 ipa-clinic-card-wrapper" id="ipa-clinic-card-wrapper">
                 <div class="grid-x grid-margin-x grid-container">
 					<?php while ( $clinics->have_posts() ) : $clinics->the_post(); ?>
 						<?php $address = get_field( 'clinic_address' ); ?>
@@ -128,6 +127,8 @@ function ipa_clinics_widget( $atts ) {
 						$fellowship_status = get_field( 'fellowship_status', $acf_user );
 						$faculty_status    = get_field( 'faculty_status', $acf_user );
 
+						$business_name = $work_information['business_name'] ?? false;
+
 						$clinic = [
 							"FAAOMPT"          => false,
 							"cfmt_honors"      => false,
@@ -187,60 +188,59 @@ function ipa_clinics_widget( $atts ) {
 										<?php if ( ! empty( $credentials ) ) : ?>
                                             <p class="single-clinic-subtitle text-color-medium-gray"><?= $credentials; ?></p>
 										<?php endif; ?>
-										<?php if ( ! empty( $business_name = $work_information['business_name'] ) ) : ?>
+										<?php if ( $business_name ) : ?>
                                             <p class="single-clinic-business-name"><?= $business_name; ?></p>
 										<?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="accordion-content">
-									<?php if ( $clinic['FAAOMPT'] ) : ?>
+	                                <?php if ( $cafmt_rankings === "CAFMT with Honors" ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
-                                                <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg"
-                                                     class="ipa-single-card-widget-icon" alt="" loading="lazy"
-                                                     width="22px">
-                                                <!-- <i class="far fa-user-md fa-lg"></i> -->
+                                                <i class="fa fa-medal fa-lg" style="color: silver;"></i>
                                             </div>
                                             <div class="cell auto">
-                                                <p>FMT Fellow</p>
+                                                <p>CAFMT with Honors</p>
                                             </div>
                                         </div>
-									<?php endif; ?>
-									<?php if ( $clinic['cfmt_honors'] ) : ?>
+	                                <?php endif; ?>
+
+	                                <?php if ( $cafmt_rankings === "CAFMT with Distinction" ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
-                                                <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg"
-                                                     class="ipa-single-card-widget-icon" alt="" loading="lazy"
-                                                     width="22px">
-                                                <!-- <i class="fal fa-award fa-lg"></i> -->
+                                                <i class="fa fa-medal fa-lg" style="color: gold;"></i>
+                                            </div>
+                                            <div class="cell auto">
+                                                <p>CAFMT with Distinction</p>
+                                            </div>
+                                        </div>
+	                                <?php endif; ?>
+
+	                                <?php if ( $cfmt_rankings === "CFMT with Honors" ) : ?>
+                                        <div class="grid-x">
+                                            <div class="cell small-2">
+                                                <i class="fa fa-medal fa-lg" style="color: silver;"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p>CFMT with Honors</p>
                                             </div>
                                         </div>
-									<?php endif; ?>
-									<?php if ( $clinic['cfmt_distinction'] ) : ?>
+	                                <?php endif; ?>
+
+	                                <?php if ( $cfmt_rankings === "CFMT with Distinction" ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
-                                                <i class="fal fa-medal fa-lg"></i>
+                                                <i class="fa fa-medal fa-lg" style="color: gold;"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p>CFMT with Distinction</p>
                                             </div>
                                         </div>
-									<?php endif; ?>
-									<?php if ( $clinic['current_fellow'] ) : ?>
-                                        <div class="grid-x">
-                                            <div class="cell small-2">
-                                                <i class="far fa-user-md fa-lg"></i>
-                                            </div>
-                                            <div class="cell auto">
-                                                <p>Fellow in Training</p>
-                                            </div>
-                                        </div>
-									<?php endif; ?>
+	                                <?php endif; ?>
 
-                                    <p><b><?= $work_information['business_name']; ?></b></p>
+	                                <?php if ( $business_name ) : ?>
+                                        <p><b><?= $business_name; ?></b></p>
+	                                <?php endif; ?>
 
 									<?php if ( ! empty( $work_information['work_email'] ) ) : $email = $work_information['work_email']; ?>
                                         <div class="grid-x">
