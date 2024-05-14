@@ -116,15 +116,19 @@ function ipa_courses_widget( $atts ) {
 									$eventTitle = get_the_title( $id );
 									$sessions   = get_field( "sessions", $id );
 									$startDate  = get_field( 'startdatetime', $id );
+									$endDate    = get_field( 'enddatetime', $id );
 									$categories = get_field( 'categories', $id );
 
-									if ( is_virtual( $categories ) ) :
+									$is_virtual   = is_virtual( $categories );
+									$is_on_demand = is_on_demand( $categories );
+
+									if ( $is_virtual ) :
 										$parentClasses[] = "virtual";
 
 										if ( $display === "calendar" ) :
 											continue;
 										endif;
-                                    elseif ( is_on_demand( $categories ) ) :
+                                    elseif ( $is_on_demand ) :
 										$parentClasses[] = "on-demand";
 
 										if ( $display === "calendar" ) :
@@ -159,9 +163,13 @@ function ipa_courses_widget( $atts ) {
 									$registerUri      = $registrationInfo['registeruri'];
 									$registermessage  = $registrationInfo['registermessage'];
 
-                                    $permalink = getCoursePermalink( $templateCode ) ?? $registerUri;
+                                    $permalink = getCoursePermalink( $templateCode, $is_virtual, $is_on_demand ) ?? $registerUri;
 									?>
-                                    <tr class="<?= implode( " ", $parentClasses ); ?>" id="<?= $eventId; ?>" data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>">
+                                    <tr class="<?= implode( " ", $parentClasses ); ?>"
+                                        id="<?= $eventId; ?>"
+                                        data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>"
+                                        data-end-date="<?= date( 'm/d/Y', strtotime( $endDate ) ); ?>"
+                                    >
                                         <td class="course-table--title">
 											<a href="<?= $permalink; ?>">
                                                 <b><?= $eventTitle; ?></b>
