@@ -170,23 +170,24 @@ add_filter( 'query_vars', 'add_query_vars_filter' );
  */
 function getCoursePermalink( $code ) {
 	$linkMaps = [
-		"CFS"  => "/scheduled-courses/cfs-corefirst-strategies/",
-		"PNF"  => "/scheduled-courses/pnf-functional-neuromuscular-and-motor-control-training/",
-		"FMI" => "/scheduled-courses/fm-i-functional-mobilization-i/",
-		"FMLE" => "/scheduled-courses/fmle-functional-mobilization-lower-extremities/",
-		"FMLT" => "/scheduled-courses/fmlt-functional-mobilization-lower-trunk/",
-		"FMUE" => "/scheduled-courses/fmue-functional-mobilization-upper-extremities/",
-		"FMUT" => "/scheduled-courses/fmut-functional-mobilization-upper-trunk/",
-		"CBI"  => "/scheduled-courses/cbi-complete-body-integration/",
-		"GAIT" => "/scheduled-courses/gait-functional-gait/",
-		"VFM"  => "/scheduled-courses/vfm-visceral-functional-mobilization/",
-		"CRS"  => "/scheduled-courses/crs-continence-reproduction-and-sex/",
-		"DFA"  => "/scheduled-courses/dfa-dynamic-foot-and-ankle/",
-		"KJD"  => "/scheduled-courses/kjd-knee-junction-dilemma/",
-		"KSC"  => "/scheduled-courses/ksc-kinetic-shoulder-complex/",
-		"PGP"  => "/scheduled-courses/pgp-the-pelvic-girdle-puzzle/",
-		"SOP"  => "/scheduled-courses/sop-strategies-for-optimizing-performance/",
-		"REM"  => "/scheduled-courses/rem-resistance-enhanced-manipulation/"
+		"ODSHR" => "/scheduled-courses/on-demand-courses/",
+		"CFS"   => "/scheduled-courses/cfs-corefirst-strategies/",
+		"PNF"   => "/scheduled-courses/pnf-functional-neuromuscular-and-motor-control-training/",
+		"FMI"   => "/scheduled-courses/fm-i-functional-mobilization-i/",
+		"FMLE"  => "/scheduled-courses/fmle-functional-mobilization-lower-extremities/",
+		"FMLT"  => "/scheduled-courses/fmlt-functional-mobilization-lower-trunk/",
+		"FMUE"  => "/scheduled-courses/fmue-functional-mobilization-upper-extremities/",
+		"FMUT"  => "/scheduled-courses/fmut-functional-mobilization-upper-trunk/",
+		"CBI"   => "/scheduled-courses/cbi-complete-body-integration/",
+		"GAIT"  => "/scheduled-courses/gait-functional-gait/",
+		"VFM"   => "/scheduled-courses/vfm-visceral-functional-mobilization/",
+		"CRS"   => "/scheduled-courses/crs-continence-reproduction-and-sex/",
+		"DFA"   => "/scheduled-courses/dfa-dynamic-foot-and-ankle/",
+		"KJD"   => "/scheduled-courses/kjd-knee-junction-dilemma/",
+		"KSC"   => "/scheduled-courses/ksc-kinetic-shoulder-complex/",
+		"PGP"   => "/scheduled-courses/pgp-the-pelvic-girdle-puzzle/",
+		"SOP"   => "/scheduled-courses/sop-strategies-for-optimizing-performance/",
+		"REM"   => "/scheduled-courses/rem-resistance-enhanced-manipulation/"
 	];
 
 	return $linkMaps[ $code ] ?? false;
