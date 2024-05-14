@@ -15,7 +15,7 @@
 					<option value="">All</option>
 					<option value="faculty primary">Primary Faculty</option>
 					<option value="faculty">All Faculty</option>
-					<option value="fellow faculty">FMT Fellows</option>
+					<option value="fmt-fellow">FMT Fellows</option>
 					<option value="cfmt">CFMT</option>
 					<option value="cafmt">CAFMT</option>
 					<option value="clinic">IPA Clinics</option>
