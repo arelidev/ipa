@@ -381,6 +381,7 @@ jQuery(document).ready(function ($) {
                     }
                 }
             });
+
             mixer.filter($matching);
 
             if (!map) {
