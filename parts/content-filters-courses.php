@@ -138,7 +138,7 @@ $presenters = new WP_Query( array(
                         </select>
                     </label>
                 </fieldset>
-                <fieldset class="cell small-12 medium-auto">
+                <fieldset class="cell small-12 medium-auto" data-filter-group>
                     <label>
 						<?= __( 'Date Range', 'ipa' ); ?>
                         <input type="text" placeholder="Start Date - End Date" id="course-filter-date">

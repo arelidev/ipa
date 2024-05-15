@@ -1,28 +1,28 @@
 <div class="search-bar styled-container">
-	<div class="grid-x grid-padding-x grid-padding-y align-middle">
+	<form class="grid-x grid-padding-x grid-padding-y align-middle">
 		<div class="cell auto">
 			<b>Filter by:</b>
 		</div>
-		<div class="cell shrink">
+		<fieldset class="cell shrink">
 			<a class="button small clear-button" style="margin-bottom: 0px">
 				Clear
 			</a>
-		</div>
-		<div class="cell auto">
+		</fieldset>
+		<fieldset class="cell auto">
 			<label><span class="show-for-sr">Select Menu</span>
 				<select id="clinics-filter-select">
-					<option value="">Type</option>
-					<option value="">All</option>
-					<option value="faculty primary">Primary Faculty</option>
+					<option value="">All Clinics</option>
 					<option value="faculty">All Faculty</option>
+					<option value="primary-faculty">Primary Faculty</option>
+					<option value="associate-faculty">Associate Faculty</option>
 					<option value="fmt-fellow">FMT Fellows</option>
 					<option value="cfmt">CFMT</option>
 					<option value="cafmt">CAFMT</option>
 					<option value="clinic">IPA Clinics</option>
 				</select>
 			</label>
-		</div>
-		<div class="cell auto">
+		</fieldset>
+		<fieldset class="cell auto">
 			<label><span class="show-for-sr">Input Label</span>
 				<select class="clinics-filter-state" id="clinics-filter-state">
 					<option value="all">State</option>
@@ -80,22 +80,19 @@
 					<option value="WY">Wyoming</option>
 				</select>
 			</label>
-		</div>
-
-		<div class="cell auto">
+		</fieldset>
+		<fieldset class="cell auto">
 			<label><span class="show-for-sr">Input Label</span>
 				<input type="text" class="clinics-filter-certification" id="clinics-filter-instructor" placeholder="Name">
 			</label>
-		</div>
-
+		</fieldset>
 		<div class="cell shrink">
 			<label>or</label>
 		</div>
-
-		<div class="cell auto">
+		<fieldset class="cell auto">
 			<label><span class="show-for-sr">Input Label</span>
 				<input type="text" placeholder="Zip Code" id="clinics-filter-zip">
 			</label>
-		</div>
-	</div>
+		</fieldset>
+	</form>
 </div>

@@ -162,6 +162,16 @@ function ipa_clinics_widget( $atts ) {
 							acf_slugify( $faculty_status ),
 							acf_slugify( $full_name )
 						);
+
+						$type_classes = [
+							( acf_slugify( $fellowship_status ) === 'fmt-fellow' ) ? 'fmt-fellow' : 'cfmt',
+							acf_slugify( $cafmt_rankings ),
+							acf_slugify( $faculty_status )
+						];
+
+						if ( $faculty_status === "Primary Faculty" || $faculty_status === "Associate Faculty" ) :
+							$faculty_classes[] = $type_classes[] = "faculty";
+						endif;
 						?>
                         <div class="<?= implode( " ", $faculty_classes ) ?>"
                              data-entity-id="<?= $user->ID; ?>"
@@ -172,7 +182,7 @@ function ipa_clinics_widget( $atts ) {
                              data-country="<?= $address['country']; ?>"
                              data-zip="<?= $address['post_code'] ?>"
                              data-state="<?= $address['state_short'] ?>"
-                             data-type="<?= ( acf_slugify( $fellowship_status ) === 'fmt-fellow' ) ? 'fmt-fellow' : 'cfmt' ?> <?= acf_slugify( $cafmt_rankings ) ?> <?= $faculty_status === "Primary Faculty" ? 'faculty primary' : '' ?>"
+                             data-type="<?= implode( " ", $type_classes ) ?>"
                              data-certification="<?= $credentials; ?>"
                              data-fellow="<?= ( acf_slugify( $fellowship_status ) === 'fmt-fellow' ) ? 1 : 0; ?>"
                              data-cfmt="<?= ( $cfmt_rankings ) ? 1 : 0; ?>"
