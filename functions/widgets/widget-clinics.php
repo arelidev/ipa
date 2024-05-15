@@ -195,59 +195,61 @@ function ipa_clinics_widget( $atts ) {
                                     </div>
                                     <div class="auto cell">
                                         <h5 class="single-clinic-title"><b><?= $full_name; ?></b></h5>
-										<?php if ( ! empty( $credentials ) ) : ?>
+
+	                                    <?php if ( ! empty( $credentials ) ) : ?>
                                             <p class="single-clinic-subtitle text-color-medium-gray"><?= $credentials; ?></p>
-										<?php endif; ?>
-										<?php if ( $business_name ) : ?>
+	                                    <?php endif; ?>
+
+	                                    <?php if ( $business_name ) : ?>
                                             <p class="single-clinic-business-name"><?= $business_name; ?></p>
-										<?php endif; ?>
+	                                    <?php endif; ?>
+
+	                                    <?php if ( $cafmt_rankings === "CAFMT with Honors" ) : ?>
+                                            <div class="grid-x align-center" style="margin-top: 10px;">
+                                                <div class="cell shrink" style="margin-right: 5px;">
+                                                    <i class="fa fa-medal" style="color: silver;"></i>
+                                                </div>
+                                                <div class="cell auto">
+                                                    <small>CAFMT with Honors</small>
+                                                </div>
+                                            </div>
+	                                    <?php endif; ?>
+
+	                                    <?php if ( $cafmt_rankings === "CAFMT with Distinction" ) : ?>
+                                            <div class="grid-x align-center" style="margin-top: 10px;">
+                                                <div class="cell shrink" style="margin-right: 5px;">
+                                                    <i class="fa fa-medal" style="color: gold;"></i>
+                                                </div>
+                                                <div class="cell auto">
+                                                    <small>CAFMT with Distinction</small>
+                                                </div>
+                                            </div>
+	                                    <?php endif; ?>
+
+	                                    <?php if ( $cfmt_rankings === "CFMT with Honors" ) : ?>
+                                            <div class="grid-x align-center" style="margin-top: 10px;">
+                                                <div class="cell shrink" style="margin-right: 5px;">
+                                                    <i class="fa fa-medal" style="color: silver;"></i>
+                                                </div>
+                                                <div class="cell auto">
+                                                    <small>CFMT with Honors</small>
+                                                </div>
+                                            </div>
+	                                    <?php endif; ?>
+
+	                                    <?php if ( $cfmt_rankings === "CFMT with Distinction" ) : ?>
+                                            <div class="grid-x align-center" style="margin-top: 10px;">
+                                                <div class="cell shrink" style="margin-right: 5px;">
+                                                    <i class="fa fa-medal" style="color: gold;"></i>
+                                                </div>
+                                                <div class="cell auto">
+                                                    <small>CFMT with Distinction</small>
+                                                </div>
+                                            </div>
+	                                    <?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="accordion-content">
-	                                <?php if ( $cafmt_rankings === "CAFMT with Honors" ) : ?>
-                                        <div class="grid-x">
-                                            <div class="cell small-2">
-                                                <i class="fa fa-medal fa-lg" style="color: silver;"></i>
-                                            </div>
-                                            <div class="cell auto">
-                                                <p>CAFMT with Honors</p>
-                                            </div>
-                                        </div>
-	                                <?php endif; ?>
-
-	                                <?php if ( $cafmt_rankings === "CAFMT with Distinction" ) : ?>
-                                        <div class="grid-x">
-                                            <div class="cell small-2">
-                                                <i class="fa fa-medal fa-lg" style="color: gold;"></i>
-                                            </div>
-                                            <div class="cell auto">
-                                                <p>CAFMT with Distinction</p>
-                                            </div>
-                                        </div>
-	                                <?php endif; ?>
-
-	                                <?php if ( $cfmt_rankings === "CFMT with Honors" ) : ?>
-                                        <div class="grid-x">
-                                            <div class="cell small-2">
-                                                <i class="fa fa-medal fa-lg" style="color: silver;"></i>
-                                            </div>
-                                            <div class="cell auto">
-                                                <p>CFMT with Honors</p>
-                                            </div>
-                                        </div>
-	                                <?php endif; ?>
-
-	                                <?php if ( $cfmt_rankings === "CFMT with Distinction" ) : ?>
-                                        <div class="grid-x">
-                                            <div class="cell small-2">
-                                                <i class="fa fa-medal fa-lg" style="color: gold;"></i>
-                                            </div>
-                                            <div class="cell auto">
-                                                <p>CFMT with Distinction</p>
-                                            </div>
-                                        </div>
-	                                <?php endif; ?>
-
 	                                <?php if ( $business_name ) : ?>
                                         <p><b><?= $business_name; ?></b></p>
 	                                <?php endif; ?>
