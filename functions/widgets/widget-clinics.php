@@ -129,13 +129,6 @@ function ipa_clinics_widget( $atts ) {
 
 						$business_name = $work_information['business_name'] ?? false;
 
-						$clinic = [
-							"FAAOMPT"          => false,
-							"cfmt_honors"      => false,
-							"cfmt_distinction" => false,
-							"current_fellow"   => false,
-						];
-
 						$address = [];
 						$offices = get_field( 'offices', $acf_user );
 						if ( $offices ) :
@@ -184,9 +177,9 @@ function ipa_clinics_widget( $atts ) {
                              data-state="<?= $address['state_short'] ?>"
                              data-type="<?= implode( " ", $type_classes ) ?>"
                              data-certification="<?= $credentials; ?>"
-                             data-fellow="<?= ( acf_slugify( $fellowship_status ) === 'fmt-fellow' ) ? 1 : 0; ?>"
-                             data-cfmt="<?= ( $cfmt_rankings ) ? 1 : 0; ?>"
-                             data-cafmt="<?= ( $cafmt_rankings ) ? 1 : 0; ?>"
+                             data-fellow="<?= ( !empty( $fellowship_status ) && $fellowship_status === 'FMT Fellow' ) ? 1 : 0; ?>"
+                             data-cfmt="<?= ( !empty( $cfmt_rankings ) && $cfmt_rankings !== "None" ) ? 1 : 0; ?>"
+                             data-cafmt="<?= ( !empty( $cafmt_rankings ) && $cafmt_rankings !== "None" ) ? 1 : 0; ?>"
                         >
                             <div class="accordion single-clinic-inner" data-accordion data-allow-all-closed="true">
                                 <div class="accordion-title grid-x grid-padding-x align-middle">
