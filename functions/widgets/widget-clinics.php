@@ -271,15 +271,17 @@ function ipa_clinics_widget( $atts ) {
                                             </div>
                                         </div>
 									<?php endif; ?>
-									<?php if ( ! empty( $address['address'] ) ) : $address = $address['address']; ?>
-                                        <div class="grid-x">
-                                            <div class="cell small-2">
-                                                <i class="far fa-map-marker-alt fa-lg"></i>
+									<?php if ( ! empty( $offices ) ) : ?>
+										<?php foreach ( $offices as $office ) : $address = $office['address'] ?>
+                                            <div class="grid-x">
+                                                <div class="cell small-2">
+                                                    <i class="far fa-map-marker-alt fa-lg"></i>
+                                                </div>
+                                                <div class="cell auto">
+                                                    <p class="single-clinic-address"><?= $address; ?></p>
+                                                </div>
                                             </div>
-                                            <div class="cell auto">
-                                                <p class="single-clinic-address"><?= $address; ?></p>
-                                            </div>
-                                        </div>
+										<?php endforeach; ?>
 									<?php endif; ?>
 									<?php if ( ! empty( $work_information['work_website'] ) ) : $website = $work_information['work_website']; ?>
                                         <div class="grid-x">
