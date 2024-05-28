@@ -272,7 +272,7 @@ function ipa_clinics_widget( $atts ) {
                                         </div>
 									<?php endif; ?>
 									<?php if ( ! empty( $offices ) ) : ?>
-										<?php foreach ( $offices as $office ) : $address = $office['address'] ?>
+										<?php foreach ( $offices as $office ) : $address = $office['address']['address']; ?>
                                             <div class="grid-x">
                                                 <div class="cell small-2">
                                                     <i class="far fa-map-marker-alt fa-lg"></i>
