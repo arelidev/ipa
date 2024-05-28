@@ -35,7 +35,7 @@ function ipa_jobs_widget( $atts, $content = null ) {
                     <td><?= get_field( 'job_city__state' ); ?></td>
                     <td><?= get_field( 'job_organization' ); ?></td>
                     <td>
-                        <a data-fancybox href="<?= get_field( 'job_file' ); ?>">
+                        <a href="<?= get_field( 'job_file' ); ?>" target="_blank" aria-hidden="true" rel="nofollow">
                             <?php the_title(); ?>
                         </a>
                     </td>
