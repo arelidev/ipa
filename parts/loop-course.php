@@ -134,7 +134,17 @@ $linked_courses  = get_field( 'course_remote_cat' );
                 <div id="courses" data-magellan-target="courses">
                     <div class="grid-x grid-margin-x grid-padding-x grid-padding-y" id="courses" data-magellan-target="courses">
                         <div class="cell">
-                            <h3><b><?= __("Dates & Locations", "ipa"); ?></b></h3>
+                            <h3>
+                                <b>
+	                                <?php
+	                                if ( get_field( "arlo_event" ) === "On-demand" ) :
+		                                __( "On-Demand Courses", "ipa" );
+	                                else :
+		                                __( "Dates & Locations", "ipa" );
+	                                endif;
+	                                ?>
+                                </b>
+                            </h3>
                         </div>
                         <div class="cell">
 							<?= do_shortcode("[ipa_courses_table template='$linked_courses' single='1' filters='0' el_class='no-mix']"); ?>
