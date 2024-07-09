@@ -68,12 +68,12 @@ $linked_courses  = get_field( 'course_remote_cat' );
                             <li>
                                 <a href="#courses">
 									<?php
-									if ( $delivery_method == 2 ) :
-										_e( 'Virtual Course Dates', 'ipa' );
-									else :
-										_e( 'Locations & Dates', 'ipa' );
-									endif;
-									?>
+	                                if ( get_field( "arlo_event" ) === "On-demand" ) :
+		                                _e( "On-Demand Courses", "ipa" );
+	                                else :
+		                                _e( "Dates & Locations", "ipa" );
+	                                endif;
+	                                ?>
                                 </a>
                             </li>
                         </ul>
