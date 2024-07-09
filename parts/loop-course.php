@@ -138,9 +138,9 @@ $linked_courses  = get_field( 'course_remote_cat' );
                                 <b>
 	                                <?php
 	                                if ( get_field( "arlo_event" ) === "On-demand" ) :
-		                                __( "On-Demand Courses", "ipa" );
+		                                _e( "On-Demand Courses", "ipa" );
 	                                else :
-		                                __( "Dates & Locations", "ipa" );
+		                                _e( "Dates & Locations", "ipa" );
 	                                endif;
 	                                ?>
                                 </b>
