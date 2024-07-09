@@ -95,7 +95,7 @@ function my_account_endpoint_content()
 add_action('woocommerce_account_edit-profile_endpoint', 'my_account_endpoint_content');
 
 add_action('woocommerce_check_cart_items', function () {
-	echo '<div class="callout primary">This is our new checkout ecommerce platform. Please read descriptions below to know whether you are a “Returning Customer” or “New Customer”.</div>';
+	echo '<div class="callout primary">Place your order now!  IPA Product orders process each Thursday.</div>';
 });
 
 add_action('woocommerce_before_checkout_billing_form', function () {
