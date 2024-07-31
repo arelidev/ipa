@@ -1,0 +1,90 @@
+{
+    "key": "group_5dc5a1db94a00",
+    "title": "Sticky Navigation",
+    "fields": [
+        {
+            "key": "field_5df2ad7289412",
+            "label": "Menu Items",
+            "name": "course_magellan_navigation",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "This is the sticky navigation that follows the user's place on the page. The course item will automatically be added at the end of the menu list.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Add Row",
+            "sub_fields": [
+                {
+                    "key": "field_5df2ad9989413",
+                    "label": "Menu Titile",
+                    "name": "course_magellan_navigation_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_5df2ad7289412"
+                },
+                {
+                    "key": "field_5df2adca89414",
+                    "label": "Section ID",
+                    "name": "course_magellan_navigation_section_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "This needs to correspond to a section ID set in the body copy.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "overview",
+                    "prepend": "#",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_5df2ad7289412"
+                }
+            ],
+            "rows_per_page": 20
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-course.php"
+            }
+        ]
+    ],
+    "menu_order": 13,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1722430574
+}
