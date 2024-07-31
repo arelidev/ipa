@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php
-$additional_content = get_field( "customer_email_confirmation", "option" );
+$additional_content = get_field( "customer_email_confirmation", "options" );
 
 if ( $additional_content ) {
 	// Replace placeholders in the ACF field value
