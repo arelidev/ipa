@@ -2,70 +2,67 @@
 /**
  * @return void
  */
-function ipa_add_woocommerce_support()
-{
-	add_theme_support('woocommerce');
+function ipa_add_woocommerce_support() {
+	add_theme_support( 'woocommerce' );
 }
 
-add_action('after_setup_theme', 'ipa_add_woocommerce_support');
+add_action( 'after_setup_theme', 'ipa_add_woocommerce_support' );
 
 // Remove page title
-add_filter('woocommerce_show_page_title', '__return_null');
+add_filter( 'woocommerce_show_page_title', '__return_null' );
 
 /**
  * Change number of products that are displayed per page (shop page)
  *
  * @param $cols
+ *
  * @return int
  */
-function new_loop_shop_per_page($cols): int
-{
+function new_loop_shop_per_page( $cols ): int {
 	return 50;
 }
 
-add_filter('loop_shop_per_page', 'new_loop_shop_per_page', 20);
+add_filter( 'loop_shop_per_page', 'new_loop_shop_per_page', 20 );
 
 /**
  * @param $menu_links
+ *
  * @return string[]
  */
-function log_history_link($menu_links): array
-{
-	return array_slice($menu_links, 0, 5, true)
-		+ array('edit-profile' => 'Profile Member')
-		+ array_slice($menu_links, 6, NULL, true);
+function log_history_link( $menu_links ): array {
+	return array_slice( $menu_links, 0, 5, true )
+	       + array( 'edit-profile' => 'Profile Member' )
+	       + array_slice( $menu_links, 6, null, true );
 }
 
-add_filter('woocommerce_account_menu_items', 'log_history_link', 40);
+add_filter( 'woocommerce_account_menu_items', 'log_history_link', 40 );
 
 /**
  * @return void
  */
-function add_endpoint()
-{
-	add_rewrite_endpoint('edit-profile', EP_PAGES);
+function add_endpoint() {
+	add_rewrite_endpoint( 'edit-profile', EP_PAGES );
 }
 
-add_action('init', 'add_endpoint');
+add_action( 'init', 'add_endpoint' );
 
 /**
  * @return void]
  */
-function my_account_endpoint_content()
-{
+function my_account_endpoint_content() {
 	acf_form_head();
 
-	$user_id = get_current_user_id();
-	$user_meta = get_user_meta($user_id);
+	$user_id   = get_current_user_id();
+	$user_meta = get_user_meta( $user_id );
 
-	$name = acf_slugify($user_meta['first_name'][0] . " " . $user_meta['last_name'][0]);
+	$name = acf_slugify( $user_meta['first_name'][0] . " " . $user_meta['last_name'][0] );
 	?>
     <div class="grid-x grid-padding-x align-center-middle">
         <div class="small-12 medium-auto">
             <h4>Edit your profile</h4>
         </div>
         <div class="small-12 medium-shrink">
-            <a href='<?= home_url('/profile-member/' . $name); ?>' class='button small-only-expanded'
+            <a href='<?= home_url( '/profile-member/' . $name ); ?>' class='button small-only-expanded'
                target="_blank">
                 View Profile
             </a>
@@ -75,11 +72,11 @@ function my_account_endpoint_content()
     <hr/>
 	<?php
 	$settings = [
-		"post_id" => 'user_' . $user_id,
-		'submit_value' => __("Update profile", 'acf'),
-		'updated_message' => __("Profile updated", 'acf'),
+		"post_id"              => 'user_' . $user_id,
+		'submit_value'         => __( "Update profile", 'acf' ),
+		'updated_message'      => __( "Profile updated", 'acf' ),
 		'html_updated_message' => '<div id="message" class="updated callout success"><p>%s</p></div>',
-		'fields' => [
+		'fields'               => [
 			'profile_image',
 			'bio',
 			'credentials',
@@ -89,28 +86,27 @@ function my_account_endpoint_content()
 		],
 	];
 
-	acf_form($settings);
+	acf_form( $settings );
 }
 
-add_action('woocommerce_account_edit-profile_endpoint', 'my_account_endpoint_content');
+add_action( 'woocommerce_account_edit-profile_endpoint', 'my_account_endpoint_content' );
 
-add_action('woocommerce_check_cart_items', function () {
+add_action( 'woocommerce_check_cart_items', function () {
 	echo '<div class="callout primary">Place your order now!  IPA Product orders process each Thursday.</div>';
-});
+} );
 
-add_action('woocommerce_before_checkout_billing_form', function () {
+add_action( 'woocommerce_before_checkout_billing_form', function () {
 	echo '<div class="callout primary">New Customer <b>(First product order since August 16th, 2022)</b>. Please create an account by filling out details below.</div>';
-});
+} );
 
 /**
  * @return string
  */
-function rename_returning_customer(): string
-{
+function rename_returning_customer(): string {
 	return 'Returning Customer (Has placed product order since August 16th, 2022)';
 }
 
-add_filter('woocommerce_checkout_login_message', 'rename_returning_customer');
+add_filter( 'woocommerce_checkout_login_message', 'rename_returning_customer' );
 
 /**
  * @return void
@@ -132,3 +128,24 @@ function rdf_custom_surcharge() {
 }
 
 // add_action('woocommerce_cart_calculate_fees', 'rdf_custom_surcharge');
+
+/**
+ * @param $text
+ * @param $order
+ *
+ * @return array|string|string[]
+ */
+function replace_placeholders( $text, $order ) {
+	// Get the current user info
+	$current_user = wp_get_current_user();
+	$user_name    = $current_user->user_firstname ? $current_user->user_firstname : $current_user->user_email;
+
+	// Get the order number
+	$order_number = $order->get_order_number();
+
+	// Replace the placeholders
+	$text = str_replace( '{{user}}', $user_name, $text );
+	$text = str_replace( '{{order_number}}', $order_number, $text );
+
+	return $text;
+}
