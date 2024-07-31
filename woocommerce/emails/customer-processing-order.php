@@ -25,12 +25,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php
-$additional_content = get_field( "customer_email_confirmation", "options" );
+$additional_content = get_field( "Customer_emails", "options" );
 
-if ( $additional_content ) {
+if ( ! empty( $additional_content["customer_email_confirmation"]) ) {
 	// Replace placeholders in the ACF field value
-	$additional_content = replace_placeholders( $additional_content, $order );
-	echo $additional_content;
+	echo replace_placeholders( $additional_content["customer_email_confirmation"], $order );
 } else {
 	?>
 	<?php /* translators: %s: Customer first name */ ?>
