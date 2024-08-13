@@ -9,6 +9,7 @@
 function ipa_courses_widget( $atts ) {
 	$atts = shortcode_atts( [
 		"presenter" => false,
+        "template"  => false,
         "filters"   => true,
         "display"   => false,
         "condensed" => false,
@@ -41,6 +42,26 @@ function ipa_courses_widget( $atts ) {
 				'compare' => 'LIKE'
 			]
 		];
+	endif;
+
+	if ( $atts['template'] ) :
+		if ( $atts['template'] === "Virtual" || $atts["template"] === "On-demand" ) :
+			$args['meta_query'] = array(
+				array(
+					'key'     => 'categories_$_name',
+					'value'   => $atts['template'],
+					'compare' => 'LIKE'
+				)
+			);
+		else :
+			$args['meta_query'] = array(
+				array(
+					'key'     => 'templatecode',
+					'value'   => $atts['template'],
+					'compare' => '='
+				)
+			);
+		endif;
 	endif;
 
 	$loop = new WP_Query( $args );
