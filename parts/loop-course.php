@@ -147,7 +147,13 @@ $linked_courses  = get_field( 'course_remote_cat' );
                             </h3>
                         </div>
                         <div class="cell">
-							<?= do_shortcode("[ipa_courses_table template='$linked_courses' single='1' filters='0' el_class='no-mix']"); ?>
+	                        <?php
+	                        if ( get_field( "arlo_event" ) === "On-demand" ) :
+		                        echo do_shortcode( "[ipa_courses template='$linked_courses' filters='0' condensed='1']" );
+	                        else :
+		                        echo do_shortcode( "[ipa_courses_table template='$linked_courses' single='1' filters='0' el_class='no-mix']" );
+	                        endif;
+	                        ?>
                         </div>
                     </div>
 
