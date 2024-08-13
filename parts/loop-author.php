@@ -298,7 +298,7 @@ $presenter_id        = get_field( 'arlo_presenter_profile', $acf_user ) ?? "NO-R
                         <h3><b><?= $full_name; ?>'s <?= __( "Upcoming Courses", "ipa" ); ?></b></h3>
                     </div>
                     <div class="cell">
-						<?= do_shortcode( "[ipa_courses_table presenter='$presenter_id' filters='0' el_class='no-mix']" ); ?>
+						<?= do_shortcode( "[ipa_courses presenter='$presenter_id' filters='0' display='calendar' condensed='1']" ); ?>
                     </div>
                 </div>
             </footer> <!-- end article footer -->

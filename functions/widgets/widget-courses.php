@@ -8,12 +8,20 @@
  */
 function ipa_courses_widget( $atts ) {
 	$atts = shortcode_atts( [
-		"el_class" => ""
+		"presenter" => false,
+        "filters"   => true,
+        "display"   => false,
+        "condensed" => false,
+		"el_class"  => ""
 	], $atts );
 
 	ob_start();
 
-    $display = get_query_var( "display" );
+	if ( $atts["display"] ):
+		$display = $atts["display"];
+	else :
+		$display = get_query_var( "display" );
+	endif;
 
 	$args = [
 		"post_type"        => "ipa_arlo_events",
@@ -24,6 +32,16 @@ function ipa_courses_widget( $atts ) {
 		"orderby"          => "meta_value",
 		"order"            => "ASC",
 	];
+
+	if ( $atts['presenter'] ) :
+		$args['meta_query'] = [
+			[
+				'key'     => 'presenters_$_linked_presenter',
+				'value'   => '"' . $atts['presenter'] . '"',
+				'compare' => 'LIKE'
+			]
+		];
+	endif;
 
 	$loop = new WP_Query( $args );
 
@@ -67,159 +85,29 @@ function ipa_courses_widget( $atts ) {
     <div class="ipa-courses-widget <?= $atts['el_class']; ?>">
 		<?php if ( $loop->have_posts() ) : ?>
 			<?php
-			get_template_part(
-				'parts/content-filters', 'courses',
-				array(
-					"courses"    => $courses,
-					"expandable" => false,
-                    "display"    => $display
-				)
-			);
+			if ( $atts['filters'] !== "0" ) :
+				get_template_part(
+					'parts/content-filters', 'courses',
+					array(
+						"courses"    => $courses,
+						"expandable" => false,
+						"display"    => $display
+					)
+				);
+			endif;
 			?>
             <div class="ipa-courses-widget-wrapper">
-				<?php foreach ( $courses as $title => $ids ) : ?>
-                    <div class="ipa-courses-widget-cell" id="course-<?= acf_slugify( $title ); ?>">
-                        <a href="#<?= acf_slugify( $title ); ?>" class="ipa-courses-widget-course-title text-color-black">
-                            <h5><b><?= $title; ?></b></h5>
-                        </a>
-                        <div class="styled-container" id="<?= acf_slugify( $title ); ?>">
-                            <table class="course-table hover stack">
-                                <thead>
-                                <tr>
-                                    <th><?= __( 'Course', 'ipa' ); ?></th>
-                                    <th><?= __( 'Location', 'ipa' ); ?></th>
-                                    <th><?= __( 'Date', 'ipa' ); ?></th>
-                                    <th><?= __( 'Instructor(s)', 'ipa' ); ?></th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-								<?php
-								foreach ( $ids as $id ) :
-									$eventId = get_field( 'eventid', $id );
-									$eventCode = get_field( 'code', $id );
-									$templateCode = get_field( 'templatecode', $id );
-
-									$parentClasses = [
-										$eventId,
-										$eventCode,
-										$templateCode,
-                                        "mix"
-									];
-
-									if ( have_rows( "presenters", $id ) ) :
-										while ( have_rows( "presenters", $id ) ) : the_row();
-											$parentClasses[] = acf_slugify( get_sub_field( 'name' ) );
-										endwhile;
-									endif;
-
-									$eventTitle = get_the_title( $id );
-									$sessions   = get_field( "sessions", $id );
-									$startDate  = get_field( 'startdatetime', $id );
-									$endDate    = get_field( 'enddatetime', $id );
-									$categories = get_field( 'categories', $id );
-
-									$is_virtual   = is_virtual( $categories );
-									$is_on_demand = is_on_demand( $categories );
-
-									if ( $is_virtual ) :
-										$parentClasses[] = "virtual";
-
-										if ( $display === "calendar" ) :
-											continue;
-										endif;
-                                    elseif ( $is_on_demand ) :
-										$parentClasses[] = "on-demand";
-
-										if ( $display === "calendar" ) :
-											continue;
-										endif;
-									else :
-										$parentClasses[] = "in-person";
-									endif;
-
-									$venue = $city = $state = "";
-
-									if ( $sessions ) :
-										$first    = $sessions[0]["location"];
-										$location = $first[0];
-
-										$venue = $location['venuename'] ?? false;
-										$city  = $location['city'] ?? false;
-										$state = $location['state'] ?? false;
-
-										if ( $state ) :
-											$slugify_state   = acf_slugify( $state );
-											$parentClasses[] = $slugify_state;
-
-											$regions = get_region_by_state( $slugify_state );
-											foreach ( $regions as $region ) :
-												$parentClasses[] = $region;
-											endforeach;
-										endif;
-									endif;
-
-									$registrationInfo = get_field( 'registrationinfo', $id );
-									$registerUri      = $registrationInfo['registeruri'];
-									$registermessage  = $registrationInfo['registermessage'];
-
-                                    $permalink = getCoursePermalink( $templateCode, $is_virtual, $is_on_demand ) ?? $registerUri;
-									?>
-                                    <tr class="<?= implode( " ", $parentClasses ); ?>"
-                                        id="<?= $eventId; ?>"
-                                        data-start-date="<?= date( 'm/d/Y', strtotime( $startDate ) ); ?>"
-                                        data-end-date="<?= date( 'm/d/Y', strtotime( $endDate ) ); ?>"
-                                    >
-                                        <td class="course-table--title">
-											<a href="<?= $permalink; ?>">
-                                                <b><?= $eventTitle; ?></b>
-                                            </a>
-                                        </td>
-                                        <td class="course-table--location">
-											<?= $venue; ?>
-											<?= ! empty( $city ) ? "<br>$city" : ""; ?> <?= ! empty( $state ) ? ", $state" : ""; ?>
-                                        </td>
-                                        <td class="course-table--date">
-                                            <div class="text-color-dark-gray">
-												<?php
-												get_template_part(
-													'parts/arlo/events/loop-event',
-													'datetime',
-													array(
-														'post' => $id
-													)
-												);
-												?>
-                                            </div>
-                                        </td>
-                                        <td class="course-table--instructor">
-		                                    <?php
-		                                    if ( have_rows( 'presenters', $id ) ) :
-			                                    get_template_part(
-				                                    'parts/arlo/events/loop',
-				                                    'presenters',
-				                                    array(
-					                                    'post' => $id
-				                                    )
-			                                    );
-		                                    endif;
-		                                    ?>
-                                        </td>
-                                        <td class="course-table--register text-center">
-                                            <a href="<?= $registerUri; ?>" <?= ( empty( $registerUri ) ) ? "disabled" : ""; ?>>
-                                                <b><?= $registermessage; ?></b>
-                                            </a>
-                                            <a href="<?= $permalink; ?>" style="margin-left: 1rem;">
-                                                <b>More info</b>
-                                            </a>
-                                        </td>
-                                    </tr>
-								<?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-				<?php endforeach; ?>
+	            <?php if ( ! $atts["condensed"] ) : ?>
+		            <?php get_template_part( 'parts/loop-course', 'table', [
+			            "courses" => $courses,
+			            "display" => $display
+		            ] ); ?>
+	            <?php else : ?>
+		            <?php get_template_part( 'parts/loop-course', 'table-condensed', [
+			            "courses"   => $courses,
+			            "display"   => $display
+		            ] ); ?>
+	            <?php endif; ?>
             </div>
 		<?php else : ?>
             <div class="callout primary">
