@@ -146,6 +146,11 @@ $linked_courses  = get_field( 'course_remote_cat' );
                                 </b>
                             </h3>
                         </div>
+	                    <?php if ( ! empty( get_field( "above_table_description" ) ) ) : ?>
+                            <div class="cell">
+                                <?= get_field( "above_table_description" ); ?>
+                            </div>
+	                    <?php endif; ?>
                         <div class="cell">
 	                        <?php
 	                        if ( get_field( "arlo_event" ) === "On-demand" ) :
