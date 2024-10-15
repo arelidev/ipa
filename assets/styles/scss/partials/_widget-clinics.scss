@@ -14,16 +14,41 @@
     margin-bottom: $global-margin * 2;
     transition: all .15s ease-in-out;
     transform: translateY(0);
-    cursor: pointer;
+    border: 1px solid transparent;
 
     &:hover {
       box-shadow: $global-box-shadow-hover;
       transform: translateY(-10px);
+      border-color: $primary-color;
     }
 
     &-inner {
       padding: $global-padding;
       min-height: 70px;
+
+      &-info {
+        margin-top: 1rem;
+
+        p {
+          font-size: rem-calc(14);
+          margin-bottom: .5rem;
+        }
+
+        i {
+          margin-right: .5rem;
+          height: 25px;
+          width: 25px;
+        }
+
+        &-address {
+          color: $primary-color;
+          cursor: pointer;
+
+          &:hover {
+            color: $black;
+          }
+        }
+      }
 
       .fa-star {
         color: #FFAD0D;
@@ -34,7 +59,7 @@
         width: 60px;
         object-fit: cover;
         object-position: center;
-        margin: auto;
+        margin: 0 auto .5rem;
         border-radius: 50%;
         display: block;
       }
@@ -44,12 +69,6 @@
         border-bottom-color: #B0B7C3;
         opacity: .3;
       }
-
-      .accordion-title {
-      }
-
-      .accordion-content {
-      }
     }
 
     &-title {
@@ -57,32 +76,6 @@
 
     &-subtitle {
       margin-bottom: 0;
-    }
-
-    &.fmt-fellow {
-      border: 2px solid #0a1f44;
-    }
-
-    &.cfmt {
-      border: 2px solid #8a94a6;
-    }
-
-    .accordion-title {
-      padding: 0px;
-      display: flex;
-      border: none;
-
-      &:hover {
-        background: white;
-      }
-
-      &:before {
-        content: '';
-      }
-    }
-
-    .accordion-content {
-      border: none;
     }
   }
 
