@@ -661,11 +661,11 @@ function get_primary_faculty_names( $faculty ): array {
 /**
  * Get Instructor Image
  *
- * @param $image
+ * @param string $image
  *
  * @return string
  */
-function get_instructor_image($image): string {
+function get_instructor_image( string $image = ""): string {
 	global $stage_url;
 
 	$stored  = get_field( 'default_instructor_image', 'options' );
@@ -673,7 +673,7 @@ function get_instructor_image($image): string {
 
 	if ( ! empty( $image ) ) :
 		// todo: add validation to check if the image exists
-		$image_url = "{$stage_url}/media/ipa/profile/general/{$image}";
+		$image_url = "$stage_url/media/ipa/profile/general/{$image}";
 	else :
 		$image_url = $default;
 	endif;
