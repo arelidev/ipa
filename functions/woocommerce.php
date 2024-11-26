@@ -248,7 +248,7 @@ function conditionally_replace_add_to_cart() {
 	// Check if we are on the correct product page
 	if ( $product->get_id() == $target_product_id ) {
 		// Set the target date and time (YYYY-MM-DD HH:MM:SS format)
-		$target_date = '2024-11-27 23:59:59';
+		$target_date = '2024-11-28 23:59:59';
 
 		// Get current date and time
 		$current_datetime = current_time( 'Y-m-d H:i:s' );
