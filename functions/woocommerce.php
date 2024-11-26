@@ -149,3 +149,81 @@ function replace_placeholders( $text, $order ) {
 
 	return $text;
 }
+
+function ipa_gc_form_field_recipient_html( $product ) {
+
+	// Re-fill form.
+	$to = isset( $_REQUEST['wc_gc_giftcard_to'] ) ? sanitize_text_field( $_REQUEST['wc_gc_giftcard_to'] ) : '';
+	$to = empty( $to ) && isset( $_REQUEST['wc_gc_giftcard_to_multiple'] ) ? sanitize_text_field( $_REQUEST['wc_gc_giftcard_to_multiple'] ) : $to;
+
+	if ( $product->is_sold_individually() ) { ?>
+        <div class="wc_gc_field wc_gc_giftcard_to form-row">
+            <label for="wc_gc_giftcard_to"><?php esc_html_e( 'Recipient’s full name', 'woocommerce-gift-cards' ); ?>
+                <abbr class="required" title="Required field"><?php echo esc_html_x( '*', 'character, indicating a required field', 'woocommerce-gift-cards' ); ?></abbr>
+            </label>
+            <input type="text" class="input-text" name="wc_gc_giftcard_to" placeholder="<?php esc_attr_e( 'Enter gift card recipient email', 'woocommerce-gift-cards' ); ?>" value="<?php echo esc_attr( $to ); ?>"/>
+        </div>
+	<?php } else { ?>
+        <div class="wc_gc_field wc_gc_giftcard_to_multiple form-row">
+            <label for="wc_gc_giftcard_to_multiple"><?php esc_html_e( 'Recipient’s full name', 'woocommerce-gift-cards' ); ?>
+                <abbr class="required" title="Required field"><?php echo esc_html_x( '*', 'character, indicating a required field', 'woocommerce-gift-cards' ); ?></abbr>
+            </label>
+            <?php
+			/* translators: delimiter */
+			$placeholder = sprintf( esc_attr__( 'Enter gift card recipient emails, separated by comma (%s)', 'woocommerce-gift-cards' ), wc_gc_get_emails_delimiter() );
+			?>
+            <input type="text" class="input-text" name="wc_gc_giftcard_to_multiple" placeholder="<?php echo esc_attr( $placeholder ); ?>" value="<?php echo esc_attr( $to ); ?>"/>
+        </div>
+		<?php
+	}
+}
+
+remove_action( 'woocommerce_gc_form_fields_html', 'wc_gc_form_field_recipient_html' );
+add_action( 'woocommerce_gc_form_fields_html', 'ipa_gc_form_field_recipient_html' );
+
+function ipa_gc_form_field_sender_html( $product ) {
+
+	// Re-fill form.
+	$from = isset( $_REQUEST['wc_gc_giftcard_from'] ) ? sanitize_text_field( wp_unslash( urldecode( $_REQUEST['wc_gc_giftcard_from'] ) ) ) : ''; // @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+	if ( empty( $from ) && get_current_user_id() ) {
+		$customer_id = apply_filters( 'woocommerce_checkout_customer_id', get_current_user_id() );
+		$customer    = new WC_Customer( $customer_id );
+		if ( is_a( $customer, 'WC_Customer' ) ) {
+
+			if ( is_email( $customer->get_display_name() ) || $customer->get_display_name() === $customer->get_username() ) {
+				$customer->set_display_name( $customer->get_first_name() . ' ' . $customer->get_last_name() );
+			}
+
+			$from = ! empty( trim( $customer->get_display_name() ) ) ? $customer->get_display_name() : '';
+		}
+	}
+
+	?>
+    <div class="wc_gc_field wc_gc_giftcard_from form-row">
+        <label for="wc_gc_giftcard_from"><?php esc_html_e( 'Recipient’s IPA Course account email address', 'woocommerce-gift-cards' ); ?>
+            <abbr class="required" title="Required field"><?php echo esc_html_x( '*', 'character, indicating a required field', 'woocommerce-gift-cards' ); ?></abbr>
+        </label>
+        <input type="text" class="input-text" name="wc_gc_giftcard_from" placeholder="<?php esc_attr_e( 'Enter your name', 'woocommerce-gift-cards' ); ?>" value="<?php echo esc_attr( $from ); ?>"/>
+    </div>
+	<?php
+}
+
+remove_action( 'woocommerce_gc_form_fields_html', 'wc_gc_form_field_sender_html', 20 );
+add_action( 'woocommerce_gc_form_fields_html', 'ipa_gc_form_field_sender_html', 20 );
+
+function ipa_gc_form_field_message_html( $product ) {
+
+	// Re-fill form.
+	$message = isset( $_REQUEST['wc_gc_giftcard_message'] ) ? sanitize_textarea_field( str_replace( '<br />', "\n", wp_unslash( urldecode( $_REQUEST['wc_gc_giftcard_message'] ) ) ) ) : ''; // @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+	?>
+    <div class="wc_gc_field wc_gc_giftcard_message form-row">
+        <label for="wc_gc_giftcard_message"><?php esc_html_e( 'Message for Recipient', 'woocommerce-gift-cards' ); ?></label>
+        <textarea rows="3" class="input-text" name="wc_gc_giftcard_message" placeholder="<?php esc_attr_e( 'Add your message (optional)', 'woocommerce-gift-cards' ); ?>"><?php echo esc_html( $message ); ?></textarea>
+    </div>
+	<?php
+}
+
+remove_action( 'woocommerce_gc_form_fields_html', 'wc_gc_form_field_message_html', 30 );
+add_action( 'woocommerce_gc_form_fields_html', 'ipa_gc_form_field_message_html', 30 );
