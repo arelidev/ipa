@@ -83,7 +83,9 @@
 .woocommerce-checkout,
 .woocommerce-account {
 
-  .woocommerce {
+  .woocommerce,
+  .wp-block-woocommerce-checkout,
+  .wp-block-woocommerce-cart {
     max-width: $global-width;
     margin: $global-margin auto;
 
