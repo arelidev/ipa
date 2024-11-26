@@ -159,20 +159,25 @@ function ipa_gc_form_field_recipient_html( $product ) {
 	if ( $product->is_sold_individually() ) { ?>
         <div class="wc_gc_field wc_gc_giftcard_to form-row">
             <label for="wc_gc_giftcard_to"><?php esc_html_e( 'Recipient’s full name', 'woocommerce-gift-cards' ); ?>
-                <abbr class="required" title="Required field"><?php echo esc_html_x( '*', 'character, indicating a required field', 'woocommerce-gift-cards' ); ?></abbr>
+                <abbr class="required"
+                      title="Required field"><?php echo esc_html_x( '*', 'character, indicating a required field', 'woocommerce-gift-cards' ); ?></abbr>
             </label>
-            <input type="text" class="input-text" name="wc_gc_giftcard_to" placeholder="<?php esc_attr_e( 'Enter gift card recipient email', 'woocommerce-gift-cards' ); ?>" value="<?php echo esc_attr( $to ); ?>"/>
+            <input type="text" class="input-text" name="wc_gc_giftcard_to"
+                   placeholder="<?php esc_attr_e( 'Enter gift card recipient email', 'woocommerce-gift-cards' ); ?>"
+                   value="<?php echo esc_attr( $to ); ?>"/>
         </div>
 	<?php } else { ?>
         <div class="wc_gc_field wc_gc_giftcard_to_multiple form-row">
             <label for="wc_gc_giftcard_to_multiple"><?php esc_html_e( 'Recipient’s full name', 'woocommerce-gift-cards' ); ?>
-                <abbr class="required" title="Required field"><?php echo esc_html_x( '*', 'character, indicating a required field', 'woocommerce-gift-cards' ); ?></abbr>
+                <abbr class="required"
+                      title="Required field"><?php echo esc_html_x( '*', 'character, indicating a required field', 'woocommerce-gift-cards' ); ?></abbr>
             </label>
-            <?php
+			<?php
 			/* translators: delimiter */
 			$placeholder = sprintf( esc_attr__( 'Enter gift card recipient emails, separated by comma (%s)', 'woocommerce-gift-cards' ), wc_gc_get_emails_delimiter() );
 			?>
-            <input type="text" class="input-text" name="wc_gc_giftcard_to_multiple" placeholder="<?php echo esc_attr( $placeholder ); ?>" value="<?php echo esc_attr( $to ); ?>"/>
+            <input type="text" class="input-text" name="wc_gc_giftcard_to_multiple"
+                   placeholder="<?php echo esc_attr( $placeholder ); ?>" value="<?php echo esc_attr( $to ); ?>"/>
         </div>
 		<?php
 	}
@@ -202,9 +207,12 @@ function ipa_gc_form_field_sender_html( $product ) {
 	?>
     <div class="wc_gc_field wc_gc_giftcard_from form-row">
         <label for="wc_gc_giftcard_from"><?php esc_html_e( 'Recipient’s IPA Course account email address', 'woocommerce-gift-cards' ); ?>
-            <abbr class="required" title="Required field"><?php echo esc_html_x( '*', 'character, indicating a required field', 'woocommerce-gift-cards' ); ?></abbr>
+            <abbr class="required"
+                  title="Required field"><?php echo esc_html_x( '*', 'character, indicating a required field', 'woocommerce-gift-cards' ); ?></abbr>
         </label>
-        <input type="text" class="input-text" name="wc_gc_giftcard_from" placeholder="<?php esc_attr_e( 'Enter your name', 'woocommerce-gift-cards' ); ?>" value="<?php echo esc_attr( $from ); ?>"/>
+        <input type="text" class="input-text" name="wc_gc_giftcard_from"
+               placeholder="<?php esc_attr_e( 'Enter your name', 'woocommerce-gift-cards' ); ?>"
+               value="<?php echo esc_attr( $from ); ?>"/>
     </div>
 	<?php
 }
@@ -220,10 +228,73 @@ function ipa_gc_form_field_message_html( $product ) {
 	?>
     <div class="wc_gc_field wc_gc_giftcard_message form-row">
         <label for="wc_gc_giftcard_message"><?php esc_html_e( 'Message for Recipient', 'woocommerce-gift-cards' ); ?></label>
-        <textarea rows="3" class="input-text" name="wc_gc_giftcard_message" placeholder="<?php esc_attr_e( 'Add your message (optional)', 'woocommerce-gift-cards' ); ?>"><?php echo esc_html( $message ); ?></textarea>
+        <textarea rows="3" class="input-text" name="wc_gc_giftcard_message"
+                  placeholder="<?php esc_attr_e( 'Add your message (optional)', 'woocommerce-gift-cards' ); ?>"><?php echo esc_html( $message ); ?></textarea>
     </div>
 	<?php
 }
 
 remove_action( 'woocommerce_gc_form_fields_html', 'wc_gc_form_field_message_html', 30 );
 add_action( 'woocommerce_gc_form_fields_html', 'ipa_gc_form_field_message_html', 30 );
+
+add_action( 'woocommerce_single_product_summary', 'conditionally_replace_add_to_cart', 30 );
+
+function conditionally_replace_add_to_cart() {
+	global $product;
+
+	// Target product ID
+	$target_product_id = 19555;
+
+	// Check if we are on the correct product page
+	if ( $product->get_id() == $target_product_id ) {
+		// Set the target date and time (YYYY-MM-DD HH:MM:SS format)
+		$target_date = '2024-11-27 23:59:59';
+
+		// Get current date and time
+		$current_datetime = current_time( 'Y-m-d H:i:s' );
+
+		// Check if the current date/time is before the target date/time
+		if ( $current_datetime < $target_date ) {
+			if ( $product->is_type( 'variable' ) ) {
+				// Remove the Add to Cart button for variable products
+				echo '<style>.variations_form { display: none; }</style>';
+			} else {
+				// Remove the Add to Cart button for simple products
+				remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+			}
+
+			// Enqueue jQuery and add inline countdown timer script
+			wp_enqueue_script( 'jquery' );
+
+			echo '<div class="callout success" id="countdown-timer"></div>';
+			echo '
+            <script>
+                jQuery(document).ready(function($) {
+                    // Set the target date for the countdown
+                    var targetDate = new Date("' . $target_date . '").getTime();
+
+                    // Update the countdown every second
+                    var countdown = setInterval(function() {
+                        var now = new Date().getTime();
+                        var distance = targetDate - now;
+
+                        // Calculate time remaining
+                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        // Display the result
+                        $("#countdown-timer").html("<h3>Available in:<b> " + days + "d " + hours + "h " + minutes + "m " + seconds + "s</b></h3>");
+
+                        // If the countdown is finished, reload the page
+                        if (distance < 0) {
+                            clearInterval(countdown);
+                            location.reload();
+                        }
+                    }, 1000);
+                });
+            </script>';
+		}
+	}
+}
