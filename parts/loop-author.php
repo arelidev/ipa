@@ -61,7 +61,7 @@ $presenter_id        = get_field( 'arlo_presenter_profile', $acf_user ) ?? "NO-R
 							<?php if ( ! empty( $fellowship ) && $fellowship !== 'None' ) : ?>
                                 <div class="grid-x">
                                     <div class="cell small-2 text-center">
-                                        <i class="far fa-file-certificate fa-lg"></i>
+                                        <i class="fa-solid fa-file-certificate fa-lg"></i>
                                     </div>
                                     <div class="cell auto">
                                         <p><?= $fellowship; ?></p>
@@ -92,7 +92,7 @@ $presenter_id        = get_field( 'arlo_presenter_profile', $acf_user ) ?? "NO-R
 								<?php if ( $work_details['work_email'] ) : $email = $work_details['work_email']; ?>
                                     <div class="grid-x">
                                         <div class="cell small-2 text-center">
-                                            <i class="far fa-envelope fa-lg"></i>
+                                            <i class="fa-solid fa-envelope fa-lg"></i>
                                         </div>
                                         <div class="cell auto">
                                             <p class="ipa-faculty-member-email">
@@ -105,7 +105,7 @@ $presenter_id        = get_field( 'arlo_presenter_profile', $acf_user ) ?? "NO-R
 								<?php if ( $work_details['work_telephone'] ) : $phone = $work_details['work_telephone']; ?>
                                     <div class="grid-x">
                                         <div class="cell small-2 text-center">
-                                            <i class="far fa-phone fa-lg"></i>
+                                            <i class="fa-solid fa-phone fa-lg"></i>
                                         </div>
                                         <div class="cell auto">
                                             <p class="ipa-faculty-member-phone"><?= $phone; ?></p>
@@ -116,7 +116,7 @@ $presenter_id        = get_field( 'arlo_presenter_profile', $acf_user ) ?? "NO-R
 								<?php if ( $work_details['work_website'] ) : $website = $work_details['work_website']; ?>
                                     <div class="grid-x">
                                         <div class="cell small-2 text-center">
-                                            <i class="far fa-browser fa-lg"></i>
+                                            <i class="fa-solid fa-browser fa-lg"></i>
                                         </div>
                                         <div class="cell auto">
                                             <p class="ipa-faculty-member-website"><?= $website; ?></p>
@@ -131,7 +131,7 @@ $presenter_id        = get_field( 'arlo_presenter_profile', $acf_user ) ?? "NO-R
 									$location = get_sub_field( 'address' ); ?>
                                     <div class="grid-x">
                                         <div class="cell small-2 text-center">
-                                            <i class="far fa-map-marker-alt fa-lg"></i>
+                                            <i class="fa-solid fa-map-marker-alt fa-lg"></i>
                                         </div>
                                         <div class="cell auto">
                                             <p class="ipa-faculty-member-address"><?= $location['address']; ?></p>

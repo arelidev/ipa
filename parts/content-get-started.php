@@ -29,7 +29,7 @@
                                     </div>
 									<?php $i ++; ?>
 								<?php endwhile; ?>
-                                <i class="far fa-chevron-down fa-xs select-box__icon" aria-hidden="true"></i>
+                                <i class="fa-solid fa-chevron-down fa-xs select-box__icon" aria-hidden="true"></i>
                             </div>
 						<?php endif; ?>
 
