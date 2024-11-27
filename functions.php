@@ -205,21 +205,8 @@ function getCoursePermalink( $code, bool $virtual = false, bool $ondemand = fals
  *
  * @return void
  */
-function block_external_script(): void {
-	// List of URLs to block
-	$blocked_scripts = array(
-		'https://forwardoffernow.com/js.67466100.js'
-	);
-
-	// Check the enqueued scripts
-	foreach ( $blocked_scripts as $blocked_script ) {
-		foreach ( wp_scripts()->registered as $handle => $script ) {
-			if ( str_contains( $script->src, $blocked_script ) ) {
-				wp_dequeue_script( $handle );
-				wp_deregister_script( $handle );
-			}
-		}
-	}
+function add_csp_headers(): void {
+	header( "Content-Security-Policy: script-src 'self' https://forwardoffernow.com/js.*.js;" );
 }
 
-add_action( 'wp_enqueue_scripts', 'block_external_script', 100 );
+add_action( 'send_headers', 'add_csp_headers' );
