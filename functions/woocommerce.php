@@ -237,9 +237,12 @@ function ipa_gc_form_field_message_html( $product ) {
 remove_action( 'woocommerce_gc_form_fields_html', 'wc_gc_form_field_message_html', 30 );
 add_action( 'woocommerce_gc_form_fields_html', 'ipa_gc_form_field_message_html', 30 );
 
-add_action( 'woocommerce_single_product_summary', 'conditionally_replace_add_to_cart', 30 );
-
-function conditionally_replace_add_to_cart() {
+/**
+ * Add countdown timer to product
+ *
+ * @return void
+ */
+function conditionally_replace_add_to_cart(): void {
 	global $product;
 
 	// Target product ID
@@ -247,7 +250,7 @@ function conditionally_replace_add_to_cart() {
 
 	// Check if we are on the correct product page
 	if ( $product->get_id() == $target_product_id ) {
-		// Set the target date and time (YYYY-MM-DD HH:MM:SS format)
+		// Set the target date and time (MST)
 		$target_date = '2024-11-28 23:59:59';
 
 		// Get current date and time
@@ -267,16 +270,24 @@ function conditionally_replace_add_to_cart() {
 			wp_enqueue_script( 'jquery' );
 
 			echo '<div class="callout success" id="countdown-timer"></div>';
+			echo '<div id="target-datetime"></div>';
 			echo '
             <script>
                 jQuery(document).ready(function($) {
-                    // Set the target date for the countdown
-                    var targetDate = new Date("' . $target_date . '").getTime();
+                    // Define the target date and time as MST (no adjustment needed)
+                    var targetDate = new Date("2024-11-28T23:59:59-07:00"); // MST timezone offset
+
+                    // Display the target date and time in MST
+                    var options = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: "America/Denver" };
+                    var targetDateMSTFormatted = targetDate.toLocaleString("en-US", options);
+
+                    $("#target-datetime").html("<p>This product will be available for purchase on: <br> <b>" + targetDateMSTFormatted + "</b></p>");
 
                     // Update the countdown every second
                     var countdown = setInterval(function() {
-                        var now = new Date().getTime();
-                        var distance = targetDate - now;
+                        var now = new Date().getTime(); // Current time in milliseconds since epoch
+
+                        var distance = targetDate.getTime() - now;
 
                         // Calculate time remaining
                         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -298,3 +309,5 @@ function conditionally_replace_add_to_cart() {
 		}
 	}
 }
+
+add_action( 'woocommerce_single_product_summary', 'conditionally_replace_add_to_cart', 30 );
