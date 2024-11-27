@@ -67,7 +67,7 @@ function ipa_clinics_widget( $atts ): false|string {
 					                <?php if ( ! empty( $phone = get_field( 'clinic_phone' ) ) ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
-                                                <i class="far fa-mobile fa-lg"></i>
+                                                <i class="fa-solid fa-mobile fa-lg"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p class="single-clinic-phone">
@@ -79,7 +79,7 @@ function ipa_clinics_widget( $atts ): false|string {
 					                <?php if ( ! empty( $address ) ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
-                                                <i class="far fa-map-marker-alt fa-lg"></i>
+                                                <i class="fa-solid fa-map-marker-alt fa-lg"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p class="single-clinic-address"><?= $address['address']; ?></p>
@@ -89,7 +89,7 @@ function ipa_clinics_widget( $atts ): false|string {
 					                <?php if ( ! empty( $website = get_field( 'clinic_website' ) ) ) : ?>
                                         <div class="grid-x">
                                             <div class="cell small-2">
-                                                <i class="far fa-external-link-alt fa-lg"></i>
+                                                <i class="fa-solid fa-external-link-alt fa-lg"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p class="single-clinic-website">
@@ -244,7 +244,7 @@ function ipa_clinics_widget( $atts ): false|string {
 									<?php if ( ! empty( $work_information['work_email'] ) ) : $email = $work_information['work_email']; ?>
                                         <div class="grid-x align-center">
                                             <div class="cell shrink">
-                                                <i class="far fa-envelope"></i>
+                                                <i class="fa-solid fa-envelope"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p class="single-clinic-inner-info-phone">
@@ -257,7 +257,7 @@ function ipa_clinics_widget( $atts ): false|string {
 									<?php if ( ! empty( $work_information['work_telephone'] ) ) : $phone = $work_information['work_telephone']; ?>
                                         <div class="grid-x align-center">
                                             <div class="cell shrink">
-                                                <i class="far fa-phone"></i>
+                                                <i class="fa-solid fa-phone"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p class="single-clinic-inner-info-phone">
@@ -271,7 +271,7 @@ function ipa_clinics_widget( $atts ): false|string {
 										<?php foreach ( $offices as $office ) : $address = $office['address']['address']; ?>
                                             <div class="grid-x align-center">
                                                 <div class="cell shrink">
-                                                    <i class="far fa-map-marker-alt"></i>
+                                                    <i class="fa-solid fa-map-marker-alt"></i>
                                                 </div>
                                                 <div class="cell auto">
                                                     <p class="single-clinic-inner-info-address">
@@ -285,7 +285,7 @@ function ipa_clinics_widget( $atts ): false|string {
                                     <?php if ( ! empty( $work_information['work_website'] ) ) : $website = $work_information['work_website']; ?>
                                         <div class="grid-x align-center">
                                             <div class="cell shrink">
-                                                <i class="far fa-external-link-alt"></i>
+                                                <i class="fa-solid fa-external-link-alt"></i>
                                             </div>
                                             <div class="cell auto">
                                                 <p class="single-clinic-inner-info-website">

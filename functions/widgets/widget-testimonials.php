@@ -43,10 +43,10 @@ function ipa_testimonials_widget( $atts, $content = null ) {
         </div>
         <div class="cell small-12 text-center">
             <button class="slick-prev-custom-testimonials-widget slick-custom-button" aria-label="Previous" type="button">
-                <i class="far fa-chevron-left fa-lg"></i>
+                <i class="fa-solid fa-chevron-left fa-lg"></i>
             </button>
             <button class="slick-next-custom-testimonials-widget slick-custom-button" aria-label="Next" type="button">
-                <i class="far fa-chevron-right fa-lg"></i>
+                <i class="fa-solid fa-chevron-right fa-lg"></i>
             </button>
         </div>
     </div>

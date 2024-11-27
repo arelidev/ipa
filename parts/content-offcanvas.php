@@ -19,14 +19,14 @@
 	        <a href="<?= wc_get_cart_url(); ?>" data-tooltip class="center bottom" tabindex="2"
 	           title="Your cart for IPA products">
 		        <span class="show-for-sr"><?= __('Shopping cart', 'ipa'); ?></span>
-		        <i class="far fa-shopping-cart" aria-hidden="true"></i>
+		        <i class="fa-solid fa-shopping-cart" aria-hidden="true"></i>
 	        </a>
         </div>
 	    <div class="shrink cell">
 		    <a href="https://instituteofphysicalart.arlo.co/checkout" data-tooltip class="center bottom"
 		       tabindex="2" title="Your cart for course registration">
 			    <span class="show-for-sr"><?= __('Shopping cart', 'ipa'); ?></span>
-			    <i class="far fa-cart-flatbed" aria-hidden="true"></i>
+			    <i class="fa-solid fa-cart-flatbed" aria-hidden="true"></i>
 		    </a>
 	    </div>
         <div class="auto cell text-right">

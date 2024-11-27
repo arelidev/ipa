@@ -121,10 +121,10 @@ $linked_courses  = get_field( 'course_remote_cat' );
 								<?php endforeach; ?>
                             </div>
                             <button class="slick-prev-custom-single-course slick-custom-button slick-button-absolute-prev" aria-label="Previous" type="button">
-                                <i class="far fa-chevron-left fa-lg"></i>
+                                <i class="fa-solid fa-chevron-left fa-lg"></i>
                             </button>
                             <button class="slick-next-custom-single-course slick-custom-button slick-button-absolute-next" aria-label="Next" type="button">
-                                <i class="far fa-chevron-right fa-lg"></i>
+                                <i class="fa-solid fa-chevron-right fa-lg"></i>
                             </button>
                         </div>
 					<?php endif; ?>

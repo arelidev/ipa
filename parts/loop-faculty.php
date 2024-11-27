@@ -37,7 +37,7 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
                             <div class="grid-x">
                                 <div class="cell small-2">
                                     <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-certification.svg" class="ipa-single-card-widget-icon" alt="" loading="lazy" width="22px">
-                                    <!-- <i class="far fa-user-md fa-lg"></i> -->
+                                    <!-- <i class="fa-solid fa-user-md fa-lg"></i> -->
                                 </div>
                                 <div class="cell auto">
                                     <p>
@@ -73,7 +73,7 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
 	                    <?php if ( $faculty_data['current_fellow'] == 1 ) : ?>
                             <div class="grid-x">
                                 <div class="cell small-2">
-                                    <i class="far fa-user-md fa-lg"></i>
+                                    <i class="fa-solid fa-user-md fa-lg"></i>
                                 </div>
                                 <div class="cell auto">
                                     <p>
@@ -84,7 +84,7 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
 	                    <?php endif; ?>
                         <div class="grid-x">
                             <div class="cell small-2">
-                                <i class="far fa-envelope fa-lg"></i>
+                                <i class="fa-solid fa-envelope fa-lg"></i>
                             </div>
                             <div class="cell auto">
                                 <p class="ipa-faculty-member-email">
@@ -94,7 +94,7 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
                         </div>
                         <div class="grid-x">
                             <div class="cell small-2">
-                                <i class="far fa-mobile fa-lg"></i>
+                                <i class="fa-solid fa-mobile fa-lg"></i>
                             </div>
                             <div class="cell auto">
                                 <p class="ipa-faculty-member-phone">
@@ -104,7 +104,7 @@ $address_2 = "{$faculty_data['work_city']}, {$faculty_data['work_state']} {$facu
                         </div>
                         <div class="grid-x">
                             <div class="cell small-2">
-                                <i class="far fa-map-marker-alt fa-lg"></i>
+                                <i class="fa-solid fa-map-marker-alt fa-lg"></i>
                             </div>
                             <div class="cell auto">
                                 <address>
