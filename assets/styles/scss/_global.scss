@@ -255,8 +255,7 @@ ul.styled-ul {
 		margin-bottom: $global-margin;
 		font-weight: bold;
 		&:before {
-			font-family: $font-family-font-awesome;
-			content: "\f00c";
+			content: "✓";
 			position: absolute;
 			left: 10px;
 			top: 0;
