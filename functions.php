@@ -11,7 +11,7 @@ require_once( get_template_directory() . '/functions/arlo.php' );
 
 // Connect to the remote database
 // @depreciated since 2.0
-// require_once( get_template_directory() . '/functions/remote-db.php' );
+require_once( get_template_directory() . '/functions/remote-db.php' );
 
 // Theme support options
 require_once( get_template_directory() . '/functions/theme-support.php' );
