@@ -13,7 +13,7 @@ get_header(); ?>
 
         <main class="main" role="main">
 
-	        <?php get_template_part( 'parts/loop', 'faculty' ); ?>
+	        <?php // get_template_part( 'parts/loop', 'faculty' ); ?>
 
         </main> <!-- end #main -->
 
