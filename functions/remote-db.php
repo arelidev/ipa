@@ -245,7 +245,7 @@ FROM `customer_entity` AS `e`
 WHERE (`e`.`entity_type_id` = '1')";
 
 	if ( empty( $id ) ) :
-        $sql .= " AND (`e`.`group_id` = '5')";
+		$sql .= " AND (`e`.`group_id` = '5')";
 		$sql .= " AND (`at_instructor_status`.`value` IN (1, 2))";
 	endif;
 
@@ -661,19 +661,19 @@ function get_primary_faculty_names( $faculty ): array {
 /**
  * Get Instructor Image
  *
- * @param string $image
+ * @param string|null $image
  *
  * @return string
  */
-function get_instructor_image( string $image = ""): string {
+function get_instructor_image( string|null $image = "" ): string {
 	global $stage_url;
 
 	$stored  = get_field( 'default_instructor_image', 'options' );
 	$default = ( ! empty( $stored ) ) ? $stored : get_template_directory_uri() . "/assets/images/ipa-placeholder.jpg";
 
 	if ( ! empty( $image ) ) :
-		// todo: add validation to check if the image exists
-		$image_url = "$stage_url/media/ipa/profile/general/{$image}";
+		// TODO: Add validation to check if the image exists
+		$image_url = "$stage_url/media/ipa/profile/general/$image";
 	else :
 		$image_url = $default;
 	endif;
