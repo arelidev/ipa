@@ -109,6 +109,19 @@ function rename_returning_customer(): string {
 add_filter( 'woocommerce_checkout_login_message', 'rename_returning_customer' );
 
 /**
+ * Rename the shipping package name.
+ *
+ * @param string $name The current shipping package name.
+ *
+ * @return string The new shipping package name.
+ */
+function rename_shipping_package_name( $name ) {
+  return 'Shipping & Handling';
+}
+
+add_filter( 'woocommerce_shipping_package_name', 'rename_shipping_package_name' );
+
+/**
  * @return void
  */
 function rdf_custom_surcharge() {
