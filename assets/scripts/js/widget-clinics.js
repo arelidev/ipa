@@ -2,6 +2,70 @@ jQuery(document).ready(function ($) {
     let map;
     let init;
     let prevInfoWindow;
+    let activeFilters = {};
+
+    // State codes to full names mapping
+    const stateMap = {
+        'AL': 'Alabama',
+        'AK': 'Alaska',
+        'AZ': 'Arizona',
+        'AR': 'Arkansas',
+        'CA': 'California',
+        'CO': 'Colorado',
+        'CT': 'Connecticut',
+        'DE': 'Delaware',
+        'DC': 'District of Columbia',
+        'FL': 'Florida',
+        'GA': 'Georgia',
+        'HI': 'Hawaii',
+        'ID': 'Idaho',
+        'IL': 'Illinois',
+        'IN': 'Indiana',
+        'IA': 'Iowa',
+        'KS': 'Kansas',
+        'KY': 'Kentucky',
+        'LA': 'Louisiana',
+        'ME': 'Maine',
+        'MD': 'Maryland',
+        'MA': 'Massachusetts',
+        'MI': 'Michigan',
+        'MN': 'Minnesota',
+        'MS': 'Mississippi',
+        'MO': 'Missouri',
+        'MT': 'Montana',
+        'NE': 'Nebraska',
+        'NV': 'Nevada',
+        'NH': 'New Hampshire',
+        'NJ': 'New Jersey',
+        'NM': 'New Mexico',
+        'NY': 'New York',
+        'NC': 'North Carolina',
+        'ND': 'North Dakota',
+        'OH': 'Ohio',
+        'OK': 'Oklahoma',
+        'OR': 'Oregon',
+        'PA': 'Pennsylvania',
+        'RI': 'Rhode Island',
+        'SC': 'South Carolina',
+        'SD': 'South Dakota',
+        'TN': 'Tennessee',
+        'TX': 'Texas',
+        'UT': 'Utah',
+        'VT': 'Vermont',
+        'VA': 'Virginia',
+        'WA': 'Washington',
+        'WV': 'West Virginia',
+        'WI': 'Wisconsin',
+        'WY': 'Wyoming'
+    };
+
+    // Create reverse mapping from state names to codes
+    const stateNameToCode = {};
+    for (const code in stateMap) {
+        if (stateMap.hasOwnProperty(code)) {
+            stateNameToCode[stateMap[code].toLowerCase()] = code;
+        }
+    }
 
     const acfMap = $('.acf-map');
 
@@ -61,6 +125,14 @@ jQuery(document).ready(function ($) {
         let type = $marker.data('type');
         let icon;
         let zIndex = 1;
+
+        // Set state data attribute if not already set
+        if (!$marker.attr('data-state') && addresses && addresses.length > 0 && addresses[0].state) {
+            let stateValue = addresses[0].state;
+
+            // Store the state value as is, the comparison logic will handle matching
+            $marker.attr('data-state', stateValue);
+        }
 
         // Define icons based on the marker type and other criteria
         let iconBase = '/wp-content/themes/ipa/assets/images/icon-map-';
@@ -193,7 +265,7 @@ jQuery(document).ready(function ($) {
     }
 
     acfMap.each(function () {
-        let map = initMap($(this));
+        map = initMap($(this));
     });
 
     if (acfMap.length) {
@@ -210,137 +282,6 @@ jQuery(document).ready(function ($) {
             timer = setTimeout(callback, ms);
         };
     })();
-
-    // Mixitup filter
-    let filterSelect = $('#clinics-filter-select');
-    let stateFilter = $('#clinics-filter-state');
-    let zipFilter = $('#clinics-filter-zip')
-    let certFilter = $('#clinics-filter-certification')
-    let instructorFilter = $('#clinics-filter-instructor')
-    let mixerContainer = '.ipa-clinic-card-wrapper';
-    let clearButton = $('.clear-button')
-
-    if ($(mixerContainer).length) {
-        let mixer = mixitup(mixerContainer);
-    }
-
-    let inputText;
-    let $matching = $();
-    let entities = [];
-
-    // Filter Bindings
-    filterSelect.on('change', function () {
-        zipFilter.val('')
-        filterMix()
-    });
-    stateFilter.on('change', function () {
-        zipFilter.val('')
-        filterMix()
-    });
-    zipFilter.keyup(function () {
-        clearFilters()
-        delay(function () {
-            geocoder = new google.maps.Geocoder();
-
-            geocoder.geocode({'address': zipFilter.val()}, function (results, status) {
-                if (status === 'OK') {
-                    map.setCenter(results[0].geometry.location);
-                    map.setZoom(13)
-                } else {
-                    console.log('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-        }, 300)
-    });
-    certFilter.on('change', function () {
-        zipFilter.val('')
-        filterMix()
-    });
-    instructorFilter.keyup(function () {
-        delay(function () {
-            zipFilter.val('')
-            filterMix()
-        }, 300)
-    });
-    clearButton.on('click', function () {
-        clearFilters()
-        zipFilter.val('')
-        filterMix()
-    })
-
-    // Clear all filters
-    function clearFilters() {
-        filterSelect.val('')
-        stateFilter.val('all')
-        instructorFilter.val('')
-    }
-
-    // Re-initialize the map
-    function reInitMap() {
-        init(acfMap)
-        bindMapEvent()
-    }
-
-    /**
-     * Filter function
-     * @param map
-     */
-    function filterMix(map = false) {
-
-        // Delay function invoked to make sure user stopped typing
-        delay(function () {
-            let mixer = mixitup(mixerContainer);
-
-            $('.mix').each(function () {
-                $matching = $matching.add(this);
-
-                if (map === true && !entities.includes(parseInt($(this).attr('data-entity-id')))) {
-                    $matching = $matching.not(this);
-                }
-
-                if (filterSelect.val() && filterSelect.val() !== 'all') {
-                    if (!$(this).attr('data-type') || !$(this).attr('data-type').match(filterSelect.val().toLowerCase())) {
-                        $matching = $matching.not(this);
-                    }
-                }
-
-                if (stateFilter.val() && stateFilter.val() !== 'all') {
-                    if (!$(this).attr('data-state') || !$(this).attr('data-state').match(stateFilter.val())) {
-                        $matching = $matching.not(this);
-                    }
-                }
-
-                if (zipFilter.val() && zipFilter.val() !== '') {
-                    // Don't filter mix, instead rely on map zoom to filter
-
-                    // if (!$(this).attr('data-zip') || !$(this).attr('data-zip').match( zipFilter.val().replace(/\s+/g, '-').toLowerCase() )) {
-                    //     $matching = $matching.not(this);
-                    // }
-                }
-
-                if (certFilter.val() && certFilter.val() !== 'all') {
-                    if (!$(this).attr('data-certification') || !$(this).attr('data-certification').match(certFilter.val())) {
-                        $matching = $matching.not(this);
-                    }
-                }
-
-                if (instructorFilter.val() && instructorFilter.val() !== '') {
-                    if (!$(this).attr('data-title') || $(this).attr('data-title').toLowerCase().indexOf(instructorFilter.val().toLowerCase()) === -1) {
-                        $matching = $matching.not(this);
-                    }
-                }
-            });
-
-            mixer.filter($matching);
-
-            if (!map) {
-                delay(function () {
-                    reInitMap()
-                }, 1000)
-            }
-
-        }, 200);
-    }
 
     // Bind map events to mix cards
     function bindMapEvent() {
@@ -359,4 +300,141 @@ jQuery(document).ready(function ($) {
             })
         }
     }
+
+    /**
+     * Apply all active filters to the clinic cards
+     * @param {boolean} fromMap - Whether the filter is being applied from map bounds change
+     */
+    function filterMix(fromMap = false) {
+        const $clinics = $('.single-clinic');
+
+        $clinics.each(function() {
+            const $clinic = $(this);
+            let show = true;
+
+            // Filter by clinic type
+            if (activeFilters.type && activeFilters.type !== '') {
+                if (!$clinic.data('type').includes(activeFilters.type)) {
+                    show = false;
+                }
+            }
+
+            // Filter by state
+            if (activeFilters.state && activeFilters.state !== 'all') {
+                const clinicState = $clinic.data('state');
+                const stateCode = activeFilters.state;
+                const stateName = stateMap[stateCode];
+
+                // Match either by state code or full state name
+                if (clinicState !== stateCode && clinicState !== stateName) {
+                    show = false;
+                }
+            }
+
+            // Filter by name
+            if (activeFilters.name && activeFilters.name !== '') {
+                const clinicName = $clinic.data('title') || '';
+                if (!clinicName.toLowerCase().includes(activeFilters.name.toLowerCase())) {
+                    show = false;
+                }
+            }
+
+            // Filter by zipcode
+            if (activeFilters.zipcode && activeFilters.zipcode !== '') {
+                const addresses = $clinic.data('addresses') || [];
+                let hasMatchingZip = false;
+
+                // Check all addresses for matching zipcode
+                for (let i = 0; i < addresses.length; i++) {
+                    const address = addresses[i];
+                    if (address.post_code && address.post_code.includes(activeFilters.zipcode)) {
+                        hasMatchingZip = true;
+                        break;
+                    }
+                }
+
+                if (!hasMatchingZip) {
+                    show = false;
+                }
+            }
+
+            // Apply the visibility
+            if (show) {
+                $clinic.show();
+            } else {
+                $clinic.hide();
+            }
+        });
+
+        // Insert "no results" message and logic after filtering and before checking fromMap
+        const anyVisible = $clinics.filter(':visible').length > 0;
+
+        if (!anyVisible) {
+            $('.clinics-no-results').remove(); // Remove any previous message
+            $('.acf-map').before('<div class="clinics-no-results callout warning">No clinics match your search criteria. Showing all clinics instead.</div>');
+
+            $clinics.show(); // Show all clinics again
+
+            if (!fromMap && map) {
+                acfMap.each(function() {
+                    map = init($(this)); // Reinitialize map with all clinics
+                });
+            }
+
+            return; // Prevent reapplying map logic again below
+        } else {
+            $('.clinics-no-results').remove(); // Remove message if results are found
+        }
+
+        // Refresh the map if not filtering from map bounds change
+        if (!fromMap && map) {
+            // Reinitialize the map with only visible clinics
+            acfMap.each(function() {
+                map = init($(this));
+            });
+        }
+    }
+
+    // Set up event handlers for the filters
+    $('#clinics-filter-select').on('change', function() {
+        activeFilters.type = $(this).val();
+        filterMix();
+    });
+
+    $('#clinics-filter-state').on('change', function() {
+        activeFilters.state = $(this).val();
+        filterMix();
+    });
+
+    $('#clinics-filter-instructor').on('input', function() {
+        activeFilters.name = $(this).val().trim();
+        filterMix();
+    });
+
+    $('#clinics-filter-zip').on('input', function() {
+        activeFilters.zipcode = $(this).val().trim();
+        filterMix();
+    });
+
+    // Clear all filters when clear button is clicked
+    $('.clear-button').on('click', function(e) {
+        e.preventDefault();
+
+        // Reset filter fields
+        $('#clinics-filter-select').val('');
+        $('#clinics-filter-state').val('all');
+        $('#clinics-filter-instructor').val('');
+        $('#clinics-filter-zip').val('');
+
+        // Clear active filters
+        activeFilters = {};
+
+        // Show all clinics
+        $('.single-clinic').show();
+
+        // Refresh the map
+        acfMap.each(function() {
+            map = init($(this));
+        });
+    });
 });
