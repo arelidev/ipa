@@ -43,10 +43,13 @@ function ipa_clinics_widget( $atts ): false|string {
                 <div class="grid-x grid-margin-x grid-container">
 	                <?php while ( $clinics->have_posts() ) : $clinics->the_post(); ?>
 		                <?php $address = get_field( 'clinic_address' ); ?>
-                        <div class="small-12 medium-6 large-6 cell single-clinic featured-clinic styled-container mix"
+                                                     <div class="small-12 medium-6 large-6 cell single-clinic featured-clinic styled-container mix"
                              data-type="clinic"
                              data-entity-id="<?php the_ID() ?>"
-                             data-addresses='<?= json_encode( [ $address ] ); ?>'>
+                             data-title="<?php the_title(); ?>"
+                             data-addresses='<?= json_encode( [ $address ] ); ?>'
+                             data-state="<?= $address['state'] ?? ''; ?>"
+                             data-post-code="<?= $address['post_code'] ?? ''; ?>">
                             <div class="single-clinic-inner">
                                 <div class="grid-x">
                                     <div class="auto cell">
@@ -144,7 +147,6 @@ function ipa_clinics_widget( $atts ): false|string {
 							'single-clinic',
 							'dyno-clinic',
 							'styled-container',
-							'mix',
 							acf_slugify( $cfmt_rankings ),
 							acf_slugify( $cafmt_rankings ),
 							acf_slugify( $fellowship_status ),
@@ -171,6 +173,7 @@ function ipa_clinics_widget( $atts ): false|string {
                              data-fellow="<?= ( ! empty( $fellowship_status ) && $fellowship_status === 'FMT Fellow' ) ? 1 : 0; ?>"
                              data-cfmt="<?= ( ! empty( $cfmt_rankings ) && $cfmt_rankings !== "None" ) ? 1 : 0; ?>"
                              data-cafmt="<?= ( ! empty( $cafmt_rankings ) && $cafmt_rankings !== "None" ) ? 1 : 0; ?>"
+                             data-state="<?= !empty($addresses[0]['state']) ? $addresses[0]['state'] : ''; ?>"
                         >
                             <div class="single-clinic-inner">
                                 <div class="grid-x grid-padding-x">
