@@ -1,6 +1,6 @@
 <?php
-$courses = $args["courses"];
-$display = $args["display"];
+$courses = $args["courses"] ?? [];
+$display = $args["display"] ?? "";
 ?>
 
 <?php foreach ( $courses as $title => $ids ) : ?>
