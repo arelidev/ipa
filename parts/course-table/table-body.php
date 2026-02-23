@@ -1,6 +1,6 @@
 <?php
-$ids     = $args["ids"];
-$display = $args["display"];
+$ids     = $args["ids"] ?? [];
+$display = $args["display"] ?? "calendar";
 ?>
 
 <tbody>

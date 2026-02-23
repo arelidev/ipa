@@ -4,9 +4,8 @@
  */
 
 $hero_type       = get_field( 'hero_type' );
-$course_category = get_field( 'course_remote_cat' );
+$course_category = $linked_courses = get_field( 'course_remote_cat' );
 $delivery_method = ! ( empty( get_field( 'course_delivery_method' ) ) ) ? get_field( 'course_delivery_method' ) : 1;
-$linked_courses  = get_field( 'course_remote_cat' );
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( '' ); ?> role="article" itemscope itemtype="http://schema.org/WebPage">
 
