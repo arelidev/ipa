@@ -23,3 +23,12 @@ body.page-template-template-course {
     }
   }
 }
+
+.early-bird-offer,
+.super-bird-offer,
+.regular-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+}
