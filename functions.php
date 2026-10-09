@@ -4,7 +4,7 @@
  *
  */
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyBML3WPXpFj6VT-fE8QNWoO80WH-WhO-hU';
+const GOOGLE_MAPS_API_KEY = 'AIzaSyCuudMiG2o6Dll0Uit6gzpMQ8rnqU9f0iE';
 
 // Arlo helper functions
 require_once( get_template_directory() . '/functions/arlo.php' );
