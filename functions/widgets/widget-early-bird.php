@@ -6,9 +6,10 @@
  *     An array of attributes to filter and customize the widget content.
  *
  * @type string|bool $presenter Optional. Filter events by a specific presenter. Default false.
- * @type string|bool $template Optional. Filter events by a template (e.g., "Virtual", "On-demand"). Default false.
+ * @type string|bool $template Optional. Filter events by template. Supports comma-separated values (e.g., "C1,C2" or "Virtual,On-demand"). Default false.
  * @type bool $filters Optional. Flag to enable or disable additional filters. Default true.
  * @type bool $single Optional. Flag to indicate if a single event should be displayed. Default false.
+ * @type bool $regular_only Optional. Show only regular price and hide early/super bird prices. Default false.
  * @type string $el_class Optional. Additional CSS class to customize the widget's container. Default ''.
  * }
  * @return string The generated HTML output of the widget.
@@ -19,8 +20,14 @@ function ipa_early_bird_widget( $atts ) {
             'template'  => false,
             'filters'   => true,
             'single'    => false,
+            'regular_only' => false,
             'el_class'  => ''
     ), $atts );
+
+    $regular_only = filter_var( $atts['regular_only'], FILTER_VALIDATE_BOOLEAN );
+
+    // Replace with title
+    // Hide regular/early/super
 
     ob_start();
 
@@ -36,40 +43,74 @@ function ipa_early_bird_widget( $atts ) {
             'order'            => 'ASC',
     );
 
+    $meta_query = array();
+
     if ( $atts['presenter'] ) :
-        $args['meta_query'] = array(
-                array(
-                        'key'     => 'presenters_$_linked_presenter',
-                        'value'   => '"' . $atts['presenter'] . '"',
-                        'compare' => 'LIKE'
-                )
+        $meta_query[] = array(
+                'key'     => 'presenters_$_linked_presenter',
+                'value'   => '"' . $atts['presenter'] . '"',
+                'compare' => 'LIKE'
         );
 
         $active = true;
     endif;
 
     if ( $atts['template'] ) :
-        if ( $atts['template'] === "Virtual" || $atts["template"] === "On-demand" ) :
-            $args['meta_query'] = array(
-                    array(
-                            'key'     => 'categories_$_name',
-                            'value'   => $atts['template'],
-                            'compare' => 'LIKE'
-                    )
-            );
+        $template_values = array_filter( array_map( 'trim', explode( ',', $atts['template'] ) ) );
+        $special_templates = array();
+        $template_codes = array();
 
-            $atts["single"] = false;
-        else :
-            $args['meta_query'] = array(
-                    array(
-                            'key'     => 'templatecode',
-                            'value'   => $atts['template'],
-                            'compare' => '='
-                    )
+        foreach ( $template_values as $template_value ) :
+            if ( $template_value === "Virtual" || $template_value === "On-demand" ) :
+                $special_templates[] = $template_value;
+            else :
+                $template_codes[] = $template_value;
+            endif;
+        endforeach;
+
+        $template_query = array( 'relation' => 'OR' );
+
+        foreach ( $special_templates as $special_template ) :
+            $template_query[] = array(
+                    'key'     => 'categories_$_name',
+                    'value'   => $special_template,
+                    'compare' => 'LIKE'
             );
+        endforeach;
+
+        if ( ! empty( $template_codes ) ) :
+            if ( count( $template_codes ) === 1 ) :
+                $template_query[] = array(
+                        'key'     => 'templatecode',
+                        'value'   => $template_codes[0],
+                        'compare' => '='
+                );
+            else :
+                $template_query[] = array(
+                        'key'     => 'templatecode',
+                        'value'   => $template_codes,
+                        'compare' => 'IN'
+                );
+            endif;
+        endif;
+
+        if ( count( $template_query ) > 1 ) :
+            $meta_query[] = $template_query;
+        endif;
+
+        if ( ! empty( $special_templates ) ) :
+            $atts["single"] = false;
         endif;
 
         $active = true;
+    endif;
+
+    if ( ! empty( $meta_query ) ) :
+        if ( count( $meta_query ) > 1 ) :
+            $args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta_query );
+        else :
+            $args['meta_query'] = $meta_query;
+        endif;
     endif;
 
     $loop = new WP_Query( $args );
@@ -86,8 +127,20 @@ function ipa_early_bird_widget( $atts ) {
 
     wp_reset_postdata();
 
+    if ( empty( $courses ) ) :
+        ?>
+        <div class="early-bird-empty">
+            <?php esc_html_e( 'No courses available at this time.', 'ipa' ); ?>
+        </div>
+        <?php
+        return ob_get_clean();
+    endif;
+
+    $multiple_courses = count( $courses ) > 1;
+
     foreach ( $courses as $course => $course_ids ) :
         $offers = [];
+        $template_code = get_field( 'templatecode', $course_ids[0] );
 
         foreach ( $course_ids as $id ) :
             $advertisedOffers = get_field( 'advertisedoffers', $id );
@@ -134,11 +187,22 @@ function ipa_early_bird_widget( $atts ) {
             endif;
         endif;
 
+        if ( $regular_only ) :
+            $early_bird = false;
+            $super_bird = false;
+        endif;
+
         if ( ! ( $regular_price || $early_bird || $super_bird ) ) :
             continue;
         endif;
         ?>
-        <div class="early-bird-course">
+        <div class="early-bird-course" style="margin-bottom: 1.25rem;">
+            <?php if ( $multiple_courses && $template_code ) : ?>
+                <div class="early-bird-template-code">
+                    <strong><?php esc_html_e( 'Course:', 'ipa' ); ?></strong>
+                    <?php echo esc_html( $template_code ); ?>
+                </div>
+            <?php endif; ?>
             <a href="#price-information">
                 <?php if ( $regular_price ) : ?>
                     <div class="regular-price-widget">
