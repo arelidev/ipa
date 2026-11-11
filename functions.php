@@ -89,6 +89,9 @@ function my_acf_init() {
 
 add_action( 'acf/init', 'my_acf_init' );
 
+// Run ACF Google Map address search on the Places API (New)
+require_once( get_template_directory() . '/functions/acf-google-map.php' );
+
 /**
  * Slugify string
  *
