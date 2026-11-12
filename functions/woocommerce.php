@@ -25,6 +25,23 @@ function new_loop_shop_per_page( $cols ): int {
 add_filter( 'loop_shop_per_page', 'new_loop_shop_per_page', 20 );
 
 /**
+ * Keep profile member pages public. WooCommerce sends the author page of any
+ * "customer" to the shop, and profile members who have bought from the shop
+ * are customers too.
+ *
+ * @return void
+ */
+function ipa_keep_profile_member_pages() {
+	$user = get_queried_object();
+
+	if ( is_author() && $user instanceof WP_User && in_array( 'profile_member', $user->roles, true ) ) {
+		remove_action( 'template_redirect', 'wc_disable_author_archives_for_customers' );
+	}
+}
+
+add_action( 'template_redirect', 'ipa_keep_profile_member_pages', 9 );
+
+/**
  * @param $menu_links
  *
  * @return string[]
